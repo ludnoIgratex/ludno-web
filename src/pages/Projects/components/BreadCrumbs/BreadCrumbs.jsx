@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./Breadcrumbs.module.css";
+import styles from "./BreadCrumbs.module.css";
 
-const Breadcrumbs = ({ projectType, projectName }) => {
+const BreadCrumbs = ({ projectType, projectName }) => {
   return (
     <nav className={styles.breadcrumbs}>
       <ul>
@@ -20,4 +20,4 @@ const Breadcrumbs = ({ projectType, projectName }) => {
   );
 };
 
-export default Breadcrumbs;
+export default BreadCrumbs;

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { slugify } from "transliteration";
 import styles from "./YandexMap.module.css";
-import customMapStyle from "./map/customization.json";
-import Breadcrumbs from "./BreadCrumbs/Breadcrumbs";
+import Breadcrumbs from "./BreadCrumbs/BreadCrumbs";
 
 const YandexMap = () => {
   useEffect(() => {
