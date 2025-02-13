@@ -22,7 +22,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          docker build -t mydockerhub/strapi:$COMMIT_HASH .
-          docker push mydockerhub/strapi:$COMMIT_HASH
-          docker tag mydockerhub/strapi:$COMMIT_HASH mydockerhub/strapi:latest
-          docker push mydockerhub/strapi:latest
+          docker build -t fijispawn/ludno-ui:$COMMIT_HASH .
+          docker push fijispawn/ludno-ui:$COMMIT_HASH
+          docker tag fijispawn/ludno-ui:$COMMIT_HASH fijispawn/ludno-ui:latest
+          docker push fijispawn/ludno-ui:latest
