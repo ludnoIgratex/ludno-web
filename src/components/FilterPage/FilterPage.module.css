@@ -1,0 +1,149 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* height: 100vh; */
+  background-color: white;
+  z-index: 1000;
+  overflow: auto;
+  padding: 16px 16px 36px 16px;
+  font-family: inherit;
+}
+
+/* .modal button {
+  font-family: inherit;
+} */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+}
+
+.loaderWrapper {
+  width: 100%;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.modalHeader span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.resetButton {
+  border: none;
+  background-color: transparent;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.closeButton {
+  width: 28px;
+  height: auto;
+}
+
+.resetButton:active,
+.closeButton:active {
+  color: var(--secondary-text-color);
+}
+
+.filters h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.filters ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters li {
+  margin-bottom: 10px;
+}
+
+.filterButton {
+  padding: 8px 12px;
+  background-color: transparent;
+  border: 1px solid var(--primary-text-color);
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.filterButton p {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.selected {
+  background-color: var(--primary-text-color) !important;
+  border: 1px solid var(--primary-text-color);
+  color: white;
+}
+
+.applyButton {
+  width: 100%;
+  background-color: var(--primary-text-color);
+  color: var(--bg-default-color);
+  padding: 15px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 70px;
+}
+
+.applyButton p {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.applyButton:disabled {
+  background-color: transparent;
+  border: 2px solid var(--primary-text-color);
+  color: var(--primary-text-color);
+}
+
+.filterButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--secodary-text-color);
+}
+
+.filterButton p:disabled {
+  color: var(--secodary-text-color);
+}
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--secodary-text-color);
+  border-top: 2px solid var(--primary-text-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 480px) {
+  .modal {
+    display: none;
+  }
+}

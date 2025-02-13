@@ -1,0 +1,616 @@
+.fullCard {
+  padding-top: 56px;
+  background-color: var(--white-bg-color);
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.scrollArrow,
+.arrow {
+  width: 24px;
+  height: 24px;
+}
+
+.mainInfo {
+  display: flex;
+  gap: 20px;
+}
+
+.offset {
+  padding: 0 32px 32px 32px;
+}
+
+.cardTitle {
+  font-weight: bold;
+  padding-bottom: 48px;
+  max-width: 640px;
+  line-height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+}
+
+/* Ссылки */
+
+.priceLinkContainer,
+.linkContainer {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  text-decoration: underline;
+}
+
+.priceLinkContainer {
+  margin-top: 34px;
+  color: var(--accent-color);
+}
+
+.priceLinkContainer:hover {
+  cursor: pointer;
+  color: var(--primary-text-color);
+}
+
+/* Описание */
+
+.descriptionBlock {
+  display: flex;
+  margin-top: 80px;
+  gap: 120px;
+}
+
+/* Группа */
+
+.groupContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.groupList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  justify-content: flex-start;
+  max-width: 300px;
+}
+
+.groupItem {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px var(--secondary-text-color);
+  color: var(--secondary-text-color);
+  border-radius: 30px;
+  padding: 4px 18px;
+  box-sizing: border-box;
+}
+
+.groupItem:hover {
+  cursor: pointer;
+  border: solid 2px var(--primary-text-color);
+  color: var(--primary-text-color);
+}
+
+.currentGroupItem {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px var(--primary-text-color);
+  color: var(--primary-text-color);
+  border-radius: 30px;
+  padding: 4px 18px;
+  box-sizing: border-box;
+}
+
+.currentGroupItem:hover {
+  cursor: none;
+}
+
+/* группа цветов */
+
+.colorSwitcher {
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+.colorCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mainImage {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Описание */
+
+.cardDescription {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  gap: 12px;
+}
+
+.cardDescription div {
+  font-weight: 100;
+  color: var(--gray-font-color);
+  /* font-size: 24px; */
+  margin: 0;
+}
+
+.cardDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.colorSwitcherWrapper div,
+.info div,
+.measurements div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardDetails section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.cardDetailsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Файлы */
+
+.fileLinksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fileLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 120px;
+}
+
+.fileLink {
+  font-weight: 100;
+  color: var(--primary-text-color);
+  text-decoration: underline;
+}
+
+.fileLink:hover {
+  color: var(--gray-font-color);
+}
+
+/* Материалы */
+
+.cardMaterial {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  padding-left: 32px;
+  margin-bottom: 80px;
+}
+
+.cardMaterial h2 {
+  margin-bottom: 28px;
+}
+
+.materialBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.materialList {
+  list-style: none;
+  display: flex;
+  overflow-x: scroll;
+  gap: 120px;
+  padding-left: 0;
+  padding-right: 72px;
+  /* scrollbar-width: 210px; */
+}
+
+.materialList li {
+  justify-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.2s color;
+  gap: 12px;
+  /* width: 100%; */
+  min-width: 170px;
+}
+
+.materialList h4 {
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.materialList:hover{
+  cursor: pointer;
+}
+
+.materialImage {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.materialDescription {
+  padding-right: 30px;
+  max-width: 800px;
+}
+
+.selected h4 {
+  color: var(--primary-text-color);
+}
+
+.selected img {
+  opacity: 1;
+}
+
+/* SCROLLS */
+
+.scrollContainer {
+  display: flex;
+  margin-bottom: 50px;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.scrollTitle {
+  padding-left: 32px;
+}
+
+.scrollList {
+  display: flex;
+  /* gap: 20px; */
+  list-style: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-left: 0;
+  margin-bottom: 70px;
+}
+
+.scrollItem {
+  position: relative;
+  max-height: 460px;
+  height: 100%;
+  flex: 0 0 auto;
+}
+
+.scrollImage {
+  max-height: 460px;
+  height: 100%;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.scrollOverlay {
+  position: absolute;
+  font-size: 18px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding: 44px;
+  box-sizing: border-box;
+}
+
+.scrollMain {
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollOverlay a {
+  text-decoration: underline;
+}
+
+.scrollOverlay:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.scrollTextWrapper {
+  max-width: 550px;
+  line-height: 1.5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.scrollText {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.scrollInfo {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 8px;
+}
+
+.titleScrollContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 32px;
+}
+
+.titleScrollContainer a {
+  display: flex;
+  text-align: center;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.titleScrollContainer a:hover {
+  color: var(--secondary-hover-color);
+  cursor: pointer;
+}
+
+.watchAll {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.watchAll a {
+  color: var(--primary-text-color);
+}
+
+.watchAll a:hover,
+.watchAllArrow:hover {
+  color: var(--primary-hover-color);
+  text-decoration: underline;
+}
+
+.watchAllArrow {
+  color: var(--primary-text-color);
+  width: 22px;
+  height: 22px;
+}
+
+/* карусель изображений */
+
+.carouselContainer {
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+.carouselImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 520px;
+  display: block;
+}
+
+.leftArrow,
+.rightArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-30%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-text-color);
+  z-index: 100;
+  transition: 0.2s ease-in-out;
+}
+
+.leftArrow {
+  left: 50px;
+}
+
+.rightArrow {
+  right: 50px;
+}
+
+.rightArrow:hover,
+.leftArrow:hover {
+  color: var(--primary-text-color);
+  transition: 0.2s ease-in-out;
+}
+
+.indicatorContainer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.indicator,
+.activeIndicator {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--secondary-hover-color);
+  margin: 0 5px;
+  transition: 0.5s ease-in-out;
+}
+
+.activeIndicator {
+  background-color: var(--primary-text-color);
+}
+
+.carouselContainer {
+  grid-area: carousel;
+}
+
+.cardDetails {
+  grid-area: details;
+}
+
+.articleWrapper {
+  grid-area: article;
+}
+
+/* Мобилка */
+
+@media screen and (min-width: 375px) and (max-width: 1024px) {
+  .offset {
+    padding: 20px;
+  }
+  .fullCard {
+    padding-top: 0;
+  }
+  .mainInfo {
+    display: grid;
+    gap: 32px;
+    grid-template-areas:
+      "carousel"
+      "details"
+      "article";
+  }
+  .cardDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .cardDetails section {
+    flex-direction: row;
+  }
+  .fileLinks {
+    max-width: none;
+  }
+  .colorSwitcher {
+    gap: 14px !important;
+  }
+  .scrollTitle,
+  .cardMaterial {
+    padding-left: 20px;
+  }
+  .priceLinkContainer {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .descriptionBlock {
+    margin-top: 44px;
+  }
+  .materialImage {
+    height: 64px;
+    width: 64px;
+  }
+  .cardMaterial {
+    margin-top: 44px;
+  }
+  .cardMaterial h2 {
+    margin-bottom: 16px;
+  }
+  .materialList {
+    gap: 60px;
+  }
+  .groupContainer {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .groupList {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    max-width: none;
+    /* padding-left: 0;
+    padding-right: 20px; */
+  }
+  .currentGroupItem,
+  .groupItem {
+    padding: 4px 10px;
+  }
+  .rightArrow {
+    right: 0;
+  }
+  .leftArrow {
+    left: 0;
+  }
+
+  .titleScrollContainer {
+    padding: 0 16px;
+  }
+  .titleScrollContainer a {
+    font-size: 13px;
+  }
+
+  .watchAllArrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .scrollItem {
+    max-height: 260px;
+  }
+
+  .scrollContainer h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .scrollImage {
+    max-height: 260px;
+    height: auto;
+  }
+
+  .scrollOverlay {
+    font-size: 11px;
+    line-height: 14px;
+    padding: 16px;
+  }
+
+  .scrollTextWrapper {
+    max-width: 290px;
+  }
+
+  .scrollText {
+    gap: 10px;
+  }
+
+  .scrollInfo {
+    max-width: 290px;
+  }
+
+  .scrollArrow {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Планшет */
+
+@media screen and (min-width: 1024px) {
+}

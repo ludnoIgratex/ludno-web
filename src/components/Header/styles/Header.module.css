@@ -1,0 +1,63 @@
+.headerContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.headerContainer.hidden {
+  transform: translateY(-100%);
+}
+
+.mobileMenu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.searchIcon {
+  width: 20px;
+  height: auto;
+}
+
+.searchIcon:hover {
+  cursor: pointer;
+  color: var(--secondary-text-color);
+}
+
+@media screen and (min-width: 375px) and (max-width: 728px) {
+  .headerContainer {
+    padding: 16px;
+    background-color: #fff;
+  }
+
+  .mobileMenu {
+    display: flex;
+    align-items: center;
+  }
+
+  .searchOpen {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  .headerContainer.searchActive {
+    justify-content: center;
+    padding: 15px;
+  }
+
+  .searchIconWrapper {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .hidden {
+    display: none;
+  }
+}

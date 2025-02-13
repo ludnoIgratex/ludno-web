@@ -1,0 +1,42 @@
+.relatedProjects {
+  font-size: 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-left: 32px
+}
+
+.projectList {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  white-space: nowrap;
+}
+
+.projectItem {
+  min-width: 420px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.projectItem:hover {
+  cursor: pointer;
+}
+
+.projectImage {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px){
+  .relatedProjects {
+    padding-left: 16px
+  }
+
+  .projectImage {
+    max-width: 280px;
+    height: auto;
+    object-fit: cover;
+  }
+}

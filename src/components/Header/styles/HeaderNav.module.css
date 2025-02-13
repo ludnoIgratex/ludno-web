@@ -1,0 +1,24 @@
+.active {
+  font-weight: bold;
+}
+
+.navList {
+  display: flex;
+  gap: 37px;
+}
+
+.navList li {
+  list-style: none;
+}
+
+.navList a {
+  text-decoration: none;
+  color: var(--primary-text-color);
+  font-size: 18px;
+  line-height: 24px;
+  transition: 0.2s ease-in-out;
+}
+
+.navList a:hover {
+  color: var(--secondary-text-color);
+}

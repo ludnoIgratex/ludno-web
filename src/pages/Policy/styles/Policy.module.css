@@ -1,0 +1,40 @@
+.policyWrapper {
+  padding: 36px;
+  text-align: justify;
+}
+
+.policyWrapper h1 {
+  font-size: 42px;
+  line-height: 48px;
+  margin-bottom: 40px;
+}
+
+.policyWrapper section {
+  margin-bottom: 40px;
+}
+
+.policyWrapper h2 {
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 20px;
+}
+
+.policyWrapper p {
+  max-width: none;
+}
+
+.policyWrapper li {
+  list-style: none;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 728px) {
+  .policyWrapper {
+    padding: 16px;
+  }
+
+  .policyWrapper p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}

@@ -1,0 +1,23 @@
+.headerLogo {
+  font-size: 42px;
+  line-height: 28px;
+  transition: 0.2s ease-in-out;
+}
+
+.headerLogo:hover {
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+.easterEgg {
+  animation: blink 0.7s infinite alternate;
+}
+
+@keyframes blink {
+  0% {
+    color: var(--accent-color);
+  }
+  100% {
+    color: inherit;
+  }
+}

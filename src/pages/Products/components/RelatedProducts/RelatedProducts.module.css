@@ -1,0 +1,41 @@
+.relatedProducts {
+  background-color: var(--bg-default-color);
+  padding-left: 32px;
+  padding-top: 32px;
+  padding-bottom: 52px;
+  font-size: 20px;
+}
+
+.productsList {
+  display: flex;
+  overflow-x: scroll;
+  gap: 20px;
+  padding-right: 32px;
+  padding-top: 32px;
+  overflow-y: hidden;
+}
+
+.productsList p {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.productsList h3 {
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.productItem:hover {
+  cursor: pointer;
+}
+
+.productItem p {
+  max-width: 260px;
+}
+
+.productImage {
+  max-width: 260px;
+  max-height: 260px;
+}

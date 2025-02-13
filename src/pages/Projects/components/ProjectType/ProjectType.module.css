@@ -1,0 +1,50 @@
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  flex-wrap: wrap;
+  max-width: 50%;
+}
+
+.navItem {
+  transition: color 0.2s;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.navItem:hover {
+  color: var(--secondary-text-color);
+}
+
+.navItem.active {
+  font-weight: bold;
+}
+
+.mapLinkContainer{
+  display: flex;
+  align-items: center;
+  gap:4px;
+}
+
+@media screen and (max-width: 480px) {
+
+  .navContainer {
+    padding: 0 16px;
+  }
+  .navList {
+    gap: 12px;
+  }
+
+  .navItem {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

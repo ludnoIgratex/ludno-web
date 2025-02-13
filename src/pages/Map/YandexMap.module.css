@@ -1,0 +1,89 @@
+.map {
+  padding: 32px;
+  font-family: inherit;
+  /* filter: grayscale(1); */
+}
+
+:global(.ymaps-2-1-79-balloon__content) {
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  background-color: var(--bg-default-color) !important;
+}
+
+:global(.balloon-content) {
+  min-width: 240px;
+  width: 100%;
+}
+
+:global(.balloon-content-title) {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content-title p) {
+  color: var(--secondary-text-color);
+  font-size: 11px;
+  line-height: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content img) {
+  width: 100%;
+  max-width: 240px;
+  max-height: 140px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+:global(.balloon-content h3) {
+  font-size: 16px;
+  line-height: 22px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content div) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content span) {
+  color: var(--secondary-text-color);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content section) {
+  padding-bottom: 16px;
+}
+
+:global(.balloon-content-main p) {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+:global(.balloon-content a) {
+  text-decoration: none;
+  color: var(--primary-text-color);
+
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+:global(.balloon-content a):hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+  .map {
+    padding: 16px;
+  }
+}

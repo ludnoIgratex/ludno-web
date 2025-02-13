@@ -1,0 +1,115 @@
+.resultsPage {
+  padding: 32px;
+}
+
+.resultsPage h2 {
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.resultProjectList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 40px;
+  padding-right: 72px;
+  padding-bottom: 56px;
+}
+
+.resultList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding-top: 40px;
+  padding-right: 72px;
+  padding-bottom: 56px;
+}
+
+.resultTitle {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 56px;
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultItem:hover {
+  cursor: pointer;
+}
+
+.resultImageProduct {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--bg-border-color);
+  min-height: 240px;
+  max-height: 250px;
+  width: 100%;
+  background-color: white;
+}
+
+.resultImageProject {
+  max-width: 400px;
+  max-height: 250px;
+  margin-bottom: 8px;
+}
+
+.productTitle {
+  color: var(--primary-text-color);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.productName {
+  color: var(--primary-text-color);
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: bold;
+}
+
+@media (min-width: 375px) and (max-width: 765px) {
+  .resultsPage {
+    padding: 16px;
+  }
+  .resultList {
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 0;
+  }
+  .resultProjectList {
+    grid-template-columns: repeat(1, 1fr);
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  .productTitle {
+    font-size: 11px;
+    line-height: 14px;
+  }
+  .productName {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .resultsPage h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+@media (min-width: 765px) and (max-width: 1024px) {
+  .resultList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .resultProjectList {
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+}

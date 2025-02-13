@@ -1,0 +1,173 @@
+.projectsHeader {
+  display: flex;
+  padding: 48px 36px 36px 32px;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.projectsHeader a {
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+  color: var(--secondary-default-color);
+}
+
+.scrollContainer {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.projectCard {
+  position: relative;
+  cursor: pointer;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.projectInfo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 44px;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mainInfo h3 {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.mainInfo p,
+.projectSection p {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.projectSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.projectCard:hover .projectImage {
+  opacity: 0.3;
+}
+
+.projectCard:hover .projectInfo {
+  opacity: 1;
+}
+
+.linkContainer {
+  margin-top: 50px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+
+
+.linkContainer a {
+  text-decoration: underline;
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+}
+
+.watchAll {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.watchAll a {
+  color: var(--primary-text-color);
+}
+
+.watchAll a:hover,
+.watchAllArrow:hover {
+  color: var(--primary-hover-color);
+  text-decoration: underline;
+
+}
+
+.watchAllArrow {
+  color: var(--primary-text-color);
+  width: 22px;
+  height: 22px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 728px) {
+  .projectsHeader {
+    display: flex;
+    padding: 60px 16px 32px 16px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .projectsHeader a {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .projectsHeader h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .linkContainer {
+    margin: 0;
+  }
+  .projectInfo {
+    padding: 0px 16px;
+  }
+  .projectImage {
+    min-width: 340px;
+  }
+
+  .mainInfo h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .linkContainer a,
+  .projectInfo p {
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  .projectSection {
+    gap: 4px;
+  }
+
+  .arrow {
+    width: 12px;
+    height: 12px;
+  }
+
+  .watchAllArrow {
+    width: 16px;
+    height: 16px;
+  }
+}

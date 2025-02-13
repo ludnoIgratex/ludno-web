@@ -1,0 +1,318 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 150px 32px;
+}
+
+.container section {
+  padding-top: 190px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--secondary-default-color);
+  padding-bottom: 8px;
+  font-weight: 100;
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+}
+
+.arrow {
+  width: 26px;
+  height: auto;
+}
+
+.links a {
+  text-decoration: underline;
+  color: var(--primary-default-color);
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.text {
+  font-size: 26px;
+  line-height: 32px;
+  color: var(--primary-default-color);
+  margin: 0;
+}
+
+.letter {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+  max-width: 600px;
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Inputs */
+
+.inputGroup {
+  position: relative;
+  min-height: 50px;
+  overflow: visible;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--primary-default-color);
+  padding-top: 6px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-family: inherit;
+}
+
+.labelName {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 2px solid var(--primary-default-color);
+}
+
+.labelName::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+}
+
+.contentName {
+  position: absolute;
+  font-size: 18px;
+  line-height: 24px;
+  bottom: 0px;
+  left: 0px;
+  padding-bottom: 5px;
+  color: var(--secondary-default-color);
+  transition: all 0.3s ease;
+}
+
+.input:focus + .labelName .contentName,
+.input:valid + .labelName .contentName {
+  transform: translateY(-150%);
+  font-size: 12px;
+  color: var(--primary-default-color);
+}
+
+.input:focus + .labelName::after,
+.input:valid + .labelName::after {
+  transform: translateX(0%);
+}
+
+.textarea:focus + .labelName .contentName,
+.textarea:valid + .labelName .contentName {
+  transform: translateY(-150%);
+  font-size: 12px;
+  color: var(--primary-default-color);
+}
+
+.button {
+  background-color: var(--primary-default-color);
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--primary-default-color);
+}
+
+/* Модалка */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: var(--bg-default-color);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modalCloseButton {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: var(--secondary-default-color);
+  color: var(--bg-default-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modalCloseButton:hover {
+  background-color: var(--secondary-default-colorr);
+}
+
+/* Чекбокс */
+
+.checkboxGroup {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+.checkboxLabel {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.round {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.round input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.round label {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.round input:checked + label {
+  background-color: black;
+}
+
+.round label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 4px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  display: none;
+}
+
+.round input:checked + label::after {
+  display: block;
+}
+
+.error {
+  color: var(--danger-text-color);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 728px) {
+  .container {
+    flex-direction: column;
+    padding: 16px;
+    gap: 40px;
+  }
+  .column {
+    gap: 40px;
+  }
+  .input {
+    padding-top: 16px;
+  }
+
+  .container section {
+    padding-top: 10px;
+  }
+
+  .checkboxLabel {
+    font-size: 11px;
+    line-height: 14px;
+  }
+  .links {
+    flex-direction: row;
+    gap: 50px;
+  }
+  .title {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .links a,
+  .text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .linkContainer {
+    gap: 4px;
+  }
+  /* .blockMail{
+    padding-bottom: 40px;
+  } */
+  .arrow {
+    width: 20px;
+    height: auto;
+  }
+  .contentName {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: 728px) and (max-width: 1024px) {
+  .letter {
+    padding-left: 60px;
+  }
+}

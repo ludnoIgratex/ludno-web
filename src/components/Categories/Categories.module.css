@@ -1,0 +1,20 @@
+.categories {
+  max-width: 128px;
+}
+
+.categories ul {
+  list-style-type: none;
+  padding: 0;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.categories li:last-child {
+  border-bottom: none;
+}
+
+.categories li:hover {
+  color: var(--secondary-hover-color);
+  cursor: pointer;
+}

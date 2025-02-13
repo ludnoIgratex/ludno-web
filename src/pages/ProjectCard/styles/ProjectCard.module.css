@@ -1,0 +1,143 @@
+.card h1 {
+  font-size: 42px;
+  line-height: 48px;
+  padding-bottom: 32px;
+}
+
+.breadcrumbs,
+.cardContainer {
+  padding: 48px 32px;
+}
+
+.infoWrapper {
+  display: grid;
+  grid-template-areas:
+    "about about address"
+    "equipment equipment client";
+  gap: 32px;
+}
+
+.card p {
+  max-width: 600px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.card h3 {
+  padding-bottom: 8px;
+}
+
+/* GRID AREAS */
+
+.about {
+  grid-area: about;
+}
+
+.equipment {
+  grid-area: equipment;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  grid-area: address;
+  gap: 20px;
+}
+
+.client {
+  display: flex;
+  flex-direction: column;
+  grid-area: client;
+  gap: 20px;
+}
+
+/*  */
+
+.address div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.client div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mainImage {
+  width: 100%;
+  max-height: 610px;
+  object-fit: cover;
+}
+
+.label {
+  color: var(--secondary-text-color);
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.projectImages {
+  display: flex;
+  overflow-x: auto;
+  margin: 50px 0px;
+  padding-left: 0;
+}
+
+.projectImage {
+  max-height: 450px;
+  object-fit: contain;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .infoWrapper {
+    display: grid;
+    grid-template-areas:
+      "address"
+      "client"
+      "about"
+      "equipment";
+    gap: 36px;
+  }
+  .client,
+  .address {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 36px;
+  }
+
+  .breadcrumbs,
+  .cardContainer {
+    padding: 24px 16px;
+  }
+
+  .projectImage {
+    max-height: 240px;
+  }
+
+  .card h1 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .label {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .card p{
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .about h3,
+  .equipment h3 {
+    font-size: 20px !important;
+    line-height: 24px !important;
+  }
+
+  .projectImages{
+    padding-left: 0px;
+  }
+}

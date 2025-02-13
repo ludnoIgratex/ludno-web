@@ -1,0 +1,44 @@
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--accent-color);
+  color: var(--primary-text-color);
+  font-size: 16px;
+  line-height: 2.5em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.marqueeLink {
+  text-decoration: none;
+}
+
+.track {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 100s linear infinite;
+  align-items: center;
+}
+
+.track span {
+  display: inline-block;
+  margin-right: 700px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 728px) {
+  .track span {
+    display: inline-block;
+    margin-right: 300px;
+  }
+}

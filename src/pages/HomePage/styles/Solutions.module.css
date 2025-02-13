@@ -1,0 +1,252 @@
+.solutionsWrapper {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.solutions {
+  display: grid;
+  gap: 24px;
+  grid-template-areas:
+    "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
+    "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
+    "towers towers towers towers towers towers towers parkfit parkfit parkfit parkfit parkfit"
+    "project project project project project project project project project project project project";
+}
+
+.solutions section {
+  background-color: var(--bg-default-color);
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.solutions section:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.textBlock {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.solutionsWrapper h3 {
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.textBlock p {
+  font-size: 26px;
+  line-height: 32px;
+  max-width: 360px;
+}
+
+.linkContainer {
+  display: flex;
+  text-align: center;
+  gap: 4px;
+}
+
+.solutions section:hover .linkContainer {
+  color: var(--accent-color);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.linkContainer a {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+}
+
+.landscape {
+  grid-area: landscape;
+  background-image: url("/assets/images/cover.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.tramptek {
+  grid-area: tramptek;
+  background-image: url("/assets/images/tramptek.png");
+  background-repeat: no-repeat;
+  /* background-position: right center; */
+  background-position-x: 80px;
+  background-position-y: 40px;
+  background-size: 700px;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.mini {
+  grid-area: mini;
+  background-image: url("/assets/images/mini_wrapper.png");
+  background-repeat: no-repeat;
+  background-position-x: 200px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.towers {
+  grid-area: towers;
+  background-image: url("/assets/images/towers_wrapper.png");
+  background-repeat: no-repeat;
+  background-position-x: 250px;
+  background-position-y: 40px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.parkfit {
+  grid-area: parkfit;
+  background-image: url("/assets/images/parkfit_wrapper.png");
+  background-repeat: no-repeat;
+  background-position-x: 50px;
+  background-position-y: 20px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.individualProjects {
+  grid-area: project;
+  background-image: url("/assets/images/project_wrapper.png");
+  background-repeat: no-repeat;
+  background-position-x: 460px;
+  background-position-y: -20px;
+  background-size: contain;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+@media screen and (min-width: 375px) and (max-width: 728px) {
+  .solutions {
+    display: grid;
+    gap: 24px;
+    grid-template-areas:
+      "landscape"
+      "mini"
+      "tramptek"
+      "parkfit"
+      "towers"
+      "project";
+  }
+
+  .solutions section {
+    max-height: 280px;
+  }
+
+  .solutionsWrapper {
+    padding: 60px 16px 16px 16px;
+    gap: 32px;
+  }
+
+  .solutionsWrapper h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .solutionsWrapper h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .textBlock {
+    min-height: 280px;
+  }
+
+  .textBlock p {
+    font-size: 18px;
+    line-height: 24px;
+    max-width: 200px;
+  }
+
+  .landscape {
+    background-position-x: -10px;
+    background-position-y: 120px;
+    background-size: 600px;
+  }
+
+  .tramptek {
+    background-position-x: 10px;
+    background-position-y: -60px;
+    background-size: 600px;
+  }
+
+  .mini {
+    background-position-x: 60px;
+    background-position-y: 50px;
+    background-size: 600px;
+  }
+
+  .towers {
+    background-position-x: 60px;
+    background-position-y: 70px;
+    background-size: 500px;
+  }
+
+  .parkfit {
+    background-position-x: -30px;
+    background-position-y: -62px;
+    background-size: 665px;
+  }
+
+  .individualProjects {
+    background-position-x: 70px;
+    background-position-y: 100px;
+    background-size: 500px;
+  }
+}
+
+@media screen and (min-width: 728px) and (max-width: 1024px) {
+  .landscape {
+    background-position-x: -10px;
+    background-position-y: 80px;
+    background-size: 1200px;
+  }
+
+  .tramptek {
+    background-position-x: -20px;
+    background-position-y: 10px;
+    background-size: 600px;
+  }
+
+  .mini {
+    background-position-x: 60px;
+    background-position-y: 90px;
+    background-size: 600px;
+  }
+
+  .towers {
+    background-position-x: 60px;
+    background-position-y: 70px;
+    background-size: 800px;
+  }
+
+  .parkfit {
+    background-position-x: 0px;
+    background-position-y: 70px;
+    background-size: 600px;
+  }
+
+  .individualProjects {
+    background-position-x: 270px;
+    background-position-y: -10px;
+    background-size: 950px;
+  }
+}

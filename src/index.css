@@ -1,0 +1,92 @@
+@font-face {
+  font-family: TT-Norms-Pro;
+  src: url("/assets/fonts/TT-Norms-Pro-Normal.ttf") format("truetype");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: TT-Norms-Pro;
+  src: url("/assets/fonts/TT-Norms-Pro-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-display: swap;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: TT-Norms-Pro, sans-serif;
+}
+
+:root {
+  /* Accent */
+  --accent-color: #e58890;
+
+  /* Primary */
+  --primary-default-color: #191919;
+  --primary-hover-color: #404040;
+  --primary-text-color: #191919;
+  --primary-icons-color: #191919;
+
+  --primary-inverted-text-color: #ffffff;
+
+  /* Secondary */
+  --secondary-default-color: #a3a3a3;
+  --secondary-hover-color: #8a8a8a;
+  --secondary-text-color: #a3a3a3;
+
+  /* Background */
+  --bg-default-color: #f8f8f8;
+  --bg-hover-color: #e8e8e8;
+  --bg-border-color: #ededed;
+
+  /* Success */
+  --success-color: #65c466;
+
+  /* Warning */
+  --warning-color: #f7ce46;
+
+  /* Danger */
+  --danger-color: #eb5545;
+  --danger-text-color: #eb5545;
+  --danger-bg-color: #fdeae8;
+}
+
+h1 {
+  font-size: 42px;
+  line-height: 48px;
+}
+
+h2 {
+  font-size: 34px;
+  line-height: 40px;
+}
+
+h4 {
+  color: var(--secondary-text-color);
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 375px) {
+  h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  h1 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+}
+
+body {
+  /* font-family: TT-Norms-Pro, sans-serif; */
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}

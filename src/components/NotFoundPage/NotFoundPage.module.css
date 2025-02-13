@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:80vh ;
+    text-align: center;
+    color: var(--accent-color);
+    padding: 0 20px;
+  }
+  
+  .errorCode {
+    font-size: 10vw;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .errorMessage {
+    font-size: 4vw;
+    margin: 10px 0 0;
+    font-weight: 300;
+  }
+  
