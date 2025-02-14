@@ -82,3 +82,10 @@
 .showAllButton:hover {
   color: var(--secondary-hover-color);
 }
+
+@media (min-width: 375px) and (max-width: 765px) {
+  .searchResults {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+}
