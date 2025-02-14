@@ -18,6 +18,14 @@
   font-family: TT-Norms-Pro, sans-serif;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+input:focus {
+  touch-action: manipulation;
+}
+
 :root {
   /* Accent */
   --accent-color: #e58890;
