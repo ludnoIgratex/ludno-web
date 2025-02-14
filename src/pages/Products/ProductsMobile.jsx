@@ -17,6 +17,7 @@ const ProductsMobile = () => {
   const [appliedFilters, setAppliedFilters] = useState({
     brands: [],
     categories: [],
+    ages: [],
   });
 
   const [loading, setLoading] = useState(true);
@@ -224,7 +225,6 @@ const ProductsMobile = () => {
   const handleClick = (product) => {
     if (product.card?.id) {
       const titleSlug = slugify(product.title);
-      // Допустим, формируем slug вида: titleSlug-cardId
       const uniqueSlug = `${titleSlug}-${product.card.id}`;
       navigate(`/card/${uniqueSlug}`);
     }
@@ -266,6 +266,20 @@ const ProductsMobile = () => {
               >
                 <IoCloseOutline />
                 {brand?.name || "Бренд"}
+              </button>
+            );
+          })}
+
+          {appliedFilters.ages.map((age) => {
+            const labelWithoutAge = age.replace(/^Age/, "");
+            return (
+              <button
+                key={age}
+                className={styles.filterTag}
+                onClick={() => removeFilter("ages", age)}
+              >
+                <IoCloseOutline />
+                {labelWithoutAge}
               </button>
             );
           })}

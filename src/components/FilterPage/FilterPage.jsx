@@ -27,7 +27,6 @@ const FilterPage = ({
     }
   }, [isOpen]);
 
-  // Бренды
   const handleBrandSelect = (brand) => {
     setSelectedBrands((prev) =>
       prev.includes(brand.id)
@@ -36,7 +35,6 @@ const FilterPage = ({
     );
   };
 
-  // Категории
   const handleCategorySelect = (category) => {
     setSelectedCategories((prev) =>
       prev.includes(category.id)
@@ -45,14 +43,12 @@ const FilterPage = ({
     );
   };
 
-  // Возрасты
   const handleAgeSelect = (range) => {
     setSelectedAgeRanges((prev) =>
       prev.includes(range) ? prev.filter((r) => r !== range) : [...prev, range]
     );
   };
 
-  // Применить фильтры
   const handleApply = () => {
     onApply({
       brands: selectedBrands,
@@ -61,7 +57,6 @@ const FilterPage = ({
     });
   };
 
-  // Сброс фильтров
   const handleReset = () => {
     setSelectedBrands([]);
     setSelectedCategories([]);
