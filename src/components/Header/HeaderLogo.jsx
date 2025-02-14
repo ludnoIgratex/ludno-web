@@ -27,7 +27,7 @@ const HeaderLogo = () => {
       className={`${styles.headerLogo} ${isEasterEggActive ? styles.easterEgg : ""}`}
       onClick={handleClick}
     >
-      Oboludno
+      Ludno
     </h1>
   );
 };

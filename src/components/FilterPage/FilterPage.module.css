@@ -2,17 +2,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  /* height: 100vh; */
   background-color: white;
   z-index: 1000;
   overflow: auto;
   padding: 16px 16px 36px 16px;
   font-family: inherit;
 }
-
-/* .modal button {
-  font-family: inherit;
-} */
 
 .filters {
   display: flex;
@@ -36,6 +31,7 @@
 }
 
 .resetButton {
+  color: var(--primary-text-color);
   border: none;
   background-color: transparent;
   font-size: 13px;
@@ -77,6 +73,7 @@
   border: 1px solid var(--primary-text-color);
   border-radius: 30px;
   cursor: pointer;
+  color: var(--primary-text-color)
 }
 
 .filterButton p {

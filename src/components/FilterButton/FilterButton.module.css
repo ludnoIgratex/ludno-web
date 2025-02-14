@@ -14,7 +14,7 @@
     /* max-width: 130px; */
     border-radius: 30px;
     cursor: pointer;
-    color: var(--primary-text-color);
+    color: var(--primary-text-color) !important;
   }
 
   .filterButton span {
