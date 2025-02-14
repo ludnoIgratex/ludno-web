@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles/Card.module.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -11,6 +11,8 @@ const ImageCarousel = ({
   showArrows,
   setShowArrows,
 }) => {
+  const [touchStartX, setTouchStartX] = useState(null);
+
   const nextImage = () => {
     setCarouselIndex((prevIndex) => (prevIndex + 1) % images.length);
     setSelectedImage(images[(carouselIndex + 1) % images.length]?.url);
@@ -25,11 +27,32 @@ const ImageCarousel = ({
     );
   };
 
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchEndX - touchStartX;
+
+    if (diff > 50) {
+      prevImage();
+    } else if (diff < -50) {
+      nextImage();
+    }
+
+    setTouchStartX(null);
+  };
+
   return (
     <div
       className={styles.carouselContainer}
       onMouseEnter={() => setShowArrows(images.length > 1)}
       onMouseLeave={() => setShowArrows(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {showArrows && images.length > 1 && (
         <button className={styles.leftArrow} onClick={prevImage}>
