@@ -100,6 +100,11 @@
     font-size: 26px;
     line-height: 32px;
   }
+
+  .resultImageProject {
+    width: 100%;
+    height:auto
+  }
 }
 
 @media (min-width: 765px) and (max-width: 1024px) {
