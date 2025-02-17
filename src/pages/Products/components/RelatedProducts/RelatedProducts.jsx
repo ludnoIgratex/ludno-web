@@ -48,11 +48,11 @@ const RelatedProducts = ({ categoryId, currentProductId }) => {
 
   const handleProductClick = (product) => {
     if (product.card?.id) {
-      const titleSlug = slugify(product.title || "без-названия", {
+      const titleSlug = slugify(product.title || "bez-nazvaniya", {
         lowercase: true,
         separator: "-",
       });
-      const uniqueSlug = `${titleSlug}-${product.card.id}`;
+      const uniqueSlug = `${product.card.id}/${titleSlug}`;
       navigate(`/card/${uniqueSlug}`);
     } else {
       console.error("Card not found for this product");
