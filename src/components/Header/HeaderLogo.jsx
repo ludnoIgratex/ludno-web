@@ -20,11 +20,11 @@ const HeaderLogo = () => {
       setIsMobile(window.innerWidth <= 728);
     };
 
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize); 
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -32,28 +32,48 @@ const HeaderLogo = () => {
     if (clickCount >= 5 && isMobile) {
       let count = 0;
       const originalText = "Ludno";
-      const interval = setInterval(() => {
-        const updatedText = originalText
-          .split("")
-          .map((char, index) => {
-            return Math.random() > 0.5
-              ? emojis[Math.floor(Math.random() * emojis.length)]
-              : char;
-          })
-          .join("");
-        setLogoText(updatedText);
+      let interval;
+
+      const animateLogo = () => {
+        const emojisCount = Math.floor(Math.random() * 3) + 1;
+        const selectedEmojis = [];
+
+        while (selectedEmojis.length < emojisCount) {
+          const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+          if (!selectedEmojis.includes(randomEmoji)) {
+            selectedEmojis.push(randomEmoji);
+          }
+        }
+
+        let updatedText = originalText.split("");
+        const randomIndices = [];
+
+        while (randomIndices.length < emojisCount) {
+          const randomIndex = Math.floor(Math.random() * updatedText.length);
+          if (!randomIndices.includes(randomIndex)) {
+            randomIndices.push(randomIndex);
+          }
+        }
+
+        randomIndices.forEach((index, idx) => {
+          updatedText[index] = selectedEmojis[idx];
+        });
+
+        setLogoText(updatedText.join(""));
 
         count += 1;
         if (count >= 10) {
           clearInterval(interval);
-          setClickCount(0); 
-          setLogoText(originalText); 
+          setClickCount(0);
+          setLogoText(originalText);
         }
-      }, 260); 
+      };
 
-      return () => clearInterval(interval); 
+      interval = setInterval(animateLogo, 260);
+
+      return () => clearInterval(interval);
     }
-  }, [clickCount, isMobile]); 
+  }, [clickCount, isMobile]);
 
   return (
     <h1
