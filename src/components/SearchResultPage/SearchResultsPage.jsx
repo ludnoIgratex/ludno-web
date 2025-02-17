@@ -16,16 +16,17 @@ const SearchResultsPage = () => {
 
   const handleProductClick = (product) => {
     if (product.card?.id) {
-      const titleSlug = slugify(product.title || "без-названия", {
+      const titleSlug = slugify(product.title || "bez-nazvaniya", {
         lowercase: true,
         separator: "-",
       });
-      const uniqueSlug = `${titleSlug}-${product.card.id}`;
+      const uniqueSlug = `${product.card.id}/${titleSlug}`;
       navigate(`/card/${uniqueSlug}`);
     } else {
       console.log("У товара нет карточки");
     }
   };
+  
 
   const handleProjectClick = (project) => {
     const slug = slugify(project.name, { lowercase: true, separator: "-" });

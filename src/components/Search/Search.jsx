@@ -95,27 +95,19 @@ const Search = ({ onClose }) => {
     }
   }, 200);
 
-  /**
-   * Вместо того, чтобы передавать только ID,
-   * передаём весь объект item и тип ('product' или 'project'),
-   * чтобы внутри этого метода сформировать такой же slug, как в SearchResultsPage
-   */
   const handleResultClick = (item, type) => {
     if (type === "product") {
       if (item.card?.id) {
-        // Формируем slug для товара
-        const titleSlug = slugify(item.title || "без-названия", {
+        const titleSlug = slugify(item.title || "bez-nazvaniya", {
           lowercase: true,
           separator: "-",
         });
-        // Например: название-товара-123
-        const uniqueSlug = `${titleSlug}-${item.card.id}`;
+        const uniqueSlug = `${item.card.id}/${titleSlug}`;
         navigate(`/card/${uniqueSlug}`);
       } else {
         console.log("У товара нет карточки");
       }
     } else if (type === "project") {
-      // Формируем slug для проекта
       const slug = slugify(item.name || item.title || "project", {
         lowercase: true,
         separator: "-",

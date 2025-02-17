@@ -20,7 +20,8 @@ import CodeArticle from "./CodeArticle";
 import { useMediaQuery } from "react-responsive";
 
 const Card = () => {
-  const { slug } = useParams();
+  const { id, slug } = useParams();
+  const cardId = id;
 
   const navigate = useNavigate();
   const [card, setCard] = useState(null);
@@ -37,8 +38,6 @@ const Card = () => {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
 
   const isMobile = useMediaQuery({ maxWidth: 1024 });
-  const slugParts = slug.split("-");
-  const cardId = slugParts[slugParts.length - 1];
 
   const groupedImages =
     Array.isArray(card?.groupImage) && card.groupImage.length > 0
@@ -122,7 +121,7 @@ const Card = () => {
       }
 
       const cardData = await response.json();
-      console.log("Ответ от API:", cardData);
+      // console.log("Ответ от API:", cardData);
 
       if (cardData.data && cardData.data.length > 0) {
         const cardItem = cardData.data[0];

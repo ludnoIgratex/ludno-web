@@ -121,11 +121,11 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const handleClick = (product) => {
     if (product.card?.id) {
       const titleSlug = slugify(product.title);
-      // const nameSlug = slugify(product.name);
-      const uniqueSlug = `${titleSlug}-${product.card.id}`;
+      const uniqueSlug = `${product.card.id}/${titleSlug}`;
       navigate(`/card/${uniqueSlug}`);
     }
   };
+  
 
   return (
     <div className={`${styles.productContainer} ${styles.fadeIn}`}>

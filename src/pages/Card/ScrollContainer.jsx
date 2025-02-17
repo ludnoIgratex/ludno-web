@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./styles/Card.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import { slugify } from "transliteration";
 
 const ScrollContainer = ({ scrolls = [], onProjectClick }) => {
   useEffect(() => {
@@ -51,7 +52,13 @@ const ScrollContainer = ({ scrolls = [], onProjectClick }) => {
               className={styles.scrollOverlay}
               onClick={() => {
                 if (data.projectId) {
-                  onProjectClick(`/project-cards/${data.projectId}`);
+                  const projectSlug = slugify(data.name || "project", {
+                    lowercase: true,
+                    separator: "-",
+                  });
+                  onProjectClick(
+                    `/project-cards/${data.projectId}/${projectSlug}`
+                  );
                 }
               }}
             >

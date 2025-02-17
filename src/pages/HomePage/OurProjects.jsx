@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import styles from "./styles/OurProjects.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import { slugify } from "transliteration"
 
 const OurProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -39,8 +40,14 @@ const OurProjects = () => {
     fetchProjects();
   }, []);
 
-  const handleProjectClick = (projectId) => {
-    navigate(`/project-cards/${projectId}`);
+  const handleProjectClick = (project) => {
+    if (project.id) {
+      const projectSlug = slugify(project.name || "project", {
+        lowercase: true,
+        separator: "-",
+      });
+      navigate(`/project-cards/${project.id}/${projectSlug}`);
+    }
   };
 
   if (isLoading) {
@@ -79,7 +86,7 @@ const OurProjects = () => {
             <div
               key={project.id}
               className={styles.projectCard}
-              onClick={() => handleProjectClick(project.id)}
+              onClick={() => handleProjectClick(project)}
             >
               {imageUrl ? (
                 <img
