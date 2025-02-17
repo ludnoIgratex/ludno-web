@@ -1,4 +1,3 @@
-// ProductsMobile.jsx
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Products.module.css";
@@ -21,6 +20,9 @@ const ProductsMobile = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [fullImageUrl, setFullImageUrl] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -230,6 +232,10 @@ const ProductsMobile = () => {
     }
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   if (loading && filteredProducts.length === 0) {
     return <LoaderRound show={true} />;
   }
@@ -325,10 +331,11 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={fullImageUrl || placeholderImageUrl} 
-                    placeholderSrc={blurredImageUrl} 
+                    src={imageLoaded ? fullImageUrl : placeholderImageUrl}
+                    placeholderSrc={blurredImageUrl}
                     effect="blur"
                     alt={title}
+                    onLoad={handleImageLoad}
                   />
                 )}
                 <div>
