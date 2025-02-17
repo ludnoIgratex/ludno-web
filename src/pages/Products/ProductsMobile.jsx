@@ -305,12 +305,14 @@ const ProductsMobile = () => {
             const cardId = product.card?.id;
             const imageUrl = product.image?.[0]?.url || null;
 
+            const placeholderImageUrl = "/assets/images/placeholder.jpg";
             const fullImageUrl = imageUrl
               ? `https://admin.ludno.ru${imageUrl}`
               : null;
-            const placeholderImageUrl = imageUrl
+            const blurredImageUrl = imageUrl
               ? `${fullImageUrl}?w=10&blur=40`
               : null;
+
             const title = product.title || "Без названия";
             const name = product.name || null;
 
@@ -323,8 +325,8 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={fullImageUrl}
-                    placeholderSrc={placeholderImageUrl}
+                    src={fullImageUrl || placeholderImageUrl} 
+                    placeholderSrc={blurredImageUrl} 
                     effect="blur"
                     alt={title}
                   />
