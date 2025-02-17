@@ -1,14 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./styles/About.module.css"; // Убедитесь, что путь корректен
+import styles from "./styles/About.module.css";
 
 const About = () => {
-  // const navigate = useNavigate();
-
-  // const handleClick = () => {
-  //   navigate("/products", { state: { focusEmail: true } });
-  // };
-
   return (
     <section className={styles.about}>
       <div className={styles.aboutInfo}>
@@ -23,8 +16,7 @@ const About = () => {
 
       <div className={styles.imageWrapper}>
         <img
-          loading="lazy"
-          src="/assets/images/about.png"
+          src="/assets/images/about.jpg"
           alt="About Us"
           className={styles.aboutImage}
         />
