@@ -36,7 +36,28 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
+    const checkImagesLoaded = () => {
+      const images = document.querySelectorAll("img");
+      const allLoaded = [...images].every((img) => img.complete);
+
+      if (allLoaded) {
+        setLoading(false);
+      } else {
+        const handleLoad = () => {
+          const allNowLoaded = [...images].every((img) => img.complete);
+          if (allNowLoaded) {
+            setLoading(false);
+            images.forEach((img) =>
+              img.removeEventListener("load", handleLoad)
+            );
+          }
+        };
+
+        images.forEach((img) => img.addEventListener("load", handleLoad));
+      }
+    };
+
+    setTimeout(checkImagesLoaded, 1500);
   }, []);
 
   return (
