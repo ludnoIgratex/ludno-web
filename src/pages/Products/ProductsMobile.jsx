@@ -316,6 +316,11 @@ const ProductsMobile = () => {
             const fullImageUrl = imageUrl
               ? `https://admin.ludno.ru${imageUrl}`
               : null;
+            const smallImageUrl = imageUrl
+              ? `${fullImageUrl}?w=100&h=100&fit=thumb`
+              : null;
+            const thumbnailUrl = product.image?.[0]?.formats?.thumbnail?.url;
+
             const blurredImageUrl = imageUrl
               ? `${fullImageUrl}?w=10&blur=40`
               : null;
@@ -332,7 +337,7 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={imageLoaded ? fullImageUrl : placeholderImageUrl}
+                    src={imageLoaded ? fullImageUrl : smallImageUrl}
                     placeholderSrc={blurredImageUrl}
                     effect="blur"
                     alt={title}
