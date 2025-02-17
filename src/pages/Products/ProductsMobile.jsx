@@ -32,6 +32,7 @@ const ProductsMobile = () => {
   const [categories, setCategories] = useState([]);
 
   const [allProductsForFilter, setAllProductsForFilter] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [loadingFilterData, setLoadingFilterData] = useState(false);
 
   const pageSize = 32;
@@ -75,7 +76,7 @@ const ProductsMobile = () => {
     );
 
     try {
-      setLoading(true);
+      setLoadingProducts(true);
       const response = await fetch(
         `https://admin.ludno.ru/api/products?${query}`
       );
@@ -93,7 +94,7 @@ const ProductsMobile = () => {
     } catch (err) {
       setError("Ошибка при загрузке продуктов.");
     } finally {
-      setLoading(false);
+      setLoadingProducts(false);
     }
   };
 
