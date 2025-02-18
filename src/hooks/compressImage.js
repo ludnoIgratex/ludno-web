@@ -2,7 +2,7 @@ export const compressImage = (
   imageUrl,
   maxWidth = 300,
   maxHeight = 300,
-  quality = 0.5
+  quality = 0.1
 ) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -30,8 +30,18 @@ export const compressImage = (
 
       ctx.drawImage(img, 0, 0, width, height);
 
-      const compressedDataUrl = canvas.toDataURL("image/jpeg", quality);
-      resolve(compressedDataUrl);
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const compressedImageUrl = URL.createObjectURL(blob);
+            resolve(compressedImageUrl);
+          } else {
+            reject(new Error("Ошибка при создании Blob"));
+          }
+        },
+        "image/webp",
+        quality
+      );
     };
 
     img.onerror = (error) => reject(error);

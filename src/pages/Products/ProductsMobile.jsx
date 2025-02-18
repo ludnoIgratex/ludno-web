@@ -137,14 +137,14 @@ const ProductsMobile = () => {
 
   useEffect(() => {
     const compressImages = async () => {
-      const newCompressedImages = {};
+      const newCompressedImages = { ...compressedImages };
 
-      for (const product of filteredProducts) {
+      const compressPromises = filteredProducts.map(async (product) => {
         const imageUrl = product.image?.[0]?.url
           ? `https://admin.ludno.ru${product.image[0].url}`
           : null;
 
-        if (imageUrl && !compressedImages[product.id]) {
+        if (imageUrl && !newCompressedImages[product.id]) {
           try {
             newCompressedImages[product.id] = await compressImage(
               imageUrl,
@@ -156,17 +156,16 @@ const ProductsMobile = () => {
             console.error("Ошибка сжатия изображения:", error);
           }
         }
-      }
+      });
 
-      if (Object.keys(newCompressedImages).length > 0) {
-        setCompressedImages((prev) => ({ ...prev, ...newCompressedImages }));
-      }
+      await Promise.all(compressPromises);
+      setCompressedImages(newCompressedImages);
     };
 
     if (filteredProducts.length > 0) {
       compressImages();
     }
-  }, [filteredProducts, compressedImages]);
+  }, [filteredProducts]);
 
   const fetchAllProductsForFilter = async () => {
     setLoadingFilterData(true);
@@ -372,11 +371,16 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={compressedImages[product.id] || fullImageUrl}
-                    placeholderSrc={blurredImageUrl}
+                    src={fullImageUrl}
+                    placeholderSrc={
+                      compressedImages[product.id] || placeholderImageUrl
+                    }
                     effect="blur"
                     alt={title}
                     onLoad={handleImageLoad}
+                    onError={(e) => {
+                      e.target.src = placeholderImageUrl;
+                    }}
                   />
                 )}
                 <div>
