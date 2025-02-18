@@ -2,7 +2,7 @@ export const compressImage = (
   imageUrl,
   maxWidth = 300,
   maxHeight = 300,
-  quality = 0.1
+  quality = 0.5
 ) => {
   return new Promise((resolve, reject) => {
     const img = new Image();

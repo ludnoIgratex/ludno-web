@@ -370,18 +370,16 @@ const ProductsMobile = () => {
               >
                 {fullImageUrl && (
                   <LazyLoadImage
-                    className={styles.product__image}
-                    src={fullImageUrl}
-                    placeholderSrc={
-                      compressedImages[product.id] || placeholderImageUrl
-                    }
-                    effect="blur"
-                    alt={title}
-                    onLoad={handleImageLoad}
-                    onError={(e) => {
-                      e.target.src = placeholderImageUrl;
-                    }}
-                  />
+                  className={styles.product__image}
+                  src={compressedImages[product.id] || placeholderImageUrl}
+                  placeholderSrc={placeholderImageUrl}
+                  effect="blur"
+                  alt={title}
+                  onError={(e) => {
+                    e.target.src = placeholderImageUrl;
+                  }}
+                />
+                
                 )}
                 <div>
                   <p className={styles.producTitle}>{title}</p>
