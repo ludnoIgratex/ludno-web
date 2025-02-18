@@ -137,36 +137,32 @@ const ProductsMobile = () => {
 
   useEffect(() => {
     const compressImages = async () => {
-      const newCompressedImages = { ...compressedImages };
-
-      const compressPromises = filteredProducts.map(async (product) => {
+      const newCompressedImages = {};
+      for (const product of filteredProducts) {
         const imageUrl = product.image?.[0]?.url
           ? `https://admin.ludno.ru${product.image[0].url}`
           : null;
-
-        if (imageUrl && !newCompressedImages[product.id]) {
+        if (imageUrl && !compressedImages[product.id]) {
           try {
             newCompressedImages[product.id] = await compressImage(
               imageUrl,
               400,
               400,
-              0.6
+              0.5
             );
           } catch (error) {
             console.error("Ошибка сжатия изображения:", error);
           }
         }
-      });
-
-      await Promise.all(compressPromises);
-      setCompressedImages(newCompressedImages);
+      }
+      if (Object.keys(newCompressedImages).length > 0) {
+        setCompressedImages((prev) => ({ ...prev, ...newCompressedImages }));
+      }
     };
-
     if (filteredProducts.length > 0) {
       compressImages();
     }
-  }, [filteredProducts]);
-
+  }, [filteredProducts, compressedImages]);
   const fetchAllProductsForFilter = async () => {
     setLoadingFilterData(true);
     try {
@@ -376,9 +372,6 @@ const ProductsMobile = () => {
                     effect="blur"
                     alt={title}
                     onLoad={handleImageLoad}
-                    onError={(e) => {
-                      e.target.src = fullImageUrl;
-                    }}
                   />
                 )}
                 <div>
