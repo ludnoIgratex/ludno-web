@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import FilterButton from "../../components/FilterButton/FilterButton";
@@ -21,6 +21,8 @@ const ProductsMobile = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const compressedImagesRef = useRef({});
+
   const [fullImageUrl, setFullImageUrl] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [compressedImages, setCompressedImages] = useState({});
@@ -101,13 +103,12 @@ const ProductsMobile = () => {
   };
 
   useEffect(() => {
-    setFilteredProducts([]);
     setCurrentPage(1);
     fetchProductsPage(1, appliedFilters);
   }, []);
 
   const fetchMoreProducts = () => {
-    if (hasMore) {
+    if (hasMore && !loadingProducts) {
       const nextPage = currentPage + 1;
       setCurrentPage(nextPage);
       fetchProductsPage(nextPage, appliedFilters);
@@ -142,27 +143,33 @@ const ProductsMobile = () => {
         const imageUrl = product.image?.[0]?.url
           ? `https://admin.ludno.ru${product.image[0].url}`
           : null;
-        if (imageUrl && !compressedImages[product.id]) {
+
+        if (imageUrl && !compressedImagesRef.current[product.id]) {
           try {
-            newCompressedImages[product.id] = await compressImage(
+            const compressedImage = await compressImage(
               imageUrl,
               400,
               400,
               0.5
             );
+            newCompressedImages[product.id] = compressedImage;
+            compressedImagesRef.current[product.id] = compressedImage;
           } catch (error) {
             console.error("Ошибка сжатия изображения:", error);
           }
         }
       }
+
       if (Object.keys(newCompressedImages).length > 0) {
         setCompressedImages((prev) => ({ ...prev, ...newCompressedImages }));
       }
     };
+
     if (filteredProducts.length > 0) {
       compressImages();
     }
-  }, [filteredProducts, compressedImages]);
+  }, [filteredProducts]); // Теперь useRef предотвращает бесконечный ререндер
+
   const fetchAllProductsForFilter = async () => {
     setLoadingFilterData(true);
     try {
@@ -250,10 +257,14 @@ const ProductsMobile = () => {
   };
 
   useEffect(() => {
-    if (currentPage === 1 && !loading && filteredProducts.length === 0) {
+    if (
+      currentPage === 1 &&
+      !loadingProducts &&
+      filteredProducts.length === 0
+    ) {
       fetchProductsPage(1, appliedFilters);
     }
-  }, [appliedFilters]);
+  }, [appliedFilters, loadingProducts]); // Добавляем зависимость loadingProducts
 
   const handleClick = (product) => {
     if (product.card?.id) {
@@ -343,13 +354,13 @@ const ProductsMobile = () => {
             const imageUrl = product.image?.[0]?.url || null;
 
             const placeholderImageUrl = "/assets/images/placeholder.jpg";
-            const fullImageUrl = imageUrl
-              ? `https://admin.ludno.ru${imageUrl}`
+            const fullImageUrl = product.image?.[0]?.url
+              ? `https://admin.ludno.ru${product.image[0].url}`
               : null;
-            const smallImageUrl = imageUrl
-              ? `${fullImageUrl}?w=100&h=100&fit=thumb`
-              : null;
-            const thumbnailUrl = product.image?.[0]?.formats?.thumbnail?.url;
+
+            const compressedUrl = product.image?.[0]?.formats?.small?.url
+              ? `https://admin.ludno.ru${product.image[0].formats.thumbnail.url}`
+              : fullImageUrl;
 
             const blurredImageUrl = imageUrl
               ? `${fullImageUrl}?w=10&blur=40`
@@ -365,14 +376,14 @@ const ProductsMobile = () => {
                 className={styles.productItem}
               >
                 {fullImageUrl && (
-                  <LazyLoadImage
-                    className={styles.product__image}
-                    src={compressedImages[product.id] || fullImageUrl}
-                    placeholderSrc={blurredImageUrl}
-                    effect="blur"
-                    alt={title}
-                    onLoad={handleImageLoad}
-                  />
+                 <LazyLoadImage
+                 className={styles.product__image}
+                 src={compressedUrl}
+                 placeholderSrc={blurredImageUrl}
+                 effect="blur"
+                 alt={title}
+               />
+               
                 )}
                 <div>
                   <p className={styles.producTitle}>{title}</p>
