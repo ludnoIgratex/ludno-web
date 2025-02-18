@@ -78,7 +78,7 @@ a:hover {
   cursor: pointer;
 }
 
-@media screen and (min-width: 360px) {
+@media screen and (max-width: 728px) {
   h2 {
     font-size: 26px;
     line-height: 32px;
