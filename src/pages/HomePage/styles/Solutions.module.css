@@ -140,7 +140,7 @@
   color: var(--primary-text-color);
 }
 
-@media screen and (min-width: 375px) and (max-width: 728px) {
+@media screen  and (max-width: 728px) {
   .solutions {
     display: grid;
     gap: 24px;

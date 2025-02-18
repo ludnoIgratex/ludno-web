@@ -27,7 +27,7 @@
   color: var(--secondary-text-color);
 }
 
-@media screen and (min-width: 375px) and (max-width: 728px) {
+@media screen and (max-width: 728px) {
   .headerContainer {
     padding: 16px;
     background-color: #fff;

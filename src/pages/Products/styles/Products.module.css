@@ -194,7 +194,7 @@
   }
 }
 
-@media (min-width: 375px) and (max-width: 728px) {
+@media screen and (max-width: 728px) {
   .product__list {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;

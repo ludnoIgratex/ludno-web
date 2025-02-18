@@ -76,12 +76,7 @@ const HeaderLogo = () => {
   }, [clickCount, isMobile]);
 
   return (
-    <h1
-      className={`${styles.headerLogo} ${
-        clickCount >= 5 ? styles.easterEgg : ""
-      }`}
-      onClick={handleClick}
-    >
+    <h1 className={styles.headerLogo} onClick={handleClick}>
       {logoText}
     </h1>
   );

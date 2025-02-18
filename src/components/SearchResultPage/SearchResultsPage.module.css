@@ -74,7 +74,7 @@
   font-weight: bold;
 }
 
-@media (min-width: 375px) and (max-width: 765px) {
+@media (max-width: 765px) {
   .resultsPage {
     padding: 16px;
   }
