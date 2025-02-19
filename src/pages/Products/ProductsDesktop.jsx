@@ -132,7 +132,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       <div className={styles.brandWrapper}>
         <Brand setSelectedCategory={setSelectedCategory} />
       </div>
-      <div>
+      <div className={styles.contentWrapper}>
         <AgeFilter
           onFilterSelect={handleAgeFilter}
           selectedAgeRanges={ageFilter}
@@ -172,7 +172,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                     />
                   )}
                   <div>
-                    <p className={styles.producTitle}>{title}</p>
+                    <p className={styles.productTitle}>{title}</p>
                     <h4 className={styles.productName}>{name}</h4>
                   </div>
                 </li>

@@ -200,7 +200,7 @@
 }
 
 .fileLink:hover {
-  color: var(--gray-font-color);
+  color: var(--accent-color);
 }
 
 /* Материалы */
@@ -208,7 +208,7 @@
 .cardMaterial {
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 48px;
   padding-left: 32px;
   margin-bottom: 80px;
 }
@@ -267,6 +267,7 @@
 
 .selected h4 {
   color: var(--primary-text-color);
+  font-weight: 600;
 }
 
 .selected img {

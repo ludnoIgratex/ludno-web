@@ -21,15 +21,9 @@ const Brand = ({ setSelectedCategory }) => {
       const newSelectedBrand = brands.find(
         (brand) => brand.name === selectedBrandName
       );
-      if (newSelectedBrand) {
-        setSelectedBrand(newSelectedBrand);
-      } else {
-        setSelectedBrand(null);
-      }
-    } else {
-      if (!location.pathname.startsWith("/products/")) {
-        setSelectedBrand(null);
-      }
+      setSelectedBrand(newSelectedBrand || null);
+    } else if (!location.pathname.startsWith("/products/")) {
+      setSelectedBrand(null);
     }
   }, [selectedBrandName, brands, location.pathname]);
 
@@ -41,38 +35,40 @@ const Brand = ({ setSelectedCategory }) => {
     navigate(`/products/${brand.name}`);
   };
 
-  // console.log("Selected Brand:", selectedBrand);
-  // console.log("Brands:", brands);
+  const handleResetBrands = () => {
+    setSelectedBrand(null);
+    navigate("/products");
+  };
 
   return (
     <div className={styles.brandContainer}>
-      {loading ? (
-        <p>Загрузка брендов...</p>
-      ) : (
-        <>
-          <nav>
-            <ul className={styles.brandList}>
-              {brands.map((brand) => (
-                <li
-                  key={brand.id}
-                  onClick={() => handleBrandClick(brand)}
-                  className={
-                    selectedBrand?.id === brand.id ? styles.active : ""
-                  }
-                >
-                  {brand.name}
-                </li>
-              ))}
-            </ul>
-          </nav>
-          {selectedBrand && (
-            <Categories
-              brand={selectedBrand}
-              setSelectedCategory={setSelectedCategory}
-              selectedBrandName={selectedBrand.name}
-            />
-          )}
-        </>
+      <h4>Бренды</h4>
+      <nav>
+        <ul className={styles.brandList}>
+          {/* Кнопка "Все" как элемент списка */}
+          <li
+            onClick={handleResetBrands}
+            className={!selectedBrand ? styles.active : ""}
+          >
+            Все
+          </li>
+          {brands.map((brand) => (
+            <li
+              key={brand.id}
+              onClick={() => handleBrandClick(brand)}
+              className={selectedBrand?.id === brand.id ? styles.active : ""}
+            >
+              {brand.name}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      {selectedBrand && (
+        <Categories
+          brand={selectedBrand}
+          setSelectedCategory={setSelectedCategory}
+          selectedBrandName={selectedBrand.name}
+        />
       )}
     </div>
   );

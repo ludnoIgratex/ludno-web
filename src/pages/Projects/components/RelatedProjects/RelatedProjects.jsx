@@ -49,7 +49,7 @@ const RelatedProjects = ({ currentProjectId }) => {
 
   return (
     <div className={styles.relatedProjects}>
-      <h3>Другие проекты</h3>
+      <h2>Другие проекты</h2>
       <div className={styles.projectList}>
         {projects.map((project) => {
           const imageUrl =

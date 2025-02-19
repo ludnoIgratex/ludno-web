@@ -5,6 +5,12 @@
   padding-left: 32px
 }
 
+.relatedProjects h2{
+  font-size: 34px;
+  line-height: 40px;
+  padding-bottom: 32px;
+}
+
 .projectList {
   display: flex;
   gap: 20px;
@@ -32,6 +38,12 @@
 @media (max-width: 768px){
   .relatedProjects {
     padding-left: 16px
+  }
+
+  .relatedProjects h2{
+    font-size: 26px;
+    line-height: 32px;
+    padding-bottom: 16px;
   }
 
   .projectImage {

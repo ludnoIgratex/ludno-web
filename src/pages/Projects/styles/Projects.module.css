@@ -31,8 +31,8 @@
 }
 
 .projectList {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding-top: 56px;
+  padding-bottom: 160px;
   gap: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -42,10 +42,13 @@
   display: flex;
   transition: transform 0.3s ease;
   flex-direction: column;
+  opacity: 1;
+  transition: 0.2s ease-in-out;
 }
 
 .projectItem:hover {
   cursor: pointer;
+  opacity: 0.9;
 }
 
 .projectImage {
@@ -84,7 +87,7 @@
 
 }
 
-@media (min-width: 1024px) and (max-width: 1024px) {
+@media (min-width: 728px) and (max-width: 1024px) {
   .projectList {
     grid-template-columns: repeat(2, 1fr);
   }

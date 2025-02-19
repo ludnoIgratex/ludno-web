@@ -4,9 +4,13 @@
   padding-bottom: 32px;
 }
 
-.breadcrumbs,
-.cardContainer {
+
+.breadcrumbs {
   padding: 48px 32px;
+}
+
+.cardContainer{
+  padding: 48px 32px 2px 32px;
 }
 
 .infoWrapper {
@@ -67,7 +71,7 @@
 
 .mainImage {
   width: 100%;
-  max-height: 610px;
+  max-height: 480px;
   object-fit: cover;
 }
 

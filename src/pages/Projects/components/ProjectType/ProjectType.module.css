@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding-top: 56px;
 }
 
 .navList {
@@ -31,7 +32,7 @@
 .mapLinkContainer{
   display: flex;
   align-items: center;
-  gap:4px;
+  gap:12px;
 }
 
 @media screen and (max-width: 480px) {

@@ -6,17 +6,20 @@ const AgeFilter = ({ onFilterSelect, selectedAgeRanges }) => {
 
   return (
     <div className={styles.ageFilterContainer}>
-      {ageRanges.map((range) => (
-        <button
-          className={`${styles.ageButton} ${
-            selectedAgeRanges.includes(range) ? styles.active : ""
-          }`}
-          key={range}
-          onClick={() => onFilterSelect(range)}
-        >
-          {range.replace("Age", "")}
-        </button>
-      ))}
+      <h4>Возраст</h4>
+      <div className={styles.ageWrappers}>
+        {ageRanges.map((range) => (
+          <button
+            className={`${styles.ageButton} ${
+              selectedAgeRanges.includes(range) ? styles.active : ""
+            }`}
+            key={range}
+            onClick={() => onFilterSelect(range)}
+          >
+            {range.replace("Age", "")}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

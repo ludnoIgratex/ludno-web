@@ -1,8 +1,9 @@
 .ageFilterContainer {
   display: flex;
+  flex-direction: column;
   padding-bottom: 30px;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
 }
 
 .ageButton {
@@ -14,7 +15,7 @@
   font-size: 14px;
   min-width: 70px;
   cursor: pointer;
-  color: var(--primary-default-color)
+  color: var(--primary-default-color);
 }
 
 .ageButton:hover {
@@ -31,5 +32,11 @@
 @media screen and (max-width: 1024px) {
   .ageButton {
     padding: 8px 12px;
+  }
+}
+
+@media screen and (max-width: 728px) {
+  .ageFilterContainer h4 {
+    display: none;
   }
 }

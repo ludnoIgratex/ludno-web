@@ -24,10 +24,9 @@ const Categories = ({ brand, setSelectedCategory, selectedBrandName }) => {
     navigate(`/products/${selectedBrandName}/${categoryName}`);
   };
 
-  // console.log("Selected Category:", selectedCategoryName);
-
   return (
     <div className={styles.categories}>
+      <h4>Категории</h4>
       <ul>
         {brand.categories.map((category) => {
           const categoryName = category.title || category.name;

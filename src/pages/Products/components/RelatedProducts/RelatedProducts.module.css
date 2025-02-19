@@ -4,6 +4,7 @@
   padding-top: 32px;
   padding-bottom: 52px;
   font-size: 20px;
+  border-bottom: solid 1px var(--bg-hover-color);
 }
 
 .productsList {
