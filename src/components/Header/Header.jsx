@@ -55,7 +55,7 @@ const Header = () => {
         </>
       ) : isTablet ? (
         <>
-          <Search />
+          <Search onClose={() => toggleSearch(false)} />
           <BurgerMenuIcon toggleBurger={toggleBurger} />
           <BurgerMenu
             isOpen={isBurgerOpen}

@@ -1,0 +1,104 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 88px 32px 72px 32px;
+  gap: 80px;
+}
+
+.textContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.textContainer p {
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.textContainer span {
+  font-size: 76px;
+  line-height: 72px;
+  display: flex;
+  justify-content: end;
+}
+
+.linkContainer {
+  display: flex;
+  color: var(--accent-color);
+  gap: 8px;
+}
+
+.linkContainer a {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.arrow {
+  width: 32px;
+  height: auto;
+}
+
+.linkContainer:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkWrapper {
+  display: flex;
+}
+
+@media screen and (max-width: 728px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 44px 16px 0px 16px;
+    gap: 32px;
+  }
+
+  .textContainer {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+
+  .textContainer p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .textContainer span {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: bold;
+    display: block;
+  }
+
+  .linkContainer a {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .arrow {
+    width: 20px;
+    height: auto;
+  }
+}
+
+@media (min-width: 728px) and (max-width: 1024px) {
+  .textContainer p {
+    font-size: 34px;
+    line-height: 40px;
+  }
+  .textContainer span {
+    font-size: 42px;
+    line-height: 48px;
+    font-weight: bold;
+  }
+  .linkContainer a {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .arrow {
+    width: 26px;
+    height: auto;
+  }
+}

@@ -5,6 +5,7 @@ import Main from "./Main";
 import Solutions from "./Solutions";
 import About from "./About";
 import OurProjects from "./OurProjects";
+import Consultation from "./Consultation";
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Marquee />
       <Main />
       <Solutions />
+      <Consultation />
       <OurProjects />
       <About />
     </div>
