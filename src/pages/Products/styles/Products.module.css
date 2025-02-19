@@ -14,8 +14,8 @@
   animation-fill-mode: forwards;
 }
 
-.contentWrapper{
-  padding-left: 32px
+.contentWrapper {
+  padding-left: 32px;
 }
 
 .category__title {
@@ -70,10 +70,6 @@
   max-height: 250px;
   width: 100%;
   background-color: white;
-}
-
-.product__image:hover {
-  border-style: dashed;
 }
 
 .productTitle {
@@ -147,7 +143,7 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  padding: 8px 12px;
+  padding: 8px 12px 8px 14px;
   max-width: 330px;
   border-radius: 30px;
   color: var(--bg-default-color);
@@ -159,8 +155,15 @@
   border: none;
 }
 
-.filterTag:hover {
-  background: #333;
+.filterTag:active {
+  background-color: var(--primary-hover-color);
+}
+
+.filterTag svg {
+  background-color: var(--primary-hover-color);
+  border-radius: 50%;
+  padding: 2px;
+  color: var(--primary-default-color);
 }
 
 @media (min-width: 728px) and (max-width: 1024px) {

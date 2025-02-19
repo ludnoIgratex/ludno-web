@@ -168,7 +168,7 @@ const ProductsMobile = () => {
     if (filteredProducts.length > 0) {
       compressImages();
     }
-  }, [filteredProducts]); // Теперь useRef предотвращает бесконечный ререндер
+  }, [filteredProducts]);
 
   const fetchAllProductsForFilter = async () => {
     setLoadingFilterData(true);
@@ -264,7 +264,7 @@ const ProductsMobile = () => {
     ) {
       fetchProductsPage(1, appliedFilters);
     }
-  }, [appliedFilters, loadingProducts]); // Добавляем зависимость loadingProducts
+  }, [appliedFilters, loadingProducts]);
 
   const handleClick = (product) => {
     if (product.card?.id) {
@@ -299,8 +299,8 @@ const ProductsMobile = () => {
                 className={styles.filterTag}
                 onClick={() => removeFilter("categories", categoryId)}
               >
-                <IoCloseOutline />
                 {category?.title || "Категория"}
+                <IoCloseOutline className={styles.filterCloseIcon} />
               </button>
             );
           })}
@@ -312,8 +312,8 @@ const ProductsMobile = () => {
                 className={styles.filterTag}
                 onClick={() => removeFilter("brands", brandId)}
               >
-                <IoCloseOutline />
                 {brand?.name || "Бренд"}
+                <IoCloseOutline className={styles.filterCloseIcon} />
               </button>
             );
           })}
@@ -326,8 +326,8 @@ const ProductsMobile = () => {
                 className={styles.filterTag}
                 onClick={() => removeFilter("ages", age)}
               >
-                <IoCloseOutline />
                 {labelWithoutAge}
+                <IoCloseOutline className={styles.filterCloseIcon} />
               </button>
             );
           })}
@@ -376,14 +376,13 @@ const ProductsMobile = () => {
                 className={styles.productItem}
               >
                 {fullImageUrl && (
-                 <LazyLoadImage
-                 className={styles.product__image}
-                 src={compressedUrl}
-                 placeholderSrc={blurredImageUrl}
-                 effect="blur"
-                 alt={title}
-               />
-               
+                  <LazyLoadImage
+                    className={styles.product__image}
+                    src={compressedUrl}
+                    placeholderSrc={blurredImageUrl}
+                    effect="blur"
+                    alt={title}
+                  />
                 )}
                 <div>
                   <p className={styles.producTitle}>{title}</p>
