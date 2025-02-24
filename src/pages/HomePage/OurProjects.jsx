@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import styles from "./styles/OurProjects.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
-import { slugify } from "transliteration"
+import { slugify } from "transliteration";
 
 const OurProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -61,7 +61,7 @@ const OurProjects = () => {
   if (!projects || projects.length === 0) {
     return <p>Проекты отсутствуют.</p>;
   }
- 
+
   return (
     <section className={styles.projects}>
       <div className={styles.projectsHeader}>
@@ -114,9 +114,14 @@ const OurProjects = () => {
                 </section>
 
                 <p>
-                  {project.project_card.about.split(".").slice(0, 2).join(".") +
-                    "."}
+                  {project.project_card?.about
+                    ? project.project_card.about
+                        .split(".")
+                        .slice(0, 2)
+                        .join(".") + "."
+                    : null}
                 </p>
+
                 <div className={styles.linkContainer}>
                   <RiArrowRightDownLine className={styles.arrow} />
                   <a>Подробнее</a>
