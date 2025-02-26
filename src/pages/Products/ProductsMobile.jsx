@@ -359,11 +359,11 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={compressedUrl} // Ссылка на изображение
-                    placeholderSrc={blurredImageUrl} // Плейсхолдер (размытое изображение)
-                    effect="blur" // Эффект размытия
+                    src={compressedUrl} 
+                    placeholderSrc={blurredImageUrl} 
+                    effect="blur" 
                     alt={title}
-                    loading="eager" // Указываем, что изображение нужно загружать сразу
+                    loading="eager" 
                   />
                 )}
                 <div>

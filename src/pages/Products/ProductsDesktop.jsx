@@ -89,6 +89,31 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     fetchProducts(currentPage);
   }, [currentPage, selectedBrand, selectedCategoryName, ageFilter]);
 
+  useEffect(() => {
+    if (products.length > 0) {
+      const firstProductsImages = products.slice(0, 8); // Берем первые 8 продуктов
+      const preloadedImages = new Set();
+
+      firstProductsImages.forEach((product) => {
+        const imageUrl = product.image?.[0]?.formats?.small?.url;
+
+        if (imageUrl && !preloadedImages.has(imageUrl)) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.href = `https://admin.ludno.ru${imageUrl}`;
+          link.as = "image";
+          document.head.appendChild(link);
+
+          preloadedImages.add(imageUrl);
+
+          console.log(
+            `Preloading image for product ID: ${product.id}, Title: ${product.title}, Image URL: https://admin.ludno.ru${imageUrl}`
+          );
+        }
+      });
+    }
+  }, [products]);
+
   const handleAgeFilter = (selectedRange) => {
     setAgeFilter((prevFilters) => {
       if (prevFilters.includes(selectedRange)) {
@@ -125,7 +150,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       navigate(`/card/${uniqueSlug}`);
     }
   };
-  
 
   return (
     <div className={`${styles.productContainer} ${styles.fadeIn}`}>
@@ -169,6 +193,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                       placeholderSrc={placeholderImageUrl}
                       effect="blur"
                       alt={title}
+                      loading="lazy"
                     />
                   )}
                   <div>
