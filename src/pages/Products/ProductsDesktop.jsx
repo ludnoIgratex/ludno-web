@@ -176,9 +176,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                 ? `https://admin.ludno.ru${imageUrl}`
                 : null;
 
-              const placeholderImageUrl = fullImageUrl
-                ? `${fullImageUrl}?w=10&blur=40`
-                : null;
+              const placeholderImageUrl = "/assets/images/placeholder.avif";
 
               return (
                 <li
