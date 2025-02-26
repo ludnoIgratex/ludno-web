@@ -334,7 +334,7 @@ const ProductsMobile = () => {
             const cardId = product.card?.id;
             const imageUrl = product.image?.[0]?.url || null;
 
-            const placeholderImageUrl = "/assets/images/placeholder.jpg";
+            const placeholderImageUrl = "/assets/images/placeholder.avif";
             const fullImageUrl = product.image?.[0]?.url
               ? `https://admin.ludno.ru${product.image[0].url}`
               : null;
@@ -342,10 +342,6 @@ const ProductsMobile = () => {
             const compressedUrl = product.image?.[0]?.formats?.small?.url
               ? `https://admin.ludno.ru${product.image[0].formats.thumbnail.url}`
               : fullImageUrl;
-
-            const blurredImageUrl = imageUrl
-              ? `${fullImageUrl}?w=10&blur=40`
-              : null;
 
             const title = product.title || "Без названия";
             const name = product.name || null;
@@ -359,11 +355,11 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={compressedUrl} 
-                    placeholderSrc={blurredImageUrl} 
-                    effect="blur" 
+                    src={compressedUrl}
+                    placeholderSrc={placeholderImageUrl}
+                    effect="blur"
                     alt={title}
-                    loading="eager" 
+                    loading="eager"
                   />
                 )}
                 <div>
