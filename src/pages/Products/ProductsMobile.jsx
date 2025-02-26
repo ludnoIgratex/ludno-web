@@ -254,10 +254,6 @@ const ProductsMobile = () => {
           document.head.appendChild(link);
 
           preloadedImages.add(imageUrl);
-
-          // console.log(
-          //   `Preloading image for product ID: ${product.id}, Title: ${product.title}, Image URL: https://admin.ludno.ru${imageUrl}`
-          // );
         }
       });
     }

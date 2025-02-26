@@ -144,7 +144,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
           {products.length > 0 ? (
             products.map((product) => {
               const cardId = product?.card?.id;
-              const imageUrl = product.image?.[0]?.url || null;
+              const imageUrl = product.image[0].formats.small.url || null;
               const title = product?.title || "Без названия";
               const name = product?.name || "Без имени";
 
