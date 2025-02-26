@@ -43,10 +43,13 @@ const Card = () => {
     Array.isArray(card?.groupImage) && card.groupImage.length > 0
       ? card.groupImage.map((group) => ({
           colorImage: group.group_color?.image
-            ? `https://admin.ludno.ru${group.group_color.image.url}`
+            ? `https://admin.ludno.ru${
+                group.group_color.image.formats?.medium?.url ||
+                group.group_color.image.url
+              }`
             : null,
           images: group.image.map((img) => ({
-            url: `https://admin.ludno.ru${img.url}`,
+            url: `https://admin.ludno.ru${img.formats?.medium?.url || img.url}`,
             alternativeText: img.alternativeText || "Group Image",
           })),
         }))
@@ -55,7 +58,7 @@ const Card = () => {
   const images =
     Array.isArray(card?.productImage) && card.productImage.length > 0
       ? card.productImage.map((img) => ({
-          url: `https://admin.ludno.ru${img.url}`,
+          url: `https://admin.ludno.ru${img.formats?.medium?.url || img.url}`,
           alternativeText: img.alternativeText || "Product Image",
         }))
       : groupedImages.length > 0

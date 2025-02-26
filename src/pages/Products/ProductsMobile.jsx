@@ -340,7 +340,7 @@ const ProductsMobile = () => {
               : null;
 
             const compressedUrl = product.image?.[0]?.formats?.small?.url
-              ? `https://admin.ludno.ru${product.image[0].formats.thumbnail.url}`
+              ? `https://admin.ludno.ru${product.image[0].formats.small.url}`
               : fullImageUrl;
 
             const title = product.title || "Без названия";
