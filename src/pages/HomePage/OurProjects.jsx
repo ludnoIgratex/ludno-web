@@ -61,7 +61,6 @@ const OurProjects = () => {
   if (!projects || projects.length === 0) {
     return <p>Проекты отсутствуют.</p>;
   }
-  console.log("hi");
 
   return (
     <section className={styles.projects}>

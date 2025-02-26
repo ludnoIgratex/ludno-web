@@ -11,7 +11,12 @@ const Main = () => {
   };
   return (
     <section className={styles.title}>
-      <img src="/assets/images/vulkan-small.avif" alt="Vulkan" fetchpriority="high" />
+      <img
+        src="/assets/images/vulkan-small.avif"
+        alt="Vulkan"
+        width="800"
+        height="460"
+      />
       <div className={styles.titleText}>
         <h1>Архитектурные игровые площадки</h1>
         <p>Создаем продукты для благоустройства детской и спортивной среды</p>
