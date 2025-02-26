@@ -77,7 +77,7 @@
 
 .landscape {
   grid-area: landscape;
-  background-image: url("/assets/images/cover.png");
+  background-image: url("/assets/images/cover.avif");
   background-repeat: no-repeat;
   background-position: right center;
   background-size: contain;
@@ -87,7 +87,7 @@
 
 .tramptek {
   grid-area: tramptek;
-  background-image: url("/assets/images/tramptek.png");
+  background-image: url("/assets/images/tramptek.avif");
   background-repeat: no-repeat;
   /* background-position: right center; */
   background-position-x: 80px;
@@ -99,7 +99,7 @@
 
 .mini {
   grid-area: mini;
-  background-image: url("/assets/images/mini_wrapper.png");
+  background-image: url("/assets/images/mini_wrapper.avif");
   background-repeat: no-repeat;
   background-position-x: 200px;
   background-size: cover;
@@ -109,7 +109,7 @@
 
 .towers {
   grid-area: towers;
-  background-image: url("/assets/images/towers_wrapper.png");
+  background-image: url("/assets/images/towers_wrapper.avif");
   background-repeat: no-repeat;
   background-position-x: 250px;
   background-position-y: 40px;
@@ -120,7 +120,7 @@
 
 .parkfit {
   grid-area: parkfit;
-  background-image: url("/assets/images/parkfit_wrapper.png");
+  background-image: url("/assets/images/parkfit_wrapper.avif");
   background-repeat: no-repeat;
   background-position-x: 50px;
   background-position-y: 20px;
@@ -131,7 +131,7 @@
 
 .individualProjects {
   grid-area: project;
-  background-image: url("/assets/images/project_wrapper.png");
+  background-image: url("/assets/images/project_wrapper.avif");
   background-repeat: no-repeat;
   background-position-x: 460px;
   background-position-y: -20px;

@@ -16,7 +16,7 @@ const About = () => {
 
       <div className={styles.imageWrapper}>
         <img
-          src="/assets/images/about.jpg"
+          src="/assets/images/about.avif"
           alt="About Us"
           className={styles.aboutImage}
         />
