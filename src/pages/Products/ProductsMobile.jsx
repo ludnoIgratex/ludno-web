@@ -9,7 +9,6 @@ import qs from "qs";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { slugify } from "transliteration";
-import { compressImage } from "../../hooks/compressImage";
 
 const ProductsMobile = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -21,11 +20,9 @@ const ProductsMobile = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  const compressedImagesRef = useRef({});
 
   const [fullImageUrl, setFullImageUrl] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [compressedImages, setCompressedImages] = useState({});
 
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -135,40 +132,6 @@ const ProductsMobile = () => {
 
     fetchFilters();
   }, []);
-
-  useEffect(() => {
-    const compressImages = async () => {
-      const newCompressedImages = {};
-      for (const product of filteredProducts) {
-        const imageUrl = product.image?.[0]?.url
-          ? `https://admin.ludno.ru${product.image[0].url}`
-          : null;
-
-        if (imageUrl && !compressedImagesRef.current[product.id]) {
-          try {
-            const compressedImage = await compressImage(
-              imageUrl,
-              400,
-              400,
-              0.5
-            );
-            newCompressedImages[product.id] = compressedImage;
-            compressedImagesRef.current[product.id] = compressedImage;
-          } catch (error) {
-            console.error("Ошибка сжатия изображения:", error);
-          }
-        }
-      }
-
-      if (Object.keys(newCompressedImages).length > 0) {
-        setCompressedImages((prev) => ({ ...prev, ...newCompressedImages }));
-      }
-    };
-
-    if (filteredProducts.length > 0) {
-      compressImages();
-    }
-  }, [filteredProducts]);
 
   const fetchAllProductsForFilter = async () => {
     setLoadingFilterData(true);
