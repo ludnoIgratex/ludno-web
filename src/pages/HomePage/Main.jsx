@@ -13,10 +13,13 @@ const Main = () => {
     <section className={styles.title}>
       <img
         src="/assets/images/vulkan-small.avif"
+        srcSet="/assets/images/vulkan-small.avif 800w, /assets/images/vulkan.avif 1200w"
+        sizes="(max-width: 768px) 800px, 1200px"
         alt="Vulkan"
-        width="800"
-        height="460"
+        width="1200"
+        height="690"
       />
+
       <div className={styles.titleText}>
         <h1>Архитектурные игровые площадки</h1>
         <p>Создаем продукты для благоустройства детской и спортивной среды</p>
