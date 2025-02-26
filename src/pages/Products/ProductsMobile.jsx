@@ -84,9 +84,11 @@ const ProductsMobile = () => {
       if (!response.ok) throw new Error(`Ошибка сервера: ${response.status}`);
 
       const data = await response.json();
+
       setFilteredProducts((prev) => {
         const prevIds = new Set(prev.map((p) => p.id));
         const unique = data.data.filter((p) => !prevIds.has(p.id));
+
         return [...prev, ...unique];
       });
 
@@ -237,9 +239,29 @@ const ProductsMobile = () => {
     }
   };
 
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
+  useEffect(() => {
+    if (filteredProducts.length > 0) {
+      const firstProductsImages = filteredProducts.slice(0, 8);
+      const preloadedImages = new Set();
+
+      firstProductsImages.forEach((product) => {
+        const imageUrl = product.image?.[0]?.formats?.thumbnail?.url;
+        if (imageUrl && !preloadedImages.has(imageUrl)) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.href = `https://admin.ludno.ru${imageUrl}`;
+          link.as = "image";
+          document.head.appendChild(link);
+
+          preloadedImages.add(imageUrl);
+
+          // console.log(
+          //   `Preloading image for product ID: ${product.id}, Title: ${product.title}, Image URL: https://admin.ludno.ru${imageUrl}`
+          // );
+        }
+      });
+    }
+  }, [filteredProducts]);
 
   if (loading && filteredProducts.length === 0) {
     return <LoaderRound show={true} />;
@@ -341,10 +363,11 @@ const ProductsMobile = () => {
                 {fullImageUrl && (
                   <LazyLoadImage
                     className={styles.product__image}
-                    src={compressedUrl}
-                    placeholderSrc={blurredImageUrl}
-                    effect="blur"
+                    src={compressedUrl} // Ссылка на изображение
+                    placeholderSrc={blurredImageUrl} // Плейсхолдер (размытое изображение)
+                    effect="blur" // Эффект размытия
                     alt={title}
+                    loading="eager" // Указываем, что изображение нужно загружать сразу
                   />
                 )}
                 <div>
