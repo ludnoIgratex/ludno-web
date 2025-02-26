@@ -43,10 +43,13 @@ const Card = () => {
     Array.isArray(card?.groupImage) && card.groupImage.length > 0
       ? card.groupImage.map((group) => ({
           colorImage: group.group_color?.image
-            ? `https://admin.ludno.ru${group.group_color.image.url}`
+            ? `https://admin.ludno.ru${
+                group.group_color.image.formats?.thumnail?.url ||
+                group.group_color.image.url
+              }`
             : null,
           images: group.image.map((img) => ({
-            url: `https://admin.ludno.ru${img.url}`,
+            url: `https://admin.ludno.ru${img.formats?.large?.url || img.url}`,
             alternativeText: img.alternativeText || "Group Image",
           })),
         }))
@@ -61,6 +64,40 @@ const Card = () => {
       : groupedImages.length > 0
       ? groupedImages[selectedColorIndex]?.images || []
       : [];
+
+  useEffect(() => {
+    if (images.length > 0) {
+      const preloadedImages = new Set();
+      images.forEach((img) => {
+        const imageUrl = img.url;
+        if (!preloadedImages.has(imageUrl)) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.href = imageUrl;
+          link.as = "image";
+          document.head.appendChild(link);
+          preloadedImages.add(imageUrl);
+        }
+      });
+    }
+
+    if (groupedImages.length > 0) {
+      const preloadedImages = new Set();
+      groupedImages.forEach((group) => {
+        group.images.forEach((img) => {
+          const imageUrl = img.url;
+          if (!preloadedImages.has(imageUrl)) {
+            const link = document.createElement("link");
+            link.rel = "preload";
+            link.href = imageUrl;
+            link.as = "image";
+            document.head.appendChild(link);
+            preloadedImages.add(imageUrl);
+          }
+        });
+      });
+    }
+  }, [images, groupedImages]);
 
   const fetchCardData = async () => {
     setLoading(true);
