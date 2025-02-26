@@ -77,4 +77,8 @@
     font-size: 18px;
     line-height: 24px;
   }
+
+  .title img {
+    max-height: 240px;
+  }
 }
