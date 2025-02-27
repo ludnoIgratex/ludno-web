@@ -30,6 +30,16 @@ const HeaderNav = () => {
         </li>
         <li>
           <Link
+            to="/blog"
+            className={
+              location.pathname.startsWith("/blog") ? styles.active : ""
+            }
+          >
+            Блог
+          </Link>
+        </li>
+        <li>
+          <Link
             to="/contacts"
             className={
               location.pathname.startsWith("/contacts") ? styles.active : ""

@@ -91,7 +91,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   useEffect(() => {
     if (products.length > 0) {
-      const firstProductsImages = products.slice(0, 8); // Берем первые 8 продуктов
+      const firstProductsImages = products.slice(0, 8);
       const preloadedImages = new Set();
 
       firstProductsImages.forEach((product) => {

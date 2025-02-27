@@ -12,6 +12,7 @@ const SearchResultsPage = () => {
     totalResults = 0,
     productResults = [],
     projectResults = [],
+    postResults = [],  // Добавляем результат поиска для статей
   } = location.state || {};
 
   const handleProductClick = (product) => {
@@ -26,11 +27,18 @@ const SearchResultsPage = () => {
       console.log("У товара нет карточки");
     }
   };
-  
 
   const handleProjectClick = (project) => {
     const slug = slugify(project.name, { lowercase: true, separator: "-" });
     navigate(`/project-cards/${project.id}/${slug}`);
+  };
+
+  const handlePostClick = (post) => {
+    const postSlug = slugify(post.title || "post", {
+      lowercase: true,
+      separator: "-",
+    });
+    navigate(`/blog/${post.id}/${postSlug}`);
   };
 
   return (
@@ -38,6 +46,8 @@ const SearchResultsPage = () => {
       <div className={styles.resultTitle}>
         Результаты по поиску <b>{query}</b> — {totalResults}
       </div>
+
+      {/* Продукты */}
       {productResults.length > 0 && (
         <>
           <h2>Продукты</h2>
@@ -76,6 +86,8 @@ const SearchResultsPage = () => {
           </ul>
         </>
       )}
+
+      {/* Проекты */}
       {projectResults.length > 0 && (
         <>
           <h2>Проекты</h2>
@@ -113,6 +125,44 @@ const SearchResultsPage = () => {
           </ul>
         </>
       )}
+
+      {/* Статьи */}
+      {postResults.length > 0 && (
+        <>
+          <h2>Статьи</h2>
+          <ul className={styles.resultList}>
+            {postResults.map((item) => {
+              const imageUrl =
+                item.image?.[0]?.formats?.medium?.url ||
+                item.image?.[0]?.url ||
+                null;
+              const title = item.title || "Без названия";
+              const description = item.description || "Без описания";
+
+              return (
+                <li
+                  key={item.id}
+                  className={styles.resultItem}
+                  onClick={() => handlePostClick(item)}
+                >
+                  {imageUrl ? (
+                    <img
+                      src={`https://admin.ludno.ru${imageUrl}`}
+                      alt={title || "Изображение статьи"}
+                      className={styles.resultImageProject}
+                    />
+                  ) : (
+                    <p>Изображение не найдено</p>
+                  )}
+                  <p className={styles.producTitle}>{title}</p>
+                  <h4 className={styles.productName}>{description}</h4>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
+
       {totalResults === 0 && <p>Нет результатов</p>}
     </div>
   );

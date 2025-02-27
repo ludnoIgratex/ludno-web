@@ -4,6 +4,7 @@ import styles from "./styles/SearchResults.module.css";
 const SearchResults = ({
   productResults,
   projectResults,
+  postResults,
   onResultClick,
   onShowAllResults,
 }) => {
@@ -79,11 +80,51 @@ const SearchResults = ({
         </>
       )}
 
-      {productResults.length === 0 && projectResults.length === 0 && (
-        <p className={styles.noResults}>Нет результатов поиска</p>
+      {/* Статьи */}
+      {postResults.length > 0 && (
+        <>
+          <h4 className={styles.categoryTitle}>Статьи</h4>
+          <ul className={styles.resultList}>
+            {postResults.slice(0, 4).map((item) => {
+              const imageUrl =
+                item.image?.[0]?.formats?.medium?.url ||
+                item.image?.[0]?.url ||
+                null;
+              const title = item.title || "Без названия";
+
+              return (
+                <li
+                  key={item.id}
+                  className={styles.resultItem}
+                  onClick={() => onResultClick(item, "post")}
+                >
+                  {imageUrl && (
+                    <img
+                      loading="lazy"
+                      src={`https://admin.ludno.ru${imageUrl}`}
+                      alt={title}
+                      className={styles.resultImage}
+                    />
+                  )}
+                  <span>{title}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </>
       )}
 
-      {(productResults.length > 0 || projectResults.length > 0) && (
+      {/* Если нет результатов */}
+      {productResults.length === 0 &&
+      projectResults.length === 0 &&
+      postResults.length === 0 ? (
+        <p className={styles.noResults}>Нет результатов поиска</p>
+      ) : null}
+
+      {/* Кнопка для отображения всех результатов */}
+      {(productResults.length > 0 ||
+        projectResults.length > 0 ||
+        postResults.length > 0) && (
         <button onClick={onShowAllResults} className={styles.showAllButton}>
           Показать все результаты
         </button>

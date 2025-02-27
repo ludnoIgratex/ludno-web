@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import debounce from "lodash/debounce";
 import { slugify } from "transliteration";
+import { marked } from "marked";  // Подключаем библиотеку для парсинга markdown
 import styles from "./styles/Search.module.css";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
@@ -11,6 +12,7 @@ const Search = ({ onClose }) => {
   const [query, setQuery] = useState("");
   const [productResults, setProductResults] = useState([]);
   const [projectResults, setProjectResults] = useState([]);
+  const [postResults, setPostResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
   const navigate = useNavigate();
@@ -30,11 +32,18 @@ const Search = ({ onClose }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
+  const extractH1FromText = (text) => {
+    const tokens = marked.lexer(text);
+    const h1Token = tokens.find((token) => token.type === "heading" && token.depth === 1);
+    return h1Token ? h1Token.text : "Без заголовка";
+  };
+
   const handleSearch = debounce(async (searchTerm) => {
     if (searchTerm.trim()) {
       const normalizedSearchTerm = searchTerm.trim().toLowerCase();
 
       try {
+        // Поиск продуктов
         const productQuery = qs.stringify(
           {
             filters: {
@@ -54,6 +63,7 @@ const Search = ({ onClose }) => {
           { encodeValuesOnly: true }
         );
 
+        // Поиск проектов
         const projectQuery = qs.stringify(
           {
             filters: {
@@ -72,6 +82,25 @@ const Search = ({ onClose }) => {
           { encodeValuesOnly: true }
         );
 
+        // Поиск статей
+        const postQuery = qs.stringify(
+          {
+            filters: {
+              $or: [
+                { text: { $containsi: normalizedSearchTerm } },  // Ищем по полю text
+              ],
+            },
+            populate: {
+              image: true,
+            },
+            pagination: {
+              pageSize: 10,
+            },
+          },
+          { encodeValuesOnly: true }
+        );
+
+        // Запросы к API
         const productResponse = await fetch(
           `https://admin.ludno.ru/api/products?${productQuery}`
         );
@@ -84,6 +113,16 @@ const Search = ({ onClose }) => {
         const projectData = await projectResponse.json();
         setProjectResults(projectData.data || []);
 
+        const postResponse = await fetch(
+          `https://admin.ludno.ru/api/posts?${postQuery}`
+        );
+        const postData = await postResponse.json();
+        const postsWithTitles = postData.data.map((post) => ({
+          ...post,
+          title: extractH1FromText(post.text),  // Извлекаем h1 как title
+        }));
+        setPostResults(postsWithTitles || []);
+
         setShowResults(true);
       } catch (error) {
         console.error("Ошибка поиска:", error);
@@ -91,6 +130,7 @@ const Search = ({ onClose }) => {
     } else {
       setProductResults([]);
       setProjectResults([]);
+      setPostResults([]);
       setShowResults(false);
     }
   }, 200);
@@ -113,18 +153,26 @@ const Search = ({ onClose }) => {
         separator: "-",
       });
       navigate(`/project-cards/${item.id}/${slug}`);
+    } else if (type === "post") {
+      const postSlug = slugify(item.title || "post", {
+        lowercase: true,
+        separator: "-",
+      });
+      navigate(`/blog/${item.id}/${postSlug}`);
     }
     onClose();
   };
 
   const handleShowAllResults = () => {
-    const totalResults = productResults.length + projectResults.length;
+    const totalResults =
+      productResults.length + projectResults.length + postResults.length;
     navigate("/search-results", {
       state: {
         query,
         totalResults,
         productResults,
         projectResults,
+        postResults,
       },
     });
     onClose();
@@ -140,6 +188,7 @@ const Search = ({ onClose }) => {
     setQuery("");
     setProductResults([]);
     setProjectResults([]);
+    setPostResults([]);
     setShowResults(false);
   };
 
@@ -164,6 +213,7 @@ const Search = ({ onClose }) => {
           <SearchResults
             productResults={productResults}
             projectResults={projectResults}
+            postResults={postResults}
             onResultClick={handleResultClick}
             onShowAllResults={handleShowAllResults}
           />

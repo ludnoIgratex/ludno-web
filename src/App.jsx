@@ -10,12 +10,13 @@ import Contacts from "./pages/Contacts/Contacts";
 import ProjectCard from "./pages/ProjectCard/ProjectCard";
 import SearchResultsPage from "./components/SearchResultPage/SearchResultsPage";
 import YandexMap from "./pages/Map/YandexMap";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Loader from "./components/Loader/Loader";
 import HomePage from "./pages/HomePage/HomePage";
 import Policy from "./pages/Policy/Policy";
 import Scroller from "./hooks/Scroller";
+import Blog from "./pages/Blog/Blog";
+import PostPage from "./pages/Blog/PostPage/PostPage";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -107,10 +108,11 @@ const App = () => {
               />
               <Route path="/search-results" element={<SearchResultsPage />} />
               <Route path="/map" element={<YandexMap />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id/:slug" element={<PostPage />} />
               <Route path="/policy" element={<Policy />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
-            {/* {isDesktop && <ScrollToTop />} */}
           </div>
           <Footer />
         </div>

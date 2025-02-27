@@ -1,0 +1,15 @@
+.blogWrapper{
+    padding: 56px 32px
+}
+
+.blogWrapper h1{
+    padding-bottom: 24px;
+    font-size: 42px;
+    line-height: 48px;
+}
+
+@media screen and (max-width:728px) {
+    .blogWrapper{
+        padding: 42px 16px
+    }
+}

@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: right;
   align-items: center;
@@ -13,53 +13,68 @@
 
 .burgerMenu {
   background-color: white;
-  max-width: 320px;
+  max-width: 290px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  text-align: center;
+  justify-content: space-between;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.burgerMenuTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 16px 36px 16px;
+}
+
+.burgerMenuTitle img {
+  width: 56px;
+  height: auto;
 }
 
 .burgerClose {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
   font-size: 28px;
+}
+
+.burgerClose:hover {
+  cursor: pointer;
 }
 
 .burgerNav {
   list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.burgerNav li {
-  margin-bottom: 20px;
+  padding: 16px;
+  flex-direction: column;
+  display: flex;
+  gap: 16px;
 }
 
 .burgerNav a {
   text-decoration: none;
-  color: var(--black-font-color);
-  font-size: 24px;
+  color: var(--primary-default-color);
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
   transition: color 0.3s ease;
 }
-
 .burgerNav a:hover {
-  color: var(--gray-font-color);
+  color: var(--secondary-default-color);
+}
+.burgerMenuLinks {
+  display: flex;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  gap: 16px;
 }
 
-.burgerSearch {
-  /* position: absolute; */
-  padding-top:30px;
-  text-align: center;
-}
-
-.searchIcon {
-  font-size: 28px;
-  cursor: pointer;
+.burgerMenuLinks svg {
+  width: 32px;
+  height: auto;
+  color: var(--primary-default-color);
 }
