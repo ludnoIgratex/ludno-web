@@ -210,3 +210,9 @@
     line-height: 22px;
   }
 }
+
+@media screen and (min-width: 1500px) {
+  .product__list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
