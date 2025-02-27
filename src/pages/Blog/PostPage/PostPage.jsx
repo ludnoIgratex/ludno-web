@@ -118,7 +118,7 @@ const PostPage = () => {
                 Telegram
               </a>
             </div>
-            <p>P.s. Это наши соцсети, там еще больше интересной инфы</p>
+            <p>Это наши соцсети, там еще больше интересной информации</p>
           </div>
         </div>
       )}
@@ -127,6 +127,16 @@ const PostPage = () => {
 
   return (
     <div className={styles.postWrapper}>
+      <section className={styles.tagsContainer}>
+        <div className={styles.tagsWrapper}>
+          {Array.isArray(post_tags) &&
+            post_tags.map((tag) => (
+              <span key={tag.id} className={styles.tag}>
+                {tag.name}
+              </span>
+            ))}
+        </div>
+      </section>
       <section className={styles.postTitleWrapper}>
         <div className={styles.dateWrapper}>
           <span className={styles.day}>{day}</span>
@@ -137,14 +147,6 @@ const PostPage = () => {
       </section>
 
       <section className={styles.contentWrapper}>
-        <div className={styles.tagsWrapper}>
-          {Array.isArray(post_tags) &&
-            post_tags.map((tag) => (
-              <span key={tag.id} className={styles.tag}>
-                {tag.name}
-              </span>
-            ))}
-        </div>
         <p className={styles.description}>{post.description}</p>
         <div className={styles.markdownContent}>{finalContent}</div>
       </section>

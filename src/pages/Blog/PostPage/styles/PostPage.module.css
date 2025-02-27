@@ -12,6 +12,14 @@
   padding: 0px 100px;
 }
 
+.postWrapper a {
+  color: var(--accent-color);
+}
+
+.postWrapper a:hover {
+  cursor: pointer;
+}
+
 .postWrapper h1 {
   font-size: 42px;
   line-height: 48px;
@@ -42,6 +50,10 @@
   max-height: 540px;
   object-fit: cover;
   padding: 32px 0px;
+}
+
+.tagsContainer {
+  padding-left: 100px;
 }
 
 .tagsWrapper {
@@ -108,15 +120,15 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 26px;
+  line-height: 32px;
   text-decoration: underline;
   color: var(--primary-default-color);
 }
 
 .quoteContainer p {
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 22px;
   color: var(--secondary-default-color);
 }
 
@@ -136,7 +148,7 @@
     flex-direction: row;
     text-align: center;
     border-right: none;
-    gap: 8px;
+    gap: 4px;
   }
 
   .postWrapper h1 {
@@ -197,10 +209,16 @@
   .quoteContainer p {
     font-size: 11px;
     line-height: 14px;
+    color: var(--secondary-default-color);
   }
 
   .quoteContainer {
     padding-top: 20px;
+  }
+
+  .quoteContainer svg {
+    width: 24px;
+    height: auto;
   }
 
   .quoteWrapper {
