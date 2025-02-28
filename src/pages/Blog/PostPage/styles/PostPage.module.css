@@ -101,6 +101,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .quoteWrapper {
@@ -149,6 +150,8 @@
     text-align: center;
     border-right: none;
     gap: 4px;
+    padding: 4px 0px 16px 0px;
+    order: 1;
   }
 
   .postWrapper h1 {
@@ -191,7 +194,7 @@
   }
 
   .tagsWrapper {
-    padding: 16px 0px;
+    padding: 22px 0px;
   }
 
   .tag {
@@ -214,6 +217,7 @@
 
   .quoteContainer {
     padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   .quoteContainer svg {
@@ -224,5 +228,9 @@
   .quoteWrapper {
     padding: 20px;
     border-left: 2px solid var(--primary-default-color);
+  }
+
+  .tagsContainer {
+    padding-left: 0px;
   }
 }

@@ -48,42 +48,46 @@ const RelatedPosts = () => {
     return h1Token ? h1Token.text : "Без заголовка";
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("ru-RU", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(date);
-  };
-
   return (
-    <div className={styles.relativePostsWrapper}>
+    <div className={styles.relatedPostsWrapper}>
       <h3>Другие статьи</h3>
-      <div className={styles.relativePostsContainer}>
+      <div className={styles.relatedPostsContainer}>
         {relatedPosts.map((post) => {
           const postTitle = extractFirstH1(post.text);
           const postSlug = slugify(postTitle, { lower: true, strict: true });
           const imageUrl =
             Array.isArray(post.image) && post.image.length > 0
-              ? post.image[0]?.formats?.medium?.url ||
-                post.image[0]?.url ||
-                null
+              ? post.image[0]?.formats?.large?.url || post.image[0]?.url || null
               : null;
 
           return (
             <div key={post.id} className={styles.postItem}>
               <Link to={`/blog/${post.id}/${postSlug}`}>
-                {imageUrl ? (
-                  <img
-                    src={`https://admin.ludno.ru${imageUrl}`}
-                    alt={postTitle}
-                  />
-                ) : (
-                  <p>Изображение не найдено</p>
-                )}
-                <p>{formatDate(post.date)}</p>
-                <h4>{postTitle}</h4>
+                <div className={styles.imageContainer}>
+                  {imageUrl ? (
+                    <img
+                      src={`https://admin.ludno.ru${imageUrl}`}
+                      alt={postTitle}
+                    />
+                  ) : (
+                    <p>Изображение не найдено</p>
+                  )}
+                  <div className={styles.tagsContainer}>
+                    {post.post_tags.map((tag) => (
+                      <span key={tag.id} className={styles.tag}>
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <section className={styles.content}>
+                  <div className={styles.mainContent}>
+                    <h4>{postTitle}</h4>
+                    <p>{post.description}</p>
+                  </div>
+                  <p>{post.date}</p>
+                </section>
               </Link>
             </div>
           );

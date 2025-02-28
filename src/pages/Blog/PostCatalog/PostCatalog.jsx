@@ -62,9 +62,7 @@ const PostCatalog = ({ selectedTags }) => {
 
               const imageUrl =
                 Array.isArray(post.image) && post.image.length > 0
-                  ? post.image[0]?.formats?.medium?.url ||
-                    post.image[0]?.url ||
-                    null
+                  ? post.image[0]?.url
                   : null;
 
               const postTitle = extractFirstH1(post.text);

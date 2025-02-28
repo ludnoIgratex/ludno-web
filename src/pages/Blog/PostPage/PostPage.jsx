@@ -8,6 +8,7 @@ import LoaderRound from "../../../components/Loader/LoaderRound";
 import RelatedPosts from "../RelatedPosts/RelatedPosts";
 import { FaPinterest } from "react-icons/fa";
 import { FaTelegram } from "react-icons/fa";
+import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const PostPage = () => {
         const query = qs.stringify(
           {
             filters: { id: { $eq: id } },
-            populate: ["post_tags"],
+            populate: ["post_tags", "image"],
           },
           { encode: false }
         );
@@ -127,6 +128,8 @@ const PostPage = () => {
 
   return (
     <div className={styles.postWrapper}>
+      <BreadCrumbs articleTitle={extractedH1Text} />
+
       <section className={styles.tagsContainer}>
         <div className={styles.tagsWrapper}>
           {Array.isArray(post_tags) &&

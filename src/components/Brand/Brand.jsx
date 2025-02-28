@@ -12,13 +12,27 @@ const Brand = () => {
     "https://admin.ludno.ru/api/brands?populate=image"
   );
 
-  if (loading) return <p className={styles.loader}>Загружаем бренды...</p>;
+  if (loading)
+    return (
+      <div className={styles.loader}>
+        <p>Загружаем бренды...</p>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   const brands = data || [];
 
   const handleBrandClick = (brand) => {
-    navigate(`/products/${brand.name}`);
+    if (selectedBrandName === brand.name) {
+      navigate("/products/all");
+    } else {
+      navigate(`/products/${brand.name}`);
+    }
   };
 
   return (

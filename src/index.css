@@ -12,10 +12,31 @@
   font-display: swap;
 }
 
+/* scroll */
+
+/* Общие стили для скроллбара */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 3px;
+}
+
+/* Фон скроллбара */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 * {
   padding: 0;
   margin: 0;
   font-family: TT-Norms-Pro, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
 }
 
 html {

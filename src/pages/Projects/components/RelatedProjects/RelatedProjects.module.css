@@ -20,7 +20,6 @@
 }
 
 .projectItem {
-  min-width: 420px;
   cursor: pointer;
   flex-shrink: 0;
 }

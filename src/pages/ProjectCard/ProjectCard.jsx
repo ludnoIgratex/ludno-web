@@ -46,14 +46,12 @@ const ProjectCard = () => {
           console.log("Данные projectCard:", data.data[0]);
           setProjectCard(data.data[0]);
 
-          // Генерация slug на основе имени проекта
           const projectName = data.data[0].project?.name || "без-названия";
           const slug = slugify(projectName, {
             lowercase: true,
             separator: "-",
           });
 
-          // Обновление URL с ЧПУ, если slug отсутствует
           const currentUrl = window.location.pathname;
           const expectedUrl = `/project-cards/${projectId}/${slug}`;
 
@@ -129,7 +127,7 @@ const ProjectCard = () => {
               <p>{projectCard.client}</p>
             </div>
             <div>
-              <span className={styles.label}>Производитель</span>
+              <span className={styles.label}>Автор концепции</span>
               <p>{projectCard.author}</p>
             </div>
             <div>

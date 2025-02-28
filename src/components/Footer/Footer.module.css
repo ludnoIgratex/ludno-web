@@ -26,11 +26,16 @@
   margin: 0;
 }
 
-.navList li a {
+.navList a {
   text-decoration: none;
   color: var(--primary-default-color);
   font-size: 18px;
   line-height: 24px;
+  transition: 0.2s ease-in-out;
+}
+
+.navList a:hover {
+  color: var(--secondary-hover-color);
 }
 
 .contactInfo {
@@ -83,6 +88,11 @@
 .policyContainer a {
   text-decoration: none;
   color: var(--primary-default-color);
+  transition: 0.2s ease-in-out;
+}
+
+.policyContainer a:hover {
+  color: var(--secondary-default-color);
 }
 
 @media screen and (max-width: 480px) {
