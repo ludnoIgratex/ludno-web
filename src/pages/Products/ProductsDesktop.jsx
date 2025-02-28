@@ -7,6 +7,8 @@ import LoaderRound from "../../components/Loader/LoaderRound";
 import { slugify } from "transliteration";
 import AgeFilter from "../../components/AgeFilter/AgeFilter";
 import Brand from "../../components/Brand/Brand";
+import Categories from "../../components/Categories/Categories";
+import useFetch from "../../hooks/useFetch";
 
 const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [ageFilter, setAgeFilter] = useState([]);
@@ -19,15 +21,44 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const navigate = useNavigate();
-  const { brand: selectedBrand, category: selectedCategoryName } = useParams();
+  const { brand: selectedBrandName, category: selectedCategoryName } =
+    useParams();
 
   const pageSize = 32;
+
+  const {
+    data: brands,
+    loading: brandsLoading,
+    error: brandsError,
+  } = useFetch("https://admin.ludno.ru/api/brands?populate=categories");
+
+  const {
+    data: allCategoriesData,
+    loading: allCatLoading,
+    error: allCatError,
+  } = useFetch("https://admin.ludno.ru/api/categories?populate=*");
+
+  const selectedBrand =
+    selectedBrandName && selectedBrandName !== "all"
+      ? brands?.find((brand) => brand.name === selectedBrandName) ?? null
+      : null;
+
+  useEffect(() => {
+    setProducts([]);
+    setCurrentPage(1);
+  }, [selectedBrandName, selectedCategoryName, ageFilter]);
+
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [currentPage, selectedBrandName, selectedCategoryName, ageFilter]);
 
   const buildFetchUrl = (page) => {
     let url = `https://admin.ludno.ru/api/products?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
 
-    if (selectedBrand) {
-      url += `&filters[brand][name][$eq]=${encodeURIComponent(selectedBrand)}`;
+    if (selectedBrandName && selectedBrandName !== "all") {
+      url += `&filters[brand][name][$eq]=${encodeURIComponent(
+        selectedBrandName
+      )}`;
     }
 
     if (selectedCategoryName) {
@@ -81,15 +112,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   };
 
   useEffect(() => {
-    setProducts([]);
-    setCurrentPage(1);
-  }, [selectedBrand, selectedCategoryName, ageFilter]);
-
-  useEffect(() => {
-    fetchProducts(currentPage);
-  }, [currentPage, selectedBrand, selectedCategoryName, ageFilter]);
-
-  useEffect(() => {
     if (products.length > 0) {
       const firstProductsImages = products.slice(0, 8);
       const preloadedImages = new Set();
@@ -105,10 +127,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
           document.head.appendChild(link);
 
           preloadedImages.add(imageUrl);
-
-          console.log(
-            `Preloading image for product ID: ${product.id}, Title: ${product.title}, Image URL: https://admin.ludno.ru${imageUrl}`
-          );
         }
       });
     }
@@ -152,67 +170,80 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   };
 
   return (
-    <div className={`${styles.productContainer} ${styles.fadeIn}`}>
+    <div className={styles.catalogContainer}>
       <div className={styles.brandWrapper}>
         <Brand setSelectedCategory={setSelectedCategory} />
       </div>
-      <div className={styles.contentWrapper}>
-        <AgeFilter
-          onFilterSelect={handleAgeFilter}
-          selectedAgeRanges={ageFilter}
+
+      <div className={styles.catalogWrapper}>
+        <Categories
+          brand={selectedBrand}
+          allCategories={allCategoriesData || []}
+          setSelectedCategory={setSelectedCategory}
+          selectedBrandName={selectedBrand?.name}
         />
+        <div className={`${styles.productContainer} ${styles.fadeIn}`}>
+          <div className={styles.contentWrapper}>
+            <AgeFilter
+              onFilterSelect={handleAgeFilter}
+              selectedAgeRanges={ageFilter}
+            />
 
-        <span className={styles.category__title}>{titleText}</span>
+            <span className={styles.category__title}>{titleText}</span>
 
-        <ul className={styles.product__list}>
-          {products.length > 0 ? (
-            products.map((product) => {
-              const cardId = product?.card?.id;
-              const imageUrl = product.image[0].formats.small.url || null;
-              const title = product?.title || "Без названия";
-              const name = product?.name || "Без имени";
+            <ul className={styles.product__list}>
+              {products.length > 0 ? (
+                products.map((product) => {
+                  const imageUrl =
+                    product.image?.[0]?.formats?.small?.url || null;
+                  const title = product?.title || "Без названия";
+                  const name = product?.name || "Без имени";
 
-              const fullImageUrl = imageUrl
-                ? `https://admin.ludno.ru${imageUrl}`
-                : null;
+                  const fullImageUrl = imageUrl
+                    ? `https://admin.ludno.ru${imageUrl}`
+                    : null;
+                  const placeholderImageUrl = "/assets/images/placeholder.avif";
 
-              const placeholderImageUrl = "/assets/images/placeholder.avif";
+                  return (
+                    <li
+                      onClick={() => handleClick(product)}
+                      key={product.id}
+                      className={styles.productItem}
+                    >
+                      {fullImageUrl && (
+                        <LazyLoadImage
+                          className={styles.product__image}
+                          src={fullImageUrl}
+                          placeholderSrc={placeholderImageUrl}
+                          effect="blur"
+                          alt={title}
+                          loading="lazy"
+                        />
+                      )}
+                      <div>
+                        <p className={styles.productTitle}>{title}</p>
+                        <h4 className={styles.productName}>{name}</h4>
+                      </div>
+                    </li>
+                  );
+                })
+              ) : (
+                <p>Продукты не найдены.</p>
+              )}
+            </ul>
 
-              return (
-                <li
-                  onClick={() => handleClick(product)}
-                  key={product.id}
-                  className={styles.productItem}
+            {hasMore && products.length > 0 && (
+              <div className={styles.showMoreContainer}>
+                <button
+                  onClick={handleShowMore}
+                  className={styles.showMoreButton}
                 >
-                  {fullImageUrl && (
-                    <LazyLoadImage
-                      className={styles.product__image}
-                      src={fullImageUrl}
-                      placeholderSrc={placeholderImageUrl}
-                      effect="blur"
-                      alt={title}
-                      loading="lazy"
-                    />
-                  )}
-                  <div>
-                    <p className={styles.productTitle}>{title}</p>
-                    <h4 className={styles.productName}>{name}</h4>
-                  </div>
-                </li>
-              );
-            })
-          ) : (
-            <p>Продукты не найдены.</p>
-          )}
-        </ul>
-
-        {hasMore && products.length > 0 && (
-          <div className={styles.showMoreContainer}>
-            <button onClick={handleShowMore} className={styles.showMoreButton}>
-              Показать больше
-            </button>
+                  Показать больше
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

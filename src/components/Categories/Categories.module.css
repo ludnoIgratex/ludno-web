@@ -1,5 +1,10 @@
 .categories {
-  max-width: 128px;
+  min-width: 200px;
+  padding-right: 32px;
+}
+
+.categories h4 {
+  padding-bottom: 16px;
 }
 
 .categories ul {

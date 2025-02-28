@@ -38,5 +38,8 @@
 
 .productImage {
   max-width: 260px;
+  height: auto;
+  object-fit: contain;
   max-height: 260px;
+  background-color: white;
 }

@@ -14,8 +14,13 @@
   animation-fill-mode: forwards;
 }
 
-.contentWrapper {
-  padding-left: 32px;
+.catalogContainer {
+  background-color: var(--bg-border-color);
+  padding: 36px 0 160px 32px;
+}
+
+.catalogWrapper {
+  display: flex;
 }
 
 .category__title {
@@ -25,7 +30,8 @@
 
 .productContainer {
   display: flex;
-  padding: 36px 0 160px 32px;
+  background-color: var(--bg-border-color);
+
 }
 
 .productWrapper {
@@ -193,6 +199,7 @@
   .productContainer {
     padding: 16px 16px 160px 16px;
     flex-direction: column;
+    
   }
 
   .productTitle {

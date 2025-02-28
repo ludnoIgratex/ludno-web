@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Products from "./pages/Products/Products";
@@ -74,6 +79,11 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
               <Route
                 path="/products"
+                element={<Navigate to="/products/all" replace />}
+              />
+
+              <Route
+                path="/products/all"
                 element={
                   <Products
                     selectedCategory={selectedCategory}

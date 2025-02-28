@@ -1,75 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Brand.module.css";
-import Categories from "../Categories/Categories";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const Brand = ({ setSelectedCategory }) => {
+const Brand = () => {
   const navigate = useNavigate();
   const { brand: selectedBrandName } = useParams();
-  const location = useLocation();
-  const [selectedBrand, setSelectedBrand] = useState(null);
 
-  const {
-    data: brands,
-    loading,
-    error,
-  } = useFetch("https://admin.ludno.ru/api/brands?populate=categories");
-
-  useEffect(() => {
-    if (brands && brands.length > 0 && selectedBrandName) {
-      const newSelectedBrand = brands.find(
-        (brand) => brand.name === selectedBrandName
-      );
-      setSelectedBrand(newSelectedBrand || null);
-    } else if (!location.pathname.startsWith("/products/")) {
-      setSelectedBrand(null);
-    }
-  }, [selectedBrandName, brands, location.pathname]);
+  const { data, loading, error } = useFetch(
+    "https://admin.ludno.ru/api/brands?populate=image"
+  );
 
   if (loading) return <p className={styles.loader}>Загружаем бренды...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const handleBrandClick = (brand) => {
-    setSelectedBrand(brand);
-    navigate(`/products/${brand.name}`);
-  };
+  const brands = data || [];
 
-  const handleResetBrands = () => {
-    setSelectedBrand(null);
-    navigate("/products");
+  const handleBrandClick = (brand) => {
+    navigate(`/products/${brand.name}`);
   };
 
   return (
     <div className={styles.brandContainer}>
-      <h4>Бренды</h4>
+      <h4>Решения</h4>
       <nav>
         <ul className={styles.brandList}>
-          {/* Кнопка "Все" как элемент списка */}
-          <li
-            onClick={handleResetBrands}
-            className={!selectedBrand ? styles.active : ""}
-          >
-            Все
-          </li>
-          {brands.map((brand) => (
-            <li
-              key={brand.id}
-              onClick={() => handleBrandClick(brand)}
-              className={selectedBrand?.id === brand.id ? styles.active : ""}
-            >
-              {brand.name}
-            </li>
-          ))}
+          {brands.map((brand) => {
+            const imageUrl =
+              brand.image?.formats?.small?.url || brand.image?.url || null;
+
+            const fullImageUrl = imageUrl
+              ? `https://admin.ludno.ru${imageUrl}`
+              : null;
+
+            const isActive = selectedBrandName === brand.name;
+
+            return (
+              <li
+                key={brand.id}
+                onClick={() => handleBrandClick(brand)}
+                className={`${styles.brandItem} ${
+                  isActive ? styles.active : ""
+                }`}
+                style={{
+                  backgroundImage: fullImageUrl
+                    ? `url(${fullImageUrl})`
+                    : "none",
+                  backgroundSize: "cover",
+                  backgroundPositionX: "40px",
+                  backgroundPositionY: "4px",
+                  backgroundRepeat: "no-repeat",
+                }}
+              >
+                {isActive && <FaCheckCircle className={styles.checkmark} />}
+                <p>{brand.name}</p>
+              </li>
+            );
+          })}
         </ul>
       </nav>
-      {selectedBrand && (
-        <Categories
-          brand={selectedBrand}
-          setSelectedCategory={setSelectedCategory}
-          selectedBrandName={selectedBrand.name}
-        />
-      )}
     </div>
   );
 };
