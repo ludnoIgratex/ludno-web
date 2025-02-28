@@ -39,4 +39,10 @@
   .ageFilterContainer h4 {
     display: none;
   }
+
+  .ageButton {
+    background-color: transparent;
+    border: 1px solid var(--primary-default-color);
+    color: var(--primary-default-color);
+  }
 }
