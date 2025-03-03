@@ -44,7 +44,6 @@ const PostPage = () => {
   const { text, post_tags } = post;
   const postText = text || "";
 
-  // Кастомный рендерер для блок-квот
   const renderer = new marked.Renderer();
   renderer.blockquote = function (token) {
     const check = (token.text || "").trim().toLowerCase();
@@ -53,10 +52,8 @@ const PostPage = () => {
     return `<blockquote>${inner}</blockquote>`;
   };
 
-  // Парсинг markdown в токены
   const tokens = marked.lexer(postText);
 
-  // Ищем h1, чтобы вынести его отдельно
   const h1Index = tokens.findIndex(
     (t) => t.type === "heading" && t.depth === 1
   );
@@ -66,14 +63,11 @@ const PostPage = () => {
     tokens.splice(h1Index, 1);
   }
 
-  // Парсим оставшиеся токены в HTML, получаем готовый HTML + {{quote}} где надо
   const restHtml = marked.parser(tokens, { renderer });
 
-  // Извлекаем заголовок из h1 (если был)
   const extractedH1Text = h1Token ? h1Token.text : "";
   const postSlug = slugify(extractedH1Text, { lower: true, strict: true });
 
-  // Форматирование даты
   const formatDate = (dateString) => {
     const months = [
       "января",
@@ -98,9 +92,6 @@ const PostPage = () => {
   };
 
   const { day, month, year } = formatDate(post.date);
-
-  // --- Разбиваем HTML на чередование "текст/блок" и "<img...>" ---
-  // Любые подряд идущие <img> будут сгруппированы в один скролл.
   const tokensForImages = restHtml.split(/(\<img.*?\>)/g);
 
   let finalBlocks = [];
@@ -109,8 +100,10 @@ const PostPage = () => {
   tokensForImages.forEach((token) => {
     const trimmed = token.trim();
     if (!trimmed) return;
-    if (trimmed.startsWith("<img")) {
-      tempImages.push(trimmed);
+
+    const imgMatch = trimmed.match(/<img.*?src="(.*?)".*?alt="(.*?)".*?>/);
+    if (imgMatch) {
+      tempImages.push({ src: imgMatch[1], alt: imgMatch[2] || "Изображение" });
     } else {
       if (tempImages.length > 0) {
         finalBlocks.push({ type: "images", content: [...tempImages] });
@@ -120,14 +113,11 @@ const PostPage = () => {
     }
   });
 
-  // Если в конце остались картинки подряд
   if (tempImages.length > 0) {
     finalBlocks.push({ type: "images", content: [...tempImages] });
     tempImages = [];
   }
 
-  // --- Теперь в finalBlocks у нас текстовые блоки и блоги-картинок.
-  // Разбиваем текстовые блоки по {{quote}} чтобы вставить блок с соцсетями ---
   let finalStructuredBlocks = [];
 
   finalBlocks.forEach((block) => {
@@ -146,7 +136,6 @@ const PostPage = () => {
     }
   });
 
-  // Финальный рендер
   const finalContent = finalStructuredBlocks.map((block, index) => {
     if (block.type === "text") {
       return (
@@ -154,29 +143,27 @@ const PostPage = () => {
       );
     }
     if (block.type === "images") {
-      // Если в блоке больше 1 картинки, делаем горизонтальный скролл
       if (block.content.length > 1) {
         return (
           <div key={index} className={styles.imageScrollContainer}>
-            {block.content.map((imgTag, idx) => (
-              <div
-                key={idx}
-                className={styles.scrollImage}
-                dangerouslySetInnerHTML={{ __html: imgTag }}
-              />
+            {block.content.map((img, idx) => (
+              <div key={idx} className={styles.scrollImage}>
+                <img src={img.src} alt={img.alt} />
+                <p className={styles.alt}>{img.alt}</p>
+              </div>
             ))}
           </div>
         );
       } else {
-        // Одиночная картинка
         return (
-          <div
-            key={index}
-            dangerouslySetInnerHTML={{ __html: block.content[0] }}
-          />
+          <div className={styles.singleImageContainer} key={index}>
+            <img src={block.content[0].src} alt={block.content[0].alt} />
+            <p className={styles.altSingle}>{block.content[0].alt}</p>
+          </div>
         );
       }
     }
+
     if (block.type === "quote") {
       return (
         <div className={styles.quoteContainer} key={index}>

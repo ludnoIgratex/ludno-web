@@ -44,12 +44,21 @@
   padding-top: 16px;
 }
 
+.singleImageContainer {
+  padding: 32px 0px;
+}
+
+.altSingle {
+  color: var(--secondary-default-color);
+  font-size: 18px !important;
+  line-height: 24px !important;
+}
+
 .postWrapper img {
   width: 100%;
   height: auto;
   max-height: 540px;
   object-fit: cover;
-  padding: 32px 0px;
 }
 
 .tagsContainer {
@@ -144,6 +153,28 @@
   height: 100%;
   max-height: 540px;
   object-fit: cover;
+  padding: 0;
+}
+
+.scrollImage {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.alt {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  color: white;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.scrollImage:hover .alt {
+  opacity: 1;
 }
 
 @media screen and (max-width: 728px) {
