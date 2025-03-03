@@ -189,6 +189,12 @@
   .contentWrapper {
     padding: 0;
   }
+
+  .altSingle {
+    color: var(--secondary-default-color);
+    font-size: 11px !important;
+    line-height: 14px !important;
+  }
   .dateWrapper {
     flex-direction: row;
     text-align: center;
@@ -234,6 +240,9 @@
 
   .postWrapper img {
     max-height: 230px;
+  }
+
+  .singleImageContainer {
     padding: 20px 0px;
   }
 
