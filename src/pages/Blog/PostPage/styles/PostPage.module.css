@@ -133,6 +133,19 @@
   color: var(--secondary-default-color);
 }
 
+.imageScrollContainer {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.imageScrollContainer img {
+  width: auto;
+  height: 100%;
+  max-height: 540px;
+  object-fit: cover;
+}
+
 @media screen and (max-width: 728px) {
   .postTitleWrapper {
     flex-direction: column;
