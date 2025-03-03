@@ -53,8 +53,8 @@ const RelatedProjects = ({ currentProjectId }) => {
       <div className={styles.projectList}>
         {projects.map((project) => {
           const imageUrl =
+            project.image?.[0]?.formats?.large?.url ||
             project.image?.[0]?.formats?.medium?.url ||
-            project.image?.[0]?.formats?.small?.url ||
             project.image?.[0]?.url;
 
           return (
