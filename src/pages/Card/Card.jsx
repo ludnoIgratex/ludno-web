@@ -46,12 +46,12 @@ const Card = () => {
             ? `https://admin.ludno.ru${
                 group.group_color.image.formats?.thumbnail?.url ||
                 group.group_color.image.formats?.medium?.url ||
-                group.group_color.image.url // fallback на основной url
+                group.group_color.image.url
               }`
             : null,
           images: group.image.map((img) => ({
             url: `https://admin.ludno.ru${
-              img.formats?.large?.url || img.formats?.thumbnail?.url || img.url // fallback
+              img.formats?.large?.url || img.formats?.thumbnail?.url || img.url
             }`,
             alternativeText: img.alternativeText || "Group Image",
           })),
@@ -62,7 +62,7 @@ const Card = () => {
     Array.isArray(card?.productImage) && card.productImage.length > 0
       ? card.productImage.map((img) => ({
           url: `https://admin.ludno.ru${
-            img.formats?.large?.url || img.formats?.thumbnail?.url || img.url // fallback
+            img.formats?.large?.url || img.formats?.thumbnail?.url || img.url
           }`,
           alternativeText: img.alternativeText || "Product Image",
         }))
