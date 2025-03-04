@@ -124,11 +124,15 @@
 
 /* группа цветов */
 
+.colorSwitcherWrapper{
+  position: relative;
+}
+
 .colorSwitcher {
   flex-direction: row !important;
   gap: 12px !important;
   position: absolute;
-  bottom: 60px;
+  bottom: -40px;
 }
 
 .colorCircle {
@@ -652,5 +656,6 @@
 
 /* Планшет */
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1441px) {
+  
 }
