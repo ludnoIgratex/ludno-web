@@ -16,8 +16,8 @@ import qs from "qs";
 import CardTitle from "./CardTitle";
 import PriceLink from "./PriceLink";
 import LoaderRound from "../../components/Loader/LoaderRound";
-import CodeArticle from "./CodeArticle";
 import { useMediaQuery } from "react-responsive";
+import CodeSize from "./CodeSize";
 
 const Card = () => {
   const { id, slug } = useParams();
@@ -122,8 +122,13 @@ const Card = () => {
                 groups: {
                   populate: {
                     products: {
-                      fields: ["name"],
-                      populate: { card: true },
+                      populate: {
+                        card: {
+                          populate: {
+                            product: { fields: ["title"] },
+                          },
+                        },
+                      },
                     },
                   },
                 },
@@ -163,7 +168,7 @@ const Card = () => {
       }
 
       const cardData = await response.json();
-      // console.log("Ответ от API:", cardData);
+      console.log("Ответ от API:", cardData);
 
       if (cardData.data && cardData.data.length > 0) {
         const cardItem = cardData.data[0];
@@ -180,8 +185,10 @@ const Card = () => {
         const groupProductsWithCardId = allGroupProducts.map((p) => ({
           ...p,
           cardId: p.card?.id,
+          productName: p.card?.product?.title || "без-названия",
           isCurrent: p.id == cardItem.product.id,
         }));
+
         setGroupProducts(groupProductsWithCardId);
       } else {
         setError("Карточка не найдена");
@@ -224,14 +231,14 @@ const Card = () => {
               setShowArrows={setShowArrows}
             />
             <section className={styles.articleWrapper}>
-              {groupProducts && groupProducts.length > 0 ? (
+              {groupProducts.length > 0 ? (
                 <GroupSection
                   groupProducts={groupProducts}
                   groupName={groupName}
                   navigate={navigate}
                 />
               ) : (
-                <CodeArticle article={card?.product?.name} />
+                <CodeSize size={card?.size} />
               )}
             </section>
             <section className={styles.cardDetails}>
@@ -304,14 +311,14 @@ const Card = () => {
               </section>
               <section>
                 <CardDetails card={card} />
-                {groupProducts && groupProducts.length > 0 ? (
+                {groupProducts.length > 0 ? (
                   <GroupSection
                     groupProducts={groupProducts}
                     groupName={groupName}
                     navigate={navigate}
                   />
                 ) : (
-                  <CodeArticle article={card?.product?.name} />
+                  <CodeSize size={card?.size} />
                 )}
               </section>
             </section>

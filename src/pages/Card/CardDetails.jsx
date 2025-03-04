@@ -5,10 +5,10 @@ const CardDetails = ({ card }) => {
   return (
     <section className={styles.measurements}>
       <div>
-        <h4>Масса</h4> <p>{card.weight || "—"}</p>
+        <h4>Возраст</h4> <p>{card.age || "—"}</p>
       </div>
       <div>
-        <h4>Габариты</h4> <p>{card.size || "—"}</p>
+        <h4>Масса</h4> <p>{card.weight || "—"}</p>
       </div>
       <div>
         <h4>Заглубление фундамента</h4> <p>{card.depth || "Не требуется"}</p>

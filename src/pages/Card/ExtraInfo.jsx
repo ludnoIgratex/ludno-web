@@ -5,7 +5,7 @@ const ExtraInfo = ({ card }) => {
   return (
     <section className={styles.info}>
       <div>
-        <h4>Возраст</h4> <p>{card.age || "0+"}</p>
+        <h4>Артикул</h4> <p>{card?.product?.name || "-"}</p>
       </div>
       <div>
         <h4>Бренд</h4>

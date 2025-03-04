@@ -22,21 +22,21 @@ const ColorSwitcher = ({
   return (
     <section className={styles.colorSwitcherWrapper}>
       <div>
-        <h4>Цвет</h4>
+        <h4>Цвета</h4>
         <div className={styles.colorSwitcher}>
           {groupedImages.map((group, index) => (
             <button
               key={index}
               onClick={() => handleColorClick(index)}
-              className={styles.colorCircle}
+              className={`${styles.colorCircle} ${
+                selectedColorIndex === index ? styles.selectedColor : ""
+              }`}
               style={{
                 backgroundImage: group.colorImage
                   ? `url(${group.colorImage})`
                   : "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                border:
-                  selectedColorIndex === index ? "1px solid black" : "none",
               }}
             ></button>
           ))}

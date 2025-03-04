@@ -6,18 +6,17 @@ const GroupSection = ({ groupProducts, groupName, navigate }) => {
   if (!groupProducts || groupProducts.length === 0) {
     return null;
   }
-  console.log(groupProducts);
 
   return (
     <div className={styles.groupContainer}>
-      <h4>Из той же линейки</h4>
+      <h4>Габариты</h4>
       <ul className={styles.groupList}>
-        {groupProducts.map(({ id, name, cardId, isCurrent }) => (
+        {groupProducts.map(({ id, card, cardId, isCurrent, productName }) => (
           <li
             key={id}
             onClick={() => {
               if (cardId) {
-                const titleSlug = slugify(name || "bez-nazvaniya", {
+                const titleSlug = slugify(productName || "bez-nazvaniya", {
                   lowercase: true,
                   separator: "-",
                 });
@@ -26,7 +25,7 @@ const GroupSection = ({ groupProducts, groupName, navigate }) => {
             }}
             className={isCurrent ? styles.currentGroupItem : styles.groupItem}
           >
-            {name || "Нет имени"}
+            {card?.size || "Нет габаритов"}
           </li>
         ))}
       </ul>
