@@ -67,64 +67,78 @@
 
 .groupContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 4px;
+  font-size: 16px;
+  line-height: 22px;
 }
 
-.groupList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 0;
-  justify-content: flex-start;
-  max-width: 100%;
+.dropdownContainer {
+  width: 200px;
 }
 
-.groupItem {
-  list-style: none;
+.dropdownHeader {
+  /* Контейнер для пилюли и иконки */
   display: flex;
-  justify-content: center;
   align-items: center;
-  border: solid 2px var(--secondary-text-color);
-  color: var(--secondary-text-color);
+  justify-content: space-between; /* чтобы иконка была справа */
+  cursor: pointer;
+}
+
+/* Пилюля с габаритами */
+.currentDimension {
+  border: 2px solid var(--primary-text-color);
+  color: var(--primary-text-color);
   border-radius: 32px;
   padding: 6px 16px;
   box-sizing: border-box;
-  font-size: 16px;
-  line-height: 22px;
   white-space: nowrap;
-  min-width: fit-content;
+  position: relative;
 }
 
-.groupItem:hover {
-  cursor: pointer;
-  border: solid 2px var(--primary-text-color);
-  color: var(--primary-text-color);
-}
-
-.currentGroupItem {
-  list-style: none;
+/* Контейнер для иконки */
+.arrowContainer {
+  margin-left: 8px; /* Отступ слева, если нужно */
   display: flex;
-  justify-content: center;
   align-items: center;
-  border: solid 2px var(--primary-text-color);
-  color: var(--primary-text-color);
-  border-radius: 32px;
-  font-size: 16px;
-  line-height: 22px;
-  padding: 4px 18px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  min-width: fit-content;
 }
 
-.currentGroupItem:hover {
-  cursor: none;
+/* Выпадающий список */
+.dropdownList {
+  position: absolute;
+  margin-top: 4px;
+  padding: 13px 0px;
+  list-style: none;
+  border-radius: 30px;
+  background-color: var(--bg-default-color);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  width: fit-content;
 }
+
+/* Элементы списка */
+.dropdownList li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdownList li:last-child {
+  border-bottom: none;
+}
+
+.dropdownList li:hover {
+  text-decoration: underline;
+}
+
+/* Стили для текущего элемента (пример) */
+/* .currentGroupItem {
+  text-decoration: underline;
+} */
 
 /* группа цветов */
 
-.colorSwitcherWrapper{
+.colorSwitcherWrapper {
   position: relative;
 }
 
@@ -657,5 +671,4 @@
 /* Планшет */
 
 @media screen and (min-width: 1441px) {
-  
 }
