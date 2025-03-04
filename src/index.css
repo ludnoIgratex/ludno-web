@@ -14,31 +14,20 @@
 
 /* scroll */
 
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: black;
-  border-radius: 1px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 * {
   padding: 0;
   margin: 0;
   font-family: TT-Norms-Pro, sans-serif;
-  scrollbar-width: 1px;
-  scrollbar-track-color: transparent;
-  scrollbar-color: black transparent;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: none;
+
   text-size-adjust: 100%;
 }
 
