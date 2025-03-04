@@ -592,13 +592,6 @@
     display: flex;
     overflow-x: auto;
   }
-
-  .currentGroupItem,
-  .groupItem {
-    font-size: 13px;
-    line-height: 28px;
-    padding: 6px 16px;
-  }
   .rightArrow {
     right: 0;
   }
