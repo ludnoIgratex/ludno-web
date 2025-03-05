@@ -194,8 +194,8 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   };
 
   let titleText = "Все продукты";
-  if (selectedBrand && !selectedCategoryName) {
-    titleText = null;
+  if (selectedCategoryName && (!selectedBrand || selectedBrand === null)) {
+    titleText = `${selectedCategoryName}`;
   } else if (selectedBrand && selectedCategoryName) {
     titleText = `${selectedCategoryName}`;
   }
