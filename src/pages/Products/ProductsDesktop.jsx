@@ -9,6 +9,7 @@ import AgeFilter from "../../components/AgeFilter/AgeFilter";
 import Brand from "../../components/Brand/Brand";
 import Categories from "../../components/Categories/Categories";
 import useFetch from "../../hooks/useFetch";
+import qs from "qs";
 
 const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [ageFilter, setAgeFilter] = useState([]);
@@ -43,15 +44,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       ? brands?.find((brand) => brand.name === selectedBrandName) ?? null
       : null;
 
-  useEffect(() => {
-    setProducts([]);
-    setCurrentPage(1);
-  }, [selectedBrandName, selectedCategoryName, ageFilter]);
-
-  useEffect(() => {
-    fetchProducts(currentPage);
-  }, [currentPage, selectedBrandName, selectedCategoryName, ageFilter]);
-
   const buildFetchUrl = (page) => {
     let url = `https://admin.ludno.ru/api/products?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
 
@@ -78,19 +70,79 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     return url;
   };
 
+  const buildFetchUrlWithQs = (page) => {
+    const filters = {};
+
+    if (selectedBrandName && selectedBrandName !== "all") {
+      filters.brand = {
+        name: { $eq: selectedBrandName },
+      };
+    }
+
+    if (selectedCategoryName) {
+      filters.category = {
+        title: { $eq: selectedCategoryName },
+      };
+    }
+
+    if (ageFilter.length > 0) {
+      filters.$or = ageFilter.map((ageValue) => ({
+        ageRange: { $contains: ageValue },
+      }));
+    }
+
+    const populate = {
+      image: true,
+      card: {
+        populate: {
+          groupImage: {
+            populate: {
+              image: true,
+              group_color: {
+                populate: "image",
+              },
+            },
+          },
+        },
+      },
+    };
+
+    const queryObj = {
+      filters,
+      populate,
+      pagination: {
+        page,
+        pageSize,
+      },
+    };
+
+    const queryString = qs.stringify(queryObj, { encodeValuesOnly: true });
+    return `https://admin.ludno.ru/api/products?${queryString}`;
+  };
+
+  useEffect(() => {
+    setProducts([]);
+    setCurrentPage(1);
+  }, [selectedBrandName, selectedCategoryName, ageFilter]);
+
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [currentPage, selectedBrandName, selectedCategoryName, ageFilter]);
+
   const fetchProducts = async (page) => {
     try {
       setLoading(true);
 
-      const url = buildFetchUrl(page);
-      const response = await fetch(url);
+      const url = buildFetchUrlWithQs(page);
 
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Ошибка сервера: ${response.status}`);
       }
 
       const data = await response.json();
       const newProducts = data.data;
+      console.log("newProducts:", newProducts);
 
       setProducts((prev) => {
         const productIds = new Set(prev.map((p) => p.id));
@@ -111,6 +163,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     }
   };
 
+  // Прелоадим первые 8 картинок
   useEffect(() => {
     if (products.length > 0) {
       const firstProductsImages = products.slice(0, 8);
@@ -118,14 +171,12 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
       firstProductsImages.forEach((product) => {
         const imageUrl = product.image?.[0]?.formats?.small?.url;
-
         if (imageUrl && !preloadedImages.has(imageUrl)) {
           const link = document.createElement("link");
           link.rel = "preload";
           link.href = `https://admin.ludno.ru${imageUrl}`;
           link.as = "image";
           document.head.appendChild(link);
-
           preloadedImages.add(imageUrl);
         }
       });
@@ -182,6 +233,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
           setSelectedCategory={setSelectedCategory}
           selectedBrandName={selectedBrand?.name}
         />
+
         <div className={`${styles.productContainer} ${styles.fadeIn}`}>
           <div className={styles.contentWrapper}>
             <AgeFilter
@@ -220,6 +272,36 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                           loading="lazy"
                         />
                       )}
+
+                      {product.card?.groupImage?.length > 0 && (
+                        <div className={styles.colorSwatches}>
+                          {product.card.groupImage.map((group, index) => {
+                            const colorImg = group.group_color?.image;
+                            const colorImageUrl = colorImg
+                              ? `https://admin.ludno.ru${
+                                  colorImg.formats?.thumbnail?.url ||
+                                  colorImg.formats?.small?.url ||
+                                  colorImg.url
+                                }`
+                              : null;
+
+                            return (
+                              <div
+                                key={index}
+                                className={styles.colorCircle}
+                                style={{
+                                  backgroundImage: colorImageUrl
+                                    ? `url(${colorImageUrl})`
+                                    : "none",
+                                  backgroundSize: "cover",
+                                  backgroundPosition: "center",
+                                }}
+                              />
+                            );
+                          })}
+                        </div>
+                      )}
+
                       <div>
                         <p className={styles.productTitle}>{title}</p>
                         <h4 className={styles.productName}>{name}</h4>
