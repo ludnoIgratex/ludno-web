@@ -29,7 +29,7 @@
 
 @media screen and (max-width: 728px) {
   .headerContainer {
-    padding: 76px 16px 28px 16px;
+    padding: 28px 16px 28px 16px;
     background-color: #fff;
   }
 
@@ -48,7 +48,7 @@
 
   .headerContainer.searchActive {
     justify-content: center;
-    padding: 75px 16px 27px 16px
+    padding: 27px 16px 27px 16px
   }
 
   .searchIconWrapper {
