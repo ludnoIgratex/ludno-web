@@ -16,7 +16,9 @@ const Consultation = () => {
           Запишитесь на консультацию или обратитесь к нашим менеджерам по
           телефону
         </p>
-        <span>8 800 350 24 20</span>
+        <span>
+          <a href="tel:+78003502420">8 800 350 24 20</a>
+        </span>
       </div>
       <div className={styles.linkWrapper}>
         <div className={styles.linkContainer} onClick={handleClick}>

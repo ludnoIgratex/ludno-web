@@ -22,6 +22,11 @@
   justify-content: end;
 }
 
+.textContainer a {
+  text-decoration: none;
+  color: var(--primary-default-color);
+}
+
 .linkContainer {
   display: flex;
   color: var(--accent-color);
