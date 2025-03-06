@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import FilterButton from "../../components/FilterButton/FilterButton";
 import FilterPage from "../../components/FilterPage/FilterPage";
@@ -20,24 +20,19 @@ const ProductsMobile = () => {
   });
 
   const [loading, setLoading] = useState(true);
-
-  const [fullImageUrl, setFullImageUrl] = useState(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
-
   const [allProductsForFilter, setAllProductsForFilter] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [loadingFilterData, setLoadingFilterData] = useState(false);
 
   const pageSize = 32;
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchProductsPage = async (page, filters) => {
     let orConditions = [];
@@ -88,7 +83,6 @@ const ProductsMobile = () => {
       setFilteredProducts((prev) => {
         const prevIds = new Set(prev.map((p) => p.id));
         const unique = data.data.filter((p) => !prevIds.has(p.id));
-
         return [...prev, ...unique];
       });
 
@@ -102,9 +96,30 @@ const ProductsMobile = () => {
   };
 
   useEffect(() => {
+    const params = qs.parse(location.search, { ignoreQueryPrefix: true });
+    const initialFilters = { brands: [], categories: [], ages: [] };
+
+    if (params.brands) {
+      initialFilters.brands = Array.isArray(params.brands)
+        ? params.brands.map((id) => Number(id))
+        : [Number(params.brands)];
+    }
+    if (params.categories) {
+      initialFilters.categories = Array.isArray(params.categories)
+        ? params.categories.map((id) => Number(id))
+        : [Number(params.categories)];
+    }
+    if (params.ages) {
+      initialFilters.ages = Array.isArray(params.ages)
+        ? params.ages
+        : [params.ages];
+    }
+
+    setAppliedFilters(initialFilters);
     setCurrentPage(1);
-    fetchProductsPage(1, appliedFilters);
-  }, []);
+    setFilteredProducts([]);
+    fetchProductsPage(1, initialFilters);
+  }, [location.search]);
 
   const fetchMoreProducts = () => {
     if (hasMore && !loadingProducts) {
@@ -298,7 +313,6 @@ const ProductsMobile = () => {
               </button>
             );
           })}
-
           {appliedFilters.ages.map((age) => {
             const labelWithoutAge = age.replace(/^Age/, "");
             return (
@@ -331,18 +345,14 @@ const ProductsMobile = () => {
       <ul className={styles.product__list}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => {
-            const cardId = product.card?.id;
             const imageUrl = product.image?.[0]?.url || null;
-
             const placeholderImageUrl = "/assets/images/placeholder.avif";
             const fullImageUrl = product.image?.[0]?.url
               ? `https://admin.ludno.ru${product.image[0].url}`
               : null;
-
             const compressedUrl = product.image?.[0]?.formats?.small?.url
               ? `https://admin.ludno.ru${product.image[0].formats.small.url}`
               : fullImageUrl;
-
             const title = product.title || "Без названия";
             const name = product.name || null;
 

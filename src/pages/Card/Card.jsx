@@ -168,7 +168,6 @@ const Card = () => {
       }
 
       const cardData = await response.json();
-      console.log("Ответ от API:", cardData);
 
       if (cardData.data && cardData.data.length > 0) {
         const cardItem = cardData.data[0];

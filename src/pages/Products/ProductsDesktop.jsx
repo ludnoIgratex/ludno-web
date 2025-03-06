@@ -310,7 +310,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                   );
                 })
               ) : (
-                <p>Продукты не найдены.</p>
+                <p>Тут пока нет продуктов, но в скором времени они появятся!</p>
               )}
             </ul>
 

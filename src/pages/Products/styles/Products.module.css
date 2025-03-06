@@ -54,6 +54,18 @@
   max-width: 260px;
   list-style: none;
   padding-top: 20px;
+  position: relative;
+}
+
+.product__image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--bg-border-color);
+  min-height: 240px;
+  max-height: 250px;
+  width: 100%;
+  background-color: white;
 }
 
 .colorSwatches {
@@ -89,19 +101,6 @@
   flex-direction: column;
   gap: 2px;
 } */
-
-.product__image {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border: 1px solid var(--bg-border-color);
-  min-height: 240px;
-  max-height: 250px;
-  width: 100%;
-  position: relative;
-
-  background-color: white;
-}
 
 .productTitle {
   color: var(--primary-text-color);
