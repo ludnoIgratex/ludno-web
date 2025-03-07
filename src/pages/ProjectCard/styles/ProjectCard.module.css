@@ -24,6 +24,7 @@
   max-width: 600px;
   font-size: 18px;
   line-height: 24px;
+  white-space: pre-line;
 }
 
 .card h3 {
