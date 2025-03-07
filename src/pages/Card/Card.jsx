@@ -272,6 +272,7 @@ const Card = () => {
       <RelatedProducts
         currentProductId={card.product?.id || null}
         categoryId={card.product?.category?.id || null}
+        brandId={card.product?.brand?.id || null}
       />
     </div>
   ) : (
@@ -339,6 +340,7 @@ const Card = () => {
       <RelatedProducts
         currentProductId={card.product?.id || null}
         categoryId={card.product?.category?.id || null}
+        brandId={card.product?.brand?.id || null}
       />
     </div>
   );

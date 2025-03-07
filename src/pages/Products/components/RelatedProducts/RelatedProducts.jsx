@@ -3,7 +3,7 @@ import { slugify } from "transliteration";
 import { useNavigate } from "react-router-dom";
 import styles from "./RelatedProducts.module.css";
 
-const RelatedProducts = ({ categoryId, currentProductId }) => {
+const RelatedProducts = ({ categoryId, currentProductId, brandId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ const RelatedProducts = ({ categoryId, currentProductId }) => {
 
       try {
         const response = await fetch(
-          `https://admin.ludno.ru/api/products?filters[category][id][$eq]=${categoryId}&populate=image&populate=card&pagination[pageSize]=4`
+          `https://admin.ludno.ru/api/products?filters[category][id][$eq]=${categoryId}&filters[brand][id][$eq]=${brandId}&populate=image&populate=card&pagination[pageSize]=4`
         );
 
         if (!response.ok) {

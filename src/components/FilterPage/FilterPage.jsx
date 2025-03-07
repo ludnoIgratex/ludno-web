@@ -14,6 +14,7 @@ const FilterPage = ({
   onClose,
   onApply,
   loadingFilterData,
+  brandCategoryMap, // получаем мэппинг
 }) => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -68,6 +69,16 @@ const FilterPage = ({
     selectedCategories.length +
     selectedAgeRanges.length;
 
+  // Вычисляем объединённый список категорий, доступных для выбранных брендов
+  let availableCategoryIds = [];
+  if (selectedBrands.length > 0 && brandCategoryMap) {
+    selectedBrands.forEach((brandId) => {
+      const catsForBrand = brandCategoryMap[brandId] || [];
+      availableCategoryIds = [...availableCategoryIds, ...catsForBrand];
+    });
+    availableCategoryIds = Array.from(new Set(availableCategoryIds));
+  }
+
   if (!isOpen) return null;
 
   return (
@@ -119,7 +130,11 @@ const FilterPage = ({
             {categories.map((cat) => {
               const count = productCounts.categories?.[cat.id] || 0;
               const isSelected = selectedCategories.includes(cat.id);
-              const isDisabled = count === 0;
+              // Если выбраны бренды, проверяем, присутствует ли категория среди доступных для этих брендов
+              const isDisabled =
+                count === 0 ||
+                (selectedBrands.length > 0 &&
+                  !availableCategoryIds.includes(cat.id));
 
               const displayedCount = loadingFilterData ? (
                 <span className={styles.spinner}></span>

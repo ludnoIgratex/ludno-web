@@ -34,29 +34,46 @@ const ProductsMobile = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fetchProductsPage = async (page, filters) => {
-    let orConditions = [];
+  const fetchProductsPage = async (page, filters, brandCategoryMap) => {
+    let filterQuery = {};
 
     if (filters?.brands?.length > 0) {
-      orConditions.push({ brand: { id: { $in: filters.brands } } });
-    }
+      const orConditions = filters.brands.map((brandId) => {
+        const categoriesForBrand = brandCategoryMap[brandId]
+          ? filters.categories.filter((catId) =>
+              brandCategoryMap[brandId].includes(catId)
+            )
+          : filters.categories;
+        const branchConditions = [{ brand: { id: { $eq: brandId } } }];
 
-    if (filters?.categories?.length > 0) {
-      orConditions.push({ category: { id: { $in: filters.categories } } });
-    }
-
-    if (filters?.ages?.length > 0) {
-      const ageSubConditions = filters.ages.map((ageValue) => ({
-        ageRange: { $contains: ageValue },
-      }));
-      orConditions.push(...ageSubConditions);
-    }
-
-    let filterQuery = {};
-    if (orConditions.length > 0) {
-      filterQuery = {
-        $or: orConditions,
-      };
+        if (categoriesForBrand.length > 0) {
+          branchConditions.push({
+            category: { id: { $in: categoriesForBrand } },
+          });
+        }
+        if (filters.ages?.length > 0) {
+          filters.ages.forEach((ageValue) =>
+            branchConditions.push({ ageRange: { $contains: ageValue } })
+          );
+        }
+        return { $and: branchConditions };
+      });
+      filterQuery = { $or: orConditions };
+    } else {
+      const andConditions = [];
+      if (filters?.categories?.length > 0) {
+        andConditions.push({
+          category: { id: { $in: filters.categories } },
+        });
+      }
+      if (filters?.ages?.length > 0) {
+        filters.ages.forEach((ageValue) =>
+          andConditions.push({ ageRange: { $contains: ageValue } })
+        );
+      }
+      if (andConditions.length > 0) {
+        filterQuery = { $and: andConditions };
+      }
     }
 
     const query = qs.stringify(
@@ -118,14 +135,14 @@ const ProductsMobile = () => {
     setAppliedFilters(initialFilters);
     setCurrentPage(1);
     setFilteredProducts([]);
-    fetchProductsPage(1, initialFilters);
+    fetchProductsPage(1, initialFilters, brandCategoryMap);
   }, [location.search]);
 
   const fetchMoreProducts = () => {
     if (hasMore && !loadingProducts) {
       const nextPage = currentPage + 1;
       setCurrentPage(nextPage);
-      fetchProductsPage(nextPage, appliedFilters);
+      fetchProductsPage(nextPage, appliedFilters, brandCategoryMap);
     }
   };
 
@@ -220,7 +237,7 @@ const ProductsMobile = () => {
     setAppliedFilters(filters);
     setFilteredProducts([]);
     setCurrentPage(1);
-    fetchProductsPage(1, filters);
+    fetchProductsPage(1, filters, brandCategoryMap);
     setIsFilterOpen(false);
   };
 
@@ -242,7 +259,7 @@ const ProductsMobile = () => {
       !loadingProducts &&
       filteredProducts.length === 0
     ) {
-      fetchProductsPage(1, appliedFilters);
+      fetchProductsPage(1, appliedFilters, brandCategoryMap);
     }
   }, [appliedFilters, loadingProducts]);
 
@@ -273,6 +290,24 @@ const ProductsMobile = () => {
       });
     }
   }, [filteredProducts]);
+
+  const brandCategoryMap = useMemo(() => {
+    const mapping = {};
+    allProductsForFilter.forEach((product) => {
+      const brandId = product.brand?.id;
+      const categoryId = product.category?.id;
+      if (brandId && categoryId) {
+        if (!mapping[brandId]) {
+          mapping[brandId] = new Set();
+        }
+        mapping[brandId].add(categoryId);
+      }
+    });
+    Object.keys(mapping).forEach((key) => {
+      mapping[key] = Array.from(mapping[key]);
+    });
+    return mapping;
+  }, [allProductsForFilter]);
 
   if (loading && filteredProducts.length === 0) {
     return <LoaderRound show={true} />;
@@ -340,6 +375,7 @@ const ProductsMobile = () => {
         appliedBrands={appliedFilters.brands}
         appliedCategories={appliedFilters.categories}
         appliedAges={appliedFilters.ages}
+        brandCategoryMap={brandCategoryMap}
       />
 
       <ul className={styles.product__list}>

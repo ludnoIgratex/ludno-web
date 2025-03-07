@@ -142,7 +142,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
       const data = await response.json();
       const newProducts = data.data;
-      console.log("newProducts:", newProducts);
 
       setProducts((prev) => {
         const productIds = new Set(prev.map((p) => p.id));

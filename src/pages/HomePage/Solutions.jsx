@@ -80,7 +80,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.individualProjects} to="products">
+        <Link className={styles.individualProjects} to="projects">
           <section className={styles.individualProjects}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
