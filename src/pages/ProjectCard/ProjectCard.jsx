@@ -6,6 +6,7 @@ import styles from "./styles/ProjectCard.module.css";
 import Breadcrumbs from "../Projects/components/BreadCrumbs/BreadCrumbs";
 import RelatedProjects from "../Projects/components/RelatedProjects/RelatedProjects";
 import LoaderRound from "../../components/Loader/LoaderRound";
+import LightboxModal from "../../components/Lightbox/LightboxModal";
 
 const ProjectCard = () => {
   const { projectId } = useParams();
@@ -14,6 +15,9 @@ const ProjectCard = () => {
   const [error, setError] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
+
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     const fetchProjectCard = async () => {
@@ -34,7 +38,6 @@ const ProjectCard = () => {
         },
         { encodeValuesOnly: true }
       );
-
       try {
         const response = await fetch(
           `https://admin.ludno.ru/api/project-cards?${query}`
@@ -45,16 +48,13 @@ const ProjectCard = () => {
         const data = await response.json();
         if (data && data.data && data.data.length > 0) {
           setProjectCard(data.data[0]);
-
           const projectName = data.data[0].project?.name || "без-названия";
           const slug = slugify(projectName, {
             lowercase: true,
             separator: "-",
           });
-
           const currentUrl = window.location.pathname;
           const expectedUrl = `/project-cards/${projectId}/${slug}`;
-
           if (currentUrl !== expectedUrl) {
             navigate(expectedUrl, { replace: true });
           }
@@ -71,7 +71,6 @@ const ProjectCard = () => {
     fetchProjectCard();
   }, [projectId, navigate]);
 
-  // Вычисляем URL основного изображения
   const imageUrl =
     projectCard &&
     (Array.isArray(projectCard.mainImage) && projectCard.mainImage.length > 0
@@ -80,20 +79,27 @@ const ProjectCard = () => {
       ? `https://admin.ludno.ru${projectCard.mainImage.url}`
       : null);
 
-  // Предзагрузка изображения через объект Image
   useEffect(() => {
     if (imageUrl) {
       setImageLoaded(false);
       const img = new Image();
       img.src = imageUrl;
       img.onload = () => setImageLoaded(true);
-      // Можно добавить обработчик ошибки по необходимости
     }
   }, [imageUrl]);
 
   if (isLoading) return <LoaderRound show={true} />;
   if (error) return <p>Ошибка: {error}</p>;
   if (!projectCard) return <p>Карточка проекта не найдена.</p>;
+
+  const additionalImages =
+    projectCard.image && projectCard.image.length > 0
+      ? projectCard.image.map((img) => {
+          return img.formats && img.formats.large
+            ? `https://admin.ludno.ru${img.formats.large.url}`
+            : `https://admin.ludno.ru${img.url}`;
+        })
+      : [];
 
   return (
     <div className={styles.card}>
@@ -105,7 +111,6 @@ const ProjectCard = () => {
       </div>
       {imageUrl ? (
         <div className={styles.imageWrapper}>
-          {/* Скелет всегда отрисовывается, его прозрачность меняется после загрузки */}
           <div
             className={styles.skeleton}
             style={{
@@ -164,28 +169,40 @@ const ProjectCard = () => {
           </section>
         </section>
       </section>
-
       <div className={styles.projectImages}>
-        {projectCard.image && projectCard.image.length > 0 ? (
-          projectCard.image.map((img, index) => {
-            const largeImageUrl =
-              img.formats && img.formats.large
-                ? `https://admin.ludno.ru${img.formats.large.url}`
-                : `https://admin.ludno.ru${img.url}`;
-            return (
-              <img
-                key={index}
-                src={largeImageUrl}
-                alt={img.alternativeText || `Project Image ${index + 1}`}
-                className={styles.projectImage}
-              />
-            );
-          })
+        {additionalImages.length > 0 ? (
+          additionalImages.map((imgUrl, index) => (
+            <img
+              key={index}
+              src={imgUrl}
+              alt={`Project Image ${index + 1}`}
+              className={styles.projectImage}
+              onClick={() => {
+                setLightboxIndex(index);
+                setIsLightboxOpen(true);
+              }}
+            />
+          ))
         ) : (
           <p>No additional project images available.</p>
         )}
       </div>
-
+      {isLightboxOpen && (
+        <LightboxModal
+          images={additionalImages}
+          currentIndex={lightboxIndex}
+          onClose={() => setIsLightboxOpen(false)}
+          onPrev={() =>
+            setLightboxIndex(
+              (lightboxIndex - 1 + additionalImages.length) %
+                additionalImages.length
+            )
+          }
+          onNext={() =>
+            setLightboxIndex((lightboxIndex + 1) % additionalImages.length)
+          }
+        />
+      )}
       <RelatedProjects currentProjectId={projectCard.project.id} />
     </div>
   );
