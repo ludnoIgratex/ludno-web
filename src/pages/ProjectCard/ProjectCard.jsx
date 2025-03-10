@@ -167,18 +167,25 @@ const ProjectCard = () => {
 
       <div className={styles.projectImages}>
         {projectCard.image && projectCard.image.length > 0 ? (
-          projectCard.image.map((img, index) => (
-            <img
-              key={index}
-              src={`https://admin.ludno.ru${img.url}`}
-              alt={img.alternativeText || `Project Image ${index + 1}`}
-              className={styles.projectImage}
-            />
-          ))
+          projectCard.image.map((img, index) => {
+            const largeImageUrl =
+              img.formats && img.formats.large
+                ? `https://admin.ludno.ru${img.formats.large.url}`
+                : `https://admin.ludno.ru${img.url}`;
+            return (
+              <img
+                key={index}
+                src={largeImageUrl}
+                alt={img.alternativeText || `Project Image ${index + 1}`}
+                className={styles.projectImage}
+              />
+            );
+          })
         ) : (
           <p>No additional project images available.</p>
         )}
       </div>
+
       <RelatedProjects currentProjectId={projectCard.project.id} />
     </div>
   );
