@@ -2,10 +2,11 @@
   font-size: 16px;
   overflow-x: auto;
   white-space: nowrap;
-  padding-left: 32px
+  padding-left: 32px;
+  padding-bottom: 200px;
 }
 
-.relatedProjects h2{
+.relatedProjects h2 {
   font-size: 34px;
   line-height: 40px;
   padding-bottom: 32px;
@@ -33,12 +34,13 @@
   object-fit: cover;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .relatedProjects {
-    padding-left: 16px
+    padding-left: 16px;
+    padding-bottom: 45px;
   }
 
-  .relatedProjects h2{
+  .relatedProjects h2 {
     font-size: 26px;
     line-height: 32px;
     padding-bottom: 16px;

@@ -8,7 +8,7 @@
   padding: 48px 32px;
 }
 
-.cardContainer{
+.cardContainer {
   padding: 48px 32px 2px 32px;
 }
 
@@ -69,10 +69,45 @@
   gap: 8px;
 }
 
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+}
+
 .mainImage {
   width: 100%;
-  max-height: 480px;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  background: linear-gradient(to right, #e0e0e0 0%, #f8f8f8 50%, #e0e0e0 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
 .label {
@@ -130,7 +165,7 @@
     line-height: 18px;
   }
 
-  .card p{
+  .card p {
     font-size: 16px;
     line-height: 22px;
   }
@@ -141,7 +176,11 @@
     line-height: 24px !important;
   }
 
-  .projectImages{
+  .projectImages {
     padding-left: 0px;
+  }
+
+  .imageWrapper {
+    height: 280px;
   }
 }

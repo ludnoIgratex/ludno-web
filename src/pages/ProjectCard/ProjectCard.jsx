@@ -12,6 +12,7 @@ const ProjectCard = () => {
   const [projectCard, setProjectCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +44,6 @@ const ProjectCard = () => {
         }
         const data = await response.json();
         if (data && data.data && data.data.length > 0) {
-          console.log("Данные projectCard:", data.data[0]);
           setProjectCard(data.data[0]);
 
           const projectName = data.data[0].project?.name || "без-названия";
@@ -71,16 +71,29 @@ const ProjectCard = () => {
     fetchProjectCard();
   }, [projectId, navigate]);
 
-  if (isLoading) return <LoaderRound show={true} />;
-  if (error) return <p>Ошибка: {error}</p>;
-  if (!projectCard) return <p>Карточка проекта не найдена.</p>;
-
+  // Вычисляем URL основного изображения
   const imageUrl =
-    Array.isArray(projectCard.mainImage) && projectCard.mainImage.length > 0
+    projectCard &&
+    (Array.isArray(projectCard.mainImage) && projectCard.mainImage.length > 0
       ? `https://admin.ludno.ru${projectCard.mainImage[0].url}`
       : projectCard.mainImage?.url
       ? `https://admin.ludno.ru${projectCard.mainImage.url}`
-      : null;
+      : null);
+
+  // Предзагрузка изображения через объект Image
+  useEffect(() => {
+    if (imageUrl) {
+      setImageLoaded(false);
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = () => setImageLoaded(true);
+      // Можно добавить обработчик ошибки по необходимости
+    }
+  }, [imageUrl]);
+
+  if (isLoading) return <LoaderRound show={true} />;
+  if (error) return <p>Ошибка: {error}</p>;
+  if (!projectCard) return <p>Карточка проекта не найдена.</p>;
 
   return (
     <div className={styles.card}>
@@ -91,12 +104,26 @@ const ProjectCard = () => {
         />
       </div>
       {imageUrl ? (
-        <img
-          loading="lazy"
-          src={imageUrl}
-          alt="Main project"
-          className={styles.mainImage}
-        />
+        <div className={styles.imageWrapper}>
+          {/* Скелет всегда отрисовывается, его прозрачность меняется после загрузки */}
+          <div
+            className={styles.skeleton}
+            style={{
+              opacity: imageLoaded ? 0 : 1,
+              transition: "opacity 0.3s ease",
+            }}
+          />
+          <img
+            src={imageUrl}
+            alt="Main project"
+            className={styles.mainImage}
+            onLoad={() => setImageLoaded(true)}
+            style={{
+              opacity: imageLoaded ? 1 : 0,
+              transition: "opacity 0.3s ease",
+            }}
+          />
+        </div>
       ) : (
         <p>Изображение проекта не найдено.</p>
       )}
@@ -105,7 +132,7 @@ const ProjectCard = () => {
         <section className={styles.infoWrapper}>
           <div className={styles.about}>
             <h3>Описание проекта</h3>
-            <p> {projectCard.about}</p>
+            <p>{projectCard.about}</p>
           </div>
           <div className={styles.equipment}>
             <h3>Оборудование</h3>
@@ -114,7 +141,7 @@ const ProjectCard = () => {
           <section className={styles.address}>
             <div>
               <span className={styles.label}>Адрес</span>
-              <p> {projectCard.adress}</p>
+              <p>{projectCard.adress}</p>
             </div>
             <div>
               <span className={styles.label}>Год</span>
@@ -142,7 +169,6 @@ const ProjectCard = () => {
         {projectCard.image && projectCard.image.length > 0 ? (
           projectCard.image.map((img, index) => (
             <img
-              loading="lazy"
               key={index}
               src={`https://admin.ludno.ru${img.url}`}
               alt={img.alternativeText || `Project Image ${index + 1}`}
