@@ -63,8 +63,11 @@ const pointsDataMobile = [
 ];
 
 const Materials = () => {
+  const isTouchDevice = useMediaQuery({ query: "(hover: none)" });
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const pointsData = isMobile ? pointsDataMobile : pointsDataDesktop;
+
+  const [activePoint, setActivePoint] = React.useState(null);
 
   return (
     <div className={styles.materialsContainer}>
@@ -92,6 +95,12 @@ const Materials = () => {
             key={index}
             className={styles.pointWrapper}
             style={{ top: point.top, left: point.left }}
+            // Если устройство не поддерживает hover, переключаем активное состояние по клику
+            onClick={
+              isTouchDevice
+                ? () => setActivePoint(activePoint === index ? null : index)
+                : undefined
+            }
           >
             {/* Точка */}
             <div className={styles.point} />
@@ -103,6 +112,9 @@ const Materials = () => {
                 top: point.line.top,
                 left: point.line.left,
                 height: point.line.height,
+                ...(isTouchDevice && {
+                  opacity: activePoint === index ? 1 : 0,
+                }),
               }}
             />
 
@@ -113,6 +125,9 @@ const Materials = () => {
                 bottom: point.tooltip.bottom,
                 left: point.tooltip.left,
                 color: point.tooltip.color,
+                ...(isTouchDevice && {
+                  opacity: activePoint === index ? 1 : 0,
+                }),
               }}
             >
               {point.text}
