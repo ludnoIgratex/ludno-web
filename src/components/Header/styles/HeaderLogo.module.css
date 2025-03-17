@@ -12,7 +12,13 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .headerLogo {
+    transition: none;
+  }
   .headerLogo:active {
+    color: var(--accent-color);
+  }
+  .headerLogo:focus {
     color: var(--accent-color);
   }
 }
