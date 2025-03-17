@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./styles/About.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const About = () => {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ const About = () => {
 
   const gifStatic = "/assets/icons/logo_tramptec.svg";
   const gifAnimated = "/assets/gifs/tramptec.gif";
+
+  const isTouchDevice = useMediaQuery({ query: "(hover: none)" });
 
   const handleCatalogClick = () => {
     navigate("/products/Трамптек");
@@ -24,18 +27,21 @@ const About = () => {
   return (
     <section
       className={styles.aboutWrapper}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      {...(!isTouchDevice && {
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
+      })}
     >
       <img
-        src={isHovered ? gifAnimated : gifStatic}
+        src={isTouchDevice ? gifAnimated : isHovered ? gifAnimated : gifStatic}
         alt="GIF animation"
         className={styles.gif}
       />
       <p>
         Всепогодные <span className={styles.highlight}>уличные батуты</span> для
         детских площадок. Подходят для парков, школ, детских садов и
-        общественных пространств. <br /> Безопасные, сертифицированные, антивандальные.
+        общественных пространств. <br /> Безопасные, сертифицированные,
+        антивандальные.
       </p>
 
       <div className={styles.linkWrapper}>
