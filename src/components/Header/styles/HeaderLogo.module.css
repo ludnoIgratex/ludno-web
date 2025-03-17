@@ -4,20 +4,15 @@
   transition: 0.2s ease-in-out;
 }
 
-.headerLogo:hover {
-  cursor: pointer;
-  color: var(--accent-color);
-}
-
-.easterEgg {
-  animation: blink 0.7s infinite alternate;
-}
-
-@keyframes blink {
-  0% {
+@media (hover: hover) and (pointer: fine) {
+  .headerLogo:hover {
+    cursor: pointer;
     color: var(--accent-color);
   }
-  100% {
-    color: inherit;
+}
+
+@media screen and (max-width: 1024px) {
+  .headerLogo:active {
+    color: var(--accent-color);
   }
 }
