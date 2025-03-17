@@ -33,6 +33,7 @@ html {
 :root {
   /* Accent */
   --accent-color: #e58890;
+  --accent-color-tramptek: #e1e051;
 
   /* Primary */
   --primary-default-color: #191919;

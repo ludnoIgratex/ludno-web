@@ -5,7 +5,7 @@ import Main from "./Main";
 import Solutions from "./Solutions";
 import About from "./About";
 import OurProjects from "./OurProjects";
-import Consultation from "./Consultation";
+import Consultation from "../../components/Consultation/Consultation";
 
 const HomePage = () => {
   return (
@@ -13,7 +13,7 @@ const HomePage = () => {
       <Marquee />
       <Main />
       <Solutions />
-      <Consultation />
+      <Consultation color="var(--accent-color)" />
       <OurProjects />
       <About />
     </div>

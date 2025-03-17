@@ -12,19 +12,18 @@ const Main = () => {
   return (
     <section className={styles.title}>
       <picture>
-  <source
-    srcSet="/assets/images/vulkan.avif"
-    media="(min-width: 769px)"
-    type="image/avif"
-  />
-  <img
-    src="/assets/images/vulkan-small.avif"
-    alt="Vulkan"
-    width="800"
-    height="460"
-  />
-</picture>
-
+        <source
+          srcSet="/assets/images/vulkan.avif"
+          media="(min-width: 769px)"
+          type="image/avif"
+        />
+        <img
+          src="/assets/images/vulkan-small.avif"
+          alt="Vulkan"
+          width="800"
+          height="460"
+        />
+      </picture>
 
       <div className={styles.titleText}>
         <h1>Архитектурные игровые площадки</h1>

@@ -29,7 +29,6 @@
 
 .linkContainer {
   display: flex;
-  color: var(--accent-color);
   gap: 8px;
 }
 

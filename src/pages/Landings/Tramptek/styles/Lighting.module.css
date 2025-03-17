@@ -1,0 +1,180 @@
+.lighting {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-default-color);
+  padding: 60px 32px;
+  color: #fff;
+}
+
+.leftBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 620px;
+}
+
+.title {
+  color: var(--accent-color-tramptek);
+  padding-bottom: 36px;
+}
+
+.description {
+  font-size: 26px;
+  line-height: 32px;
+  padding-bottom: 32px;
+}
+
+.features {
+  list-style: none;
+  flex-wrap: wrap;
+  gap: 20px;
+  display: flex;
+}
+
+.features li {
+  background-color: var(--accent-color-tramptek);
+  color: var(--primary-default-color);
+  padding: 12px 32px;
+  border-radius: 32px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.option {
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--secondary-default-color);
+}
+
+.carouselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.carouselImage {
+  height: 600px;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+.dots {
+  position: absolute;
+  bottom: -30px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot,
+.dotActive {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #888;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dotActive {
+  background-color: #fff;
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+  opacity: 1;
+}
+
+.arrowLeft {
+  left: 4px;
+}
+
+.arrowRight {
+  right: 4px;
+}
+
+@media screen and (max-width: 768px) {
+  .lighting {
+    flex-direction: column;
+    padding: 16px 16px 32px 16px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 22px;
+    padding-bottom: 20px;
+  }
+
+  .features {
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .features li {
+    padding: 8px 20px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .option {
+    font-size: 13px;
+    line-height: 18px;
+    padding-bottom: 24px;
+  }
+
+  .carouselContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .carouselImage {
+    height: 380px;
+    max-width: 260px;
+    width: 100%;
+    border-radius: 30px;
+  }
+
+  .dots {
+    bottom: -20px;
+    gap: 6px;
+  }
+
+  .dot,
+  .dotActive {
+    width: 6px;
+    height: 6px;
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    font-size: 1.5rem;
+  }
+  .arrowLeft {
+    left: 0px;
+  }
+
+  .arrowRight {
+    right: 0px;
+  }
+}

@@ -1,0 +1,94 @@
+.radioButtonGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.radioButtonGroup h3 {
+  font-size: 26px;
+  line-height: 32px;
+  padding-bottom: 24px;
+}
+
+.radioButtons {
+  display: flex;
+  gap: 28px;
+}
+
+.radioButton {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.radioButton input {
+  display: none;
+}
+
+.radioButton span {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.radioButton span:first-of-type {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-hover-color);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Формы */
+.radioButton[data-shape="squircle"] span:first-of-type {
+  border-radius: 15px;
+}
+
+.radioButton input:checked + span:first-of-type {
+  background-color: var(--accent-color-tramptek);
+  transform: scale(1.1);
+}
+
+.radioButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radioButton.disabled .label {
+  color: #888;
+}
+
+@media screen and (max-width: 728px) {
+  .radioButton span:first-of-type {
+    width: 24px;
+    height: 24px;
+  }
+  .radioButtonGroup h3 {
+    font-size: 16px;
+    line-height: 25px;
+    padding-bottom: 12px;
+  }
+  .radioButtons {
+    gap: 8px;
+  }
+  .radioButton span {
+    font-size: 11px;
+    line-height: 14px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .radioButtonGroup h3 {
+    font-size: 18px;
+    line-height: 24px;
+    padding-bottom: 16px;
+  }
+
+  .radioButton span:first-of-type {
+    width: 32px;
+    height: 32px;
+  }
+}

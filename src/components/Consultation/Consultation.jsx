@@ -3,7 +3,7 @@ import { RiArrowRightDownLine } from "react-icons/ri";
 import styles from "./styles/Consultation.module.css";
 import { useNavigate } from "react-router-dom";
 
-const Consultation = () => {
+const Consultation = ({ color = "black" }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/contacts");
@@ -21,7 +21,11 @@ const Consultation = () => {
         </span>
       </div>
       <div className={styles.linkWrapper}>
-        <div className={styles.linkContainer} onClick={handleClick}>
+        <div
+          className={styles.linkContainer}
+          style={{ color: color }}
+          onClick={handleClick}
+        >
           <RiArrowRightDownLine className={styles.arrow} />
           <a>Проконсультироваться</a>
         </div>

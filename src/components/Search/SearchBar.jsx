@@ -9,7 +9,7 @@ const SearchBar = ({ query, onSearchChange, onKeyDown, onClear }) => {
       <IoSearch className={styles.searchIcon} />
       <input
         type="text"
-        placeholder="Введите название или категорию"
+        placeholder="Поиск..."
         className={styles.searchInput}
         value={query}
         onChange={onSearchChange}

@@ -24,7 +24,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.tramptek} to="products/Трамптек">
+        <Link className={styles.tramptek} to="tramptec-solution">
           <section className={styles.tramptek}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>

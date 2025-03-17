@@ -1,0 +1,161 @@
+.itemsContainer {
+  margin: 0 auto;
+  padding: 32px;
+  background-color: var(--bg-default-color);
+}
+
+.title {
+  text-align: left;
+  padding-bottom: 32px;
+}
+
+.carouselWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+}
+
+.arrowBtn:disabled {
+  opacity: 0;
+  cursor: default;
+}
+
+.arrowBtn:nth-of-type(1) {
+  left: 0;
+}
+.arrowBtn:nth-of-type(2) {
+  right: 0;
+}
+
+.carouselViewport {
+  overflow: hidden;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.carouselTrack {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+.productItem {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  max-width: 380px;
+  height: 460px;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  justify-content: space-between;
+  padding-bottom: 64px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productTitle {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.productName {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: bold;
+}
+
+.productLink {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: underline;
+}
+
+.dots {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dot:hover {
+  background-color: #999;
+}
+
+.dot.active {
+  background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .itemsContainer {
+    padding: 16px;
+  }
+  .productItem {
+    max-width: 240px;
+    height: 290px;
+    width: 100%;
+    padding-bottom: 36px;
+  }
+
+  .productImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .productTitle {
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  .productName {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+}
