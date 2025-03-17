@@ -3,7 +3,7 @@ import styles from "./styles/Projects.module.css";
 
 const videoSrc = [
   "/assets/videos/tramptec-second.mp4",
-  "/assets/videos/tramptec-first.webm",
+  "/assets/videos/tramptec-first.mp4",
 ];
 
 const imagePaths = [
