@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles/Projects.module.css";
 
 const videoSrc = [
-  "/assets/videos/tramptec-second.webm",
+  "/assets/videos/tramptec-second.mp4",
   "/assets/videos/tramptec-first.webm",
 ];
 
