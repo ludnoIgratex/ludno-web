@@ -100,7 +100,11 @@ const ProductsMobile = () => {
       setFilteredProducts((prev) => {
         const prevIds = new Set(prev.map((p) => p.id));
         const unique = data.data.filter((p) => !prevIds.has(p.id));
-        return [...prev, ...unique];
+        const combined = [...prev, ...unique];
+
+        const filteredByGroup = filterProductsByGroup(combined);
+
+        return filteredByGroup;
       });
 
       setTotalProducts(data.meta.pagination.total);
@@ -203,6 +207,26 @@ const ProductsMobile = () => {
     } finally {
       setLoadingFilterData(false);
     }
+  };
+
+  const filterProductsByGroup = (products) => {
+    const result = [];
+    const seenGroups = new Set();
+
+    for (const product of products) {
+      const groupId = product.groups?.[0]?.id;
+
+      if (groupId) {
+        if (!seenGroups.has(groupId)) {
+          seenGroups.add(groupId);
+          result.push(product);
+        }
+      } else {
+        result.push(product);
+      }
+    }
+
+    return result;
   };
 
   useEffect(() => {
