@@ -70,6 +70,26 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     return url;
   };
 
+  const filterProductsByGroup = (products) => {
+    const result = [];
+    const seenGroups = new Set();
+
+    for (const product of products) {
+      const groupId = product.groups?.[0]?.id;
+
+      if (groupId) {
+        if (!seenGroups.has(groupId)) {
+          seenGroups.add(groupId);
+          result.push(product);
+        }
+      } else {
+        result.push(product);
+      }
+    }
+
+    return result;
+  };
+
   const buildFetchUrlWithQs = (page) => {
     const filters = {};
 
@@ -93,6 +113,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
     const populate = {
       image: true,
+      groups: true,
       card: {
         populate: {
           groupImage: {
@@ -148,7 +169,10 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
         const uniqueProducts = newProducts.filter(
           (product) => !productIds.has(product.id)
         );
-        return [...prev, ...uniqueProducts];
+        const combinedProducts = [...prev, ...uniqueProducts];
+        const filteredByGroup = filterProductsByGroup(combinedProducts);
+
+        return filteredByGroup;
       });
 
       setTotalProducts(data.meta.pagination.total);

@@ -78,10 +78,8 @@
 }
 
 .dropdownHeader {
-  /* Контейнер для пилюли и иконки */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* чтобы иконка была справа */
   cursor: pointer;
 }
 
