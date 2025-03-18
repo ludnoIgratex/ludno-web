@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles/main.module.css";
 import Head from "./Head";
 import About from "./About";
@@ -9,19 +9,46 @@ import Covering from "./Covering";
 import Lighting from "./Lighting";
 import Consultation from "../../../components/Consultation/Consultation";
 import Items from "./Items";
+import Loader from "../../../components/Loader/Loader";
 
 const TramptekMain = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const start = Date.now();
+
+    const onLoadHandler = () => {
+      const loadTime = Date.now() - start;
+      const remainingTime = Math.max(0, 1000 - loadTime);
+      setTimeout(() => setIsLoading(false), remainingTime);
+    };
+
+    if (document.readyState === "complete") {
+      onLoadHandler();
+    } else {
+      window.addEventListener("load", onLoadHandler);
+    }
+
+    return () => window.removeEventListener("load", onLoadHandler);
+  }, []);
+
   return (
     <div className={styles.tramptecWrapper}>
-      <Head />
-      <About />
-      <Constructor />
-      <Projects />
-      <Lighting />
-      <Covering />
-      <Materials />
-      <Items />
-      <Consultation color="var(--accent-color-tramptek)" />
+      {isLoading ? (
+        <Loader loading={isLoading} />
+      ) : (
+        <>
+          <Head />
+          <About />
+          <Constructor />
+          <Projects />
+          <Lighting />
+          <Covering />
+          <Materials />
+          <Items />
+          <Consultation color="var(--accent-color-tramptek)" />
+        </>
+      )}
     </div>
   );
 };
