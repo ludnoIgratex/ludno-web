@@ -65,7 +65,7 @@
   text-decoration: underline;
 }
 
-.linkContainer a {
+.linkContainer span {
   font-size: 18px;
   line-height: 24px;
 }

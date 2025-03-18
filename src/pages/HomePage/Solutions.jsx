@@ -19,7 +19,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
@@ -33,7 +33,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
@@ -47,7 +47,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
@@ -61,7 +61,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
@@ -75,7 +75,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
@@ -89,7 +89,7 @@ const Solutions = () => {
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a>Подробнее</a>
+                <span>Подробнее</span>
               </div>
             </div>
           </section>
