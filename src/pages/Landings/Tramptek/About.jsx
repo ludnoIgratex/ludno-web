@@ -14,7 +14,11 @@ const About = () => {
   const isTouchDevice = useMediaQuery({ query: "(hover: none)" });
 
   const handleCatalogClick = () => {
-    navigate("/products/Трамптек");
+    if (isTouchDevice) {
+      navigate("/products?brands=34");
+    } else {
+      navigate("/products/Трамптек");
+    }
   };
 
   const handleDownloadClick = () => {

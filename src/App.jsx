@@ -78,7 +78,7 @@ const App = () => {
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route
+              {/* <Route
                 path="/products"
                 element={<Navigate to="/products/all" replace />}
               />
@@ -91,7 +91,18 @@ const App = () => {
                     setSelectedCategory={setSelectedCategory}
                   />
                 }
+              /> */}
+
+              <Route
+                path="/products"
+                element={
+                  <Products
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                  />
+                }
               />
+
               <Route
                 path="/products/:brand"
                 element={

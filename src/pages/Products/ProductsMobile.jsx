@@ -101,9 +101,7 @@ const ProductsMobile = () => {
         const prevIds = new Set(prev.map((p) => p.id));
         const unique = data.data.filter((p) => !prevIds.has(p.id));
         const combined = [...prev, ...unique];
-
         const filteredByGroup = filterProductsByGroup(combined);
-
         return filteredByGroup;
       });
 
