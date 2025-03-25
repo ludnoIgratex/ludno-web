@@ -75,7 +75,7 @@
     padding: 36px 16px;
     background-repeat: no-repeat;
     background-position-x: 0px;
-    background-position-y: 100px;
+    background-position-y: calc(100vh - 500px);
     background-size: 500px;
   }
 
