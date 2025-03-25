@@ -117,6 +117,11 @@
   color: white;
 }
 
+.articleLink button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
 .guarantee h4 {
   font-size: 60px;
   line-height: 72px;
@@ -155,7 +160,6 @@
   .options > :nth-child(2) {
     order: 2;
     text-align: end;
-
   }
 
   .options > :nth-child(3) {
