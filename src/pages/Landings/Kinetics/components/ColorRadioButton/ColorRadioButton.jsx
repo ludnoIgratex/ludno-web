@@ -9,7 +9,7 @@ export function ColorRadioButton({ name, value, checked, onChange, disabled }) {
   };
 
   const getLabel = () => {
-    return value === "colorful" ? "цветное" : "бежевое";
+    return value === "colorful" ? "яркое" : "нейтральное";
   };
 
   return (

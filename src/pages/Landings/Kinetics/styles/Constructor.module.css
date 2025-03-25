@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 200px
+  min-width: 200px;
 }
 
 .options h3 {
@@ -66,14 +66,15 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-right: 64px;
 }
 
 .imageContainer img {
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .imageContainer p {
-  max-width: 450px;
+  max-width: 100%;
   font-size: 18px;
   line-height: 24px;
 }
@@ -162,13 +163,17 @@
     order: 2;
   } */
 
+  .imageContainer {
+    padding-right: 0px;
+  }
+
   .imageContainer p {
     font-size: 11px;
     line-height: 14px;
   }
 
   .imageContainer img {
-    padding-top: 48px;
+    padding-top: 38px;
     max-width: 280px;
   }
 
