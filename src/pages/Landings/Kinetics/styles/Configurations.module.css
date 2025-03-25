@@ -85,3 +85,21 @@
     display: none;
   }
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cardsWrapper {
+    gap: 32px;
+  }
+  .card h3 {
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 8px;
+  }
+  .card p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .card{
+    padding:20px
+  }
+}

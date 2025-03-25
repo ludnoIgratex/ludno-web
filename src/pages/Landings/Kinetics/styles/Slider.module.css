@@ -83,3 +83,31 @@
     order: 0;
   }
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .brSpace {
+    height: 8px;
+  }
+  .section {
+    padding: 0;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .sliderWrapper h2 {
+    padding-bottom: 16px;
+    padding-left: 32px;
+  }
+
+  .content {
+    padding: 32px;
+    gap: 32px;
+  }
+
+
+  .content img {
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+  }
+}
