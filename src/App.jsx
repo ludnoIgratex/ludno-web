@@ -23,6 +23,8 @@ import Scroller from "./hooks/Scroller";
 import Blog from "./pages/Blog/Blog";
 import PostPage from "./pages/Blog/PostPage/PostPage";
 import TramptekMain from "./pages/Landings/Tramptek/TramptekMain";
+import KineticsMain from "./pages/Landings/Kinetics/KineticsMain";
+import MiniMain from "./pages/Landings/Mini/MiniMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -130,7 +132,11 @@ const App = () => {
               />
               <Route path="/search-results" element={<SearchResultsPage />} />
               <Route path="/map" element={<YandexMap />} />
+
               <Route path="/tramptec-solution" element={<TramptekMain />} />
+              <Route path="/kinetics-solution" element={<KineticsMain />} />
+              <Route path="/mini-solution" element={<MiniMain />} />
+
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />
               <Route path="/policy" element={<Policy />} />

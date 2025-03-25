@@ -1,0 +1,261 @@
+.constructorWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-default-color);
+  padding: 36px 32px;
+  gap: 36px;
+}
+
+.constructor {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+}
+
+.leftSection {
+  background-color: white;
+  display: flex;
+  padding: 56px 0px 56px 64px;
+  border-radius: 24px;
+  width: 100%;
+}
+
+.groupButtonColor,
+.groupButton div {
+  display: flex;
+  gap: 8px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px
+}
+
+.options h3 {
+  padding-bottom: 16px;
+}
+
+.switchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.switchContainerMobile {
+  display: none;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+  padding-bottom: 12px;
+  flex-direction: column;
+  align-items: end;
+}
+
+.switchContainer span {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: bold;
+  padding-bottom: 24px;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.imageContainer img {
+  max-width: 600px;
+}
+
+.imageContainer p {
+  max-width: 450px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.articleLink,
+.guarantee {
+  background-color: white;
+  display: flex;
+  padding: 24px;
+  border-radius: 24px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 320px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 24px;
+  min-height: 292px;
+}
+
+.guarantee {
+  justify-content: space-evenly;
+}
+
+.articleLink button {
+  max-width: 272px;
+  width: 100%;
+  min-height: 44px;
+  background-color: var(--primary-default-color);
+  border-radius: 32px;
+  border: none;
+  color: white;
+}
+
+.guarantee h4 {
+  font-size: 60px;
+  line-height: 72px;
+  color: var(--primary-default-color);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .constructor {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .constructorWrapper {
+    padding: 16px;
+  }
+  .leftSection {
+    flex-direction: column;
+    padding: 32px;
+    width: fit-content;
+  }
+
+  .options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .options > :nth-child(1) {
+    order: 3;
+  }
+
+  .groupButtonColor {
+    flex-wrap: wrap;
+  }
+
+  .options > :nth-child(2) {
+    order: 2;
+  }
+
+  .options > :nth-child(3) {
+    order: 1;
+    text-align: end;
+  }
+
+  /* .options > :nth-child(4) {
+    order: 2;
+  } */
+
+  .imageContainer p {
+    font-size: 11px;
+    line-height: 14px;
+  }
+
+  .imageContainer img {
+    padding-top: 48px;
+    max-width: 300px;
+  }
+
+  .switchContainer {
+    display: none;
+  }
+
+  .switchContainerMobile {
+    display: flex;
+  }
+
+  .switchContainerMobile span {
+    padding-bottom: 12px;
+  }
+  .rightSection {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .articleLink,
+  .guarantee {
+    font-size: 11px;
+    line-height: 14px;
+    padding: 12px;
+    width: 100%;
+    min-height: 150px;
+  }
+
+  .articleLink button {
+    font-size: 11px;
+    line-height: 14px;
+    max-width: 140px;
+    height: 32px;
+  }
+
+  .guarantee h4 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .constructorWrapper {
+    padding: 24px;
+  }
+
+  .constructor {
+    gap: 16px;
+  }
+  .leftSection {
+    padding: 36px 32px;
+  }
+  .imageContainer img {
+    max-width: 300px;
+  }
+
+  .imageContainer p {
+    font-size: 13px;
+    line-height: 18px;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .switchContainer span {
+    font-size: 18px;
+    line-height: 24px;
+    padding-bottom: 16px;
+  }
+
+  .articleLink,
+  .guarantee {
+    background-color: white;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: none;
+    text-align: center;
+    font-size: 13px;
+    line-height: 18px;
+    min-height: 230px;
+  }
+
+  .guarantee h4 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+}

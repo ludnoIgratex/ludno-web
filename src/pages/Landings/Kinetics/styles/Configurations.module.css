@@ -1,0 +1,87 @@
+.configurations {
+  padding: 32px;
+  background-color: var(--bg-default-color);
+}
+
+.configurations h2 {
+  padding-bottom: 36px;
+}
+
+.cardsWrapper {
+  display: flex;
+  gap: 32px;
+}
+
+.card {
+  position: relative;
+  background-color: white;
+  border-radius: 32px;
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+}
+
+.icon {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 24px;
+  height: 24px;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  padding-bottom: 20px;
+}
+
+.card h3 {
+  font-size: 34px;
+  line-height: 40px;
+  padding-bottom: 16px;
+}
+
+.card p {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.onlyDesktop {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .configurations {
+    padding: 16px;
+  }
+
+  .cardsWrapper {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    width: auto;
+  }
+
+  .cardImage {
+    padding-bottom: 0px;
+    max-width: 240px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .onlyDesktop {
+    display: none;
+  }
+}

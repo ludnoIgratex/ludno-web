@@ -1,0 +1,67 @@
+.introContainer {
+  height: 230vh;
+  position: relative;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlayItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.overlayImage {
+  width: 100%;
+  display: block;
+}
+
+/* Текст поверх изображения */
+.overlayText {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.overlayTextLast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .introContainer {
+    height: 80vh;
+  }
+  .imageWrapper {
+    width: 90%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .introContainer {
+    height: 130vh;
+  }
+}

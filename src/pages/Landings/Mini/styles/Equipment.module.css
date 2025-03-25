@@ -1,0 +1,135 @@
+.equipmentContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.hammockSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balanceSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balanceImage {
+  max-width: 500px;
+}
+
+.characterWrapper {
+  position: absolute;
+  right: 326px;
+  bottom: 20px;
+  z-index: 1;
+}
+
+.characterWrapper img {
+  width: 90px;
+}
+
+.eyesContainer {
+  position: absolute;
+  top: 23%;
+  right: 16%;
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  justify-content: center;
+  pointer-events: none;
+  transform: rotate(-40deg);
+}
+
+.characterArm {
+  position: absolute;
+  bottom: 60px;
+  right: 350px;
+  height: 20px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.eye {
+  width: 12px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.pupil {
+  width: 7px;
+  height: 11px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.hammockImage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+}
+
+.equipmentDescription {
+  font-size: 16px;
+  color: #333;
+  max-width: 400px;
+}
+
+.ageBlock {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ageItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ageLabel {
+  display: inline-block;
+  border: 2px solid #999;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  min-width: 48px;
+  text-align: center;
+}
+
+.ageDescription {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .hammockSection {
+    flex-direction: column;
+  }
+
+  .balanceSection {
+    flex-direction: column;
+  }
+  .balanceImage {
+    max-width: 300px;
+  }
+}

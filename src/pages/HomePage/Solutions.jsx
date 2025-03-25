@@ -8,7 +8,7 @@ const Solutions = () => {
     <div className={styles.solutionsWrapper}>
       <h2>Решения</h2>
       <section className={styles.solutions}>
-        <Link className={styles.landscape} to="products/Ландшафт">
+        <Link className={styles.landscape} to="kinetics-solution">
           <section className={styles.landscape}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
@@ -38,7 +38,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.mini} to="products/Мини">
+        <Link className={styles.mini} to="mini-solution">
           <section className={styles.mini}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>

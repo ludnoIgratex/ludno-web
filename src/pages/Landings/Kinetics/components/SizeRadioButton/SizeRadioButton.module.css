@@ -1,0 +1,28 @@
+.radioLabel {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.radioInput {
+  display: none;
+}
+
+.radioButton {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-hover-color);
+  transition: 0.1s ease-in-out;
+}
+
+.checked {
+  background-color: var(--accent-color-kinetics);
+  color: white;
+}
