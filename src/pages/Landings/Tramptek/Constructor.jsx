@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./styles/Constructor.module.css";
 import RadioButtonGroup from "./components/RadioButtonGroup/RadioButtonGroup";
 import Switch from "./components/Switch/Switch";
+import { useNavigate } from "react-router-dom";
 
 const Constructor = () => {
   const [selectedShape, setSelectedShape] = useState("squircle");
@@ -22,6 +23,12 @@ const Constructor = () => {
     squircle_hill_fabric_true: "T100SRC.webp",
     squircle_hill_fabric_false: "T100SRCNL.webp",
   };
+
+  const navigate = useNavigate();
+
+  const handlClick = () =>{
+    navigate("blog/65/trebovaniya-k-raspolozheniyu-batutov-na-igrovyh-ploshchadkah")
+  }
 
   const isValidCombo = (shape, protection, surface, lighting) => {
     const key = `${shape}_${protection}_${surface}_${lighting}`;
@@ -151,7 +158,7 @@ const Constructor = () => {
               Зоны безопасности соседних батутов могут пересекаться между собой,
               составляя группу оборудования
             </p>
-            <button>Подробнее</button>
+            <button onClick={handlClick}>Подробнее</button>
           </div>
           <div className={styles.guarantee}>
             <div>

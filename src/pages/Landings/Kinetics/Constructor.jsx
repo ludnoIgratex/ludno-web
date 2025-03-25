@@ -3,6 +3,7 @@ import styles from "./styles/Constructor.module.css";
 import { ColorRadioButton } from "./components/ColorRadioButton/ColorRadioButton";
 import { SizeRadioButton } from "./components/SizeRadioButton/SizeRadioButton";
 import { ConfigRadioButton } from "./components/ConfigRadioButton/ConfigRadioButton";
+import { useNavigate } from "react-router-dom";
 
 const Constructor = () => {
   const combos = {
@@ -18,6 +19,14 @@ const Constructor = () => {
     neutral_line_small: "neutral_lineS.webp",
     neutral_random_medium: "neutral_randonM.webp",
     neutral_random_small: "neutral_randonS.webp",
+  };
+
+  const navigate = useNavigate();
+
+  const handlClick = () => {
+    navigate(
+      "/blog/65/trebovaniya-k-raspolozheniyu-batutov-na-igrovyh-ploshchadkah"
+    );
   };
 
   const configDescriptions = {
@@ -154,7 +163,7 @@ const Constructor = () => {
               Зоны безопасности соседних батутов могут пересекаться между собой,
               составляя группу оборудования
             </p>
-            <button>Подробнее</button>
+            <button onClick={handlClick}>Подробнее</button>
           </div>
           <div className={styles.guarantee}>
             <h4>3+</h4>

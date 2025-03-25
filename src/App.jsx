@@ -80,20 +80,6 @@ const App = () => {
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              {/* <Route
-                path="/products"
-                element={<Navigate to="/products/all" replace />}
-              />
-
-              <Route
-                path="/products/all"
-                element={
-                  <Products
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                }
-              /> */}
 
               <Route
                 path="/products"
