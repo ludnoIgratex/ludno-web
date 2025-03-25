@@ -17,7 +17,7 @@ const ColorSolutions = () => {
         ],
       },
       {
-        name: "Голубой",
+        name: "Бирюзовый",
         material: "EPDM Крошка",
         image: "/assets/images/kinetics-solution/light_blue.webp",
         composition: ["90% C015 Бирюзовый", "10% C010 Белый"],
@@ -34,10 +34,45 @@ const ColorSolutions = () => {
         ],
       },
       {
-        name: "Стальной",
-        material: "Сталь",
-        image: "/assets/images/kinetics-solution/steel.webp",
-        composition: ["Сплав из серебра 925 пробы"],
+        name: "Металл с порошковой окраской",
+        material: "Металл с порошковой окраской",
+        image: "/assets/images/kinetics-solution/RAL100.webp",
+        composition: ["RAL  100 80 80 IT"],
+      },
+    ],
+    [
+      {
+        name: "Синий",
+        material: "EPDM Крошка",
+        image: "/assets/images/kinetics-solution/blue.webp",
+        composition: [
+          "80% C034 Темно-синий",
+          "15% C007 Синий",
+          "5% C010 Белый",
+        ],
+      },
+      {
+        name: "Голубой",
+        material: "EPDM Крошка",
+        image: "/assets/images/kinetics-solution/blue_white.webp",
+        composition: [
+          "70% C008 Голубой",
+          "15% C034 Темно-синий",
+          "15% C010 Белый",
+        ],
+      },
+      {
+        name: "Стиральный порошок",
+        material: "EPDM Крошка",
+        image: "/assets/images/kinetics-solution/powder.webp",
+        composition: ["70% C010 Белый", "20% C008 Голубой", "10% C007 Синий"],
+      },
+
+      {
+        name: "Металл с порошковой окраской",
+        material: "Металл с порошковой окраской",
+        image: "/assets/images/kinetics-solution/RAL9003.webp",
+        composition: ["RAL 9003"],
       },
     ],
     [
@@ -65,41 +100,10 @@ const ColorSolutions = () => {
       },
 
       {
-        name: "Стальной",
-        material: "Сталь",
-        image: "/assets/images/kinetics-solution/steel.webp",
-        composition: ["Сплав из серебра 925 пробы"],
-      },
-    ],
-    [
-      {
-        name: "Красный",
-        material: "EPDM Крошка",
-        image: "/assets/images/kinetics-solution/red.webp",
-        composition: ["80% C006 Оранжевый", "15% C003 Желтый", "5% C010 Белый"],
-      },
-      {
-        name: "Фиолетовый",
-        material: "EPDM Крошка",
-        image: "/assets/images/kinetics-solution/purple.webp",
-        composition: [
-          "80% C009 Фиолетовый",
-          "15% C016 Розовый",
-          "5% C010 Белый",
-        ],
-      },
-      {
-        name: "Голубой",
-        material: "EPDM Крошка",
-        image: "/assets/images/kinetics-solution/light_blue.webp",
-        composition: ["90% C015 Бирюзовый", "10% C010 Белый"],
-      },
-
-      {
-        name: "Стальной",
-        material: "Сталь",
-        image: "/assets/images/kinetics-solution/steel.webp",
-        composition: ["Сплав из серебра 925 пробы"],
+        name: "Металл с порошковой окраской",
+        material: "Металл с порошковой окраской",
+        image: "/assets/images/kinetics-solution/RAL4010.webp",
+        composition: ["RAL 4010"],
       },
     ],
     [
@@ -133,9 +137,9 @@ const ColorSolutions = () => {
       },
       {
         name: "Стальной",
-        material: "Сталь",
+        material: "Нержавеющая сталь",
         image: "/assets/images/kinetics-solution/steel.webp",
-        composition: ["Сплав из серебра 925 пробы"],
+        composition: [""],
       },
     ],
   ];

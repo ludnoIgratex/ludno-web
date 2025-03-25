@@ -9,6 +9,7 @@ import Configurations from "./Configurations";
 import Constructor from "./Constructor";
 import Slider from "./Slider";
 import ColorSolutions from "./ColorSolutions";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const KineticsMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,22 +33,24 @@ const KineticsMain = () => {
   }, []);
 
   return (
-    <div className={styles.kineticsWrapper}>
-      {isLoading ? (
-        <Loader loading={isLoading} />
-      ) : (
-        <>
-          <Head />
-          <About />
-          <Configurations />
-          <Slider />
-          <Constructor />
-          <ColorSolutions />
-          <Items />
-          <Consultation color="var(--accent-color-kinetics)" />
-        </>
-      )}
-    </div>
+    <ParallaxProvider>
+      <div className={styles.kineticsWrapper}>
+        {isLoading ? (
+          <Loader loading={isLoading} />
+        ) : (
+          <>
+            <Head />
+            <About />
+            <Configurations />
+            <Slider />
+            <Constructor />
+            <ColorSolutions />
+            <Items />
+            <Consultation color="var(--accent-color-kinetics)" />
+          </>
+        )}
+      </div>
+    </ParallaxProvider>
   );
 };
 
