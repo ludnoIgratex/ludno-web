@@ -60,10 +60,10 @@ const Intro = () => {
         });
 
         tl.to(itemsRef.current[0], { yPercent: 0, duration: 1 }, "start")
-          .to(itemsRef.current[0], { opacity: 0, duration: 0.5 }, "start+=0.4");
+          .to(itemsRef.current[0], { opacity: 0, duration: 0.5 }, "start+=0.7");
 
         tl.to(itemsRef.current[1], { yPercent: 0, duration: 1 }, "start+=0.5")
-          .to(itemsRef.current[1], { opacity: 0, duration: 0.5 }, "start+=1");
+          .to(itemsRef.current[1], { opacity: 0, duration: 0.5 }, "start+=1.3");
 
         tl.to(itemsRef.current[2], { yPercent: 0, duration: 1 }, "start+=1")
           .to(itemsRef.current[2], { opacity: 0, duration: 0.5 }, "start+=1.8");
