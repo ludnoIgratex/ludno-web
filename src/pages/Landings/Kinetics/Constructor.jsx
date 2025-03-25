@@ -142,7 +142,6 @@ const Constructor = () => {
             )}
             {selectedConfig && (
               <div className={styles.configDescription}>
-                <h4>{configDescriptions[selectedConfig].title}</h4>
                 <p>{configDescriptions[selectedConfig].text}</p>
               </div>
             )}
