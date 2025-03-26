@@ -83,6 +83,7 @@
   max-width: 100%;
   font-size: 18px;
   line-height: 24px;
+  height: 80px;
 }
 
 .rightSection {
@@ -184,6 +185,7 @@
   .imageContainer p {
     font-size: 11px;
     line-height: 14px;
+    height: 50px;
   }
 
   .imageContainer img {
@@ -240,6 +242,11 @@
   }
   .leftSection {
     padding: 36px 32px;
+    height: auto;
+  }
+
+  .imageContainer{
+    padding-right: 0px;
   }
   .imageContainer img {
     max-width: 300px;
@@ -266,11 +273,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    max-width: none;
     text-align: center;
     font-size: 13px;
     line-height: 18px;
-    min-height: 230px;
   }
 
   .guarantee h4 {

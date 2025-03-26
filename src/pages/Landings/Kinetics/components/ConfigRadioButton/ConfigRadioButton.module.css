@@ -34,3 +34,10 @@
   height: 30px;
   filter: brightness(0) saturate(100%);
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .radioButton {
+    width: 38px;
+    height: 38px;
+  }
+}

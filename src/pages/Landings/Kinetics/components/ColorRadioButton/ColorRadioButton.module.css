@@ -33,3 +33,10 @@
   opacity: 0.4;
   pointer-events: none;
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .radioButton {
+    width: 38px;
+    height: 38px;
+  }
+}
