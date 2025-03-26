@@ -7,9 +7,8 @@
   padding: 56px 32px;
   background-image: url("/assets/images/kinetics.avif");
   background-repeat: no-repeat;
-  background-position-x: 560px;
-  background-position-y: 170px;
-  background-size: 900px;
+  background-position: right bottom;
+  background-size: 65%;
 }
 
 .headWrapper h1 {
@@ -40,43 +39,18 @@
   color: var(--accent-color-kinetics);
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 768px) {
   .headWrapper {
     height: calc(100vh - 128px - 184px);
-    justify-content: space-between;
+    justify-content: start;
     padding: 36px 16px;
-    background-repeat: no-repeat;
-    background-position-x: 100px;
-    background-position-y: 180px;
-    background-size: 300px;
-  }
+    gap: 10%;
+    background-size: 100%;
 
-  .headWrapper h1 {
-    font-size: 32px;
-    line-height: 40px;
-    padding-bottom: 12px;
-  }
-
-  .headWrapper h2 {
-    font-size: 18px !important;
-    line-height: 24px !important;
-  }
-
-  .linkContainer {
-    font-size: 18px;
-    line-height: 24px;
-  }
-}
-
-@media (min-width: 376px) and (max-width: 768px) {
-  .headWrapper {
-    height: calc(100vh - 128px - 184px);
-    justify-content: space-between;
-    padding: 36px 16px;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat;
     background-position-x: 0px;
     background-position-y: calc(100vh - 500px);
-    background-size: 500px;
+    background-size: 500px; */
   }
 
   .headWrapper h1 {
@@ -93,13 +67,5 @@
   .linkContainer {
     font-size: 18px;
     line-height: 24px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .headWrapper {
-    background-position-x: 70px;
-    background-size: 1000px;
-    background-position-y: 300px;
   }
 }
