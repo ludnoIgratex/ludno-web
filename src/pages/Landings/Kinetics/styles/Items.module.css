@@ -87,7 +87,8 @@
 .productImage {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  min-height: 330px;
+  object-fit: contain;
   border-radius: 8px;
 }
 
@@ -148,7 +149,8 @@
   .productImage {
     width: 100%;
     height: auto;
-    object-fit: cover;
+    min-height: 200px;
+    object-fit: contain;
     border-radius: 8px;
   }
 

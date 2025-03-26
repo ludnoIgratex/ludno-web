@@ -46,11 +46,6 @@
     padding: 36px 16px;
     gap: 10%;
     background-size: 100%;
-
-    /* background-repeat: no-repeat;
-    background-position-x: 0px;
-    background-position-y: calc(100vh - 500px);
-    background-size: 500px; */
   }
 
   .headWrapper h1 {
@@ -67,5 +62,11 @@
   .linkContainer {
     font-size: 18px;
     line-height: 24px;
+  }
+}
+
+@media (min-width: 728px) and (max-width: 1024px) {
+  .headWrapper {
+    background-size: 100%;
   }
 }
