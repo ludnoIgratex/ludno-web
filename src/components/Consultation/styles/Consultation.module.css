@@ -106,3 +106,10 @@
     height: auto;
   }
 }
+
+@media (min-width:1024px) and (max-width:1440px) {
+  .textContainer span {
+    font-size: 60px;
+    line-height: 72px;
+  }
+}
