@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import lightingStyles from "./styles/Lighting.module.css";
 import materialsStyles from "./styles/Materials.module.css";
@@ -99,6 +99,26 @@ const Lighting = () => {
     : pointsDataDesktop;
 
   const [activePoint, setActivePoint] = useState(null);
+  const pointsRefs = useRef([]);
+
+  useEffect(() => {
+    if (!isTouchDevice) return;
+
+    const handleClickOutside = (event) => {
+      if (
+        activePoint !== null &&
+        pointsRefs.current[activePoint] &&
+        !pointsRefs.current[activePoint].contains(event.target)
+      ) {
+        setActivePoint(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activePoint, isTouchDevice]);
 
   return (
     <>
@@ -150,6 +170,7 @@ const Lighting = () => {
           {pointsData.map((point, index) => (
             <div
               key={index}
+              ref={(el) => (pointsRefs.current[index] = el)}
               className={materialsStyles.pointWrapper}
               style={{ top: point.top, left: point.left }}
               onClick={
