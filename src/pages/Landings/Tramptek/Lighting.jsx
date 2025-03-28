@@ -70,7 +70,7 @@ const pointsDataMobile = [
     line: { top: "10px", left: "12px", height: "120px" },
     tooltip: {
       bottom: "-110px",
-      left: "-124px",
+      left: "-140px",
       color: "var(--accent-color-tramptek)",
     },
   },
@@ -81,7 +81,7 @@ const pointsDataMobile = [
     line: { top: "10px", left: "12px", height: "140px" },
     tooltip: {
       bottom: "-130px",
-      left: "-170px",
+      left: "-190px",
       color: "var(--accent-color-tramptek)",
     },
   },
