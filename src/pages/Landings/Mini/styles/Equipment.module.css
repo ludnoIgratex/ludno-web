@@ -1,7 +1,7 @@
 .equipmentContainer {
   width: 100%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 32px;
   box-sizing: border-box;
   font-family: sans-serif;
 }
@@ -13,19 +13,22 @@
   justify-content: space-between;
 }
 
-.balanceSection {
+.textWrapper {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  max-width: 60%;
 }
 
-.balanceImage {
-  max-width: 500px;
+.equipmentDescription {
+  font-size: 26px;
+  line-height: 32px;
+  padding-bottom: 44px;
+  max-width: 670px;
 }
 
 .characterWrapper {
   position: absolute;
-  right: 326px;
+  right: 380px;
   bottom: 20px;
   z-index: 1;
 }
@@ -36,8 +39,8 @@
 
 .eyesContainer {
   position: absolute;
-  top: 23%;
-  right: 16%;
+  top: 27%;
+  right: 15%;
   display: flex;
   gap: 2px;
   width: 100%;
@@ -49,15 +52,15 @@
 .characterArm {
   position: absolute;
   bottom: 60px;
-  right: 350px;
+  right: 400px;
   height: 20px;
   z-index: 5;
   pointer-events: none;
 }
 
 .eye {
-  width: 12px;
-  height: 18px;
+  width: 9px;
+  height: 14px;
   background: white;
   border-radius: 50%;
   position: relative;
@@ -65,26 +68,20 @@
 }
 
 .pupil {
-  width: 7px;
-  height: 11px;
+  width: 6px;
+  height: 9px;
   background: black;
   border-radius: 50%;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 2px;
+  left: 2px;
 }
 
 .hammockImage {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 400px;
-}
-
-.equipmentDescription {
-  font-size: 16px;
-  color: #333;
-  max-width: 400px;
+  max-width: 460px;
 }
 
 .ageBlock {
@@ -104,21 +101,17 @@
 
 .ageLabel {
   display: inline-block;
-  border: 2px solid #999;
-  border-radius: 20px;
   padding: 6px 12px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #333;
-  min-width: 48px;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: bold;
   text-align: center;
+  white-space: nowrap;
 }
 
 .ageDescription {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.4;
-  color: #333;
+  font-size: 26px;
+  line-height: 32px;
 }
 
 @media screen and (max-width: 768px) {

@@ -27,6 +27,7 @@
 }
 
 .radioButton span {
+  text-align: center;
   font-size: 13px;
   line-height: 18px;
 }

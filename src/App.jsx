@@ -25,6 +25,8 @@ import PostPage from "./pages/Blog/PostPage/PostPage";
 import TramptekMain from "./pages/Landings/Tramptek/TramptekMain";
 import KineticsMain from "./pages/Landings/Kinetics/KineticsMain";
 import MiniMain from "./pages/Landings/Mini/MiniMain";
+import PlayletMain from "./pages/Landings/Playlet/PlayletMain";
+import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -122,6 +124,8 @@ const App = () => {
               <Route path="/tramptec-solution" element={<TramptekMain />} />
               <Route path="/kinetics-solution" element={<KineticsMain />} />
               <Route path="/mini-solution" element={<MiniMain />} />
+              <Route path="/playlet-solution" element={<PlayletMain />} />
+              <Route path="/bloqi-solution" element={<BloqiMain />} />
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />

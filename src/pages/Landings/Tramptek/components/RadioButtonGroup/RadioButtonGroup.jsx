@@ -22,7 +22,15 @@ const RadioButtonGroup = ({ title, options, selectedValue, onChange }) => {
               disabled={option.disabled}
             />
             <span></span>
-            <span className={styles.label}>{option.label}</span>
+            <span className={styles.label}>
+              {Array.isArray(option.label) ? (
+                <>
+                  {option.label[0]} <br /> {option.label[1]}
+                </>
+              ) : (
+                option.label
+              )}
+            </span>
           </label>
         ))}
       </div>

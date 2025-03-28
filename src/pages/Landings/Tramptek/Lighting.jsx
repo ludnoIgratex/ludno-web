@@ -1,90 +1,193 @@
-import React, { useState, useEffect } from "react";
-import styles from "./styles/Lighting.module.css";
+import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import lightingStyles from "./styles/Lighting.module.css";
+import materialsStyles from "./styles/Materials.module.css";
 
-const images = [
-  "/assets/images/tramptec-solution/jumping-boy.webp",
-  "/assets/images/tramptec-solution/jumping-girl.webp",
-  "/assets/images/tramptec-solution/lighting_1.webp",
-  "/assets/images/tramptec-solution/lighting_2.webp",
-  "/assets/images/tramptec-solution/lighting_3.webp",
+const pointsDataDesktop = [
+  {
+    top: "55%",
+    left: "40%",
+    text: "пластина крепления пружины",
+    line: { top: "-345px", left: "23px", height: "360px" },
+    tooltip: { bottom: "370px", left: "20px", color: "#000" },
+  },
+  {
+    top: "28%",
+    left: "53%",
+    text: "латунная втулка",
+    line: { top: "-140px", left: "23px", height: "160px" },
+    tooltip: { bottom: "164px", left: "20px", color: "#000" },
+  },
+  {
+    top: "33%",
+    left: "62%",
+    text: "полоса из закаленной легированной стали",
+    line: { top: "-160px", left: "23px", height: "180px" },
+    tooltip: { bottom: "160px", left: "20px", color: "#000" },
+  },
+];
+
+const pointsDataTablet = [
+  {
+    top: "52%",
+    left: "22%",
+    text: "пластина крепления пружины",
+    line: { top: "-340px", left: "14px", height: "350px" },
+    tooltip: { bottom: "320px", left: "15px", color: "#000" },
+  },
+  {
+    top: "29%",
+    left: "60%",
+    text: "латунная втулка",
+    line: { top: "-110px", left: "14px", height: "130px" },
+    tooltip: { bottom: "114px", left: "15px", color: "#000" },
+  },
+  {
+    top: "32%",
+    left: "72%",
+    text: "полоса из закаленной легированной стали",
+    line: { top: "-140px", left: "14px", height: "160px" },
+    tooltip: { bottom: "130px", left: "15px", color: "#000" },
+  },
+];
+
+const pointsDataMobile = [
+  {
+    top: "25%",
+    left: "22%",
+    text: "пластина крепления пружины",
+    line: { top: "10px", left: "12px", height: "90px" },
+    tooltip: {
+      bottom: "-80px",
+      left: "10px",
+      color: "var(--accent-color-tramptek)",
+    },
+  },
+  {
+    top: "13%",
+    left: "55%",
+    text: "латунная втулка",
+    line: { top: "10px", left: "12px", height: "120px" },
+    tooltip: {
+      bottom: "-110px",
+      left: "-124px",
+      color: "var(--accent-color-tramptek)",
+    },
+  },
+  {
+    top: "13%",
+    left: "65%",
+    text: "полоса из закаленной легированной стали",
+    line: { top: "10px", left: "12px", height: "140px" },
+    tooltip: {
+      bottom: "-130px",
+      left: "-170px",
+      color: "var(--accent-color-tramptek)",
+    },
+  },
 ];
 
 const Lighting = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const isTouchDevice = useMediaQuery({ query: "(hover: none)" });
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
 
-  // Функция для переключения на следующий слайд
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  const pointsData = isMobile
+    ? pointsDataMobile
+    : isTablet
+    ? pointsDataTablet
+    : pointsDataDesktop;
 
-  // Функция для переключения на предыдущий слайд
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  // Автопереключение каждые 10 секунд
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 10000); // Увеличено с 5000 до 10000
-
-    return () => clearInterval(interval);
-  }, []);
+  const [activePoint, setActivePoint] = useState(null);
 
   return (
-    <section className={styles.lighting}>
-      <div className={styles.leftBlock}>
-        <div className={styles.mainInfo}>
-          <h2 className={styles.title}>LED подсветка</h2>
-          <p className={styles.description}>
-            Материалы батута подобраны так, чтобы иметь возможность эксплуатации
-            во всех климатических зонах
-          </p>
-          <ul className={styles.features}>
-            <li>Герметичная LED-подсветка</li>
-            <li>24V</li>
-            <li>Степень защиты IP67.</li>
-            <li>Температура света 3000K</li>
-          </ul>
+    <>
+      {/* LED подсветка */}
+      <section className={lightingStyles.lighting}>
+        <h2 className={lightingStyles.title}>LED подсветка</h2>
+
+        <div className={lightingStyles.leftBlock}>
+          <div className={lightingStyles.mainInfo}>
+            <p className={lightingStyles.description}>
+              Материалы батута подобраны так, чтобы иметь возможность
+              эксплуатации во всех климатических зонах
+            </p>
+          </div>
+          <div>
+            <ul className={lightingStyles.features}>
+              <li>Герметичная LED-подсветка</li>
+              <li>24V</li>
+              <li>Степень защиты IP67.</li>
+              <li>Температура света 3000K</li>
+            </ul>
+            <p className={lightingStyles.option}>
+              Опционально поставляется с&nbsp;трансформатором IP67 для&nbsp;сети
+              AC&nbsp;220V
+            </p>
+          </div>
         </div>
-        <p className={styles.option}>
-          Опционально поставляется с&nbsp;трансформатором IP67 для&nbsp;сети
-          AC&nbsp;220V
-        </p>
-      </div>
+      </section>
 
-      <div className={styles.carouselContainer}>
-        {/* Кнопка "назад" */}
-        <button className={styles.arrowLeft} onClick={prevSlide}>
-          &#10094;
-        </button>
+      {/* Материалы */}
+      <section className={materialsStyles.materialsContainer}>
+        <div className={materialsStyles.imageWrapper}>
+          <img
+            className={materialsStyles.cardImage}
+            src="/assets/images/tramptec-solution/materials.avif"
+            alt="Материалы батута"
+          />
 
-        <img
-          src={images[currentIndex]}
-          alt={`Slide ${currentIndex}`}
-          className={styles.carouselImage}
-        />
+          <div className={materialsStyles.textOverlay}>
+            <h3>Усиленные пружины</h3>
+            <p>
+              Мы разработали специальные пружины с увеличенной рабочей длинной и
+              усилили их исходное натяжение полотна. Пружины имеют трехкратный
+              запас прочности. Пружины изготовлены из оцинкованной стали, что
+              обеспечивает долговечность и отличную коррозионную стойкость.
+            </p>
+          </div>
 
-        {/* Кнопка "вперёд" */}
-        <button className={styles.arrowRight} onClick={nextSlide}>
-          &#10095;
-        </button>
-
-        <div className={styles.dots}>
-          {images.map((_, index) => (
-            <span
+          {pointsData.map((point, index) => (
+            <div
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={index === currentIndex ? styles.dotActive : styles.dot}
-            />
+              className={materialsStyles.pointWrapper}
+              style={{ top: point.top, left: point.left }}
+              onClick={
+                isTouchDevice
+                  ? () => setActivePoint(activePoint === index ? null : index)
+                  : undefined
+              }
+            >
+              <div className={materialsStyles.point} />
+              <div
+                className={materialsStyles.line}
+                style={{
+                  top: point.line.top,
+                  left: point.line.left,
+                  height: point.line.height,
+                  ...(isTouchDevice && {
+                    opacity: activePoint === index ? 1 : 0,
+                  }),
+                }}
+              />
+              <div
+                className={materialsStyles.tooltip}
+                style={{
+                  bottom: point.tooltip.bottom,
+                  left: point.tooltip.left,
+                  color: point.tooltip.color,
+                  ...(isTouchDevice && {
+                    opacity: activePoint === index ? 1 : 0,
+                  }),
+                }}
+              >
+                {point.text}
+              </div>
+            </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

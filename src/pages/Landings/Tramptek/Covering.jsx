@@ -26,7 +26,7 @@ const Covering = () => {
     },
     {
       value: "custom",
-      label: "ваш дизайн",
+      label: ["ваш", "дизайн"],
       shape: "custom",
       image: "/assets/images/tramptec-solution/custom-pattern.svg",
     },

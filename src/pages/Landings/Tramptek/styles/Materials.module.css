@@ -1,7 +1,6 @@
 .materialsContainer {
   position: relative;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  background-color: #e1e051;
 }
 
 .materialsContainer h2 {
@@ -111,6 +110,7 @@
     max-width: fit-content;
     font-size: 16px;
     line-height: 22px;
+    background-color: white;
   }
 
   .textOverlay h3 {
@@ -141,9 +141,9 @@
 
   .tooltip {
     color: var(--accent-color-tramptek);
-    font-size: 16px;
+    font-size: 18px;
     width: 200px;
-    line-height: 22px;
+    line-height: 24px;
   }
 }
 
@@ -153,37 +153,33 @@
     padding-left: 15px;
   }
 
-  .imageWrapper {
-    position: unset;
-    padding: 0 15px;
-  }
-
   .cardImage {
-    min-height: 240px;
+    min-height: 600px;
     object-fit: cover;
   }
   .textOverlay {
-    position: unset;
-    color: var(--primary-default-color);
-    padding: 16px 0px;
-    width: 100%;
-    font-size: 16px;
-    line-height: 22px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 60%;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 24px;
   }
 
   .textOverlay h3 {
-    color: var(--primary-default-color);
-    font-size: 20px;
-    line-height: 24px;
-    padding-bottom: 4px;
+    font-size: 42px;
+    line-height: 48px;
+    padding-bottom: 6px;
   }
 
   .point {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
   .pointWrapper:hover .point {
-    background-color: var(--accent-color-tramptek);
     transform: scale(0.4);
   }
 
@@ -193,8 +189,8 @@
   }
 
   .line {
-    background-color: var(--accent-color-tramptek);
     width: 1px;
+    
   }
 
   .tooltip {

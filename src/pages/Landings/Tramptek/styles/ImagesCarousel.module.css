@@ -1,0 +1,227 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 160px 32px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.infoBlock {
+  flex: 1;
+}
+
+.stats {
+  display: flex;
+  gap: 40px;
+  padding-bottom: 24px;
+}
+
+.singleStat {
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  padding: 0 32px;
+}
+
+.statValue {
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 40px;
+  text-align: center;
+  padding-bottom: 8px;
+  padding-top: 24px;
+}
+
+.statLabel {
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--secondary-default-color);
+  padding-bottom: 24px;
+}
+
+.description {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.carouselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.carouselImage {
+  height: 600px;
+  max-width: 520px;
+  border-radius: 30px;
+  object-fit: cover;
+}
+
+.dots {
+  position: absolute;
+  bottom: -30px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot,
+.dotActive {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--bg-hover-color);
+
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dotActive {
+  background-color: var(--secondary-hover-color);
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: black;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+  opacity: 1;
+}
+
+.arrowLeft {
+  left: 5%;
+}
+
+.arrowRight {
+  right: 5%;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 100px 16px;
+  }
+
+  .carouselContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    order: 0;
+  }
+
+  .carouselImage {
+    height: 380px;
+    max-width: 260px;
+    width: 100%;
+    border-radius: 30px;
+  }
+
+  .dots {
+    bottom: -20px;
+    gap: 6px;
+  }
+
+  .dot,
+  .dotActive {
+    width: 6px;
+    height: 6px;
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    font-size: 1.5rem;
+  }
+  .arrowLeft {
+    left: 0px;
+  }
+
+  .arrowRight {
+    right: 0px;
+  }
+
+  .infoBlock {
+    order: 1;
+    padding-top: 42px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .stats {
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stats div{
+    max-width: 74px;
+  }
+
+  .singleStat {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    padding: 0 24px;
+  }
+
+  .statValue {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    padding-bottom: 4px;
+    padding-top:0px
+  }
+
+  .statLabel {
+    font-size: 11px;
+    line-height: 14px;
+    padding-bottom:0px;
+    text-align: center;
+  }
+}
+
+@media (min-width:769px) and (max-width:1024px) {
+  .wrapper {
+    flex-direction: column;
+  }
+  .stats{
+    justify-content: center;
+  }
+  .description {
+    text-align: center;
+  }
+  .carouselContainer{
+    margin-top: 32px;
+  }
+
+  .carouselImage{
+    max-width: 420px;
+    object-fit: cover;
+  }
+  .arrowLeft{
+    left: 1%;
+    color: white;
+  }
+  .arrowRight{
+    right: 1%;
+    color: white;
+  }
+}

@@ -1,0 +1,52 @@
+.manualWrapper {
+  padding: 0px 32px 160px 32px;
+}
+
+.manualWrapper h2 {
+  padding-bottom: 16px;
+}
+
+.manualContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.textBlock {
+  flex: 1;
+  max-width: 660px;
+}
+
+.textBlock p {
+  padding-bottom: 44px;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.downloadBtn {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.downloadBtn:hover {
+  background-color: #555;
+}
+
+.imageBlock {
+  flex-shrink: 0;
+  max-width: 600px;
+}
+
+.bookImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* при необходимости:
+       object-fit: cover;
+       если изображение нужно обрезать под фиксированные пропорции */
+}

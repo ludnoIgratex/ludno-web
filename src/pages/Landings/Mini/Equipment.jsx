@@ -4,49 +4,76 @@ import styles from "./styles/Equipment.module.css";
 const Equipment = () => {
   const leftPupilRef = useRef(null);
   const rightPupilRef = useRef(null);
+  const lastMousePosition = useRef({ x: 0, y: 0 });
+
+  const updatePupils = (x, y) => {
+    const eyes = [leftPupilRef.current, rightPupilRef.current];
+    eyes.forEach((pupil) => {
+      if (!pupil) return;
+
+      const eye = pupil.parentElement;
+      const rect = eye.getBoundingClientRect();
+
+      const eyeCenterX = rect.left + rect.width / 2;
+      const eyeCenterY = rect.top + rect.height / 2;
+
+      const dx = x - eyeCenterX;
+      const dy = (y - eyeCenterY) * 0.5; // если нужно уменьшить влияние по вертикали
+
+      const angle = Math.atan2(dy, dx);
+
+      const radiusX = 2;
+      const radiusY = 5;
+
+      const offsetX = radiusX * Math.cos(angle);
+      const offsetY = radiusY * Math.sin(angle);
+
+      pupil.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    });
+  };
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const eyes = [leftPupilRef.current, rightPupilRef.current];
+      lastMousePosition.current = { x: e.clientX, y: e.clientY };
+      updatePupils(e.clientX, e.clientY);
+    };
 
-      eyes.forEach((pupil) => {
-        if (!pupil) return;
-
-        const eye = pupil.parentElement;
-        const rect = eye.getBoundingClientRect();
-
-        const eyeCenterX = rect.left + rect.width / 2;
-        const eyeCenterY = rect.top + rect.height / 2;
-
-        const dx = e.clientX - eyeCenterX;
-        const dy = (e.clientY - eyeCenterY) * 0.6;
-
-        const angle = Math.atan2(dy, dx);
-
-        const radiusX = 5;
-        const radiusY = 8;
-
-        const x = radiusX * Math.cos(angle);
-        const y = radiusY * Math.sin(angle);
-
-        pupil.style.transform = `translate(${x}px, ${y}px)`;
-      });
+    const handleScroll = () => {
+      // Используем сохраненные координаты для обновления позиции зрачков
+      const { x, y } = lastMousePosition.current;
+      updatePupils(x, y);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
     <div className={styles.equipmentContainer}>
-      <h2>Оборудование</h2>
-
       <section className={styles.hammockSection}>
-        <p className={styles.equipmentDescription}>
-          Оборудование одобрено для безопасного размещения ближе друг к другу.
-          Это позволяет использовать устройства в сочетании друг с другом самыми
-          разными способами.
-        </p>
+        <div className={styles.textWrapper}>
+          <p className={styles.equipmentDescription}>
+            Оборудование одобрено для безопасного размещения ближе друг к другу.
+            Это позволяет использовать устройства в сочетании друг с другом
+            самыми разными способами.
+          </p>
+
+          <ul className={styles.ageBlock}>
+            {["1-3 года", "3-5 лет", "5-7 лет"].map((age, index) => (
+              <li key={index} className={styles.ageItem}>
+                <span className={styles.ageLabel}>{age}</span>
+                <p className={styles.ageDescription}>
+                  Оборудование одобрено для безопасного размещения ближе
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Персонаж с глазами */}
         <div className={styles.characterWrapper}>
@@ -79,27 +106,6 @@ const Equipment = () => {
             className={styles.hammockImage}
           />
         </div>
-      </section>
-
-      <section className={styles.balanceSection}>
-        <img
-          src="/assets/images/mini-solution/balance.webp"
-          alt="Баланс"
-          className={styles.balanceImage}
-        />
-
-        <ul className={styles.ageBlock}>
-          {["3—7", "0+", "7—11"].map((age, index) => (
-            <li key={index} className={styles.ageItem}>
-              <span className={styles.ageLabel}>{age}</span>
-              <p className={styles.ageDescription}>
-                Оборудование одобрено для безопасного размещения ближе друг к
-                другу. Это позволяет использовать устройства в сочетании друг с
-                другом.
-              </p>
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   );
