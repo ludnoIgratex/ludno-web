@@ -4,6 +4,10 @@ import Head from "./Head";
 import About from "./About";
 import Consultation from "../../../components/Consultation/Consultation";
 import Loader from "../../../components/Loader/Loader";
+import Solutions from "./Solutions";
+import IntroImage from "./IntroImage";
+import Scheme from "./Scheme";
+import Environment from "./Environment";
 
 const PlayletMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +38,10 @@ const PlayletMain = () => {
         <>
           <Head />
           <About />
+          <IntroImage />
+          <Scheme />
+          <Solutions />
+          <Environment />
           <Consultation color="var(--accent-color-playlet)" />
         </>
       )}

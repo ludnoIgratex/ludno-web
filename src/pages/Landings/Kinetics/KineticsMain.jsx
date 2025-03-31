@@ -7,9 +7,9 @@ import Loader from "../../../components/Loader/Loader";
 import Items from "./Items";
 import Configurations from "./Configurations";
 import Constructor from "./Constructor";
-import Slider from "./Slider";
 import ColorSolutions from "./ColorSolutions";
 import { ParallaxProvider } from "react-scroll-parallax";
+import KinMo from "./KinMo";
 
 const KineticsMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +42,7 @@ const KineticsMain = () => {
             <Head />
             <About />
             <Configurations />
-            <Slider />
+            <KinMo />
             <Constructor />
             <ColorSolutions />
             <Items />
