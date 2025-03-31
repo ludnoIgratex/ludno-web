@@ -66,12 +66,12 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.parkfit} to="products/Паркфит">
-          <section className={styles.parkfit}>
+        <Link className={styles.playlet} to="/playlet-solution">
+          <section className={styles.playlet}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Паркфит</h3>
-                <p>Уличный спорт</p>
+                <h3>Плейлеты</h3>
+                <p>Городская среда — игровая локация</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />

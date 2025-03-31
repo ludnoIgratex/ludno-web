@@ -44,7 +44,7 @@
   .headWrapper {
     height: calc(100vh - 128px - 184px);
     justify-content: start;
-    gap:40px;
+    gap: 40px;
     padding: 36px 16px;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -71,6 +71,6 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .headWrapper {
     background-position: left bottom;
-    background-size: 800px;
+    background-size: 1200px;
   }
 }

@@ -1,121 +1,143 @@
-import React, { useState, useRef } from "react";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles/Solutions.module.css";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const images = Array.from(
   { length: 8 },
   (_, i) => `/assets/images/playlets-solution/${i + 1}.avif`
 );
 
+// Получаем CSS-переменные
+const useResponsiveSlideSizes = () => {
+  const [sizes, setSizes] = useState({
+    activeWidth: 750,
+    inactiveWidth: 300,
+    gap: 700,
+  });
+
+  useEffect(() => {
+    const getSizes = () => {
+      const styles = getComputedStyle(document.documentElement);
+      setSizes({
+        activeWidth: parseInt(styles.getPropertyValue("--active-slide-width")),
+        inactiveWidth: parseInt(styles.getPropertyValue("--inactive-slide-width")),
+        gap: parseInt(styles.getPropertyValue("--slide-gap")),
+      });
+    };
+
+    getSizes();
+    window.addEventListener("resize", getSizes);
+    return () => window.removeEventListener("resize", getSizes);
+  }, []);
+
+  return sizes;
+};
+
 const Solutions = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFading, setIsFading] = useState(false);
+  const { activeWidth, inactiveWidth, gap } = useResponsiveSlideSizes();
+
+  // 👉 свайп touch-позиции
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
-  const changeSlide = (index) => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentIndex(index);
-      setIsFading(false);
-    }, 300);
-  };
-
-  const prevSlide = () => {
-    changeSlide((currentIndex - 1 + images.length) % images.length);
-  };
-
-  const nextSlide = () => {
-    changeSlide((currentIndex + 1) % images.length);
-  };
-
-  const goToSlide = (index) => {
-    changeSlide(index);
-  };
-
-  const leftIndex = (currentIndex - 1 + images.length) % images.length;
-  const rightIndex = (currentIndex + 1) % images.length;
-
-  // === ✅ Свайп-функции ===
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    handleSwipeGesture();
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
   };
 
-  const handleSwipeGesture = () => {
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
     const delta = touchStartX.current - touchEndX.current;
-    const threshold = 50; // минимальное расстояние свайпа
 
-    if (delta > threshold) {
-      // свайп влево → следующее
-      nextSlide();
-    } else if (delta < -threshold) {
-      // свайп вправо → предыдущее
-      prevSlide();
+    const minSwipeDistance = 50;
+
+    if (delta > minSwipeDistance) {
+      // свайп влево
+      handleNext();
+    } else if (delta < -minSwipeDistance) {
+      // свайп вправо
+      handlePrev();
     }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const getDistance = (i) => {
+    const distance = i - currentIndex;
+    if (distance > images.length / 2) return distance - images.length;
+    if (distance < -images.length / 2) return distance + images.length;
+    return distance;
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2 className={styles.title}>Готовые решения</h2>
-      <p className={styles.subtitle}>
-        Из готовых блоков бортов плейлеты могут приобретать требуемую под
-        определенное пространство форму и размер
-      </p>
+    <div
+      className={styles.container}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className={styles.textWrapper}>
+        <h2>Готовые решения</h2>
+        <p>
+          Из готовых блоков бортов плейлеты могут приобретать требуемую под
+          опеделенное пространство форму и размер
+        </p>
+      </div>
+      <div className={styles.slidesWrapper}>
+        {images.map((src, i) => {
+          const distance = getDistance(i);
+          const isActive = distance === 0;
 
-      <div className={styles.sliderContainer}>
-        <div className={styles.side}>
-          <img
-            src={images[leftIndex]}
-            alt="Left Slide"
-            className={styles.smallImage}
-          />
-        </div>
+          const width = isActive ? activeWidth : inactiveWidth;
+          const translateX = distance * gap;
 
-        <div
-          className={styles.center}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <img
-            src={images[currentIndex]}
-            alt="Center Slide"
-            className={`${styles.largeImage} ${
-              isFading ? styles.fadeOut : styles.fade
-            }`}
-          />
-        </div>
+          const style = {
+            transform: `translateX(calc(${translateX}px - ${width / 2}px))`,
+            width: `${width}px`,
+            opacity: isActive ? 1 : 0.6,
+            zIndex: 10 - Math.abs(distance),
+          };
 
-        <div className={styles.side}>
-          <img
-            src={images[rightIndex]}
-            alt="Right Slide"
-            className={styles.smallImage}
-          />
-        </div>
+          return (
+            <div key={i} className={styles.slide} style={style}>
+              <img src={src} alt={`slide-${i}`} />
+            </div>
+          );
+        })}
       </div>
 
-      <div className={styles.navigation}>
-        <button onClick={prevSlide} className={styles.arrow}>
-          <IoIosArrowBack color="var(--secondary-default-color)" />
+      <div className={styles.controls}>
+        <button className={styles.arrowBtn} onClick={handlePrev}>
+          <IoIosArrowBack size={24} />
         </button>
+
         <div className={styles.dots}>
           {images.map((_, i) => (
-            <button
+            <span
               key={i}
-              onClick={() => goToSlide(i)}
               className={`${styles.dot} ${
-                i === currentIndex ? styles.dotActive : ""
+                i === currentIndex ? styles.activeDot : ""
               }`}
+              onClick={() => setCurrentIndex(i)}
             />
           ))}
         </div>
-        <button onClick={nextSlide} className={styles.arrow}>
-          <IoIosArrowForward color="var(--secondary-default-color)" />
+
+        <button className={styles.arrowBtn} onClick={handleNext}>
+          <IoIosArrowForward size={24} />
         </button>
       </div>
     </div>

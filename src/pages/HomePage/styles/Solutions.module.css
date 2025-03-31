@@ -11,7 +11,7 @@
   grid-template-areas:
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
-    "towers towers towers towers towers towers towers parkfit parkfit parkfit parkfit parkfit"
+    "towers towers towers towers towers towers towers playlet playlet playlet playlet playlet"
     "project project project project project project project project project project project project";
 }
 
@@ -118,13 +118,13 @@
   color: var(--primary-text-color);
 }
 
-.parkfit {
-  grid-area: parkfit;
-  background-image: url("/assets/images/parkfit_wrapper.avif");
+.playlet {
+  grid-area: playlet;
+  background-image: url("/assets/images/playlet.avif");
   background-repeat: no-repeat;
-  background-position-x: 50px;
-  background-position-y: 20px;
-  background-size: cover;
+  background-position-x: 190px;
+  background-position-y: 160px;
+  background-size: contain;
   text-decoration: none;
   color: var(--primary-text-color);
 }
@@ -148,7 +148,7 @@
       "landscape"
       "mini"
       "tramptek"
-      "parkfit"
+      "playlet"
       "towers"
       "project";
   }
@@ -206,10 +206,10 @@
     background-size: 500px;
   }
 
-  .parkfit {
-    background-position-x: -30px;
-    background-position-y: -62px;
-    background-size: 665px;
+  .playlet {
+    background-position-x: 100px;
+    background-position-y: 142px;
+    background-size: 405px;
   }
 
   .individualProjects {
@@ -244,10 +244,10 @@
     background-size: 800px;
   }
 
-  .parkfit {
-    background-position-x: 0px;
-    background-position-y: 70px;
-    background-size: 600px;
+  .playlet {
+    background-position-x: 100px;
+    background-position-y: 170px;
+    background-size: 500px;
   }
 
   .individualProjects {

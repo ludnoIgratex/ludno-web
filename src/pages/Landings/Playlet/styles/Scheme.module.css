@@ -98,7 +98,7 @@
   }
 
   .wrapper {
-    padding: 100px 16px;
+    padding: 100px 16px 80px 16px;
   }
 
   .image {
@@ -128,5 +128,50 @@
 
   .heading {
     margin-bottom: 8px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+  
+  }
+
+  .wrapper {
+    padding: 100px 16px 80px 16px;
+  }
+
+  .image {
+    max-width: 460px;
+    height: auto;
+    display: block;
+  }
+
+  .labelContainer {
+    gap: 8px;
+  }
+
+  .labelTop ul,
+  .labelBottom ul {
+    margin-left: 20px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .title {
+    margin-bottom: 48px;
+  }
+
+  .heading {
+    margin-bottom: 8px;
+  }
+
+  .labelTop .line {
+    left: -440px;
+    width: 400px;
+  }
+  
+  .labelBottom .line {
+    left: -340px;
+    width: 280px;
   }
 }

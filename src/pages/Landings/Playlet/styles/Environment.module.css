@@ -79,7 +79,7 @@
     padding: 100px 0px;
   }
 
-  .content{
+  .content {
     width: 100%;
   }
 
@@ -115,5 +115,30 @@
 
   .iconItem img {
     width: 56px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .description {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 64px;
+  }
+
+  .iconList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    gap: 104px 51px;
+    list-style: none;
+    padding: 0px 16px;
+    margin: 0;
+  }
+
+  .iconItem {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .iconItem img {
+    width: 72px;
   }
 }
