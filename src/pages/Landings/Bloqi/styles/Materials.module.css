@@ -1,0 +1,81 @@
+.wrapper {
+  margin: 0 auto;
+  padding: 32px 150px 32px 32px;
+}
+
+.title {
+  margin-bottom: 32px;
+}
+
+.content {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.imageWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+}
+
+.image {
+  margin-top: 140px;
+  max-width: 555px;
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20%;
+  left: 20%;
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.description {
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 20px;
+}
+
+.standard {
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 40px;
+}
+
+.specs {
+  display: flex;
+  gap: 40px;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 26px;
+  line-height: 32px;
+  color: var(--secondary-default-color);
+}
+
+.value {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 700;
+}

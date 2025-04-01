@@ -4,6 +4,11 @@
   align-items: center;
   padding: 200px 160px;
   gap: 32px;
+  background-image: url("/assets/images/bloqi-solution/red-prints.svg"),
+    url("/assets/images/bloqi-solution/red-curve.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: top left, bottom right;
+  background-size: auto, auto;
 }
 
 .aboutWrapper p {

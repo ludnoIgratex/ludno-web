@@ -4,6 +4,10 @@ import Head from "./Head";
 import About from "./About";
 import Consultation from "../../../components/Consultation/Consultation";
 import Loader from "../../../components/Loader/Loader";
+import Storage from "./Storage";
+import Materials from "./Materials";
+import Advantages from "./Advantages";
+import Collections from "./Collections";
 
 const BloqiMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +38,10 @@ const BloqiMain = () => {
         <>
           <Head />
           <About />
+          <Advantages />
+          <Materials />
+          <Collections />
+          <Storage />
           <Consultation color="var(--accent-color-bloqi)" />
         </>
       )}

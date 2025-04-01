@@ -6,21 +6,21 @@ import materialsStyles from "./styles/Materials.module.css";
 const pointsDataDesktop = [
   {
     top: "55%",
-    left: "40%",
+    left: "42%",
     text: "пластина крепления пружины",
     line: { top: "-345px", left: "23px", height: "360px" },
     tooltip: { bottom: "370px", left: "20px", color: "#000" },
   },
   {
     top: "28%",
-    left: "53%",
+    left: "58%",
     text: "латунная втулка",
     line: { top: "-140px", left: "23px", height: "160px" },
     tooltip: { bottom: "164px", left: "20px", color: "#000" },
   },
   {
-    top: "33%",
-    left: "62%",
+    top: "30%",
+    left: "66%",
     text: "полоса из закаленной легированной стали",
     line: { top: "-160px", left: "23px", height: "180px" },
     tooltip: { bottom: "160px", left: "20px", color: "#000" },

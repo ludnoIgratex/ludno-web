@@ -54,7 +54,7 @@
 
 .carouselImage {
   height: 600px;
-  max-width: 520px;
+  width: 520px;
   border-radius: 30px;
   object-fit: cover;
 }

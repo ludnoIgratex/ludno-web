@@ -1,0 +1,42 @@
+.wrapper {
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-bottom: 32px;
+}
+
+.images {
+  display: flex;
+  align-items: flex-end;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.bag {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+}
+
+.stacks {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.stacks img {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+}
