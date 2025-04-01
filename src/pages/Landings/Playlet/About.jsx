@@ -4,10 +4,7 @@ import { RiArrowRightDownLine } from "react-icons/ri";
 
 const About = () => {
   const handleDownloadClick = () => {
-    window.open(
-      "https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FzH3IGuvvIg%2Fy5vsQYaByKNzpSwa%2BN%2F%2B86yydT9Q4063EE1UZu6Anfqmz%2BarXsraBeAn62gIiktaMpHuWJ3p25Q%3D%3D%3A%2FTRAMPTEC%20%7C%C2%A0Каталог.pdf&name=TRAMPTEC%20%7C%C2%A0Каталог.pdf",
-      "_blank"
-    );
+    window.open("https://disk.yandex.ru/d/1-KfNZ88bfe_hg", "_blank");
   };
 
   return (
