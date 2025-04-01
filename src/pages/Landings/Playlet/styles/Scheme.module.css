@@ -32,6 +32,8 @@
 }
 
 .heading {
+  font-size: 42px;
+  line-height: 48px;
   position: relative;
   margin-bottom: 16px;
 }
@@ -127,13 +129,14 @@
   }
 
   .heading {
+    font-size: 18px;
+    line-height: 24px;
     margin-bottom: 8px;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .container {
-  
   }
 
   .wrapper {
@@ -162,16 +165,18 @@
   }
 
   .heading {
+    font-size: 26px;
+    line-height: 32px;
     margin-bottom: 8px;
   }
 
   .labelTop .line {
-    left: -440px;
-    width: 400px;
+    left: -40vw;
+    width: 36vw;
   }
-  
+
   .labelBottom .line {
-    left: -340px;
-    width: 280px;
+    left: -30vw;
+    width: 26vw;
   }
 }

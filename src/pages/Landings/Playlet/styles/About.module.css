@@ -1,9 +1,39 @@
 .aboutWrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 210px 150px 300px 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 200px 160px;
   gap: 32px;
+}
+
+.aboutWrapper::before {
+  content: "";
+  position: absolute;
+  left: -70px;
+  bottom: 100px;
+  width: 320px;
+  height: 320px;
+  background-image: url("/assets/images/playlets-solution/dog-2.avif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform-origin: bottom left;
+  animation: nod 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes nod {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .aboutWrapper p {
@@ -43,6 +73,10 @@
     gap: 16px;
   }
 
+  .aboutWrapper::before {
+    background-image: none;
+  }
+
   .aboutWrapper p {
     font-size: 18px;
     line-height: 24px;
@@ -59,8 +93,20 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .aboutWrapper {
-    padding: 160px 26px;
-    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    padding: 160px 115px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .aboutWrapper::before {
+    left: -30px;
+
+    width: 180px;
+    height: 180px;
   }
   .aboutWrapper p {
     font-size: 26px;

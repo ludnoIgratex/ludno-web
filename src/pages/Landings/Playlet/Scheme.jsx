@@ -7,7 +7,6 @@ const Scheme = () => {
       <h2 className={styles.title}>Конструктивная схема</h2>
 
       <div className={styles.container}>
-        {/* Левая часть с изображением */}
         <div className={styles.imageContainer}>
           <img
             src="/assets/images/playlets-solution/scheme.avif"
@@ -16,14 +15,10 @@ const Scheme = () => {
           />
         </div>
 
-        {/* Правая часть с текстом */}
         <div className={styles.labelContainer}>
-
-          {/* Верхний блок */}
           <div className={styles.labelTop}>
             <h3 className={styles.heading}>
               Заполнение плейлета
-              {/* Линия — потомок h3 */}
               <span className={styles.line}></span>
             </h3>
             <ul>
@@ -34,7 +29,6 @@ const Scheme = () => {
             </ul>
           </div>
 
-          {/* Нижний блок */}
           <div className={styles.labelBottom}>
             <h3 className={styles.heading}>
               Борт
@@ -44,7 +38,6 @@ const Scheme = () => {
               <li>резиновая EPDM крошка</li>
             </ul>
           </div>
-
         </div>
       </div>
     </section>
