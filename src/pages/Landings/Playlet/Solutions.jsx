@@ -7,7 +7,6 @@ const images = Array.from(
   (_, i) => `/assets/images/playlets-solution/${i + 1}.avif`
 );
 
-// Получаем CSS-переменные
 const useResponsiveSlideSizes = () => {
   const [sizes, setSizes] = useState({
     activeWidth: 750,
@@ -20,7 +19,9 @@ const useResponsiveSlideSizes = () => {
       const styles = getComputedStyle(document.documentElement);
       setSizes({
         activeWidth: parseInt(styles.getPropertyValue("--active-slide-width")),
-        inactiveWidth: parseInt(styles.getPropertyValue("--inactive-slide-width")),
+        inactiveWidth: parseInt(
+          styles.getPropertyValue("--inactive-slide-width")
+        ),
         gap: parseInt(styles.getPropertyValue("--slide-gap")),
       });
     };
@@ -37,7 +38,6 @@ const Solutions = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { activeWidth, inactiveWidth, gap } = useResponsiveSlideSizes();
 
-  // 👉 свайп touch-позиции
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
@@ -56,10 +56,8 @@ const Solutions = () => {
     const minSwipeDistance = 50;
 
     if (delta > minSwipeDistance) {
-      // свайп влево
       handleNext();
     } else if (delta < -minSwipeDistance) {
-      // свайп вправо
       handlePrev();
     }
 
@@ -110,6 +108,10 @@ const Solutions = () => {
             opacity: isActive ? 1 : 0.6,
             zIndex: 10 - Math.abs(distance),
           };
+
+          if (Math.abs(distance) > 1) {
+            style.opacity = 0;
+          }
 
           return (
             <div key={i} className={styles.slide} style={style}>
