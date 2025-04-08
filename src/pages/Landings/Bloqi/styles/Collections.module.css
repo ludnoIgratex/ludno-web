@@ -211,7 +211,7 @@
   .detailsList {
     display: grid;
     align-items: center;
-    gap: 20px 30px;
+    gap: 20px 29px;
   }
 
   .detailsThreeColumns {
