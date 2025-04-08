@@ -18,8 +18,7 @@ const Equipment = () => {
       const eyeCenterY = rect.top + rect.height / 2;
 
       const dx = x - eyeCenterX;
-      const dy = (y - eyeCenterY) * 0.5; // если нужно уменьшить влияние по вертикали
-
+      const dy = (y - eyeCenterY) * 0.5;
       const angle = Math.atan2(dy, dx);
 
       const radiusX = 2;
@@ -39,7 +38,6 @@ const Equipment = () => {
     };
 
     const handleScroll = () => {
-      // Используем сохраненные координаты для обновления позиции зрачков
       const { x, y } = lastMousePosition.current;
       updatePupils(x, y);
     };
@@ -53,23 +51,31 @@ const Equipment = () => {
     };
   }, []);
 
+  const ageTexts = {
+    "1-3 года":
+      "В этом возрасте дети часто играют параллельно, а не совместно. Место для разговора также важно для наблюдения и участия.",
+    "3-5 лет":
+      "Важна коллективная игра, чтобы учиться общаться и сотрудничать, но необходимо и развивать чувство независимости в уединенных местах.",
+    "5-7 лет":
+      "Развиваются социальные навыки, лидерские качества и командная работа — важны пространства для групповых игр.",
+  };
+
   return (
     <div className={styles.equipmentContainer}>
       <section className={styles.hammockSection}>
         <div className={styles.textWrapper}>
           <p className={styles.equipmentDescription}>
-            Оборудование одобрено для безопасного размещения ближе друг к другу.
-            Это позволяет использовать устройства в сочетании друг с другом
-            самыми разными способами.
+            Мы разрабатывали оборудование с учетом возрастных особенностей
+            детей, учитывая потребности всех возрастных групп. Правильная
+            организация детской площадки ДОО предполагает разделение её
+            территории на зоны по типам игры - спокойную и активную.
           </p>
 
           <ul className={styles.ageBlock}>
             {["1-3 года", "3-5 лет", "5-7 лет"].map((age, index) => (
               <li key={index} className={styles.ageItem}>
                 <span className={styles.ageLabel}>{age}</span>
-                <p className={styles.ageDescription}>
-                  Оборудование одобрено для безопасного размещения ближе
-                </p>
+                <p className={styles.ageDescription}>{ageTexts[age]}</p>
               </li>
             ))}
           </ul>
@@ -92,7 +98,6 @@ const Equipment = () => {
           </div>
         </div>
 
-        {/* Рука — вынесена отдельно и выше по z-index */}
         <img
           src="/assets/images/mini-solution/arm.svg"
           alt="Рука"

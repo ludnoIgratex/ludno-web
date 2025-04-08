@@ -42,7 +42,10 @@
 @media screen and (max-width: 768px) {
   .headWrapper {
     height: calc(100vh - 128px - 184px);
-    justify-content: space-between;
+    justify-content: start;
+    display: flex;
+    flex-direction: column;
+    gap:42px;
     padding: 36px 16px;
     background-repeat: no-repeat;
     background-position-x: 0px;

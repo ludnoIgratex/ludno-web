@@ -46,6 +46,9 @@
   .aboutWrapper {
     padding: 115px 16px;
     gap: 16px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: top left, bottom right;
+    background-size: 30%, 30%;
   }
 
   .aboutWrapper p {

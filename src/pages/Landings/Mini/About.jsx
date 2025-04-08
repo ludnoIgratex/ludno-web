@@ -18,21 +18,20 @@ const About = () => {
   };
 
   const handleDownloadClick = () => {
-    window.open(
-      "https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FzH3IGuvvIg%2Fy5vsQYaByKNzpSwa%2BN%2F%2B86yydT9Q4063EE1UZu6Anfqmz%2BarXsraBeAn62gIiktaMpHuWJ3p25Q%3D%3D%3A%2FTRAMPTEC%20%7C%C2%A0Каталог.pdf&name=TRAMPTEC%20%7C%C2%A0Каталог.pdf",
-      "_blank"
-    );
+    window.open("https://disk.yandex.ru/d/1B_DLHd8-yDzzA", "_blank");
   };
 
   return (
     <section className={styles.aboutWrapper}>
-      <h2>Кинетикомоторные площадки</h2>
+      <h2>Развивающая игровая среда</h2>
       <p>
-        В парке двигательных навыков практически невозможно не увлечься и не
-        бросить вызов равновесию, ловкости и двигательным навыкам.{" "}
-        <span className={styles.highlight}>Парк двигательных навыков</span>{" "}
-        подходит для всех возрастов и является ареной как для игры, так и для
-        более целенаправленной тренировки.
+        Оборудование рассчитано на детей дошкольного возраста. Линейка включает
+        в себя оборудование, позволяющее грамотно организовать{" "}
+        <span className={styles.highlight}>
+          пространство для всестороннего развития детей.
+        </span>{" "}
+        В течение всей разработки мы учитывали принципы проектирования
+        развивающей игровой среды, нормы антропометрии и эргонометрии.
       </p>
 
       <div className={styles.linkWrapper}>

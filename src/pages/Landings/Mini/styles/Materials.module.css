@@ -61,3 +61,17 @@
   font-size: 26px;
   line-height: 32px;
 }
+
+@media screen and (max-width: 768px) {
+  .materialsWrapper {
+    padding: 16px;
+  }
+  .materialsContainer {
+    flex-direction: column;
+  }
+
+  .stripsContainer {
+    width: fit-content;
+    height: 300px;
+  }
+}

@@ -59,17 +59,29 @@ const Intro = () => {
           },
         });
 
-        tl.to(itemsRef.current[0], { yPercent: 0, duration: 1 }, "start")
-          .to(itemsRef.current[0], { opacity: 0, duration: 0.5 }, "start+=0.7");
+        tl.to(itemsRef.current[0], { yPercent: 0, duration: 1 }, "start").to(
+          itemsRef.current[0],
+          { opacity: 0, duration: 0.5 },
+          "start+=0.7"
+        );
 
-        tl.to(itemsRef.current[1], { yPercent: 0, duration: 1 }, "start+=0.5")
-          .to(itemsRef.current[1], { opacity: 0, duration: 0.5 }, "start+=1.3");
+        tl.to(
+          itemsRef.current[1],
+          { yPercent: 0, duration: 1 },
+          "start+=0.5"
+        ).to(itemsRef.current[1], { opacity: 0, duration: 0.5 }, "start+=1.3");
 
-        tl.to(itemsRef.current[2], { yPercent: 0, duration: 1 }, "start+=1")
-          .to(itemsRef.current[2], { opacity: 0, duration: 0.5 }, "start+=1.8");
+        tl.to(itemsRef.current[2], { yPercent: 0, duration: 1 }, "start+=1").to(
+          itemsRef.current[2],
+          { opacity: 0, duration: 0.5 },
+          "start+=1.8"
+        );
 
-        tl.to(itemsRef.current[3], { yPercent: 0, duration: 1 }, "start+=1.5")
-          .to(itemsRef.current[3], { opacity: 0, duration: 0.5 }, "start+=2.3");
+        tl.to(
+          itemsRef.current[3],
+          { yPercent: 0, duration: 1 },
+          "start+=1.5"
+        ).to(itemsRef.current[3], { opacity: 0, duration: 0.5 }, "start+=2.3");
       }
     }, containerRef);
 
@@ -124,6 +136,14 @@ const Intro = () => {
 
   const blocksToRender = isMobile ? mobileOrder : desktopOrder;
 
+  // Маппинг текста для каждого изображения по его alt
+  const overlayTexts = {
+    Orange: "Разработано для развития и комфорта ребенка",
+    Blue: "Доступно как для госзаказчика, так и для частных застройщиков",
+    Pink: "Соответствует всем критериям качества и безопасности",
+    Green: "Спроектировано совместно с педагогами",
+  };
+
   return (
     <div className={styles.introContainer} ref={containerRef}>
       <div className={styles.imageWrapper}>
@@ -138,9 +158,7 @@ const Intro = () => {
               alt={block.alt}
               className={styles.overlayImage}
             />
-            <div className={block.textClass}>
-              Разработано для развития и комфорта ребенка
-            </div>
+            <div className={block.textClass}>{overlayTexts[block.alt]}</div>
           </div>
         ))}
       </div>

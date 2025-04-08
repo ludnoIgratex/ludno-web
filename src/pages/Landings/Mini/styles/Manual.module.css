@@ -46,7 +46,13 @@
   display: block;
   width: 100%;
   height: auto;
-  /* при необходимости:
-       object-fit: cover;
-       если изображение нужно обрезать под фиксированные пропорции */
+}
+
+@media screen and (max-width: 768px) {
+  .manualWrapper {
+    padding: 16px;
+  }
+  .manualContent {
+    flex-direction: column;
+  }
 }

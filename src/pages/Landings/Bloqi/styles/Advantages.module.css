@@ -36,3 +36,30 @@
   font-size: 26px;
   line-height: 32px;
 }
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+
+  .itemTitle {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 4px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .tick {
+    width: 32px;
+    margin-bottom: 4px;
+  }
+}

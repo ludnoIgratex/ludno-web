@@ -38,9 +38,9 @@ const BloqiMain = () => {
         <>
           <Head />
           <About />
+          <Collections />
           <Advantages />
           <Materials />
-          <Collections />
           <Storage />
           <Consultation color="var(--accent-color-bloqi)" />
         </>

@@ -32,11 +32,13 @@
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.2rem;
+  font-size: 42px;
+  line-height: 48px;
   font-weight: bold;
   text-align: center;
   padding: 8px 16px;
   border-radius: 8px;
+  width: 70%;
 }
 
 .overlayTextLast {
@@ -44,19 +46,28 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.2rem;
+  font-size: 42px;
+  line-height: 48px;
   font-weight: bold;
   text-align: center;
   padding: 8px 16px;
+  width: 70%;
   border-radius: 8px;
 }
 
 @media screen and (max-width: 768px) {
   .introContainer {
-    height: 90vh;
+    height: 80vh;
   }
   .imageWrapper {
     width: 90%;
+  }
+
+  .overlayText,
+  .overlayTextLast {
+    font-size: 18px;
+    line-height: 24px;
+    width: 80%;
   }
 }
 

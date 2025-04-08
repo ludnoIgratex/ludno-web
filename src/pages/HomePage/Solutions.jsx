@@ -80,12 +80,12 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.individualProjects} to="projects">
+        <Link className={styles.individualProjects} to="/bloqi-solution">
           <section className={styles.individualProjects}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Индивидуальные проекты</h3>
-                <p>Реализуем уникальные технологические решения </p>
+                <h3>Блоки</h3>
+                <p>Уличный игровой конструктор</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />

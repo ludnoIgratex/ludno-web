@@ -12,7 +12,7 @@
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
     "towers towers towers towers towers towers towers playlet playlet playlet playlet playlet"
-    "project project project project project project project project project project project project";
+    "bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi";
 }
 
 .solutions section {
@@ -130,12 +130,12 @@
 }
 
 .individualProjects {
-  grid-area: project;
-  background-image: url("/assets/images/project_wrapper.avif");
+  grid-area: bloqi;
+  background-image: url("/assets/images/bloqi-solution/forms.avif");
   background-repeat: no-repeat;
   background-position-x: 460px;
   background-position-y: -20px;
-  background-size: contain;
+  background-size: cover;
   text-decoration: none;
   color: var(--primary-text-color);
 }
@@ -150,7 +150,7 @@
       "tramptek"
       "playlet"
       "towers"
-      "project";
+      "bloqi";
   }
 
   .solutions section {
