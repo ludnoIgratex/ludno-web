@@ -27,8 +27,10 @@ import KineticsMain from "./pages/Landings/Kinetics/KineticsMain";
 import MiniMain from "./pages/Landings/Mini/MiniMain";
 import PlayletMain from "./pages/Landings/Playlet/PlayletMain";
 import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
+import { useYandexPageview } from "./hooks/useYandexPageiew";
 
 const App = () => {
+  useYandexPageview();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDesktop, setIsDesktop] = useState(
@@ -94,7 +96,7 @@ const App = () => {
               />
 
               <Route
-                path="/products/:brand"
+                path="/products/:solution"
                 element={
                   <Products
                     selectedCategory={selectedCategory}
@@ -102,8 +104,19 @@ const App = () => {
                   />
                 }
               />
+
               <Route
-                path="/products/:brand/:category"
+                path="/products/:solution/:brand"
+                element={
+                  <Products
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                  />
+                }
+              />
+
+              <Route
+                path="/products/:solution/:brand/:category"
                 element={
                   <Products
                     selectedCategory={selectedCategory}
