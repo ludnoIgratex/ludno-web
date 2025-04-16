@@ -27,7 +27,7 @@ import KineticsMain from "./pages/Landings/Kinetics/KineticsMain";
 import MiniMain from "./pages/Landings/Mini/MiniMain";
 import PlayletMain from "./pages/Landings/Playlet/PlayletMain";
 import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
-import { useYandexPageview } from "./hooks/useYandexPageiew";
+import YandexPageviewTracker from "./hooks/YandexPageviewTracker";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -74,7 +74,7 @@ const App = () => {
 
   return (
     <Router>
-      <useYandexPageview />
+      <YandexPageviewTracker />
       {loading ? (
         <Loader loading={loading} />
       ) : (

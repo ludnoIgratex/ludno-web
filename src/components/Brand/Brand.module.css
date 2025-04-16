@@ -33,24 +33,6 @@
   animation: skeleton-loading 1.5s infinite ease-in-out;
 }
 
-.loader p {
-  color: var(--secondary-default-color);
-  padding-bottom: 16px;
-}
-
-.loader ul {
-  display: flex;
-  gap: 16px;
-}
-
-.loader li {
-  list-style: none;
-  min-width: 200px;
-  border-radius: 24px;
-  min-height: 110px;
-  background-color: black;
-}
-
 .brandContainer h4 {
   padding-bottom: 16px;
 }
@@ -59,52 +41,32 @@
   list-style-type: none;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 30px;
-  margin-top: 0;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.brandList p {
+.brandItem {
   font-size: 16px;
   line-height: 22px;
-  font-weight: bold;
-  padding: 16px 0px 0px 20px;
-}
-
-.brandList li {
-  min-width: 200px;
-  border-radius: 24px;
-  min-height: 110px;
-  position: relative;
-  background-color: white;
-}
-
-.brandList li:hover {
-  cursor: pointer;
-}
-
-.brandList li a {
-  text-decoration: none;
   color: var(--primary-default-color);
+  cursor: pointer;
+  position: relative;
 }
 
-/* .active{
-  color: var(--accent-color);
-} */
+.brandItem:hover {
+  color: var(--secondary-hover-color);
+}
+
+.active {
+  font-weight: bold;
+}
 
 .checkmark {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  font-size: 22px;
+  bottom: 0;
+  left: -24px;
+  font-size: 16px;
   color: var(--primary-default-color);
   background: white;
   border-radius: 50%;
-}
-
-@media screen and (max-width: 480px) {
-  .brandContainer {
-    display: none;
-  }
 }

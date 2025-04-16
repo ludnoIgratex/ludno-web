@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./FilterPage.module.css";
 import { IoCloseOutline } from "react-icons/io5";
 import AgeFilter from "../AgeFilter/AgeFilter";
@@ -7,26 +7,30 @@ const FilterPage = ({
   isOpen,
   brands = [],
   categories = [],
-  productCounts = { brands: {}, categories: {} },
+  solutions = [],
+  productCounts = { brands: {}, categories: {}, solutions: {} },
   appliedBrands = [],
   appliedCategories = [],
   appliedAges = [],
+  appliedSolutions = [],
   onClose,
   onApply,
   loadingFilterData,
-  brandCategoryMap, // получаем мэппинг
+  brandCategoryMap,
 }) => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedAgeRanges, setSelectedAgeRanges] = useState([]);
+  const [selectedSolutions, setSelectedSolutions] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
       setSelectedBrands(appliedBrands);
       setSelectedCategories(appliedCategories);
       setSelectedAgeRanges(appliedAges);
+      setSelectedSolutions(appliedSolutions);
     }
-  }, [isOpen]);
+  }, [isOpen, appliedBrands, appliedCategories, appliedAges, appliedSolutions]);
 
   const handleBrandSelect = (brand) => {
     setSelectedBrands((prev) =>
@@ -50,11 +54,20 @@ const FilterPage = ({
     );
   };
 
+  const handleSolutionSelect = (solution) => {
+    setSelectedSolutions((prev) =>
+      prev.includes(solution.id)
+        ? prev.filter((id) => id !== solution.id)
+        : [...prev, solution.id]
+    );
+  };
+
   const handleApply = () => {
     onApply({
       brands: selectedBrands,
       categories: selectedCategories,
       ages: selectedAgeRanges,
+      solutions: selectedSolutions,
     });
   };
 
@@ -62,14 +75,43 @@ const FilterPage = ({
     setSelectedBrands([]);
     setSelectedCategories([]);
     setSelectedAgeRanges([]);
+    setSelectedSolutions([]);
   };
 
   const totalSelectedCount =
     selectedBrands.length +
     selectedCategories.length +
-    selectedAgeRanges.length;
+    selectedAgeRanges.length +
+    selectedSolutions.length;
 
-  // Вычисляем объединённый список категорий, доступных для выбранных брендов
+  const allowedBrandsFromSolutions = useMemo(() => {
+    if (selectedSolutions.length === 0) return [];
+
+    let allowed = new Set();
+
+    selectedSolutions.forEach((solId) => {
+      const sol = solutions.find((s) => s.id === solId);
+      if (sol && Array.isArray(sol.brands)) {
+        sol.brands.forEach((bid) => allowed.add(bid));
+      }
+    });
+    return Array.from(allowed);
+  }, [selectedSolutions, solutions]);
+
+  // Аналогично для категорий
+  const allowedCategoriesFromSolutions = useMemo(() => {
+    if (selectedSolutions.length === 0) return [];
+
+    let allowed = new Set();
+    selectedSolutions.forEach((solId) => {
+      const sol = solutions.find((s) => s.id === solId);
+      if (sol && Array.isArray(sol.categories)) {
+        sol.categories.forEach((cid) => allowed.add(cid));
+      }
+    });
+    return Array.from(allowed);
+  }, [selectedSolutions, solutions]);
+
   let availableCategoryIds = [];
   if (selectedBrands.length > 0 && brandCategoryMap) {
     selectedBrands.forEach((brandId) => {
@@ -92,12 +134,48 @@ const FilterPage = ({
         </div>
 
         <div className={styles.filters}>
+          <h3>Решения</h3>
+          <ul>
+            {solutions.map((solution) => {
+              const count = productCounts.solutions?.[solution.id] || 0;
+              const isSelected = selectedSolutions.includes(solution.id);
+              const isDisabled = count === 0;
+              const displayedCount = loadingFilterData ? (
+                <span className={styles.spinner}></span>
+              ) : (
+                count
+              );
+              return (
+                <li key={solution.id}>
+                  <button
+                    onClick={() => handleSolutionSelect(solution)}
+                    className={
+                      isSelected
+                        ? `${styles.selected} ${styles.filterButton}`
+                        : styles.filterButton
+                    }
+                    disabled={isDisabled}
+                  >
+                    <p>
+                      {solution.name} ({displayedCount})
+                    </p>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
           <h3>Бренд</h3>
           <ul>
             {brands.map((brand) => {
               const count = productCounts.brands?.[brand.id] || 0;
               const isSelected = selectedBrands.includes(brand.id);
-              const isDisabled = count === 0;
+
+              const disabledBySolution =
+                selectedSolutions.length > 0 &&
+                !allowedBrandsFromSolutions.includes(brand.id);
+
+              const isDisabled = count === 0 || disabledBySolution;
 
               const displayedCount = loadingFilterData ? (
                 <span className={styles.spinner}></span>
@@ -130,11 +208,17 @@ const FilterPage = ({
             {categories.map((cat) => {
               const count = productCounts.categories?.[cat.id] || 0;
               const isSelected = selectedCategories.includes(cat.id);
-              // Если выбраны бренды, проверяем, присутствует ли категория среди доступных для этих брендов
+
+              const disabledBySolution =
+                selectedSolutions.length > 0 &&
+                !allowedCategoriesFromSolutions.includes(cat.id);
+
+              const disabledByBrand =
+                selectedBrands.length > 0 &&
+                !availableCategoryIds.includes(cat.id);
+
               const isDisabled =
-                count === 0 ||
-                (selectedBrands.length > 0 &&
-                  !availableCategoryIds.includes(cat.id));
+                count === 0 || disabledBySolution || disabledByBrand;
 
               const displayedCount = loadingFilterData ? (
                 <span className={styles.spinner}></span>
@@ -175,7 +259,8 @@ const FilterPage = ({
           disabled={
             selectedBrands.length === 0 &&
             selectedCategories.length === 0 &&
-            selectedAgeRanges.length === 0
+            selectedAgeRanges.length === 0 &&
+            selectedSolutions.length === 0
           }
         >
           <p>Применить</p>

@@ -1,55 +1,43 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaCheckCircle } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Brand.module.css";
 
 const Brand = () => {
   const navigate = useNavigate();
-  const { brand: selectedBrandName } = useParams();
+  const { brand: selectedBrandName, solution: selectedSolutionName } =
+    useParams();
 
-  const { data, loading, error } = useFetch(
-    "https://admin.ludno.ru/api/brands?populate=image"
-  );
+  // Если выбрано решение, формируем URL с фильтром по нему.
+  const brandsUrl =
+    selectedSolutionName && selectedSolutionName !== "all"
+      ? `https://admin.ludno.ru/api/brands?filters[solutions][name][$eq]=${encodeURIComponent(
+          selectedSolutionName
+        )}&populate=categories`
+      : "https://admin.ludno.ru/api/brands?populate=categories";
 
-  if (loading)
-    return (
-      <div className={styles.loader}>
-        <p>Загружаем бренды...</p>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    );
+  const { data, loading, error } = useFetch(brandsUrl);
+
+  if (loading) return <p>Загружаем бренды...</p>;
   if (error) return <p>Error: {error}</p>;
 
   const brands = data || [];
 
   const handleBrandClick = (brand) => {
     if (selectedBrandName === brand.name) {
-      navigate("/products/all");
+      navigate(`/products/${selectedSolutionName || "all"}`);
     } else {
-      navigate(`/products/${brand.name}`);
+      navigate(`/products/${selectedSolutionName || "all"}/${brand.name}`);
     }
   };
 
   return (
     <div className={styles.brandContainer}>
-      <h4>Решения</h4>
+      <h4>Бренды</h4>
       <nav>
         <ul className={styles.brandList}>
           {brands.map((brand) => {
-            const imageUrl =
-              brand.image?.formats?.small?.url || brand.image?.url || null;
-
-            const fullImageUrl = imageUrl
-              ? `https://admin.ludno.ru${imageUrl}`
-              : null;
-
             const isActive = selectedBrandName === brand.name;
-
             return (
               <li
                 key={brand.id}
@@ -57,18 +45,8 @@ const Brand = () => {
                 className={`${styles.brandItem} ${
                   isActive ? styles.active : ""
                 }`}
-                style={{
-                  backgroundImage: fullImageUrl
-                    ? `url(${fullImageUrl})`
-                    : "none",
-                  backgroundSize: "cover",
-                  backgroundPositionX: "40px",
-                  backgroundPositionY: "4px",
-                  backgroundRepeat: "no-repeat",
-                }}
               >
-                {isActive && <FaCheckCircle className={styles.checkmark} />}
-                <p>{brand.name}</p>
+                {brand.name}
               </li>
             );
           })}

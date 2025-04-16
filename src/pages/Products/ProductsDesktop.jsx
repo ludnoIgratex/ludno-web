@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles/Products.module.css";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import { slugify } from "transliteration";
@@ -10,6 +9,8 @@ import Brand from "../../components/Brand/Brand";
 import Categories from "../../components/Categories/Categories";
 import useFetch from "../../hooks/useFetch";
 import qs from "qs";
+import ProductItem from "./ProductItem";
+import Solution from "../../components/Solution/Solution";
 
 const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [ageFilter, setAgeFilter] = useState([]);
@@ -22,28 +23,49 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const navigate = useNavigate();
-  const { brand: selectedBrandName, category: selectedCategoryName } =
-    useParams();
+  const {
+    solution: selectedSolutionName,
+    brand: selectedBrandName,
+    category: selectedCategoryName,
+  } = useParams();
 
   const pageSize = 32;
+
+  // Фильтрация брендов по решению. Если выбрано решение, запрашиваем только бренды, связанные с ним,
+  // иначе – все бренды с категориями.
+  const brandsUrl =
+    selectedSolutionName && selectedSolutionName !== "all"
+      ? `https://admin.ludno.ru/api/brands?filters[solutions][name][$eq]=${encodeURIComponent(
+          selectedSolutionName
+        )}&populate=categories`
+      : "https://admin.ludno.ru/api/brands?populate=categories";
 
   const {
     data: brands,
     loading: brandsLoading,
     error: brandsError,
-  } = useFetch("https://admin.ludno.ru/api/brands?populate=categories");
+  } = useFetch(brandsUrl);
+
+  // Фильтрация категорий по решению
+  const allCategoriesUrl =
+    selectedSolutionName && selectedSolutionName !== "all"
+      ? `https://admin.ludno.ru/api/categories?filters[solutions][name][$eq]=${encodeURIComponent(
+          selectedSolutionName
+        )}&populate=*`
+      : "https://admin.ludno.ru/api/categories?populate=*";
 
   const {
     data: allCategoriesData,
     loading: allCatLoading,
     error: allCatError,
-  } = useFetch("https://admin.ludno.ru/api/categories?populate=*");
+  } = useFetch(allCategoriesUrl);
 
   const selectedBrand =
     selectedBrandName && selectedBrandName !== "all"
       ? brands?.find((brand) => brand.name === selectedBrandName) ?? null
       : null;
 
+  // Старая функция построения URL для продуктов (не используется, оставлена для совместимости)
   const buildFetchUrl = (page) => {
     let url = `https://admin.ludno.ru/api/products?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
 
@@ -90,6 +112,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     return result;
   };
 
+  // Функция построения URL запроса продуктов с помощью qs
   const buildFetchUrlWithQs = (page) => {
     const filters = {};
 
@@ -102,6 +125,13 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     if (selectedCategoryName) {
       filters.category = {
         title: { $eq: selectedCategoryName },
+      };
+    }
+
+    // Фильтр по решению; здесь использовано поле "solutions"
+    if (selectedSolutionName && selectedSolutionName !== "all") {
+      filters.solutions = {
+        name: { $eq: selectedSolutionName },
       };
     }
 
@@ -141,21 +171,33 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     return `https://admin.ludno.ru/api/products?${queryString}`;
   };
 
+  // Сброс списка продуктов при изменении параметров фильтрации
   useEffect(() => {
     setProducts([]);
     setCurrentPage(1);
-  }, [selectedBrandName, selectedCategoryName, ageFilter]);
+  }, [
+    selectedSolutionName,
+    selectedBrandName,
+    selectedCategoryName,
+    ageFilter,
+  ]);
 
+  // Запрос продуктов при изменении параметров (включая решение)
   useEffect(() => {
     fetchProducts(currentPage);
-  }, [currentPage, selectedBrandName, selectedCategoryName, ageFilter]);
+  }, [
+    currentPage,
+    selectedSolutionName,
+    selectedBrandName,
+    selectedCategoryName,
+    ageFilter,
+  ]);
 
   const fetchProducts = async (page) => {
     try {
       setLoading(true);
 
       const url = buildFetchUrlWithQs(page);
-
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Ошибка сервера: ${response.status}`);
@@ -171,7 +213,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
         );
         const combinedProducts = [...prev, ...uniqueProducts];
         const filteredByGroup = filterProductsByGroup(combinedProducts);
-
         return filteredByGroup;
       });
 
@@ -186,7 +227,6 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     }
   };
 
-  // Прелоадим первые 8 картинок
   useEffect(() => {
     if (products.length > 0) {
       const firstProductsImages = products.slice(0, 8);
@@ -245,17 +285,20 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   return (
     <div className={styles.catalogContainer}>
-      <div className={styles.brandWrapper}>
-        <Brand setSelectedCategory={setSelectedCategory} />
+      <div className={styles.solutionWrapper}>
+        <Solution />
       </div>
 
       <div className={styles.catalogWrapper}>
-        <Categories
-          brand={selectedBrand}
-          allCategories={allCategoriesData || []}
-          setSelectedCategory={setSelectedCategory}
-          selectedBrandName={selectedBrand?.name}
-        />
+        <div className={styles.catalogNav}>
+          <Brand setSelectedCategory={setSelectedCategory} />
+          <Categories
+            brand={selectedBrand}
+            allCategories={allCategoriesData || []}
+            setSelectedCategory={setSelectedCategory}
+            selectedBrandName={selectedBrand?.name}
+          />
+        </div>
 
         <div className={`${styles.productContainer} ${styles.fadeIn}`}>
           <div className={styles.contentWrapper}>
@@ -263,80 +306,22 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
               onFilterSelect={handleAgeFilter}
               selectedAgeRanges={ageFilter}
             />
-
             <span className={styles.category__title}>{titleText}</span>
-
             <ul className={styles.product__list}>
               {products.length > 0 ? (
-                products.map((product) => {
-                  const imageUrl =
-                    product.image?.[0]?.formats?.small?.url || null;
-                  const title = product?.title || "Без названия";
-                  const name = product?.name || "Без имени";
-
-                  const fullImageUrl = imageUrl
-                    ? `https://admin.ludno.ru${imageUrl}`
-                    : null;
-                  const placeholderImageUrl = "/assets/images/placeholder.avif";
-
-                  return (
-                    <li
-                      onClick={() => handleClick(product)}
-                      key={product.id}
-                      className={styles.productItem}
-                    >
-                      {fullImageUrl && (
-                        <LazyLoadImage
-                          className={styles.product__image}
-                          src={fullImageUrl}
-                          placeholderSrc={placeholderImageUrl}
-                          effect="blur"
-                          alt={title}
-                          loading="lazy"
-                        />
-                      )}
-
-                      {product.card?.groupImage?.length > 0 && (
-                        <div className={styles.colorSwatches}>
-                          {product.card.groupImage.map((group, index) => {
-                            const colorImg = group.group_color?.image;
-                            const colorImageUrl = colorImg
-                              ? `https://admin.ludno.ru${
-                                  colorImg.formats?.thumbnail?.url ||
-                                  colorImg.formats?.small?.url ||
-                                  colorImg.url
-                                }`
-                              : null;
-
-                            return (
-                              <div
-                                key={index}
-                                className={styles.colorCircle}
-                                style={{
-                                  backgroundImage: colorImageUrl
-                                    ? `url(${colorImageUrl})`
-                                    : "none",
-                                  backgroundSize: "cover",
-                                  backgroundPosition: "center",
-                                }}
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
-
-                      <div>
-                        <p className={styles.productTitle}>{title}</p>
-                        <h4 className={styles.productName}>{name}</h4>
-                      </div>
-                    </li>
-                  );
-                })
+                products.map((product) => (
+                  <ProductItem
+                    key={product.id}
+                    product={product}
+                    onClick={handleClick}
+                    showColors={true}
+                    imageLoading="lazy"
+                  />
+                ))
               ) : (
                 <p>Тут пока нет продуктов, но в скором времени они появятся!</p>
               )}
             </ul>
-
             {hasMore && products.length > 0 && (
               <div className={styles.showMoreContainer}>
                 <button

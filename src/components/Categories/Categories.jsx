@@ -9,7 +9,8 @@ const Categories = ({
   selectedBrandName,
 }) => {
   const navigate = useNavigate();
-  const { category: selectedCategoryName } = useParams();
+  const { solution: selectedSolutionName, category: selectedCategoryName } =
+    useParams();
 
   const categoriesToShow = brand ? brand.categories : allCategories;
 
@@ -19,10 +20,16 @@ const Categories = ({
 
     setSelectedCategory({ id: category.id, name: categoryName });
 
-    if (selectedBrandName) {
-      navigate(`/products/${selectedBrandName}/${categoryName}`);
+    if (selectedBrandName && selectedBrandName !== "all") {
+      navigate(
+        `/products/${
+          selectedSolutionName || "all"
+        }/${selectedBrandName}/${categoryName}`
+      );
     } else {
-      navigate(`/products/all/${categoryName}`);
+      navigate(
+        `/products/${selectedSolutionName || "all"}/all/${categoryName}`
+      );
     }
   };
 

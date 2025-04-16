@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-export function useYandexPageview() {
+const YandexPageviewTracker = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -13,4 +13,8 @@ export function useYandexPageview() {
       );
     }
   }, [location]);
-}
+
+  return null;
+};
+
+export default YandexPageviewTracker;

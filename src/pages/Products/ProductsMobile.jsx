@@ -6,14 +6,15 @@ import FilterPage from "../../components/FilterPage/FilterPage";
 import { IoCloseOutline } from "react-icons/io5";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import qs from "qs";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { slugify } from "transliteration";
+import ProductItem from "./ProductItem";
 
 const ProductsMobile = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [appliedFilters, setAppliedFilters] = useState({
+    solutions: [],
     brands: [],
     categories: [],
     ages: [],
@@ -24,6 +25,7 @@ const ProductsMobile = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [solutions, setSolutions] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [allProductsForFilter, setAllProductsForFilter] = useState([]);
@@ -36,6 +38,11 @@ const ProductsMobile = () => {
 
   const fetchProductsPage = async (page, filters, brandCategoryMap) => {
     let filterQuery = {};
+    const conditions = [];
+
+    if (filters.solutions && filters.solutions.length > 0) {
+      conditions.push({ solutions: { id: { $in: filters.solutions } } });
+    }
 
     if (filters?.brands?.length > 0) {
       const orConditions = filters.brands.map((brandId) => {
@@ -45,7 +52,6 @@ const ProductsMobile = () => {
             )
           : filters.categories;
         const branchConditions = [{ brand: { id: { $eq: brandId } } }];
-
         if (categoriesForBrand.length > 0) {
           branchConditions.push({
             category: { id: { $in: categoriesForBrand } },
@@ -58,7 +64,7 @@ const ProductsMobile = () => {
         }
         return { $and: branchConditions };
       });
-      filterQuery = { $or: orConditions };
+      conditions.push({ $or: orConditions });
     } else {
       const andConditions = [];
       if (filters?.categories?.length > 0) {
@@ -72,8 +78,14 @@ const ProductsMobile = () => {
         );
       }
       if (andConditions.length > 0) {
-        filterQuery = { $and: andConditions };
+        conditions.push({ $and: andConditions });
       }
+    }
+
+    if (conditions.length === 1) {
+      filterQuery = conditions[0];
+    } else if (conditions.length > 1) {
+      filterQuery = { $and: conditions };
     }
 
     const query = qs.stringify(
@@ -116,8 +128,18 @@ const ProductsMobile = () => {
 
   useEffect(() => {
     const params = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const initialFilters = { brands: [], categories: [], ages: [] };
+    const initialFilters = {
+      solutions: [],
+      brands: [],
+      categories: [],
+      ages: [],
+    };
 
+    if (params.solutions) {
+      initialFilters.solutions = Array.isArray(params.solutions)
+        ? params.solutions.map((id) => Number(id))
+        : [Number(params.solutions)];
+    }
     if (params.brands) {
       initialFilters.brands = Array.isArray(params.brands)
         ? params.brands.map((id) => Number(id))
@@ -151,17 +173,38 @@ const ProductsMobile = () => {
   useEffect(() => {
     const fetchFilters = async () => {
       try {
-        const [brandsRes, categoriesRes] = await Promise.all([
+        const [solutionsRes, brandsRes, categoriesRes] = await Promise.all([
+          fetch("https://admin.ludno.ru/api/solutions?populate=*"),
           fetch("https://admin.ludno.ru/api/brands"),
           fetch("https://admin.ludno.ru/api/categories"),
         ]);
 
+        const solutionsData = await solutionsRes.json();
         const brandsData = await brandsRes.json();
         const categoriesData = await categoriesRes.json();
 
+        const flattenedSolutions = solutionsData.data.map((item) => {
+          const brandIds = Array.isArray(item.brands)
+            ? item.brands.map((b) => b.id)
+            : [];
+
+          const categoryIds = Array.isArray(item.categories)
+            ? item.categories.map((c) => c.id)
+            : [];
+
+          return {
+            id: item.id,
+            name: item.name,
+            brands: brandIds,
+            categories: categoryIds,
+          };
+        });
+
+        setSolutions(flattenedSolutions);
         setBrands(brandsData.data || []);
         setCategories(categoriesData.data || []);
-      } catch {
+      } catch (err) {
+        console.error("Fetch filters error:", err);
         setError("Ошибка при загрузке фильтров.");
       }
     };
@@ -213,7 +256,6 @@ const ProductsMobile = () => {
 
     for (const product of products) {
       const groupId = product.groups?.[0]?.id;
-
       if (groupId) {
         if (!seenGroups.has(groupId)) {
           seenGroups.add(groupId);
@@ -223,7 +265,6 @@ const ProductsMobile = () => {
         result.push(product);
       }
     }
-
     return result;
   };
 
@@ -236,11 +277,18 @@ const ProductsMobile = () => {
   const productCounts = useMemo(() => {
     const brandCountObj = {};
     const categoryCountObj = {};
-
+    const solutionCountObj = {};
     for (const product of allProductsForFilter) {
       const bId = product.brand?.id;
       const cId = product.category?.id;
-
+      if (Array.isArray(product.solutions)) {
+        product.solutions.forEach((sol) => {
+          solutionCountObj[sol.id] = (solutionCountObj[sol.id] || 0) + 1;
+        });
+      } else if (product.solutions?.id) {
+        solutionCountObj[product.solutions.id] =
+          (solutionCountObj[product.solutions.id] || 0) + 1;
+      }
       if (bId) {
         brandCountObj[bId] = (brandCountObj[bId] || 0) + 1;
       }
@@ -248,10 +296,10 @@ const ProductsMobile = () => {
         categoryCountObj[cId] = (categoryCountObj[cId] || 0) + 1;
       }
     }
-
     return {
       brands: brandCountObj,
       categories: categoryCountObj,
+      solutions: solutionCountObj,
     };
   }, [allProductsForFilter]);
 
@@ -297,7 +345,6 @@ const ProductsMobile = () => {
     if (filteredProducts.length > 0) {
       const firstProductsImages = filteredProducts.slice(0, 8);
       const preloadedImages = new Set();
-
       firstProductsImages.forEach((product) => {
         const imageUrl = product.image?.[0]?.formats?.thumbnail?.url;
         if (imageUrl && !preloadedImages.has(imageUrl)) {
@@ -306,7 +353,6 @@ const ProductsMobile = () => {
           link.href = `https://admin.ludno.ru${imageUrl}`;
           link.as = "image";
           document.head.appendChild(link);
-
           preloadedImages.add(imageUrl);
         }
       });
@@ -370,6 +416,20 @@ const ProductsMobile = () => {
               </button>
             );
           })}
+          {appliedFilters.solutions &&
+            appliedFilters.solutions.map((solutionId) => {
+              const solution = solutions.find((s) => s.id === solutionId);
+              return (
+                <button
+                  key={solutionId}
+                  className={styles.filterTag}
+                  onClick={() => removeFilter("solutions", solutionId)}
+                >
+                  {solution?.name || "Решение"}
+                  <IoCloseOutline className={styles.filterCloseIcon} />
+                </button>
+              );
+            })}
           {appliedFilters.ages.map((age) => {
             const labelWithoutAge = age.replace(/^Age/, "");
             return (
@@ -392,51 +452,27 @@ const ProductsMobile = () => {
         onApply={applyFilters}
         brands={brands}
         categories={categories}
+        solutions={solutions}
         productCounts={productCounts}
         loadingFilterData={loadingFilterData}
         appliedBrands={appliedFilters.brands}
         appliedCategories={appliedFilters.categories}
         appliedAges={appliedFilters.ages}
+        appliedSolutions={appliedFilters.solutions}
         brandCategoryMap={brandCategoryMap}
       />
 
       <ul className={styles.product__list}>
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => {
-            const imageUrl = product.image?.[0]?.url || null;
-            const placeholderImageUrl = "/assets/images/placeholder.avif";
-            const fullImageUrl = product.image?.[0]?.url
-              ? `https://admin.ludno.ru${product.image[0].url}`
-              : null;
-            const compressedUrl = product.image?.[0]?.formats?.small?.url
-              ? `https://admin.ludno.ru${product.image[0].formats.small.url}`
-              : fullImageUrl;
-            const title = product.title || "Без названия";
-            const name = product.name || null;
-
-            return (
-              <li
-                onClick={() => handleClick(product)}
-                key={product.id}
-                className={styles.productItem}
-              >
-                {fullImageUrl && (
-                  <LazyLoadImage
-                    className={styles.product__image}
-                    src={compressedUrl}
-                    placeholderSrc={placeholderImageUrl}
-                    effect="blur"
-                    alt={title}
-                    loading="eager"
-                  />
-                )}
-                <div>
-                  <p className={styles.producTitle}>{title}</p>
-                  <h4 className={styles.productName}>{name}</h4>
-                </div>
-              </li>
-            );
-          })
+          filteredProducts.map((product) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              onClick={handleClick}
+              showColors={false}
+              imageLoading="eager"
+            />
+          ))
         ) : (
           <p>Продукты не найдены.</p>
         )}
