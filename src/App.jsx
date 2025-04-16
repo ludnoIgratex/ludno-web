@@ -30,7 +30,6 @@ import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
 import { useYandexPageview } from "./hooks/useYandexPageiew";
 
 const App = () => {
-  useYandexPageview();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDesktop, setIsDesktop] = useState(
@@ -75,6 +74,7 @@ const App = () => {
 
   return (
     <Router>
+      <useYandexPageview />
       {loading ? (
         <Loader loading={loading} />
       ) : (
