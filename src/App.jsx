@@ -54,11 +54,13 @@ const App = () => {
 
       if (allLoaded) {
         setLoading(false);
+        window.__PRERENDER_READY__ = true;
       } else {
         const handleLoad = () => {
           const allNowLoaded = [...images].every((img) => img.complete);
           if (allNowLoaded) {
             setLoading(false);
+            window.__PRERENDER_READY__ = true;
             images.forEach((img) =>
               img.removeEventListener("load", handleLoad)
             );
