@@ -52,20 +52,6 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.towers} to="products/Башни">
-          <section className={styles.towers}>
-            <div className={styles.textBlock}>
-              <div className={styles.textBlockTitle}>
-                <h3>Башни</h3>
-                <p>Универсальные высотные доминанты </p>
-              </div>
-              <div className={styles.linkContainer}>
-                <RiArrowRightDownLine className={styles.arrow} />
-                <span>Подробнее</span>
-              </div>
-            </div>
-          </section>
-        </Link>
         <Link className={styles.playlet} to="/playlet-solution">
           <section className={styles.playlet}>
             <div className={styles.textBlock}>

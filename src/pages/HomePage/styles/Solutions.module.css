@@ -11,8 +11,7 @@
   grid-template-areas:
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
-    "towers towers towers towers towers towers towers playlet playlet playlet playlet playlet"
-    "bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi bloqi";
+    "bloqi bloqi bloqi bloqi bloqi bloqi bloqi playlet playlet playlet playlet playlet";
 }
 
 .solutions section {
@@ -107,7 +106,7 @@
   color: var(--primary-text-color);
 }
 
-.towers {
+/* .towers {
   grid-area: towers;
   background-image: url("/assets/images/towers_wrapper.avif");
   background-repeat: no-repeat;
@@ -116,7 +115,7 @@
   background-size: cover;
   text-decoration: none;
   color: var(--primary-text-color);
-}
+} */
 
 .playlet {
   grid-area: playlet;
@@ -133,8 +132,8 @@
   grid-area: bloqi;
   background-image: url("/assets/images/bloqi-solution/forms.avif");
   background-repeat: no-repeat;
-  background-position-x: 460px;
-  background-position-y: -20px;
+  background-position-x: 160px;
+  background-position-y: 70px;
   background-size: cover;
   text-decoration: none;
   color: var(--primary-text-color);
@@ -200,23 +199,24 @@
     background-size: 600px;
   }
 
-  .towers {
+  /* .towers {
     background-position-x: 60px;
     background-position-y: 70px;
     background-size: 500px;
-  }
+  } */
 
   .playlet {
-    background-position-x: 100px;
-    background-position-y: 112px;
+    background-position-x: 80px;
+    background-position-y: 100px;
     background-size: 405px;
   }
 
   .individualProjects {
-    background-position-x: 70px;
-    background-position-y: 100px;
-    background-size: 500px;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 900px;
   }
+
 }
 
 @media screen and (min-width: 728px) and (max-width: 1024px) {
@@ -227,9 +227,9 @@
   }
 
   .tramptek {
-    background-position-x: -20px;
-    background-position-y: 10px;
-    background-size: 600px;
+    background-position-x: -100px;
+    background-position-y: 0px;
+    background-size: 680px;
   }
 
   .mini {
@@ -251,8 +251,8 @@
   }
 
   .individualProjects {
-    background-position-x: 270px;
-    background-position-y: -10px;
-    background-size: 950px;
+    background-position-x: 0px;
+    background-position-y: 100px;
+    background-size: 800px;
   }
 }
