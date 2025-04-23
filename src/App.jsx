@@ -32,6 +32,7 @@ import YandexPageviewTracker from "./hooks/YandexPageviewTracker";
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showSolutions, setShowSolutions] = useState(false);
   const [isDesktop, setIsDesktop] = useState(
     window.matchMedia("(min-width: 1440px)").matches
   );

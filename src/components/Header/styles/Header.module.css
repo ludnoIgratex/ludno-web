@@ -27,6 +27,22 @@
   color: var(--secondary-text-color);
 }
 
+.headerWrapper {
+  position: relative;
+  z-index: 1000;
+}
+
+.overlay {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 90px);
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  z-index: 998;
+}
+
 @media screen and (max-width: 728px) {
   .headerContainer {
     padding: 28px 16px 28px 16px;
