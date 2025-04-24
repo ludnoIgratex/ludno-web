@@ -5,11 +5,11 @@
   background-color: #ffe2ee;
   justify-content: space-between;
   padding: 56px 32px;
-  background-image: url("/assets/images/kinetics.avif");
+  background-image: url("/assets/images/mini.avif");
   background-repeat: no-repeat;
   background-position-x: 560px;
-  background-position-y: 170px;
-  background-size: 900px;
+  background-position-y: 70px;
+  background-size: 700px;
 }
 
 .headWrapper h1 {

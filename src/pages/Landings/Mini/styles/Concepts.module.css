@@ -1,0 +1,51 @@
+.conceptSection {
+  padding: 160px 32px 0px 32px;
+}
+
+.conceptWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.conceptSection h2 {
+  margin-bottom: 64px;
+}
+
+.textBlock {
+  flex: 1;
+  max-width:670px
+}
+
+.textBlock p {
+  margin-bottom: 12px;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.imageBlock {
+  flex-shrink: 0;
+  max-width: 550px;
+}
+
+.conceptImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.textBlock button {
+  margin-top: 52px;
+  padding: 12px 64px;
+  background-color: black;
+  font-size: 26px;
+  line-height: 32px;
+  border-radius: 32px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.textBlock button:hover {
+  background-color: #555;
+}

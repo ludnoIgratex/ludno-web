@@ -1,5 +1,5 @@
 .materialsWrapper {
-  padding: 40px;
+  padding: 160px 32px 0px 32px;
 }
 
 .materialsWrapper h2 {
@@ -61,6 +61,34 @@
   font-size: 26px;
   line-height: 32px;
 }
+
+.iconsContainer {
+  display: flex;
+  gap: 28px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.iconItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80px;
+  text-align: center;
+}
+
+.iconImage {
+  width: 56px;
+  height: auto;
+  object-fit: contain;
+}
+
+.iconLabel {
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
 
 @media screen and (max-width: 768px) {
   .materialsWrapper {

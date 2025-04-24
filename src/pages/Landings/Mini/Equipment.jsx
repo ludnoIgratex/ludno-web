@@ -81,34 +81,33 @@ const Equipment = () => {
           </ul>
         </div>
 
-        {/* Персонаж с глазами */}
-        <div className={styles.characterWrapper}>
-          <img
-            src="/assets/images/mini-solution/eyeless.svg"
-            alt="Персонаж"
-            className={styles.character}
-          />
-          <div className={styles.eyesContainer}>
-            <div className={styles.eye}>
-              <div className={styles.pupil} ref={leftPupilRef}></div>
-            </div>
-            <div className={styles.eye}>
-              <div className={styles.pupil} ref={rightPupilRef}></div>
-            </div>
-          </div>
-        </div>
-
-        <img
-          src="/assets/images/mini-solution/arm.svg"
-          alt="Рука"
-          className={styles.characterArm}
-        />
-
-        <div className={styles.hammockContent}>
+        <div className={styles.hammockVisualContainer}>
           <img
             src="/assets/images/mini-solution/hammok.avif"
             alt="Гамак"
             className={styles.hammockImage}
+          />
+
+          <div className={styles.characterWrapper}>
+            <img
+              src="/assets/images/mini-solution/eyeless.svg"
+              alt="Персонаж"
+              className={styles.character}
+            />
+            <div className={styles.eyesContainer}>
+              <div className={styles.eye}>
+                <div className={styles.pupil} ref={leftPupilRef}></div>
+              </div>
+              <div className={styles.eye}>
+                <div className={styles.pupil} ref={rightPupilRef}></div>
+              </div>
+            </div>
+          </div>
+
+          <img
+            src="/assets/images/mini-solution/arm.svg"
+            alt="Рука"
+            className={styles.characterArm}
           />
         </div>
       </section>

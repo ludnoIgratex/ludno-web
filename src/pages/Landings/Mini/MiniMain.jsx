@@ -9,6 +9,7 @@ import Equipment from "./Equipment";
 import Materials from "./Materials";
 import Manual from "./Manual";
 import Items from "./Items";
+import Concepts from "./Concepts";
 
 const MiniMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,7 @@ const MiniMain = () => {
           <Intro />
           <Equipment />
           <Materials />
+          <Concepts />
           <Manual />
           <Items />
           <Consultation color="var(--accent-color-mini)" />

@@ -1,9 +1,9 @@
 .manualWrapper {
-  padding: 0px 32px 160px 32px;
+  padding: 120px 32px 160px 32px;
 }
 
 .manualWrapper h2 {
-  padding-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .manualContent {
@@ -16,17 +16,27 @@
 .textBlock {
   flex: 1;
   max-width: 660px;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.accent {
+  color: var(--secondary-default-color);
 }
 
 .textBlock p {
-  padding-bottom: 44px;
+  margin-bottom: 12px;
   font-size: 24px;
   line-height: 32px;
 }
 
 .downloadBtn {
-  padding: 10px 20px;
-  background-color: #333;
+  margin-top:120px;
+  padding: 12px 64px;
+  background-color: black;
+  font-size: 26px;
+  line-height: 32px;
+  border-radius: 32px;
   color: #fff;
   border: none;
   cursor: pointer;

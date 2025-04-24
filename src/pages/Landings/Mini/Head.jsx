@@ -13,7 +13,7 @@ const Head = () => {
     <section className={styles.headWrapper}>
       <div>
         <h1>Мини</h1>
-        <h2>Обучающие площадки для детей до 7 лет </h2>
+        <h2>Обучающие площадки <br /> для детей до 7 лет </h2>
       </div>
       <div className={styles.linkContainer} onClick={handleClick}>
         <RiArrowRightDownLine className={styles.arrow} />
