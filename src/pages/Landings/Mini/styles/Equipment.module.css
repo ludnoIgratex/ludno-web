@@ -120,7 +120,7 @@
 
 @media screen and (max-width: 768px) {
   .equipmentContainer {
-    padding: 16px;
+    padding:100px 16px 0px 16px;
   }
   .equipmentDescription {
     max-width: none;
@@ -131,14 +131,20 @@
     flex-direction: column;
   }
 
+  .hammockImage{
+    max-height: 220px;
+  }
+
   .balanceSection {
     flex-direction: column;
   }
-  .balanceImage {
-    max-width: 300px;
-  }
   .textWrapper {
     max-width: none;
+  }
+
+  .ageBlock{
+    gap:24px;
+    margin-bottom: 40px;
   }
 
   .ageLabel {

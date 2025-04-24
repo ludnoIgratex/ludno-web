@@ -78,3 +78,34 @@
   height: auto;
   color: var(--primary-default-color);
 }
+
+.dropdownToggle {
+  background: none;
+  border: none;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: inherit;
+}
+
+.dropdownMenu {
+  list-style: none;
+  padding-left: 12px;
+  line-height: 22px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap:12px
+}
+
+/* .dropdownMenu li {
+  display: flex;
+  flex-direction: column;
+  gap:12px
+} */
+
+.dropdownMenu li a {
+  text-decoration: none;
+}

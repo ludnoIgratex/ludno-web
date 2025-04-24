@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SolutionsDropdown.module.css";
+import { Link } from "react-router-dom";
 
 const SolutionsDropdown = ({ visible, onClose }) => {
   const [solutions, setSolutions] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // 🆕 состояние загрузки
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://admin.ludno.ru/api/solutions?populate=image")
@@ -21,7 +22,7 @@ const SolutionsDropdown = ({ visible, onClose }) => {
         }
       })
       .catch(console.error)
-      .finally(() => setIsLoading(false)); // ✅ Убираем загрузку
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -43,8 +44,8 @@ const SolutionsDropdown = ({ visible, onClose }) => {
           ))
         : solutions.map((solution) => (
             <div key={solution.id} className={styles.solutionItemWrapper}>
-              <a
-                href={`https://ludno.ru/${solution.url}`}
+              <Link
+                to={`/${solution.url}`}
                 className={styles.solutionItem}
               >
                 <div
@@ -57,7 +58,7 @@ const SolutionsDropdown = ({ visible, onClose }) => {
                   <h4>{solution.name}</h4>
                   <p>{solution.description}</p>
                 </div>
-              </a>
+              </Link>
             </div>
           ))}
     </div>

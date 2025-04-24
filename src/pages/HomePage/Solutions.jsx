@@ -38,7 +38,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.mini} to="products/Мини">
+        <Link className={styles.mini} to="/mini-solution">
           <section className={styles.mini}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>

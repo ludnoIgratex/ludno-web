@@ -12,6 +12,10 @@
   text-align: center;
 }
 
+.aboutWrapper h2{
+  text-align: center;
+}
+
 .highlight {
   color: var(--accent-color-mini);
 }

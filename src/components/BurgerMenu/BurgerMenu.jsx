@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
+import { FaPinterest, FaTelegram } from "react-icons/fa";
 import styles from "./BurgerMenu.module.css";
-import { FaPinterest } from "react-icons/fa";
-import { FaTelegram } from "react-icons/fa";
 
 const BurgerMenu = ({ isOpen, onClose }) => {
+  const [solutions, setSolutions] = useState([]);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+
+  useEffect(() => {
+    fetch("https://admin.ludno.ru/api/solutions?fields[0]=name&fields[1]=url")
+      .then((res) => res.json())
+      .then((data) => {
+        const solutionsList = data.data.map((item) => ({
+          name: item.name,
+          url: item.url,
+        }));
+        setSolutions(solutionsList);
+      })
+      .catch((err) => console.error("Ошибка при загрузке решений:", err));
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -22,6 +37,27 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                 Каталог
               </Link>
             </li>
+
+            <li>
+              <button
+                className={styles.dropdownToggle}
+                onClick={() => setIsSolutionsOpen((prev) => !prev)}
+              >
+                Решения
+              </button>
+              {isSolutionsOpen && (
+                <ul className={styles.dropdownMenu}>
+                  {solutions.map((solution, idx) => (
+                    <li key={idx}>
+                      <Link to={`/${solution.url}`} onClick={onClose}>
+                        {solution.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
             <li>
               <Link to="/projects" onClick={onClose}>
                 Проекты

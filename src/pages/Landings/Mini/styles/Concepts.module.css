@@ -49,3 +49,37 @@
 .textBlock button:hover {
   background-color: #555;
 }
+
+@media screen and (max-width:768px) {
+  .conceptSection {
+    padding: 100px 16px 0px 16px;
+  }
+  
+  .conceptWrapper {
+    flex-direction: column;
+    gap:24px
+  }
+  
+  .conceptSection h2 {
+    margin-bottom: 16px;
+  }
+
+  .textBlock p {
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .textBlock button {
+    margin-top: 40px;
+    padding: 9px 40px;
+    background-color: black;
+    font-size: 16px;
+    line-height: 22px;
+    border-radius: 32px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}

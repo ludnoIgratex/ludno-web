@@ -82,11 +82,22 @@ const Equipment = () => {
         </div>
 
         <div className={styles.hammockVisualContainer}>
-          <img
-            src="/assets/images/mini-solution/hammok.avif"
-            alt="Гамак"
-            className={styles.hammockImage}
-          />
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcSet="/assets/images/mini-solution/hammok-mobile.webp"
+              type="image/webp"
+            />
+            <source
+              srcSet="/assets/images/mini-solution/hammok.avif"
+              type="image/webp"
+            />
+            <img
+              src="/assets/images/mini-solution/hammok.avif"
+              alt="Гамак"
+              className={styles.hammockImage}
+            />
+          </picture>
 
           <div className={styles.characterWrapper}>
             <img

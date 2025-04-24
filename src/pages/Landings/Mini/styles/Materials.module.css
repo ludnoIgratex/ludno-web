@@ -65,7 +65,7 @@
 .iconsContainer {
   display: flex;
   gap: 28px;
-  margin-top: 36px;
+  margin-top: 16px;
   flex-wrap: wrap;
 }
 
@@ -89,10 +89,51 @@
   line-height: 24px;
 }
 
+.mobileSlider {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  padding:0px 24px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  
+  transition: background-color 0.2s ease;
+}
+
+.activeDot {
+  background-color: #555;
+}
 
 @media screen and (max-width: 768px) {
   .materialsWrapper {
-    padding: 16px;
+    padding:100px 16px 0px 16px;
+  }
+  .materialsWrapper h2 {
+    padding-bottom: 24px;
   }
   .materialsContainer {
     flex-direction: column;
@@ -100,6 +141,57 @@
 
   .stripsContainer {
     width: fit-content;
-    height: 300px;
+    height: 330px;
+    margin-bottom: 25px;
+  }
+
+  .infoContainer {
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .infoContainer h3 {
+    padding-bottom: 8px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .infoContainer p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .iconsContainer {
+    display: flex;
+    gap: 28px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .iconItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80px;
+    text-align: center;
+  }
+
+  .iconImage {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .iconLabel {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .mobileSlider {
+    display: flex;
   }
 }

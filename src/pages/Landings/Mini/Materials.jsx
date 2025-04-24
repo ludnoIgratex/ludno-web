@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles/Materials.module.css";
+import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Materials = () => {
   const materialsData = [
@@ -99,6 +101,41 @@ const Materials = () => {
               </div>
             );
           })}
+        </div>
+        {/* Только для мобильных устройств */}
+        <div className={styles.mobileSlider}>
+          <button
+            onClick={() =>
+              setSelectedIndex(
+                (prev) =>
+                  (prev - 1 + materialsData.length) % materialsData.length
+              )
+            }
+            className={styles.arrow}
+          >
+            <IoIosArrowBack />
+          </button>
+
+          <div className={styles.dots}>
+            {materialsData.map((_, idx) => (
+              <span
+                key={idx}
+                onClick={() => setSelectedIndex(idx)}
+                className={`${styles.dot} ${
+                  selectedIndex === idx ? styles.activeDot : ""
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() =>
+              setSelectedIndex((prev) => (prev + 1) % materialsData.length)
+            }
+            className={styles.arrow}
+          >
+            <IoIosArrowForward />
+          </button>
         </div>
 
         <div className={styles.infoContainer}>
