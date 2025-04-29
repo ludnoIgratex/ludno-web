@@ -10,6 +10,8 @@ import Constructor from "./Constructor";
 import ColorSolutions from "./ColorSolutions";
 import { ParallaxProvider } from "react-scroll-parallax";
 import KinMo from "./KinMo";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
+
 
 const KineticsMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +49,7 @@ const KineticsMain = () => {
             <ColorSolutions />
             <Items />
             <Consultation color="var(--accent-color-kinetics)" />
+            <OtherSolutions currentSlug="kinetics-solution" />
           </>
         )}
       </div>

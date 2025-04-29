@@ -8,6 +8,8 @@ import Solutions from "./Solutions";
 import IntroImage from "./IntroImage";
 import Scheme from "./Scheme";
 import Environment from "./Environment";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
+
 
 const PlayletMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +45,7 @@ const PlayletMain = () => {
           <Solutions />
           <Environment />
           <Consultation color="var(--accent-color-playlet)" />
+          <OtherSolutions currentSlug="playlet-solution" />
         </>
       )}
     </div>

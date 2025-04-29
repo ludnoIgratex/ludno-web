@@ -5,6 +5,8 @@ import About from "./About";
 import Consultation from "../../../components/Consultation/Consultation";
 import Items from "./Items";
 import Loader from "../../../components/Loader/Loader";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
+
 
 const TowersMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +39,8 @@ const TowersMain = () => {
           <About />
           <Items />
           <Consultation color="var(--primary-deafault-color)" />
+          <OtherSolutions currentSlug="towers-solution" />
+
         </>
       )}
     </div>

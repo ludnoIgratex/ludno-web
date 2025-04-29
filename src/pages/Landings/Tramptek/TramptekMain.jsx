@@ -10,6 +10,8 @@ import Consultation from "../../../components/Consultation/Consultation";
 import Items from "./Items";
 import Loader from "../../../components/Loader/Loader";
 import ImagesCarousel from "./ImagesCarousel";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
+
 
 const TramptekMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +49,8 @@ const TramptekMain = () => {
           <ImagesCarousel />
           <Items />
           <Consultation color="var(--accent-color-tramptek)" />
+          <OtherSolutions currentSlug="tramptec-solution" />
+
         </>
       )}
     </div>

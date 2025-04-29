@@ -1,0 +1,167 @@
+.otherSolutionsSection {
+  margin-top: 100px;
+  padding: 0 2rem 30rem 2rem;
+}
+
+.otherSolutionsSection h2 {
+  font-size: 60px;
+  line-height: 72px;
+  margin-bottom: 36px;
+}
+
+.solutionsList {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.solutionCard {
+  flex: 0 0 auto;
+  max-width: 400px;
+  height: 400px;
+  width: 100%;
+  background: var(--bg-default-color);
+  padding: 30px 32px;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+}
+
+.solutionCard:hover {
+  transform: translateY(-4px);
+}
+.imageBackground {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position-x: 50px;
+  background-position-y: 100px;
+  background-size: 600px;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+.solutionCard h3 {
+  margin-bottom: 8px;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.solutionCard p {
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 1rem;
+}
+
+.moreLink {
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: underline;
+}
+
+/* Скелетоны */
+.skeleton {
+  background: #f0f0f0;
+  animation: skeletonPulse 1.5s infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    background: #f0f0f0;
+  }
+  50% {
+    background: #e0e0e0;
+  }
+  100% {
+    background: #f0f0f0;
+  }
+}
+
+.skeletonTitle {
+  width: 60%;
+  height: 18px;
+  margin-bottom: 12px;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.skeletonText {
+  width: 80%;
+  height: 14px;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 768px) {
+  .otherSolutionsSection {
+    margin-top: 60px;
+    padding: 0 0 20rem 18px;
+  }
+
+  .otherSolutionsSection h2 {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 16px;
+  }
+
+  .solutionsList {
+    gap: 16px;
+  }
+
+  .solutionCard {
+    flex: 0 0 auto;
+    max-width: 300px;
+    height: 300px;
+    width: 100%;
+    background: var(--bg-default-color);
+    padding: 20px 16px;
+    text-decoration: none;
+    color: black;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+  }
+  .imageBackground {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-position-x: 50px;
+    background-position-y: 100px;
+    background-size: 400px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .solutionCard h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+
+  .solutionCard p {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 1rem;
+  }
+
+  .moreLink {
+    font-size: 16px;
+    line-height: 22px;
+    text-decoration: underline;
+  }
+}

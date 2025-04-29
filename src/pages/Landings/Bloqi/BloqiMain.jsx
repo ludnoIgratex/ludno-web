@@ -8,6 +8,7 @@ import Storage from "./Storage";
 import Materials from "./Materials";
 import Advantages from "./Advantages";
 import Collections from "./Collections";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 
 const BloqiMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +44,7 @@ const BloqiMain = () => {
           <Materials />
           <Storage />
           <Consultation color="var(--accent-color-bloqi)" />
+          <OtherSolutions currentSlug="bloqi-solution" />
         </>
       )}
     </div>

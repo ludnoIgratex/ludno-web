@@ -10,6 +10,8 @@ import Materials from "./Materials";
 import Manual from "./Manual";
 import Items from "./Items";
 import Concepts from "./Concepts";
+import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
+
 
 const MiniMain = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +49,7 @@ const MiniMain = () => {
           <Manual />
           <Items />
           <Consultation color="var(--accent-color-mini)" />
+          <OtherSolutions currentSlug="mini-solution" />
         </>
       )}
     </div>
