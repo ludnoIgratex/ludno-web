@@ -28,6 +28,8 @@ import MiniMain from "./pages/Landings/Mini/MiniMain";
 import PlayletMain from "./pages/Landings/Playlet/PlayletMain";
 import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
 import YandexPageviewTracker from "./hooks/YandexPageviewTracker";
+import TowersMain from "./pages/Landings/Towers/TowersMain";
+import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -142,6 +144,10 @@ const App = () => {
               <Route path="/mini-solution" element={<MiniMain />} />
               <Route path="/playlet-solution" element={<PlayletMain />} />
               <Route path="/bloqi-solution" element={<BloqiMain />} />
+              <Route path="/towers-solution" element={<TowersMain />} />
+              <Route path="/parkfit-solution" element={<ParkfitMain />} />
+
+
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />

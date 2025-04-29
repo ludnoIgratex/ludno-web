@@ -11,7 +11,8 @@
   grid-template-areas:
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
-    "bloqi bloqi bloqi bloqi bloqi bloqi bloqi playlet playlet playlet playlet playlet";
+    "bloqi bloqi bloqi bloqi bloqi bloqi bloqi playlet playlet playlet playlet playlet"
+    "parkfit parkfit parkfit parkfit parkfit towers towers towers towers towers towers towers";
 }
 
 .solutions section {
@@ -106,17 +107,6 @@
   color: var(--primary-text-color);
 }
 
-/* .towers {
-  grid-area: towers;
-  background-image: url("/assets/images/towers_wrapper.avif");
-  background-repeat: no-repeat;
-  background-position-x: 250px;
-  background-position-y: 40px;
-  background-size: cover;
-  text-decoration: none;
-  color: var(--primary-text-color);
-} */
-
 .playlet {
   grid-area: playlet;
   background-image: url("/assets/images/playlet.avif");
@@ -128,7 +118,7 @@
   color: var(--primary-text-color);
 }
 
-.individualProjects {
+.bloqi {
   grid-area: bloqi;
   background-image: url("/assets/images/bloqi-solution/forms.avif");
   background-repeat: no-repeat;
@@ -139,7 +129,29 @@
   color: var(--primary-text-color);
 }
 
-@media screen  and (max-width: 728px) {
+.parkfit {
+  grid-area: parkfit;
+  background-image: url("/assets/images/parkfit_wrapper.avif");
+  background-repeat: no-repeat;
+  background-position-x: 0px;
+  background-position-y: 40px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.towers {
+  grid-area: towers;
+  background-image: url("/assets/images/towers_wrapper.avif");
+  background-repeat: no-repeat;
+  background-position-x: 250px;
+  background-position-y: 40px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+@media screen and (max-width: 728px) {
   .solutions {
     display: grid;
     gap: 24px;
@@ -148,8 +160,9 @@
       "mini"
       "tramptek"
       "playlet"
+      "bloqi"
       "towers"
-      "bloqi";
+      "parkfit";
   }
 
   .solutions section {
@@ -199,11 +212,17 @@
     background-size: 600px;
   }
 
-  /* .towers {
+  .towers {
     background-position-x: 60px;
     background-position-y: 70px;
     background-size: 500px;
-  } */
+  }
+
+  .parkfit {
+    background-position-x: 60px;
+    background-position-y: 70px;
+    background-size: 500px;
+  }
 
   .playlet {
     background-position-x: 80px;
@@ -211,12 +230,11 @@
     background-size: 405px;
   }
 
-  .individualProjects {
+  .bloqi {
     background-position-x: 0px;
     background-position-y: 0px;
     background-size: 900px;
   }
-
 }
 
 @media screen and (min-width: 728px) and (max-width: 1024px) {
@@ -239,9 +257,15 @@
   }
 
   .towers {
-    background-position-x: 60px;
+    background-position-x: 40px;
     background-position-y: 70px;
     background-size: 800px;
+  }
+
+  .parkfit {
+    background-position-x: -40px;
+    background-position-y: 100px;
+    background-size: 500px;
   }
 
   .playlet {
@@ -250,7 +274,7 @@
     background-size: 500px;
   }
 
-  .individualProjects {
+  .bloqi {
     background-position-x: 0px;
     background-position-y: 100px;
     background-size: 800px;

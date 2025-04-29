@@ -38,7 +38,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.mini} to="/mini-solution">
+        <Link className={styles.mini} to="mini-solution">
           <section className={styles.mini}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
@@ -52,7 +52,7 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.playlet} to="/playlet-solution">
+        <Link className={styles.playlet} to="playlet-solution">
           <section className={styles.playlet}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
@@ -66,12 +66,40 @@ const Solutions = () => {
             </div>
           </section>
         </Link>
-        <Link className={styles.individualProjects} to="/bloqi-solution">
-          <section className={styles.individualProjects}>
+        <Link className={styles.bloqi} to="bloqi-solution">
+          <section className={styles.bloqi}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Блоки</h3>
                 <p>Уличный игровой конструктор</p>
+              </div>
+              <div className={styles.linkContainer}>
+                <RiArrowRightDownLine className={styles.arrow} />
+                <span>Подробнее</span>
+              </div>
+            </div>
+          </section>
+        </Link>
+        <Link className={styles.parkfit} to="parkfit-solution">
+          <section className={styles.parkfit}>
+            <div className={styles.textBlock}>
+              <div className={styles.textBlockTitle}>
+                <h3>Паркфит</h3>
+                <p>Уличный спорт</p>
+              </div>
+              <div className={styles.linkContainer}>
+                <RiArrowRightDownLine className={styles.arrow} />
+                <span>Подробнее</span>
+              </div>
+            </div>
+          </section>
+        </Link>
+        <Link className={styles.towers} to="towers-solution">
+          <section className={styles.towers}>
+            <div className={styles.textBlock}>
+              <div className={styles.textBlockTitle}>
+                <h3>Башни</h3>
+                <p>Универсальные высотные доминанты</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
