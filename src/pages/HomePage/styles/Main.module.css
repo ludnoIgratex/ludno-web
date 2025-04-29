@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 32px;
   gap: 24px;
+  margin-bottom: 100px;
 }
 
 .title img {
@@ -26,7 +27,7 @@
 }
 
 .linkContainer {
-  margin-top: 20px;
+  margin-top: 44px;
   display: flex;
   color: var(--accent-color);
   gap: 6px;
@@ -34,13 +35,13 @@
 }
 
 .arrow {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .linkContainer a {
-  font-size: 26px;
-  line-height: 32px;
+  font-size: 34px;
+  line-height: 40px;
 }
 
 .linkContainer:hover {

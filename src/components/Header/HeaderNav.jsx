@@ -1,13 +1,38 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles/HeaderNav.module.css";
 
-const HeaderNav = ({ setShowSolutions }) => {
+const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSolutionsClick = () => {
+    setShowSolutions(false);
+
+    if (location.pathname === "/") {
+      window.dispatchEvent(new Event("scroll-to-solutions"));
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        window.dispatchEvent(new Event("scroll-to-solutions"));
+      }, 300);
+    }
+  };
 
   return (
     <nav className={styles.navContainer}>
       <ul className={styles.navList}>
+        <li>
+          <span
+            onClick={handleSolutionsClick}
+            onMouseEnter={() => setShowSolutions(true)}
+            className={
+              location.pathname.startsWith("/solutions") ? styles.active : ""
+            }
+          >
+            Решения
+          </span>
+        </li>
         <li onMouseEnter={() => setShowSolutions(false)}>
           <Link
             to="/products"
@@ -18,18 +43,6 @@ const HeaderNav = ({ setShowSolutions }) => {
             Каталог
           </Link>
         </li>
-
-        <li>
-          <span
-            onMouseEnter={() => setShowSolutions(true)}
-            className={
-              location.pathname.startsWith("/solutions") ? styles.active : ""
-            }
-          >
-            Решения
-          </span>
-        </li>
-
         <li onMouseEnter={() => setShowSolutions(false)}>
           <Link
             to="/projects"

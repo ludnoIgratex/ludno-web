@@ -3,6 +3,7 @@
   padding: 48px 36px 36px 32px;
   justify-content: space-between;
   align-items: baseline;
+  margin-top: 100px
 }
 
 .projectsHeader a {
@@ -24,7 +25,7 @@
 }
 
 .projectImage {
-  width: 100%;
+  width: 680px;
   height: 100%;
   object-fit: cover;
   transition: opacity 0.3s ease;
@@ -115,8 +116,8 @@
 
 .watchAllArrow {
   color: var(--primary-text-color);
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 @media screen and (max-width: 728px) {

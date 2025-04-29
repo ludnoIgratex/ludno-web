@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { IoSearch } from "react-icons/io5";
 import HeaderLogo from "./HeaderLogo";
@@ -27,6 +27,18 @@ const Header = () => {
 
   const isMobile = useMediaQuery({ maxWidth: 728 });
   const isTablet = useMediaQuery({ minWidth: 729, maxWidth: 1024 });
+
+  useEffect(() => {
+    if (showSolutions) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showSolutions]);
 
   return (
     <>

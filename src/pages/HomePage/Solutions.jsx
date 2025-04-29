@@ -1,31 +1,30 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./styles/Solutions.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-const Solutions = () => {
+const Solutions = forwardRef((props, ref) => {
   return (
-    <div className={styles.solutionsWrapper}>
+    <div className={styles.solutionsWrapper} ref={ref}>
       <h2>Решения</h2>
       <section className={styles.solutions}>
-        <Link className={styles.landscape} to="kinetics-solution">
-          <section className={styles.landscape}>
+        <div className={styles.landscape}>
+          <Link to="kinetics-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Кинетикомоторные площадки</h3>
-                <p>
-                  Развитие координации <br />и движения
-                </p>
+                <p>Развитие координации <br /> и движения</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.tramptek} to="tramptec-solution">
-          <section className={styles.tramptek}>
+          </Link>
+        </div>
+
+        <div className={styles.tramptek}>
+          <Link to="tramptec-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Трамптек</h3>
@@ -36,24 +35,26 @@ const Solutions = () => {
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.mini} to="mini-solution">
-          <section className={styles.mini}>
+          </Link>
+        </div>
+
+        <div className={styles.mini}>
+          <Link to="mini-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Мини</h3>
-                <p>Обучающие площадки для детей до 7 лет </p>
+                <p>Обучающие площадки для детей до 7 лет</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.playlet} to="playlet-solution">
-          <section className={styles.playlet}>
+          </Link>
+        </div>
+
+        <div className={styles.playlet}>
+          <Link to="playlet-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Плейлеты</h3>
@@ -64,10 +65,11 @@ const Solutions = () => {
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.bloqi} to="bloqi-solution">
-          <section className={styles.bloqi}>
+          </Link>
+        </div>
+
+        <div className={styles.bloqi}>
+          <Link to="bloqi-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Блоки</h3>
@@ -78,10 +80,11 @@ const Solutions = () => {
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.parkfit} to="parkfit-solution">
-          <section className={styles.parkfit}>
+          </Link>
+        </div>
+
+        <div className={styles.parkfit}>
+          <Link to="parkfit-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Паркфит</h3>
@@ -92,10 +95,11 @@ const Solutions = () => {
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
-        <Link className={styles.towers} to="towers-solution">
-          <section className={styles.towers}>
+          </Link>
+        </div>
+
+        <div className={styles.towers}>
+          <Link to="towers-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Башни</h3>
@@ -106,11 +110,11 @@ const Solutions = () => {
                 <span>Подробнее</span>
               </div>
             </div>
-          </section>
-        </Link>
+          </Link>
+        </div>
       </section>
     </div>
   );
-};
+});
 
 export default Solutions;

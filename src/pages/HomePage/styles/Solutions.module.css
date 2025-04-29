@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 36px;
+  margin-bottom: 100px;
 }
 
 .solutions {
@@ -15,17 +16,9 @@
     "parkfit parkfit parkfit parkfit parkfit towers towers towers towers towers towers towers";
 }
 
-.solutions section {
-  background-color: var(--bg-default-color);
-  display: flex;
-  flex-direction: column;
-  padding: 32px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.solutions section:hover {
-  transform: scale(1.02);
-  cursor: pointer;
+.link {
+  color: var(--primary-text-color);
+  text-decoration: none;
 }
 
 .textBlock {
@@ -59,20 +52,51 @@
   gap: 4px;
 }
 
-.solutions section:hover .linkContainer {
+.landscape:hover .linkContainer,
+.tramptek:hover .linkContainer,
+.mini:hover .linkContainer,
+.parkfit:hover .linkContainer,
+.bloqi:hover .linkContainer,
+.playlet:hover .linkContainer,
+.towers:hover .linkContainer {
   color: var(--accent-color);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .linkContainer span {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 26px;
+  line-height: 32px;
 }
 
 .arrow {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+}
+
+.landscape,
+.tramptek,
+.mini,
+.parkfit,
+.bloqi,
+.playlet,
+.towers {
+  background-color: var(--bg-default-color);
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.landscape:hover,
+.tramptek:hover,
+.mini:hover,
+.parkfit:hover,
+.bloqi:hover,
+.playlet:hover,
+.towers:hover {
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
 .landscape {
