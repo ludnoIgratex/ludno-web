@@ -6,13 +6,18 @@
   background: white;
   z-index: 999;
   display: flex;
-  gap: 1rem;
-  padding: 1.5rem 2rem;
+  overflow-x: auto;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-10px);
   transition: all 0.3s ease;
-  overflow-x: auto;
+}
+
+.inner {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  min-width: max-content;
 }
 
 .visible {

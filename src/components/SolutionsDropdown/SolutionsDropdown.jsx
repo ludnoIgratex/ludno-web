@@ -30,37 +30,36 @@ const SolutionsDropdown = ({ visible, onClose }) => {
       className={`${styles.dropdownWrapper} ${visible ? styles.visible : ""}`}
       onMouseLeave={onClose}
     >
-      {isLoading
-        ? Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className={styles.solutionItemWrapper}>
-              <div className={`${styles.solutionItem} ${styles.skeleton}`}>
-                <div className={styles.imageBackground} />
-                <div className={styles.solutionContent}>
-                  <div className={styles.skeletonTitle} />
-                  <div className={styles.skeletonText} />
+      <div className={styles.inner}>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className={styles.solutionItemWrapper}>
+                <div className={`${styles.solutionItem} ${styles.skeleton}`}>
+                  <div className={styles.imageBackground} />
+                  <div className={styles.solutionContent}>
+                    <div className={styles.skeletonTitle} />
+                    <div className={styles.skeletonText} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        : solutions.map((solution) => (
-            <div key={solution.id} className={styles.solutionItemWrapper}>
-              <Link
-                to={`/${solution.url}`}
-                className={styles.solutionItem}
-              >
-                <div
-                  className={styles.imageBackground}
-                  style={{
-                    backgroundImage: `url(https://admin.ludno.ru${solution.imageUrl})`,
-                  }}
-                />
-                <div className={styles.solutionContent}>
-                  <h4>{solution.name}</h4>
-                  <p>{solution.description}</p>
-                </div>
-              </Link>
-            </div>
-          ))}
+            ))
+          : solutions.map((solution) => (
+              <div key={solution.id} className={styles.solutionItemWrapper}>
+                <Link to={`/${solution.url}`} className={styles.solutionItem}>
+                  <div
+                    className={styles.imageBackground}
+                    style={{
+                      backgroundImage: `url(https://admin.ludno.ru${solution.imageUrl})`,
+                    }}
+                  />
+                  <div className={styles.solutionContent}>
+                    <h4>{solution.name}</h4>
+                    <p>{solution.description}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+      </div>
     </div>
   );
 };
