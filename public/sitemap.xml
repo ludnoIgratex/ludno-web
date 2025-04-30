@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+  <url>
+    <loc>https://ludno.ru/</loc>
+  </url>
+
+  <url>
+    <loc>https://ludno.ru/products</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/contacts</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/projects</loc>
+  </url>
+
+  <url>
+    <loc>https://ludno.ru/kinetics-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/tramptec-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/mini-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/playlet-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/bloqi-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/parkfit-solution</loc>
+  </url>
+  <url>
+    <loc>https://ludno.ru/towers-solution</loc>
+  </url>
+</urlset>

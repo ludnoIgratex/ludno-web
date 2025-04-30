@@ -11,42 +11,16 @@ import Collections from "./Collections";
 import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 
 const BloqiMain = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const start = Date.now();
-
-    const onLoadHandler = () => {
-      const loadTime = Date.now() - start;
-      const remainingTime = Math.max(0, 1000 - loadTime);
-      setTimeout(() => setIsLoading(false), remainingTime);
-    };
-
-    if (document.readyState === "complete") {
-      onLoadHandler();
-    } else {
-      window.addEventListener("load", onLoadHandler);
-    }
-
-    return () => window.removeEventListener("load", onLoadHandler);
-  }, []);
-
   return (
     <div className={styles.bloqiWrapper}>
-      {isLoading ? (
-        <Loader loading={isLoading} />
-      ) : (
-        <>
-          <Head />
-          <About />
-          <Collections />
-          <Advantages />
-          <Materials />
-          <Storage />
-          <Consultation color="var(--accent-color-bloqi)" />
-          <OtherSolutions currentSlug="bloqi-solution" />
-        </>
-      )}
+      <Head />
+      <About />
+      <Collections />
+      <Advantages />
+      <Materials />
+      <Storage />
+      <Consultation color="var(--accent-color-bloqi)" />
+      <OtherSolutions currentSlug="bloqi-solution" />
     </div>
   );
 };
