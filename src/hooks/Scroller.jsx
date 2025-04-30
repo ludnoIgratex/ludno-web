@@ -8,7 +8,7 @@ function Scroller() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth", // <-- ключевой момент
+      behavior: "smooth",
     });
   }, [pathname]);
 
