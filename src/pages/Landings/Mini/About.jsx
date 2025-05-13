@@ -13,7 +13,7 @@ const About = () => {
     if (isTouchDevice) {
       navigate("/products?brands=31");
     } else {
-      navigate("/products/Мини");
+      navigate("/products/Оборудование%20для%20ДОО");
     }
   };
 

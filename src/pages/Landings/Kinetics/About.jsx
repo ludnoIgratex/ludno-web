@@ -13,7 +13,7 @@ const About = () => {
     if (isTouchDevice) {
       navigate("/products?brands=35&brands=34");
     } else {
-      navigate("/products/Ландшафт");
+      navigate("/products/Кинетикомоторные%20площадки");
     }
   };
 
