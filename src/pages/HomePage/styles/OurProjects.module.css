@@ -3,7 +3,7 @@
   padding: 48px 36px 36px 32px;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 100px
+  margin-top: 100px;
 }
 
 .projectsHeader a {
@@ -14,6 +14,7 @@
 }
 
 .scrollContainer {
+  height: 100%;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -25,8 +26,6 @@
 }
 
 .projectImage {
-  width: 680px;
-  height: 100%;
   object-fit: cover;
   transition: opacity 0.3s ease;
 }
@@ -86,8 +85,6 @@
   align-items: center;
 }
 
-
-
 .linkContainer a {
   text-decoration: underline;
 }
@@ -111,7 +108,6 @@
 .watchAllArrow:hover {
   color: var(--primary-hover-color);
   text-decoration: underline;
-
 }
 
 .watchAllArrow {
