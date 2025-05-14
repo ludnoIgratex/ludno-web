@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./OtherSolutions.module.css";
 import { Link } from "react-router-dom";
+import { RiArrowRightDownLine } from "react-icons/ri";
 
 const OtherSolutions = ({ currentSlug }) => {
   const [solutions, setSolutions] = useState([]);
@@ -54,9 +55,16 @@ const OtherSolutions = ({ currentSlug }) => {
                     backgroundImage: `url(https://admin.ludno.ru${solution.imageUrl})`,
                   }}
                 />
-                <h3>{solution.name}</h3>
-                <p>{solution.description}</p>
-                <span className={styles.moreLink}>Подробнее</span>
+                <div className={styles.solutionInfo}>
+                  <div>
+                    <h3>{solution.name}</h3>
+                    <p>{solution.description}</p>
+                  </div>
+                  <div className={styles.linkWrapper}>
+                    <RiArrowRightDownLine className={styles.arrow} />
+                    <span className={styles.moreLink}>Подробнее</span>
+                  </div>
+                </div>
               </Link>
             ))}
       </div>

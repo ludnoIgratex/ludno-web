@@ -1,6 +1,6 @@
 .otherSolutionsSection {
   margin-top: 100px;
-  padding: 0 2rem 30rem 2rem;
+  padding: 0 2rem 20rem 2rem;
 }
 
 .otherSolutionsSection h2 {
@@ -32,9 +32,17 @@
   transition: transform 0.3s ease;
 }
 
+.solutionInfo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .solutionCard:hover {
   transform: translateY(-4px);
 }
+
 .imageBackground {
   position: absolute;
   top: 0;
@@ -63,9 +71,23 @@
   margin-bottom: 1rem;
 }
 
+.linkWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  height: 32px;
+  width: auto;
+}
+
 .moreLink {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.solutionCard:hover .moreLink {
+  color: var(--primary-hover-color);
   text-decoration: underline;
 }
 
@@ -163,5 +185,10 @@
     font-size: 16px;
     line-height: 22px;
     text-decoration: underline;
+  }
+
+  .arrow {
+    height: 24px;
+    width: auto;
   }
 }

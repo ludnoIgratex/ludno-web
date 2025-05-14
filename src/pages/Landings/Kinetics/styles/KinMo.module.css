@@ -38,6 +38,9 @@
   padding: 24px;
   font-size: 26px;
   line-height: 32px;
+  display: flex;
+  flex-direction: column;
+  gap:12px
 }
 
 @media screen and (max-width: 768px) {
