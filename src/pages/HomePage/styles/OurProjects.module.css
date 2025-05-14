@@ -1,6 +1,6 @@
 .projectsHeader {
   display: flex;
-  padding: 48px 36px 36px 32px;
+  padding: 0 36px 36px 32px;
   justify-content: space-between;
   align-items: baseline;
   margin-top: 100px;

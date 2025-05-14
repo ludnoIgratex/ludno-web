@@ -100,6 +100,8 @@
   border-radius: 32px;
   border: none;
   color: white;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .articleLink button:hover{
