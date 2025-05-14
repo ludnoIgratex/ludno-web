@@ -7,7 +7,7 @@
   background-image: url("/assets/images/bloqi-solution/red-prints.svg"),
     url("/assets/images/bloqi-solution/red-curve.svg");
   background-repeat: no-repeat, no-repeat;
-  background-position: top left, bottom right;
+  background-position: -90px -40px, 1200px 500px;
   background-size: auto, auto;
 }
 
