@@ -24,9 +24,14 @@
   padding-top: 24px;
   display: flex;
   gap: 60px;
-  font-size: 26px;
-  line-height: 32px;
+  font-size: 34px;
+  line-height: 40px;
   justify-content: space-between;
+}
+
+.arrow{
+  height: 40px;
+  width:auto
 }
 
 .linkContainer {
@@ -58,6 +63,11 @@
     line-height: 24px;
     width: 100%;
     justify-content: space-around;
+  }
+
+  .arrow {
+    height: 24px;
+    width: auto;
   }
 }
 

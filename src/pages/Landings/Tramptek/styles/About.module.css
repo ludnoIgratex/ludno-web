@@ -20,9 +20,14 @@
   padding-top: 24px;
   display: flex;
   gap: 60px;
-  font-size: 26px;
-  line-height: 32px;
+  font-size: 34px;
+  line-height: 40px;
   justify-content: space-between;
+}
+
+.arrow {
+  height: 40px;
+  width: auto;
 }
 
 .linkContainer {
@@ -76,5 +81,15 @@
   .aboutWrapper p {
     font-size: 26px;
     line-height: 32px;
+  }
+
+  .linkWrapper {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .arrow {
+    height: 24px;
+    width: auto;
   }
 }
