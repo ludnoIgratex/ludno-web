@@ -26,6 +26,8 @@
 }
 
 .projectImage {
+  width: 680px;
+  height: 100%;
   object-fit: cover;
   transition: opacity 0.3s ease;
 }
@@ -140,7 +142,7 @@
     padding: 0px 16px;
   }
   .projectImage {
-    min-width: 340px;
+    width: 360px;
   }
 
   .mainInfo h3 {

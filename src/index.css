@@ -20,7 +20,7 @@
   font-family: TT-Norms-Pro, sans-serif;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
 }
 
@@ -28,7 +28,7 @@ html {
   -webkit-text-size-adjust: 100%;
   scrollbar-width: none;
   text-size-adjust: 100%;
-}
+} */
 
 :root {
   /* Accent */
