@@ -13,13 +13,17 @@
 
 .textBlock {
   flex: 1;
-  max-width:670px
+  max-width: 670px;
 }
 
 .textBlock p {
   margin-bottom: 12px;
   font-size: 24px;
   line-height: 32px;
+}
+
+.textBlock a {
+  color: var(--accent-color);
 }
 
 .imageBlock {
@@ -50,16 +54,16 @@
   background-color: #555;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .conceptSection {
     padding: 100px 16px 0px 16px;
   }
-  
+
   .conceptWrapper {
     flex-direction: column;
-    gap:24px
+    gap: 24px;
   }
-  
+
   .conceptSection h2 {
     margin-bottom: 16px;
   }
