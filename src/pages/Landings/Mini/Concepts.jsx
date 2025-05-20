@@ -16,7 +16,7 @@ const Concepts = () => {
         <div className={styles.textBlock}>
           <p>
             Детская площадка, спроектированная в соответствии с требованиями{" "}
-            <a href="http://localhost:5173/blog/77/detskie-ploshchadki-po-prikazu-1057-minprosveshcheniya-rossii.">
+            <a href="https://ludno.ru/blog/85/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii">
               Приказа № 1057 Минпросвещения России
             </a>
             , включает два типа активности — физкультурную и игровую — а также

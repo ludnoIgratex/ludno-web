@@ -220,6 +220,7 @@ const PostPage = () => {
 
       <section className={styles.contentWrapper}>
         <p className={styles.description}>{post.description}</p>
+        <br />
         <div className={styles.markdownContent}>{finalContent}</div>
       </section>
 
