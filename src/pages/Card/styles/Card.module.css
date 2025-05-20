@@ -185,6 +185,9 @@
   flex-direction: column;
   max-width: 800px;
   gap: 12px;
+  pointer-events: none;
+  user-select: text;
+outline: none;
 }
 
 .cardDescription div {
@@ -192,6 +195,7 @@
   color: var(--gray-font-color);
   /* font-size: 24px; */
   margin: 0;
+  
 }
 
 .cardDetails {

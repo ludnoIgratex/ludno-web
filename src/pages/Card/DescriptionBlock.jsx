@@ -24,7 +24,10 @@ const DescriptionBlock = ({ card }) => {
   }
 
   return (
-    <div className={styles.descriptionBlock}>
+    <div
+      className={styles.descriptionBlock}
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className={styles.cardDescription}>
         <h2 className={styles.descriptionTitle}>Описание</h2>
         <p> {descriptiontext}</p>
