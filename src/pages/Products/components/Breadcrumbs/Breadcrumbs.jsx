@@ -20,7 +20,7 @@ const Breadcrumbs = ({ brand, category, productName }) => {
           <li>
             <Link
               to={{
-                pathname: `/products/${brand.name}`,
+                pathname: `/products/all/${brand.name}`,
                 search: brandQuery ? `?${brandQuery}` : "",
               }}
             >
@@ -32,7 +32,7 @@ const Breadcrumbs = ({ brand, category, productName }) => {
           <li>
             <Link
               to={{
-                pathname: `/products/${brand.name}/${category.title}`,
+                pathname: `/products/all/${brand.name}/${category.title}`,
                 search: categoryQuery ? `?${categoryQuery}` : "",
               }}
             >
