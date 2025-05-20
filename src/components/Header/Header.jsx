@@ -8,6 +8,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Search from "../Search/Search";
 import SolutionsDropdown from "../SolutionsDropdown/SolutionsDropdown";
 import styles from "./styles/Header.module.css";
+import TgLink from "./TgLink";
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -60,6 +61,7 @@ const Header = () => {
                     className={styles.searchIcon}
                     onClick={() => toggleSearch(true)}
                   />
+                  <TgLink />
                   <BurgerMenuIcon toggleBurger={toggleBurger} />
                   <BurgerMenu
                     isOpen={isBurgerOpen}
@@ -72,7 +74,10 @@ const Header = () => {
           ) : isTablet ? (
             <>
               <Search onClose={() => toggleSearch(false)} />
-              <BurgerMenuIcon toggleBurger={toggleBurger} />
+              <div className={styles.headerIcons}>
+                <TgLink />
+                <BurgerMenuIcon toggleBurger={toggleBurger} />
+              </div>
               <BurgerMenu
                 isOpen={isBurgerOpen}
                 onClose={() => setIsBurgerOpen(false)}
@@ -81,10 +86,13 @@ const Header = () => {
           ) : (
             <>
               <HeaderNav setShowSolutions={setShowSolutions} />
-              <IoSearch
-                className={styles.searchIcon}
-                onClick={() => toggleSearch(true)}
-              />
+              <div className={styles.headerIcons}>
+                <TgLink />
+                <IoSearch
+                  className={styles.searchIcon}
+                  onClick={() => toggleSearch(true)}
+                />
+              </div>
               {isSearchOpen && <Search onClose={() => toggleSearch(false)} />}
             </>
           )}

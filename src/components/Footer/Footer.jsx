@@ -35,7 +35,7 @@ const Footer = () => {
           <p>8 800 350 2420</p>
           <a href="mailto:info@ludno.com">info@ludno.ru</a>
           <div className={styles.socialIcons}>
-            <a href="https://t.me/ludnoo" target="_blank" rel="noreferrer">
+            <a href="https://t.me/ludno_info" target="_blank" rel="noreferrer">
               <FaTelegram />
             </a>
             <a

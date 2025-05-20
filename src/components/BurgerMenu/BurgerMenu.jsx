@@ -84,7 +84,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
             <FaPinterest />
           </a>
           <a
-            href="https://t.me/ludnoo"
+            href="https://t.me/ludno_info"
             target="_blank"
             rel="noopener noreferrer"
           >
