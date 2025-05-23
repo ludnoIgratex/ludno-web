@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 import styles from "./styles/Contacts.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
-
+import { FaPinterest } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa";
 
 const Contacts = () => {
   const location = useLocation();
@@ -94,28 +95,34 @@ const Contacts = () => {
       <div className={styles.container}>
         <div className={styles.column}>
           <div className={styles.block}>
-            <h4 className={styles.title}>Телефон</h4>
-            <p className={styles.text}>8 800 350 2420</p>
+            <h4 className={styles.title}>Связаться</h4>
+            <div>
+              <p className={styles.text}>8 800 350 2420</p>
+              <div className={styles.linkContainer}>
+                <RiArrowRightDownLine className={styles.arrow} />
+                <a
+                  href="https://t.me/ludno_info"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Telegram
+                </a>
+              </div>
+            </div>
           </div>
           <div className={styles.block}>
             <h4 className={styles.title}>Социальные сети</h4>
             <div className={styles.links}>
-              <div className={styles.linkContainer}>
-                <RiArrowRightDownLine className={styles.arrow} />
-                <a href="https://t.me/ludnoo" target="_blank" rel="noreferrer">
-                  Telegram
-                </a>
-              </div>
-              <div className={styles.linkContainer}>
-                <RiArrowRightDownLine className={styles.arrow} />
-                <a
-                  href="https://www.pinterest.com/ludnoru"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Pinterest
-                </a>
-              </div>
+              <a href="https://t.me/ludnoo" target="_blank" rel="noreferrer">
+                <FaTelegram />
+              </a>
+              <a
+                href="https://www.pinterest.com/ludnoru"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaPinterest />
+              </a>
             </div>
           </div>
         </div>

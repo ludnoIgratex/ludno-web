@@ -25,8 +25,14 @@
 
 .links {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 20px;
+}
+
+.links a {
+  color: var(--primary-default-color);
+  display: flex;
+  align-items: center;
+  font-size: 40px;
 }
 
 .linkContainer {
@@ -35,16 +41,15 @@
   gap: 8px;
 }
 
-.arrow {
-  width: 26px;
-  height: auto;
-}
-
-.links a {
+.linkContainer a {
   text-decoration: underline;
   color: var(--primary-default-color);
   font-size: 26px;
   line-height: 32px;
+}
+.arrow {
+  width: 32px;
+  height: auto;
 }
 
 .text {
@@ -291,15 +296,14 @@ input:-webkit-autofill:active {
     font-size: 11px;
     line-height: 14px;
   }
-  .links {
-    flex-direction: row;
-    gap: 50px;
+  .links a {
+    font-size: 32px;
   }
   .title {
     font-size: 13px;
     line-height: 18px;
   }
-  .links a,
+  .linkContainer a,
   .text {
     font-size: 16px;
     line-height: 22px;
@@ -307,11 +311,8 @@ input:-webkit-autofill:active {
   .linkContainer {
     gap: 4px;
   }
-  /* .blockMail{
-    padding-bottom: 40px;
-  } */
   .arrow {
-    width: 20px;
+    width: 24px;
     height: auto;
   }
   .contentName {
