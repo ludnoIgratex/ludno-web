@@ -14,6 +14,13 @@ const Categories = ({
 
   const categoriesToShow = brand ? brand.categories : allCategories;
 
+  // Сортируем категории по алфавиту
+  const sortedCategories = [...categoriesToShow].sort((a, b) => {
+    const nameA = (a.title || a.name || "").toLowerCase();
+    const nameB = (b.title || b.name || "").toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+
   const handleCategoryClick = (category) => {
     const categoryName = category.title || category.name;
     if (!categoryName) return;
@@ -37,7 +44,7 @@ const Categories = ({
     <div className={styles.categories}>
       <h4>Категории</h4>
       <ul>
-        {categoriesToShow.map((category) => {
+        {sortedCategories.map((category) => {
           const categoryName = category.title || category.name;
           return (
             <li
