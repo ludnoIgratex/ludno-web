@@ -24,7 +24,6 @@
   max-width: 600px;
   font-size: 18px;
   line-height: 24px;
-  white-space: pre-line;
 }
 
 .card h3 {
@@ -33,12 +32,30 @@
 
 /* GRID AREAS */
 
+.markdown {
+  white-space: normal; /* обязательно */
+}
+
+:global(.markdown p) {
+  margin-bottom: 1em;
+}
+
+:global(.markdown a) {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+
 .about {
   grid-area: about;
 }
 
 .equipment {
   grid-area: equipment;
+}
+
+.equipment a{
+  color: var(--accent-color)
 }
 
 .address {

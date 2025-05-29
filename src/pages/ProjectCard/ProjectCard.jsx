@@ -7,6 +7,10 @@ import Breadcrumbs from "../Projects/components/BreadCrumbs/BreadCrumbs";
 import RelatedProjects from "../Projects/components/RelatedProjects/RelatedProjects";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import LightboxModal from "../../components/Lightbox/LightboxModal";
+import { marked } from "marked";
+
+// Включаем переносы строк (\n => <br>)
+marked.setOptions({ breaks: true });
 
 const ProjectCard = () => {
   const { projectId } = useParams();
@@ -15,6 +19,7 @@ const ProjectCard = () => {
   const [error, setError] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
+  const formatText = (text) => text.replace(/\n(?!\n)/g, "\n\n");
 
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -42,20 +47,17 @@ const ProjectCard = () => {
         const response = await fetch(
           `https://admin.ludno.ru/api/project-cards?${query}`
         );
-        if (!response.ok) {
-          throw new Error("Ошибка при загрузке данных");
-        }
+        if (!response.ok) throw new Error("Ошибка при загрузке данных");
         const data = await response.json();
-        if (data && data.data && data.data.length > 0) {
+        if (data?.data?.length > 0) {
           setProjectCard(data.data[0]);
           const projectName = data.data[0].project?.name || "без-названия";
           const slug = slugify(projectName, {
             lowercase: true,
             separator: "-",
           });
-          const currentUrl = window.location.pathname;
           const expectedUrl = `/project-cards/${projectId}/${slug}`;
-          if (currentUrl !== expectedUrl) {
+          if (window.location.pathname !== expectedUrl) {
             navigate(expectedUrl, { replace: true });
           }
         } else {
@@ -72,12 +74,11 @@ const ProjectCard = () => {
   }, [projectId, navigate]);
 
   const imageUrl =
-    projectCard &&
-    (Array.isArray(projectCard.mainImage) && projectCard.mainImage.length > 0
+    Array.isArray(projectCard?.mainImage) && projectCard.mainImage.length > 0
       ? `https://admin.ludno.ru${projectCard.mainImage[0].url}`
-      : projectCard.mainImage?.url
+      : projectCard?.mainImage?.url
       ? `https://admin.ludno.ru${projectCard.mainImage.url}`
-      : null);
+      : null;
 
   useEffect(() => {
     if (imageUrl) {
@@ -93,12 +94,12 @@ const ProjectCard = () => {
   if (!projectCard) return <p>Карточка проекта не найдена.</p>;
 
   const additionalImages =
-    projectCard.image && projectCard.image.length > 0
-      ? projectCard.image.map((img) => {
-          return img.formats && img.formats.large
+    projectCard.image?.length > 0
+      ? projectCard.image.map((img) =>
+          img.formats?.large
             ? `https://admin.ludno.ru${img.formats.large.url}`
-            : `https://admin.ludno.ru${img.url}`;
-        })
+            : `https://admin.ludno.ru${img.url}`
+        )
       : [];
 
   return (
@@ -109,6 +110,7 @@ const ProjectCard = () => {
           projectName={projectCard.project?.name}
         />
       </div>
+
       {imageUrl ? (
         <div className={styles.imageWrapper}>
           <div
@@ -132,17 +134,27 @@ const ProjectCard = () => {
       ) : (
         <p>Изображение проекта не найдено.</p>
       )}
+
       <section className={styles.cardContainer}>
-        <h1>{projectCard.project && projectCard.project.name}</h1>
+        <h1>{projectCard.project?.name}</h1>
         <section className={styles.infoWrapper}>
-          <div className={styles.about}>
+          <div className={`${styles.about} markdown`}>
             <h3>Описание проекта</h3>
-            <p>{projectCard.about}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked(formatText(projectCard.about || "")),
+              }}
+            />
           </div>
-          <div className={styles.equipment}>
+          <div className={`${styles.equipment} markdown`}>
             <h3>Оборудование</h3>
-            <p>{projectCard.equipment}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked(projectCard.equipment || ""),
+              }}
+            />
           </div>
+
           <section className={styles.address}>
             <div>
               <span className={styles.label}>Адрес</span>
@@ -153,6 +165,7 @@ const ProjectCard = () => {
               <p>{projectCard.year}</p>
             </div>
           </section>
+
           <section className={styles.client}>
             <div>
               <span className={styles.label}>Заказчик</span>
@@ -169,6 +182,7 @@ const ProjectCard = () => {
           </section>
         </section>
       </section>
+
       <div className={styles.projectImages}>
         {additionalImages.length > 0 ? (
           additionalImages.map((imgUrl, index) => (
@@ -187,6 +201,7 @@ const ProjectCard = () => {
           <p>No additional project images available.</p>
         )}
       </div>
+
       {isLightboxOpen && (
         <LightboxModal
           images={additionalImages}
@@ -203,6 +218,7 @@ const ProjectCard = () => {
           }
         />
       )}
+
       <RelatedProjects currentProjectId={projectCard.project.id} />
     </div>
   );
