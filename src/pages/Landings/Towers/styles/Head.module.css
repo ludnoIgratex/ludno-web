@@ -14,7 +14,6 @@
   background-size: 1100px, 600px;
 }
 
-
 .headWrapper h1 {
   color: var(--primary-default-color);
   font-weight: 100;
@@ -50,8 +49,8 @@
     gap: 56px;
     padding: 36px 16px;
     background-repeat: no-repeat;
-    background-position-x: 0px;
-    background-position-y: 280px;
+    background-position-x: 40px;
+    background-position-y: 180px;
     background-size: 430px;
   }
 
@@ -74,9 +73,8 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .headWrapper {
-    background-position-x: 200px;
-    background-position-y: 200px;
-        background-size: 800px;
-
+    background-position-x: 400px;
+    background-position-y: 100px;
+    background-size: 500px;
   }
 }
