@@ -7,7 +7,6 @@ import DescriptionBlock from "./DescriptionBlock";
 import ProjectFiles from "./ProjectFiles";
 import CardDetails from "./CardDetails";
 import CardMaterial from "./CardMaterial";
-import ScrollContainer from "./ScrollContainer";
 import GroupSection from "./GroupSection";
 import ColorSwitcher from "./ColorSwitcher";
 import ImageCarousel from "./ImageCarousel";
@@ -18,6 +17,8 @@ import PriceLink from "./PriceLink";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import { useMediaQuery } from "react-responsive";
 import CodeSize from "./CodeSize";
+import LightboxModal from "../../components/Lightbox/LightboxModal";
+import ProductGallery from "./ProductGallery";
 
 const Card = () => {
   const { id, slug } = useParams();
@@ -36,6 +37,8 @@ const Card = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [groupColors, setGroupColors] = useState([]);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const isMobile = useMediaQuery({ maxWidth: 1024 });
 
@@ -68,6 +71,15 @@ const Card = () => {
         }))
       : groupedImages.length > 0
       ? groupedImages[selectedColorIndex]?.images || []
+      : [];
+
+  const galleryImages =
+    Array.isArray(card?.gallery) && card.gallery.length > 0
+      ? card.gallery.map((img) =>
+          img.formats?.large
+            ? `https://admin.ludno.ru${img.formats.large.url}`
+            : `https://admin.ludno.ru${img.url}`
+        )
       : [];
 
   useEffect(() => {
@@ -137,14 +149,7 @@ const Card = () => {
             materials: {
               populate: ["image"],
             },
-            scrolls: {
-              populate: {
-                image: true,
-                project_cards: {
-                  populate: ["project"],
-                },
-              },
-            },
+            gallery: true,
             productImage: true,
             groupImage: {
               populate: {
@@ -264,9 +269,12 @@ const Card = () => {
           selectedMaterialIndex={selectedMaterialIndex}
           setSelectedMaterialIndex={setSelectedMaterialIndex}
         />
-        <ScrollContainer
-          scrolls={card.scrolls || []}
-          onProjectClick={navigate}
+        <ProductGallery
+          images={galleryImages}
+          isLightboxOpen={isLightboxOpen}
+          setIsLightboxOpen={setIsLightboxOpen}
+          lightboxIndex={lightboxIndex}
+          setLightboxIndex={setLightboxIndex}
         />
       </div>
       <RelatedProducts
@@ -332,9 +340,12 @@ const Card = () => {
           selectedMaterialIndex={selectedMaterialIndex}
           setSelectedMaterialIndex={setSelectedMaterialIndex}
         />
-        <ScrollContainer
-          scrolls={card.scrolls || []}
-          onProjectClick={navigate}
+        <ProductGallery
+          images={galleryImages}
+          isLightboxOpen={isLightboxOpen}
+          setIsLightboxOpen={setIsLightboxOpen}
+          lightboxIndex={lightboxIndex}
+          setLightboxIndex={setLightboxIndex}
         />
       </div>
       <RelatedProducts
