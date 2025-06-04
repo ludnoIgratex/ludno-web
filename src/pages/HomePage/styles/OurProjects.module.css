@@ -122,9 +122,11 @@
 @media screen and (max-width: 728px) {
   .projectsHeader {
     display: flex;
-    padding: 60px 16px 32px 16px;
+    padding: 0px 16px;
     justify-content: space-between;
     align-items: baseline;
+    margin-top: 0px;
+    margin-bottom: 24px;
   }
   .projectsHeader a {
     font-size: 13px;

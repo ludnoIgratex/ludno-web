@@ -3,7 +3,7 @@
   grid-template-columns: 3fr 2fr;
   gap: 20px;
   padding: 80px 32px;
-  margin: 100px 0px
+  margin: 100px 0px;
 }
 
 .aboutInfo {
@@ -34,14 +34,14 @@
   display: block;
 }
 
-
 @media (max-width: 728px) {
   .about {
     display: flex;
     flex-direction: column;
-    padding: 60px 16px;
+    padding: 20px 16px;
+    margin: 80px 0px;
   }
-  .aboutInfo{
+  .aboutInfo {
     order: 1;
   }
 
@@ -54,14 +54,13 @@
     font-size: 20px;
     line-height: 24px;
   }
-  
+
   .aboutInfo p {
     font-size: 18px;
     line-height: 24px;
   }
 
-  .imageWrapper{
+  .imageWrapper {
     order: 0;
   }
-
 }

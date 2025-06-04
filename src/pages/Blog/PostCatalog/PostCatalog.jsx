@@ -13,6 +13,7 @@ const PostCatalog = ({ selectedTags }) => {
       try {
         const query = qs.stringify({
           populate: ["image", "post_tags"],
+          sort: ["date:desc"],
         });
 
         const response = await fetch(

@@ -178,7 +178,7 @@
 @media screen and (max-width: 728px) {
   .solutions {
     display: grid;
-    gap: 24px;
+    gap: 16px;
     grid-template-areas:
       "landscape"
       "mini"
@@ -194,8 +194,9 @@
   }
 
   .solutionsWrapper {
-    padding: 60px 16px 16px 16px;
-    gap: 32px;
+    padding: 0px 16px;
+    gap: 24px;
+    margin-bottom: 0px;
   }
 
   .solutionsWrapper h2 {
@@ -258,6 +259,30 @@
     background-position-x: 0px;
     background-position-y: 0px;
     background-size: 900px;
+  }
+
+  .linkContainer span {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .arrow {
+    width: 24px;
+    height: 24px;
+  }
+
+  .landscape,
+  .tramptek,
+  .mini,
+  .parkfit,
+  .bloqi,
+  .playlet,
+  .towers {
+    padding: 16px;
+  }
+
+  .textBlockTitle {
+    gap: 4px;
   }
 }
 

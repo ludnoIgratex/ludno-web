@@ -19,7 +19,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const response = await fetch(
-          "https://admin.ludno.ru/api/projects?populate=image&populate=project_type"
+          "https://admin.ludno.ru/api/projects?populate=image&populate=project_type&sort[0]=createdAt:desc"
         );
         if (!response.ok) {
           throw new Error(`Ошибка сервера: ${response.status}`);

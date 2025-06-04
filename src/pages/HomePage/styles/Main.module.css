@@ -65,13 +65,18 @@
   .titleText {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    gap: 16px;
+    padding: 16px 16px 0px 16px;
+    gap: 12px;
   }
 
   .arrow {
     width: 24px;
     height: 24px;
+  }
+
+  .linkContainer{
+    margin-top: 12px;
+
   }
 
   .linkContainer a {
