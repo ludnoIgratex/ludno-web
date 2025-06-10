@@ -66,7 +66,7 @@
 }
 
 .close {
- position: absolute;
+  position: absolute;
   top: 12px;
   right: 12px;
   background: transparent;
@@ -103,7 +103,6 @@
   z-index: 2;
 }
 
-
 @media screen and (max-width: 768px) {
   .text {
     max-width: 980px;
@@ -127,6 +126,6 @@
   }
 
   .point img:hover {
-    transform: none;
+     transform: scale(1.5);
   }
 }
