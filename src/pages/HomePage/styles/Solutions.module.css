@@ -277,6 +277,12 @@
     background-size: 900px;
   }
 
+  .nature {
+    background-position-x: 200px;
+    background-position-y: 40px;
+    background-size: 400px;
+  }
+
   .linkContainer span {
     font-size: 18px;
     line-height: 24px;
@@ -293,7 +299,8 @@
   .parkfit,
   .bloqi,
   .playlet,
-  .towers {
+  .towers,
+  .nature {
     padding: 16px;
   }
 
