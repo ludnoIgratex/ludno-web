@@ -1,0 +1,45 @@
+.wrapper {
+  background-image: url('/assets/images/nature-navigation/road-bacground-element3.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  padding: 0px 32px 400px 32px;
+}
+
+.content {
+  max-width: 940px;
+  display: flex;
+  flex-direction: column;
+  gap:20px
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.content p {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+@media screen and (max-width: 768px){
+
+  .wrapper {
+  background-image: url('/assets/images/nature-navigation/road-bacground-element3.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1000px;
+  padding: 0px 16px 220px 16px;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+
+.content {
+  max-width: none;
+  gap:8px
+}
+}

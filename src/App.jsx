@@ -30,6 +30,7 @@ import BloqiMain from "./pages/Landings/Bloqi/BloqiMain";
 import YandexPageviewTracker from "./hooks/YandexPageviewTracker";
 import TowersMain from "./pages/Landings/Towers/TowersMain";
 import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
+import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -146,8 +147,10 @@ const App = () => {
               <Route path="/bloqi-solution" element={<BloqiMain />} />
               <Route path="/towers-solution" element={<TowersMain />} />
               <Route path="/parkfit-solution" element={<ParkfitMain />} />
-
-
+              <Route
+                path="/nature-navigation-solution"
+                element={<NatureNavMain />}
+              />
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />

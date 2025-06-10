@@ -13,7 +13,8 @@
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
     "bloqi bloqi bloqi bloqi bloqi bloqi bloqi playlet playlet playlet playlet playlet"
-    "parkfit parkfit parkfit parkfit parkfit towers towers towers towers towers towers towers";
+    "parkfit parkfit parkfit parkfit parkfit towers towers towers towers towers towers towers"
+    "nature nature nature nature nature nature nature nature nature nature nature nature";
 }
 
 .link {
@@ -58,7 +59,8 @@
 .parkfit:hover .linkContainer,
 .bloqi:hover .linkContainer,
 .playlet:hover .linkContainer,
-.towers:hover .linkContainer {
+.towers:hover .linkContainer,
+.nature:hover .linkContainer {
   color: var(--accent-color);
   cursor: pointer;
   text-decoration: underline;
@@ -80,7 +82,8 @@
 .parkfit,
 .bloqi,
 .playlet,
-.towers {
+.towers,
+.nature {
   background-color: var(--bg-default-color);
   display: flex;
   flex-direction: column;
@@ -94,7 +97,8 @@
 .parkfit:hover,
 .bloqi:hover,
 .playlet:hover,
-.towers:hover {
+.towers:hover,
+.nature:hover {
   transform: scale(1.02);
   cursor: pointer;
 }
@@ -171,6 +175,17 @@
   background-position-x: 250px;
   background-position-y: 40px;
   background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
+.nature{
+  grid-area: nature;
+  background-image: url("/assets/images/nature.avif");
+  background-repeat: no-repeat;
+  background-position-x: 700px;
+  background-position-y: -40px;
+  background-size: 800px;
   text-decoration: none;
   color: var(--primary-text-color);
 }

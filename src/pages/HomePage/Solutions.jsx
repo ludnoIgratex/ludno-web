@@ -13,7 +13,9 @@ const Solutions = forwardRef((props, ref) => {
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Кинетикомоторные площадки</h3>
-                <p>Развитие координации <br /> и движения</p>
+                <p>
+                  Развитие координации <br /> и движения
+                </p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
@@ -104,6 +106,22 @@ const Solutions = forwardRef((props, ref) => {
               <div className={styles.textBlockTitle}>
                 <h3>Башни</h3>
                 <p>Универсальные высотные доминанты</p>
+              </div>
+              <div className={styles.linkContainer}>
+                <RiArrowRightDownLine className={styles.arrow} />
+                <span>Подробнее</span>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div className={styles.nature}>
+          <Link to="nature-navigation-solution" className={styles.link}>
+            <div className={styles.textBlock}>
+              <div className={styles.textBlockTitle}>
+                <h3>Природная навигация</h3>
+                <p>
+                  Линейка навигационного оборудования для природных территорий
+                </p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />

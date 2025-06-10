@@ -1,0 +1,112 @@
+.aboutWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 200px 150px;
+  gap: 32px;
+  text-align: center;
+
+  background-image: url("/assets/images/nature-navigation/road-bacground-element1.svg"),
+    url("/assets/images/nature-navigation/road-bacground-element2.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: left 400px, right 100px;
+  background-size: auto;
+}
+
+.aboutWrapper p {
+  font-size: 34px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.highlight {
+  color: var(--accent-color-tramptek);
+}
+
+.linkWrapper {
+  padding-top: 24px;
+  display: flex;
+  gap: 60px;
+  font-size: 34px;
+  line-height: 40px;
+  justify-content: space-between;
+}
+
+.arrow {
+  height: 40px;
+  width: auto;
+}
+
+.linkContainer {
+  text-decoration: underline;
+  display: flex;
+  gap: 8px;
+  transition: 0.1s ease-in-out;
+  align-items: center;
+}
+
+.linkContainer:hover {
+  color: var(--accent-color-tramptek);
+}
+
+.gif {
+  width: 470px;
+  height: 100px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .aboutWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 200px 150px;
+    gap: 32px;
+    text-align: center;
+
+    background-image: url("/assets/images/nature-navigation/road-bacground-element1.svg"),
+      url("/assets/images/nature-navigation/road-bacground-element2.svg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: -300px 230px, 200px 50px;
+    background-size: contain;
+  }
+
+  .aboutWrapper {
+    padding: 115px 16px;
+    gap: 16px;
+  }
+
+  .aboutWrapper p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .linkWrapper {
+    padding-top: 28px;
+    font-size: 18px;
+    line-height: 24px;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .gif {
+    width: 340px;
+    height: 50px;
+  }
+
+  .arrow {
+    height: 24px;
+    width: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aboutWrapper {
+    padding: 160px 26px;
+    gap: 24px;
+  }
+  .aboutWrapper p {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
