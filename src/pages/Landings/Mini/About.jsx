@@ -11,7 +11,7 @@ const About = () => {
 
   const handleCatalogClick = () => {
     if (isTouchDevice) {
-      navigate("/products?brands=31");
+      navigate("/products?brands=37");
     } else {
       navigate("/products/Оборудование%20для%20ДОО");
     }
