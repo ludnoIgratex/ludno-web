@@ -250,7 +250,7 @@
   .mini {
     background-position-x: 60px;
     background-position-y: 50px;
-    background-size: 600px;
+    /* background-size: 600px; */
   }
 
   .towers {
