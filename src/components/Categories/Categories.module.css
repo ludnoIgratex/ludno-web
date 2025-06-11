@@ -23,3 +23,8 @@
   color: var(--secondary-hover-color);
   cursor: pointer;
 }
+
+.categories li.active {
+  font-weight: 600;
+  color: var(--primary-color);
+}

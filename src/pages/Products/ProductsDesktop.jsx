@@ -21,6 +21,8 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const navigate = useNavigate();
   const {
@@ -165,6 +167,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
         page,
         pageSize,
       },
+      sort: ['name:asc']
     };
 
     const queryString = qs.stringify(queryObj, { encodeValuesOnly: true });
@@ -196,6 +199,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const fetchProducts = async (page) => {
     try {
       setLoading(true);
+      setIsLoadingMore(true);
 
       const url = buildFetchUrlWithQs(page);
       const response = await fetch(url);
@@ -217,10 +221,23 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       });
 
       setTotalProducts(data.meta.pagination.total);
-      setHasMore(data.meta.pagination.page < data.meta.pagination.pageCount);
+      setTotalPages(data.meta.pagination.pageCount);
+      
+      // Проверяем, достаточно ли отфильтрованных продуктов
+      const filteredNewProducts = filterProductsByGroup(newProducts);
+      const hasEnoughProducts = filteredNewProducts.length >= pageSize;
+      
+      // Если продуктов недостаточно и есть еще страницы, загружаем следующую
+      if (!hasEnoughProducts && page < data.meta.pagination.pageCount) {
+        setCurrentPage(page + 1);
+      } else {
+        setHasMore(page < data.meta.pagination.pageCount);
+        setIsLoadingMore(false);
+      }
     } catch (err) {
       console.error("Ошибка загрузки продуктов:", err);
       setError("Ошибка при загрузке продуктов.");
+      setIsLoadingMore(false);
     } finally {
       setLoading(false);
       setShowSkeleton(false);
@@ -270,7 +287,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   if (error) return <p>{error}</p>;
 
   const handleShowMore = () => {
-    if (hasMore) {
+    if (hasMore && !isLoadingMore) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -322,7 +339,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
                 <p>Тут пока нет продуктов, но в скором времени они появятся!</p>
               )}
             </ul>
-            {hasMore && products.length > 0 && (
+            {hasMore && currentPage < totalPages && !isLoadingMore && (
               <div className={styles.showMoreContainer}>
                 <button
                   onClick={handleShowMore}

@@ -96,6 +96,7 @@ const ProductsMobile = () => {
           page,
           pageSize,
         },
+        sort: ['name:asc']
       },
       { encodeValuesOnly: true }
     );
