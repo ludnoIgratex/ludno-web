@@ -88,13 +88,15 @@ const ProductsMobile = () => {
       filterQuery = { $and: conditions };
     }
 
+    const serverPageSize = pageSize * 2;
+
     const query = qs.stringify(
       {
         populate: "*",
         filters: filterQuery,
         pagination: {
           page,
-          pageSize,
+          pageSize: serverPageSize,
         },
         sort: ['name:asc']
       },

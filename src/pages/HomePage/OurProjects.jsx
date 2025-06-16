@@ -5,6 +5,30 @@ import styles from "./styles/OurProjects.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { slugify } from "transliteration";
 
+// Helper function to decode HTML entities
+const decodeHtmlEntities = (text) => {
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = text;
+  return textarea.value;
+};
+
+// Function to process the description
+const processDescription = (description) => {
+  if (!description) return '';
+
+  // Decode HTML entities
+  let processedText = decodeHtmlEntities(description);
+
+  // Replace markdown links with just their text
+  processedText = processedText.replace(/\[(.*?)\]\((.*?)\)/g, '$1');
+
+  // Apply truncation logic (first two sentences)
+  const sentences = processedText.split('.');
+  const truncatedText = sentences.slice(0, 2).join('.') + '.';
+
+  return truncatedText;
+};
+
 const OurProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -113,14 +137,11 @@ const OurProjects = () => {
                   </section> */}
                 </section>
 
-                <p>
-                  {project.project_card?.about
-                    ? project.project_card.about
-                        .split(".")
-                        .slice(0, 2)
-                        .join(".") + "."
-                    : null}
-                </p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: processDescription(project.project_card?.about)
+                  }}
+                />
 
                 <div className={styles.linkContainer}>
                   <RiArrowRightDownLine className={styles.arrow} />
