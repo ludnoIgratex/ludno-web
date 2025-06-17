@@ -20,13 +20,13 @@
   overflow-y: hidden;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  /* scrollbar-width: none; 
+  -ms-overflow-style: none; */
 }
-
+/* 
 .scrollContainer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
-}
+  display: none; 
+} */
 
 .projectCard {
   position: relative;
