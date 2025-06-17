@@ -40,6 +40,7 @@ const OurProjects = () => {
       const query = qs.stringify(
         {
           populate: "*",
+          sort: "createdAt:desc",
         },
         { encodeValuesOnly: true }
       );
