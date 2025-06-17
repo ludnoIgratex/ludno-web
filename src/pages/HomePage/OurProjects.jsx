@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import styles from "./styles/OurProjects.module.css";
@@ -34,6 +34,27 @@ const OurProjects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (scrollContainerRef.current) {
+        e.preventDefault();
+        scrollContainerRef.current.scrollLeft += e.deltaY;
+      }
+    };
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -96,7 +117,7 @@ const OurProjects = () => {
           <a href="/projects"> Все проекты</a>
         </div>
       </div>
-      <div className={styles.scrollContainer}>
+      <div className={styles.scrollContainer} ref={scrollContainerRef}>
         {projects.map((project) => {
           const firstImage = project.image?.[0];
           const imageUrl = firstImage
