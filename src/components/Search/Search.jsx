@@ -14,6 +14,7 @@ const Search = ({ onClose }) => {
   const [projectResults, setProjectResults] = useState([]);
   const [postResults, setPostResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const navigate = useNavigate();
   const containerRef = useRef(null);
@@ -40,18 +41,29 @@ const Search = ({ onClose }) => {
 
   const handleSearch = debounce(async (searchTerm) => {
     if (searchTerm.trim()) {
+      setIsSearching(true);
       const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+      // Проверяем, является ли поисковый запрос артикулом (только цифры и буквы)
+      const isArticleSearch = /^[a-zA-Z0-9]+$/.test(normalizedSearchTerm);
 
       try {
         // Поиск продуктов
+        let productFilters = {
+          $or: [
+            { title: { $containsi: normalizedSearchTerm } },
+            { name: { $containsi: normalizedSearchTerm } },
+          ],
+        };
+
+        // Если это поиск по артикулу, добавляем точный поиск
+        if (isArticleSearch) {
+          productFilters.$or.push({ name: { $eq: normalizedSearchTerm.toUpperCase() } });
+        }
+
         const productQuery = qs.stringify(
           {
-            filters: {
-              $or: [
-                { title: { $containsi: normalizedSearchTerm } },
-                { name: { $containsi: normalizedSearchTerm } },
-              ],
-            },
+            filters: productFilters,
             populate: {
               image: true,
               card: true,
@@ -105,7 +117,22 @@ const Search = ({ onClose }) => {
           `https://admin.ludno.ru/api/products?${productQuery}`
         );
         const productData = await productResponse.json();
-        setProductResults(productData.data || []);
+        
+        // Фильтруем результаты для артикулов
+        let filteredProducts = productData.data || [];
+        if (isArticleSearch) {
+          // Если ищем по артикулу, приоритет отдаем точным совпадениям
+          const exactMatches = filteredProducts.filter(product => 
+            product.name && product.name.toLowerCase() === normalizedSearchTerm
+          );
+          const partialMatches = filteredProducts.filter(product => 
+            product.name && product.name.toLowerCase().includes(normalizedSearchTerm) && 
+            product.name.toLowerCase() !== normalizedSearchTerm
+          );
+          filteredProducts = [...exactMatches, ...partialMatches];
+        }
+        
+        setProductResults(filteredProducts);
 
         const projectResponse = await fetch(
           `https://admin.ludno.ru/api/projects?${projectQuery}`
@@ -124,14 +151,17 @@ const Search = ({ onClose }) => {
         setPostResults(postsWithTitles || []);
 
         setShowResults(true);
+        setIsSearching(false);
       } catch (error) {
         console.error("Ошибка поиска:", error);
+        setIsSearching(false);
       }
     } else {
       setProductResults([]);
       setProjectResults([]);
       setPostResults([]);
       setShowResults(false);
+      setIsSearching(false);
     }
   }, 200);
 
@@ -178,9 +208,152 @@ const Search = ({ onClose }) => {
     onClose();
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter" && query.trim()) {
-      handleShowAllResults();
+      e.preventDefault();
+      
+      // Отменяем текущий debounce поиск
+      handleSearch.cancel();
+      
+      // Если поиск еще выполняется, ждем его завершения
+      if (isSearching) {
+        // Ждем завершения текущего поиска
+        await new Promise(resolve => {
+          const checkSearching = () => {
+            if (!isSearching) {
+              resolve();
+            } else {
+              setTimeout(checkSearching, 50);
+            }
+          };
+          checkSearching();
+        });
+      }
+      
+      // Выполняем поиск синхронно
+      const normalizedSearchTerm = query.trim().toLowerCase();
+      setIsSearching(true);
+
+      // Проверяем, является ли поисковый запрос артикулом (только цифры и буквы)
+      const isArticleSearch = /^[a-zA-Z0-9]+$/.test(normalizedSearchTerm);
+
+      try {
+        // Поиск продуктов
+        let productFilters = {
+          $or: [
+            { title: { $containsi: normalizedSearchTerm } },
+            { name: { $containsi: normalizedSearchTerm } },
+          ],
+        };
+
+        // Если это поиск по артикулу, добавляем точный поиск
+        if (isArticleSearch) {
+          productFilters.$or.push({ name: { $eq: normalizedSearchTerm.toUpperCase() } });
+        }
+
+        const productQuery = qs.stringify(
+          {
+            filters: productFilters,
+            populate: {
+              image: true,
+              card: true,
+            },
+            pagination: {
+              pageSize: 10,
+            },
+          },
+          { encodeValuesOnly: true }
+        );
+
+        // Поиск проектов
+        const projectQuery = qs.stringify(
+          {
+            filters: {
+              $or: [
+                { title: { $containsi: normalizedSearchTerm } },
+                { name: { $containsi: normalizedSearchTerm } },
+              ],
+            },
+            populate: {
+              image: true,
+            },
+            pagination: {
+              pageSize: 10,
+            },
+          },
+          { encodeValuesOnly: true }
+        );
+
+        // Поиск статей
+        const postQuery = qs.stringify(
+          {
+            filters: {
+              $or: [
+                { text: { $containsi: normalizedSearchTerm } },
+              ],
+            },
+            populate: {
+              image: true,
+            },
+            pagination: {
+              pageSize: 10,
+            },
+          },
+          { encodeValuesOnly: true }
+        );
+
+        // Запросы к API
+        const [productResponse, projectResponse, postResponse] = await Promise.all([
+          fetch(`https://admin.ludno.ru/api/products?${productQuery}`),
+          fetch(`https://admin.ludno.ru/api/projects?${projectQuery}`),
+          fetch(`https://admin.ludno.ru/api/posts?${postQuery}`)
+        ]);
+
+        const productData = await productResponse.json();
+        const projectData = await projectResponse.json();
+        const postData = await postResponse.json();
+
+        const postsWithTitles = postData.data.map((post) => ({
+          ...post,
+          title: extractH1FromText(post.text),
+        }));
+
+        // Фильтруем результаты для артикулов
+        let filteredProducts = productData.data || [];
+        if (isArticleSearch) {
+          // Если ищем по артикулу, приоритет отдаем точным совпадениям
+          const exactMatches = filteredProducts.filter(product => 
+            product.name && product.name.toLowerCase() === normalizedSearchTerm
+          );
+          const partialMatches = filteredProducts.filter(product => 
+            product.name && product.name.toLowerCase().includes(normalizedSearchTerm) && 
+            product.name.toLowerCase() !== normalizedSearchTerm
+          );
+          filteredProducts = [...exactMatches, ...partialMatches];
+        }
+
+        setProductResults(filteredProducts);
+        setProjectResults(projectData.data || []);
+        setPostResults(postsWithTitles || []);
+        setShowResults(true);
+        setIsSearching(false);
+
+        // Переходим на страницу результатов
+        const totalResults = (filteredProducts?.length || 0) + (projectData.data?.length || 0) + (postsWithTitles?.length || 0);
+        navigate("/search-results", {
+          state: {
+            query,
+            totalResults,
+            productResults: filteredProducts || [],
+            projectResults: projectData.data || [],
+            postResults: postsWithTitles || [],
+          },
+        });
+        onClose();
+      } catch (error) {
+        console.error("Ошибка поиска:", error);
+        setIsSearching(false);
+      }
     }
   };
 
