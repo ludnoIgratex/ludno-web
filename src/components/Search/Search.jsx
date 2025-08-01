@@ -41,11 +41,13 @@ const Search = ({ onClose }) => {
 
   const handleSearch = debounce(async (searchTerm) => {
     if (searchTerm.trim()) {
+      console.log("handleSearch called with:", searchTerm);
       setIsSearching(true);
       const normalizedSearchTerm = searchTerm.trim().toLowerCase();
 
       // Проверяем, является ли поисковый запрос артикулом (только цифры и буквы)
       const isArticleSearch = /^[a-zA-Z0-9]+$/.test(normalizedSearchTerm);
+      console.log("handleSearch - Is article search:", isArticleSearch);
 
       try {
         // Поиск продуктов
@@ -74,6 +76,8 @@ const Search = ({ onClose }) => {
           },
           { encodeValuesOnly: true }
         );
+
+        console.log("handleSearch - Product query:", productQuery);
 
         // Поиск проектов
         const projectQuery = qs.stringify(
@@ -112,15 +116,19 @@ const Search = ({ onClose }) => {
           { encodeValuesOnly: true }
         );
 
+        console.log("handleSearch - Making API requests...");
+
         // Запросы к API
         const productResponse = await fetch(
           `https://admin.ludno.ru/api/products?${productQuery}`
         );
         const productData = await productResponse.json();
+        console.log("handleSearch - Raw product results:", productData.data?.length || 0);
         
         // Фильтруем результаты для артикулов
         let filteredProducts = productData.data || [];
         if (isArticleSearch) {
+          console.log("handleSearch - Filtering article results...");
           // Если ищем по артикулу, приоритет отдаем точным совпадениям
           const exactMatches = filteredProducts.filter(product => 
             product.name && product.name.toLowerCase() === normalizedSearchTerm
@@ -130,6 +138,9 @@ const Search = ({ onClose }) => {
             product.name.toLowerCase() !== normalizedSearchTerm
           );
           filteredProducts = [...exactMatches, ...partialMatches];
+          console.log("handleSearch - Exact matches:", exactMatches.length);
+          console.log("handleSearch - Partial matches:", partialMatches.length);
+          console.log("handleSearch - Total filtered products:", filteredProducts.length);
         }
         
         setProductResults(filteredProducts);
@@ -152,6 +163,7 @@ const Search = ({ onClose }) => {
 
         setShowResults(true);
         setIsSearching(false);
+        console.log("handleSearch - Search completed");
       } catch (error) {
         console.error("Ошибка поиска:", error);
         setIsSearching(false);
@@ -212,30 +224,27 @@ const Search = ({ onClose }) => {
     if (e.key === "Enter" && query.trim()) {
       e.preventDefault();
       
+      console.log("Enter pressed, starting search...");
+      
       // Отменяем текущий debounce поиск
       handleSearch.cancel();
       
-      // Если поиск еще выполняется, ждем его завершения
-      if (isSearching) {
-        // Ждем завершения текущего поиска
-        await new Promise(resolve => {
-          const checkSearching = () => {
-            if (!isSearching) {
-              resolve();
-            } else {
-              setTimeout(checkSearching, 50);
-            }
-          };
-          checkSearching();
-        });
+      // Принудительно ждем завершения любого активного поиска
+      let waitCount = 0;
+      while (isSearching && waitCount < 50) { // максимум 5 секунд
+        console.log("Waiting for search to complete...", waitCount);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        waitCount++;
       }
       
       // Выполняем поиск синхронно
       const normalizedSearchTerm = query.trim().toLowerCase();
+      console.log("Starting synchronous search for:", normalizedSearchTerm);
       setIsSearching(true);
 
       // Проверяем, является ли поисковый запрос артикулом (только цифры и буквы)
       const isArticleSearch = /^[a-zA-Z0-9]+$/.test(normalizedSearchTerm);
+      console.log("Is article search:", isArticleSearch);
 
       try {
         // Поиск продуктов
@@ -264,6 +273,8 @@ const Search = ({ onClose }) => {
           },
           { encodeValuesOnly: true }
         );
+
+        console.log("Product query:", productQuery);
 
         // Поиск проектов
         const projectQuery = qs.stringify(
@@ -302,16 +313,25 @@ const Search = ({ onClose }) => {
           { encodeValuesOnly: true }
         );
 
-        // Запросы к API
+        console.log("Making API requests...");
+
+        // Запросы к API с таймаутом
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 секунд таймаут
+
         const [productResponse, projectResponse, postResponse] = await Promise.all([
-          fetch(`https://admin.ludno.ru/api/products?${productQuery}`),
-          fetch(`https://admin.ludno.ru/api/projects?${projectQuery}`),
-          fetch(`https://admin.ludno.ru/api/posts?${postQuery}`)
+          fetch(`https://admin.ludno.ru/api/products?${productQuery}`, { signal: controller.signal }),
+          fetch(`https://admin.ludno.ru/api/projects?${projectQuery}`, { signal: controller.signal }),
+          fetch(`https://admin.ludno.ru/api/posts?${postQuery}`, { signal: controller.signal })
         ]);
+
+        clearTimeout(timeoutId);
 
         const productData = await productResponse.json();
         const projectData = await projectResponse.json();
         const postData = await postResponse.json();
+
+        console.log("Raw product results:", productData.data?.length || 0);
 
         const postsWithTitles = postData.data.map((post) => ({
           ...post,
@@ -321,6 +341,7 @@ const Search = ({ onClose }) => {
         // Фильтруем результаты для артикулов
         let filteredProducts = productData.data || [];
         if (isArticleSearch) {
+          console.log("Filtering article results...");
           // Если ищем по артикулу, приоритет отдаем точным совпадениям
           const exactMatches = filteredProducts.filter(product => 
             product.name && product.name.toLowerCase() === normalizedSearchTerm
@@ -330,6 +351,9 @@ const Search = ({ onClose }) => {
             product.name.toLowerCase() !== normalizedSearchTerm
           );
           filteredProducts = [...exactMatches, ...partialMatches];
+          console.log("Exact matches:", exactMatches.length);
+          console.log("Partial matches:", partialMatches.length);
+          console.log("Total filtered products:", filteredProducts.length);
         }
 
         setProductResults(filteredProducts);
@@ -340,6 +364,8 @@ const Search = ({ onClose }) => {
 
         // Переходим на страницу результатов
         const totalResults = (filteredProducts?.length || 0) + (projectData.data?.length || 0) + (postsWithTitles?.length || 0);
+        console.log("Total results:", totalResults);
+        
         navigate("/search-results", {
           state: {
             query,
