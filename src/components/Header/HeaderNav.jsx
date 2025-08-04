@@ -40,7 +40,7 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
               location.pathname.startsWith("/products") ? styles.active : ""
             }
           >
-            Каталогг
+            Каталог
           </Link>
         </li>
         <li onMouseEnter={() => setShowSolutions(false)}>
