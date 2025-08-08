@@ -7,7 +7,7 @@ const YandexPageviewTracker = () => {
   useEffect(() => {
     if (window.ym) {
       window.ym(
-        101111100,
+        103639967,
         "hit",
         window.location.pathname + window.location.search
       );
