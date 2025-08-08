@@ -25,11 +25,11 @@ const Loader = ({ loading }) => {
     <div
       className={`${styles.loader} ${isFadingOut ? styles["fade-out"] : ""}`}
     >
-      <span>L</span>
-      <span>u</span>
-      <span>d</span>
-      <span>n</span>
-      <span>o</span>
+      <span lang="bg">Л</span>
+      <span>ю</span>
+      <span>д</span>
+      <span>н</span>
+      <span>о</span>
     </div>
   );
 };

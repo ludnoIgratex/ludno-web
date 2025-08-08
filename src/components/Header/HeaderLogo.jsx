@@ -4,10 +4,18 @@ import styles from "./styles/HeaderLogo.module.css";
 
 const emojis = ["🛝", "🧩", "🧒🏼", "🌳", "🪜", "🏗️", "🎨"];
 
+const getOriginalText = () => {
+  return (
+    <span>
+      <span lang="bg">Л</span>юдно
+    </span>
+  );
+};
+
 const HeaderLogo = () => {
   const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0);
-  const [logoText, setLogoText] = useState("Ludno");
+  const [logoContent, setLogoContent] = useState(getOriginalText());
   const [isMobile, setIsMobile] = useState(false);
 
   const handleClick = () => {
@@ -31,10 +39,10 @@ const HeaderLogo = () => {
   useEffect(() => {
     if (clickCount >= 5 && isMobile) {
       let count = 0;
-      const originalText = "Ludno";
       let interval;
 
       const animateLogo = () => {
+        const textArray = ["Л", "ю", "д", "н", "о"]; // основа для замены
         const emojisCount = Math.floor(Math.random() * 3) + 1;
         const selectedEmojis = [];
 
@@ -45,27 +53,35 @@ const HeaderLogo = () => {
           }
         }
 
-        let updatedText = originalText.split("");
         const randomIndices = [];
-
         while (randomIndices.length < emojisCount) {
-          const randomIndex = Math.floor(Math.random() * updatedText.length);
+          const randomIndex = Math.floor(Math.random() * textArray.length);
           if (!randomIndices.includes(randomIndex)) {
             randomIndices.push(randomIndex);
           }
         }
 
         randomIndices.forEach((index, idx) => {
-          updatedText[index] = selectedEmojis[idx];
+          textArray[index] = selectedEmojis[idx];
         });
 
-        setLogoText(updatedText.join(""));
+        if (textArray[0] === "Л") {
+          textArray[0] = <span lang="bg">Л</span>;
+        }
+
+        setLogoContent(
+          <span>
+            {textArray.map((char, i) => (
+              <span key={i}>{char}</span>
+            ))}
+          </span>
+        );
 
         count += 1;
         if (count >= 10) {
           clearInterval(interval);
           setClickCount(0);
-          setLogoText(originalText);
+          setLogoContent(getOriginalText());
         }
       };
 
@@ -77,7 +93,7 @@ const HeaderLogo = () => {
 
   return (
     <h1 className={styles.headerLogo} onClick={handleClick}>
-      {logoText}
+      {logoContent}
     </h1>
   );
 };

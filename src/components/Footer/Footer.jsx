@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.logoContainer}>
-            <img src="/assets/icons/logo-rounded.svg" alt="logo" />
+            <img src="/assets/icons/logo-rounded_rus.svg" alt="logo" />
           </div>
           <div className={styles.policyContainer}>
             <Link to="/policy">Правовая информация</Link>

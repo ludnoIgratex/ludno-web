@@ -28,7 +28,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
       <div className={styles.burgerMenu}>
         <div className={styles.contentWrapper}>
           <div className={styles.burgerMenuTitle}>
-            <img src="/assets/icons/logo-rounded.svg" alt="logo" />
+            <img src="/assets/icons/logo-rounded_rus.svg" alt="logo" />
             <IoCloseOutline className={styles.burgerClose} onClick={onClose} />
           </div>
           <ul className={styles.burgerNav}>
