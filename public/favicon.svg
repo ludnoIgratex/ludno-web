@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="124" height="124"><svg width="124" height="124" viewBox="0 0 124 124" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_5868_935)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M62 112.197C89.7021 112.197 112.197 89.7021 112.197 62C112.197 34.2979 89.7021 11.8029 62 11.8029C34.2979 11.8029 11.8029 34.2979 11.8029 62C11.8029 89.7021 34.2979 112.197 62 112.197ZM62 124C96.2284 124 124 96.2284 124 62C124 27.7716 96.2284 0 62 0C27.7716 0 0 27.7716 0 62C0 96.2284 27.7716 124 62 124Z" fill="black"></path>
-<path d="M83.732 94.1447H40.2695V29.8535H54.0165V81.3003H83.6626V94.1447H83.732Z" fill="black"></path>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="121" height="122"><svg width="121" height="122" viewBox="0 0 121 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1353_6)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M60.5 110.083C87.5319 110.083 109.483 88.132 109.483 61.1001C109.483 34.0682 87.5319 12.1175 60.5 12.1175C33.4681 12.1175 11.5174 34.0682 11.5174 61.1001C11.5174 88.132 33.4681 110.083 60.5 110.083ZM60.5 121.6C93.9003 121.6 121 94.5004 121 61.1001C121 27.6998 93.9003 0.600098 60.5 0.600098C27.0997 0.600098 0 27.6998 0 61.1001C0 94.5004 27.0997 121.6 60.5 121.6Z" fill="black"></path>
+<path d="M35.5005 91.7904L51.7603 30.4097H69.3073L85.5671 91.7904H71.814L60.5677 45.3145H60.2289L49.1181 91.7904H35.5005Z" fill="black"></path>
 </g>
 <defs>
-<clipPath id="SvgjsClipPath1052">
-<rect width="124" height="124" fill="white"></rect>
+<clipPath id="SvgjsClipPath1001">
+<rect width="121" height="121" fill="white" transform="translate(0 0.600098)"></rect>
 </clipPath>
 </defs>
 </svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
