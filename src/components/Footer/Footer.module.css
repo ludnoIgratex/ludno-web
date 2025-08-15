@@ -95,6 +95,15 @@
   color: var(--secondary-default-color);
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+.logoContainer img {
+  width: 6.5rem;  
+  height: auto;
+}
+
 @media screen and (max-width: 480px) {
   .footer {
     padding: 20px;
