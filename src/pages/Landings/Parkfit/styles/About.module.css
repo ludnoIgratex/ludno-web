@@ -6,6 +6,10 @@
   gap: 32px;
 }
 
+.aboutWrapper h2{
+  text-align: center;
+}
+
 .aboutWrapper p {
   font-size: 34px;
   line-height: 40px;

@@ -1,7 +1,6 @@
 import React from "react";
-import { RiArrowRightDownLine } from "react-icons/ri";
-import styles from "./styles/Head.module.css";
 import { useNavigate } from "react-router-dom";
+import styles from "./styles/Head.module.css";
 
 const Head = () => {
   const navigate = useNavigate();
@@ -9,14 +8,15 @@ const Head = () => {
   const handleClick = () => {
     navigate("/contacts");
   };
+
   return (
     <section className={styles.headWrapper}>
-      <div>
-        <h1>Паркфит</h1>
-        <h2>Уличный спорт</h2>
+      <div className={styles.logoBlock}>
+        <div className={styles.circle}></div>
+        <div className={styles.label}>паркфит</div>
       </div>
+
       <div className={styles.linkContainer} onClick={handleClick}>
-        <RiArrowRightDownLine className={styles.arrow} />
         <a>Проконсультироваться</a>
       </div>
     </section>

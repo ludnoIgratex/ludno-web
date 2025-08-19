@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 112px - 64px - 28px);
-  background-color: #EDEDED;
+  background-color: #ededed;
   color: var(--primary-default-color);
   justify-content: space-between;
   padding: 56px 32px;
   background-image: url("/assets/images/parkfit_wrapper.avif");
   background-repeat: no-repeat;
-  background-position-x: 400px;
-  background-position-y: 0px;
-  background-size: 1400px;
+  background-position-x: 0px;
+  background-position-y: -200px;
+  background-size: 2000px;
 }
 
 .headWrapper h1 {
@@ -41,6 +41,33 @@
   color: var(--primary-default-color);
 }
 
+
+/* блок с кружком и кнопкой */
+.logoBlock {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* полый круг (бублик) */
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 15px solid #d0d600; /* желтовато-зеленый цвет */
+  box-sizing: border-box;
+}
+
+/* скругленный прямоугольник */
+.label {
+  background-color: #d0d600;
+  padding: 10px 24px;
+  border-radius: 40px;
+  font-weight: bold;
+  font-size: 26px;
+  color: black;
+}
+
 @media screen and (max-width: 768px) {
   .headWrapper {
     height: calc(100vh - 64px - 92px);
@@ -48,9 +75,9 @@
     gap: 56px;
     padding: 36px 16px;
     background-repeat: no-repeat;
-    background-position-x: -100px;
-    background-position-y: 200px;
-    background-size: 800px;
+    background-position-x: -400px;
+    background-position-y: 100px;
+    background-size: 1400px;
   }
 
   .headWrapper h1 {
@@ -72,7 +99,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .headWrapper {
-    background-position-x: 0px;
-    background-position-y: 400px;
+    background-position-x: -400px;
+    background-position-y: -40px;
   }
 }
