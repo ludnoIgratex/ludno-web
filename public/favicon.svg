@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="121" height="122"><svg width="121" height="122" viewBox="0 0 121 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_1353_6)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M60.5 110.083C87.5319 110.083 109.483 88.132 109.483 61.1001C109.483 34.0682 87.5319 12.1175 60.5 12.1175C33.4681 12.1175 11.5174 34.0682 11.5174 61.1001C11.5174 88.132 33.4681 110.083 60.5 110.083ZM60.5 121.6C93.9003 121.6 121 94.5004 121 61.1001C121 27.6998 93.9003 0.600098 60.5 0.600098C27.0997 0.600098 0 27.6998 0 61.1001C0 94.5004 27.0997 121.6 60.5 121.6Z" fill="black"></path>
-<path d="M35.5005 91.7904L51.7603 30.4097H69.3073L85.5671 91.7904H71.814L60.5677 45.3145H60.2289L49.1181 91.7904H35.5005Z" fill="black"></path>
-</g>
-<defs>
-<clipPath id="SvgjsClipPath1001">
-<rect width="121" height="121" fill="white" transform="translate(0 0.600098)"></rect>
-</clipPath>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="178.58" height="178.58"><svg id="SvgjsSvg1001" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178.58 178.58">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path d="m64.82,127.41h-20.2l34.05-90.63h21.36l33.92,90.63h-20.59l-24.08-68.1h-.39l-24.08,68.1Z"></path>
+  <path class="cls-1" d="m89.29,161.57c39.92,0,72.28-32.36,72.28-72.28S129.21,17.01,89.29,17.01,17.01,49.37,17.01,89.29s32.36,72.28,72.28,72.28Zm0,17.01c49.31,0,89.29-39.98,89.29-89.29S138.61,0,89.29,0,0,39.98,0,89.29s39.98,89.29,89.29,89.29Z"></path>
 </svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
 @media (prefers-color-scheme: dark) { :root { filter: none; } }
 </style></svg>
