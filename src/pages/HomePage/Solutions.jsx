@@ -29,7 +29,7 @@ const Solutions = forwardRef((props, ref) => {
           <Link to="tramptec-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Трамптек</h3>
+                <h3>Батутные парки</h3>
                 <p>Уличные батуты</p>
               </div>
               <div className={styles.linkContainer}>
@@ -44,7 +44,7 @@ const Solutions = forwardRef((props, ref) => {
           <Link to="mini-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Мини</h3>
+                <h3>Детские сады</h3>
                 <p>Обучающие площадки для детей до 7 лет</p>
               </div>
               <div className={styles.linkContainer}>
@@ -74,7 +74,7 @@ const Solutions = forwardRef((props, ref) => {
           <Link to="bloqi-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Блоки</h3>
+                <h3>Конструктор</h3>
                 <p>Уличный игровой конструктор</p>
               </div>
               <div className={styles.linkContainer}>
@@ -89,7 +89,7 @@ const Solutions = forwardRef((props, ref) => {
           <Link to="parkfit-solution" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
-                <h3>Паркфит</h3>
+                <h3>Фитнес</h3>
                 <p>Уличный спорт</p>
               </div>
               <div className={styles.linkContainer}>
