@@ -90,7 +90,7 @@ const Solutions = forwardRef((props, ref) => {
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Фитнес</h3>
-                <p>Уличный спорт</p>
+                <p>Спортивные площадки</p>
               </div>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
@@ -120,7 +120,7 @@ const Solutions = forwardRef((props, ref) => {
               <div className={styles.textBlockTitle}>
                 <h3>Природная навигация</h3>
                 <p>
-                  Линейка навигационного оборудования для природных территорий
+                  Оборудование для пешеходных маршрутов
                 </p>
               </div>
               <div className={styles.linkContainer}>
