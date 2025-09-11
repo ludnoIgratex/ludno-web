@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import emailjs from "emailjs-com";
 import styles from "./styles/Contacts.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
-import { FaPinterest } from "react-icons/fa";
-import { FaTelegram } from "react-icons/fa";
+import { FaPinterest, FaTelegram } from "react-icons/fa";
 
 const Contacts = () => {
   const location = useLocation();
@@ -18,17 +17,22 @@ const Contacts = () => {
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+
+  // 🔹 две отдельные галочки
+  const [agreePD, setAgreePD] = useState(false);   // персональные данные
+  const [agreeAds, setAgreeAds] = useState(false); // рассылки
+
   const [errors, setErrors] = useState({
     email: "",
     message: "",
-    checkbox: "",
+    checkboxPD: "",
+    checkboxAds: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
   const validateForm = () => {
-    const formErrors = { email: "", message: "", checkbox: "" };
+    const formErrors = { email: "", message: "", checkboxPD: "", checkboxAds: "" };
     let isValid = true;
 
     if (!email) {
@@ -44,8 +48,12 @@ const Contacts = () => {
       isValid = false;
     }
 
-    if (!isChecked) {
-      formErrors.checkbox = "Вы должны согласиться на обработку данных.";
+    if (!agreePD) {
+      formErrors.checkboxPD = "Вы должны согласиться на обработку персональных данных.";
+      isValid = false;
+    }
+    if (!agreeAds) {
+      formErrors.checkboxAds = "Вы должны согласиться на получение рассылок.";
       isValid = false;
     }
 
@@ -67,28 +75,32 @@ const Contacts = () => {
           from_email: email,
           message: message,
           to_email: "info@ludno.ru",
+          // 🔹 опционально: передаем галочки в письмо
+          agree_pd: agreePD ? "yes" : "no",
+          agree_ads: agreeAds ? "yes" : "no",
         },
         "H0mZhh3GnvvPTCYse"
       )
       .then(
-        (result) => {
-          console.log("Сообщение отправлено:", result.text);
+        () => {
           setIsModalOpen(true);
           setEmail("");
           setMessage("");
-          setIsChecked(false);
-          setErrors({ email: "", message: "", checkbox: "" });
+          setAgreePD(false);
+          setAgreeAds(false);
+          setErrors({ email: "", message: "", checkboxPD: "", checkboxAds: "" });
           setIsSending(false);
-
           setTimeout(() => setIsModalOpen(false), 2000);
         },
         (error) => {
-          console.error("Ошибка отправки email:", error.text);
+          console.error("Ошибка отправки email:", error?.text || error);
           alert("Ошибка при отправке сообщения. Попробуйте еще раз.");
           setIsSending(false);
         }
       );
   };
+
+  const isSubmitDisabled = isSending || !(agreePD && agreeAds);
 
   return (
     <>
@@ -100,11 +112,7 @@ const Contacts = () => {
               <p className={styles.text}>8 800 350 2420</p>
               <div className={styles.linkContainer}>
                 <RiArrowRightDownLine className={styles.arrow} />
-                <a
-                  href="https://t.me/ludno_info"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href="https://t.me/ludno_info" target="_blank" rel="noreferrer">
                   Telegram
                 </a>
               </div>
@@ -116,11 +124,7 @@ const Contacts = () => {
               <a href="https://t.me/ludnoo" target="_blank" rel="noreferrer">
                 <FaTelegram />
               </a>
-              <a
-                href="https://www.pinterest.com/ludnoru"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="https://www.pinterest.com/ludnoru" target="_blank" rel="noreferrer">
                 <FaPinterest />
               </a>
             </div>
@@ -140,7 +144,7 @@ const Contacts = () => {
               <input
                 ref={emailInputRef}
                 name="email"
-                className={`${styles.input}`}
+                className={styles.input}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -155,7 +159,7 @@ const Contacts = () => {
               <div className={styles.inputGroup}>
                 <input
                   name="message"
-                  className={`${styles.input}`}
+                  className={styles.input}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
@@ -163,28 +167,44 @@ const Contacts = () => {
                 <label className={styles.labelName}>
                   <span className={styles.contentName}>Ваше обращение</span>
                 </label>
-                {errors.message && (
-                  <p className={styles.error}>{errors.message}</p>
-                )}
+                {errors.message && <p className={styles.error}>{errors.message}</p>}
               </div>
 
+              {/* 🔹 Чекбокс 1: ПД с ссылкой на /policy */}
               <div className={styles.checkboxGroup}>
                 <div className={styles.round}>
                   <input
                     type="checkbox"
-                    id="checkbox"
-                    checked={isChecked}
-                    onChange={(e) => setIsChecked(e.target.checked)}
+                    id="agreePD"
+                    checked={agreePD}
+                    onChange={(e) => setAgreePD(e.target.checked)}
                   />
-                  <label htmlFor="checkbox"></label>
+                  <label htmlFor="agreePD"></label>
                 </div>
                 <div className={styles.checkboxLabel}>
-                  Ставя отметку, я подтверждаю согласие на обработку моих
-                  персональных данных и на получение рекламно-информационных
-                  рассылок.
-                  {errors.checkbox && (
-                    <p className={styles.error}>{errors.checkbox}</p>
-                  )}
+                  Ставя отметку, я даю{" "}
+                  <a href="/policy" target="_blank" rel="noreferrer" className={styles.link}>
+                    согласие на обработку моих персональных данных
+                  </a>{" "}
+                  (Федеральный закон № 152-ФЗ «О персональных данных»).
+                  {errors.checkboxPD && <p className={styles.error}>{errors.checkboxPD}</p>}
+                </div>
+              </div>
+
+              {/* 🔹 Чекбокс 2: рекламная рассылка */}
+              <div className={styles.checkboxGroup} style={{ marginTop: 8 }}>
+                <div className={styles.round}>
+                  <input
+                    type="checkbox"
+                    id="agreeAds"
+                    checked={agreeAds}
+                    onChange={(e) => setAgreeAds(e.target.checked)}
+                  />
+                  <label htmlFor="agreeAds"></label>
+                </div>
+                <div className={styles.checkboxLabel}>
+                  Согласен на получение рекламно-информационных рассылок (Федеральный закон № 38-ФЗ «О рекламе»).
+                  {errors.checkboxAds && <p className={styles.error}>{errors.checkboxAds}</p>}
                 </div>
               </div>
             </section>
@@ -192,7 +212,7 @@ const Contacts = () => {
             <button
               onClick={handleSubmit}
               className={styles.button}
-              disabled={isSending}
+              disabled={isSubmitDisabled}
             >
               {isSending ? "Отправка..." : "Отправить"}
             </button>
