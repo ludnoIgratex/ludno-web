@@ -1,4 +1,5 @@
 import React from "react";
+import { BsFiletypePdf } from "react-icons/bs";
 import styles from "./styles/Policy.module.css";
 
 function Policy() {
@@ -299,6 +300,28 @@ function Policy() {
           </p>
         </li>
       </section>
+      <div className={styles.downloads}>
+        <a
+          className={styles.downloadLink}
+          href="/assets/files/Политика_в_отношении_обработки_персональных_данных.pdf"
+          download
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BsFiletypePdf className={styles.pdfIcon} />
+          <span>Политика в отношении обработки персональных данных</span>
+        </a>
+        <a
+          className={styles.downloadLink}
+          href="/assets/files/Политика_конфиденциальности_интернет_сайта.pdf"
+          download
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BsFiletypePdf className={styles.pdfIcon} />
+          <span>Политика конфиденциальности интернет сайта</span>
+        </a>
+      </div>
     </div>
   );
 }
