@@ -303,7 +303,7 @@ function Policy() {
       <div className={styles.downloads}>
         <a
           className={styles.downloadLink}
-          href="/assets/files/Политика_в_отношении_обработки_персональных_данных.pdf"
+          href="/assets/files/personal-data-policy.pdf"
           download
           target="_blank"
           rel="noopener noreferrer"
@@ -313,7 +313,7 @@ function Policy() {
         </a>
         <a
           className={styles.downloadLink}
-          href="/assets/files/Политика_конфиденциальности_интернет_сайта.pdf"
+          href="/assets/files/privacy-policy.pdf"
           download
           target="_blank"
           rel="noopener noreferrer"

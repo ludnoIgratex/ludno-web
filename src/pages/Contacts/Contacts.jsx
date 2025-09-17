@@ -5,6 +5,9 @@ import styles from "./styles/Contacts.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const isValidEmail = (v) => emailRegex.test(v);
+
 const Contacts = () => {
   const location = useLocation();
   const emailInputRef = useRef(null);
@@ -18,9 +21,8 @@ const Contacts = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // 🔹 две отдельные галочки
-  const [agreePD, setAgreePD] = useState(false);   // персональные данные
-  const [agreeAds, setAgreeAds] = useState(false); // рассылки
+  const [agreePD, setAgreePD] = useState(false);   // обязательная
+  const [agreeAds, setAgreeAds] = useState(false); // опциональная
 
   const [errors, setErrors] = useState({
     email: "",
@@ -38,7 +40,7 @@ const Contacts = () => {
     if (!email) {
       formErrors.email = "Заполните поле e-mail.";
       isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    } else if (!isValidEmail(email)) {
       formErrors.email = "Введите корректный e-mail.";
       isValid = false;
     }
@@ -52,19 +54,16 @@ const Contacts = () => {
       formErrors.checkboxPD = "Вы должны согласиться на обработку персональных данных.";
       isValid = false;
     }
-    if (!agreeAds) {
-      formErrors.checkboxAds = "Вы должны согласиться на получение рассылок.";
-      isValid = false;
-    }
 
+    // agreeAds — опциональна, ошибки не ставим
     setErrors(formErrors);
     return isValid;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
 
+    if (!validateForm()) return;
     setIsSending(true);
 
     emailjs
@@ -72,10 +71,12 @@ const Contacts = () => {
         "service_rbfbx7a",
         "template_k14q6uk",
         {
-          from_email: email,
+          // В шаблоне EmailJS используйте {{reply_to}} как Reply-To,
+          // чтобы не конфликтовать с DMARC у Яндекса
+          reply_to: email,
+          from_email: email, // на случай, если у вас уже так настроен шаблон
           message: message,
           to_email: "info@ludno.ru",
-          // 🔹 опционально: передаем галочки в письмо
           agree_pd: agreePD ? "yes" : "no",
           agree_ads: agreeAds ? "yes" : "no",
         },
@@ -100,7 +101,9 @@ const Contacts = () => {
       );
   };
 
-  const isSubmitDisabled = isSending || !(agreePD && agreeAds);
+  // disabled: если отправляется, либо пустой/некорректный email, пустое обращение, либо не отмечена 1-я галочка
+  const isSubmitDisabled =
+    isSending || !email || !isValidEmail(email) || !message || !agreePD;
 
   return (
     <>
@@ -143,6 +146,7 @@ const Contacts = () => {
             <div className={styles.inputGroup}>
               <input
                 ref={emailInputRef}
+                type="email"
                 name="email"
                 className={styles.input}
                 value={email}
@@ -170,7 +174,7 @@ const Contacts = () => {
                 {errors.message && <p className={styles.error}>{errors.message}</p>}
               </div>
 
-              {/* 🔹 Чекбокс 1: ПД с ссылкой на /policy */}
+              {/* 🔹 Чекбокс 1: ПД с ссылкой на /policy (обязательный) */}
               <div className={styles.checkboxGroup}>
                 <div className={styles.round}>
                   <input
@@ -191,7 +195,7 @@ const Contacts = () => {
                 </div>
               </div>
 
-              {/* 🔹 Чекбокс 2: рекламная рассылка */}
+              {/* 🔹 Чекбокс 2: рекламная рассылка (опциональный) */}
               <div className={styles.checkboxGroup} style={{ marginTop: 8 }}>
                 <div className={styles.round}>
                   <input
