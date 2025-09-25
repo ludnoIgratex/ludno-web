@@ -65,6 +65,16 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
         </li>
         <li onMouseEnter={() => setShowSolutions(false)}>
           <Link
+            to="/about"
+            className={
+              location.pathname.startsWith("/about") ? styles.active : ""
+            }
+          >
+            Команда
+          </Link>
+        </li>
+        <li onMouseEnter={() => setShowSolutions(false)}>
+          <Link
             to="/contacts"
             className={
               location.pathname.startsWith("/contacts") ? styles.active : ""

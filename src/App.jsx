@@ -31,6 +31,8 @@ import YandexPageviewTracker from "./hooks/YandexPageviewTracker";
 import TowersMain from "./pages/Landings/Towers/TowersMain";
 import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
 import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
+import AboutUs from "./pages/AboutUs/AboutUs";
+
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -132,6 +134,9 @@ const App = () => {
               />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contacts" element={<Contacts />} />
+              <Route path="/about" element={<AboutUs />} />
+
+
               <Route path="/card/:id/:slug" element={<Card />} />
               <Route
                 path="/project-cards/:projectId/:slug"

@@ -69,6 +69,11 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               </Link>
             </li>
             <li>
+              <Link to="/about" onClick={onClose}>
+                Команда
+              </Link>
+            </li>
+            <li>
               <Link to="/contacts" onClick={onClose}>
                 Контакты
               </Link>
