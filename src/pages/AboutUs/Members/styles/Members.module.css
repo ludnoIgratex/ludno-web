@@ -75,6 +75,7 @@
 .quote {
   font-size: 26px;
   line-height: 32px;
+  white-space: pre-line;
 }
 
 .divider {

@@ -17,15 +17,7 @@ const query = qs.stringify(
   { encodeValuesOnly: true }
 );
 
-const pickUrl = (img) =>
-  img?.formats?.large?.url ||
-  img?.formats?.medium?.url ||
-  img?.formats?.small?.url ||
-  img?.formats?.thumbnail?.url ||
-  img?.url ||
-  null;
-
-const withHost = (u) => (u?.startsWith("http") ? u : `${API_HOST}${u}`);
+const withHost = (u) => (u?.startsWith?.("http") ? u : `${API_HOST}${u}`);
 
 const Members = () => {
   const [boss, setBoss] = useState(null);
@@ -44,11 +36,12 @@ const Members = () => {
 
         const norm = rows.map((r) => {
           const staffArr = (r.staffImage || [])
-            .map(pickUrl)
+            .map((img) => img?.formats?.small?.url || img?.url || null)
             .filter(Boolean)
             .map(withHost);
+
           const bossArr = (r.bossImage || [])
-            .map(pickUrl)
+            .map((img) => img?.formats?.small?.url || img?.url || null)
             .filter(Boolean)
             .map(withHost);
 
@@ -57,7 +50,7 @@ const Members = () => {
             name: r.name,
             position: r.position,
             quote: r.quote,
-            order: typeof r.order === "number" ? r.order : null, 
+            order: typeof r.order === "number" ? r.order : null,
             staff: staffArr,
             bossImgs: bossArr,
           };
@@ -137,7 +130,7 @@ const Members = () => {
                     className={`${styles.img} ${styles.primary}`}
                     src={m.staff[0]}
                     alt={m.name}
-                    loading="eager"
+                    // loading="eager"
                     decoding="sync"
                   />
                 )}
@@ -149,8 +142,6 @@ const Members = () => {
                   />
                 )}
               </div>
-              {/* При желании можно показать номер в очереди */}
-              {/* <span className={styles.badge}>#{m.displayOrder}</span> */}
               <h4 className={styles.name}>{m.name}</h4>
               <p className={styles.position}>{m.position}</p>
             </article>

@@ -11,9 +11,10 @@ const partners = [
   { src: "/assets/icons/vesper_logo.svg", alt: "VESPER" },
   { src: "/assets/icons/druzhba_logo.svg", alt: "Buro Druzhba" },
   { src: "/assets/icons/utro_logo.svg", alt: "UTRO" },
-  { src: "/assets/icons/dasreda_logo.svg", alt: "Da" },
+  { src: "/assets/icons/da_logo.svg", alt: "Da" },
   { src: "/assets/icons/scape_logo.svg", alt: "Scape" },
   { src: "/assets/icons/lburo_logo.svg", alt: "L.BURO" },
+  { src: "/assets/icons/alterra_logo.svg", alt: "L.BURO" },
 ];
 
 const Partners = () => {
