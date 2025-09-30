@@ -13,7 +13,9 @@ const Main = () => {
   const slides = [
     "/assets/images/third.webp",
     "/assets/images/first.webp",
+    "/assets/images/fourth.webp",
     "/assets/images/second.webp",
+    "/assets/images/fifth.webp",
   ];
 
   return (
