@@ -47,10 +47,11 @@ const Contacts = () => {
           <div className={styles.linkContainer}>
             <RiArrowRightDownLine className={styles.arrow} />
             <a
-              href="https://wa.me/+7 (915) 083-12-44"
+              href="https://wa.me/79150831244"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className={styles.link}
+              aria-label="Открыть чат WhatsApp"
             >
               Whatsapp
             </a>
@@ -61,9 +62,7 @@ const Contacts = () => {
       {/* Правая колонка: почта */}
       <div className={styles.column}>
         <div className={styles.blockMail}>
-          <h4 className={styles.title}>
-            Почта
-          </h4>
+          <h4 className={styles.title}>Почта</h4>
           <p className={styles.text}>info@ludno.com</p>
         </div>
       </div>
