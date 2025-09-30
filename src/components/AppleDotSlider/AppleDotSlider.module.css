@@ -54,9 +54,9 @@
 }
 
 .dot {
-   --pill-w: 28px;
+  --pill-w: 28px;
   --dot-d: 10px;
-  margin: 0 10px;  
+  margin: 0 10px;
   position: relative;
   width: var(--dot-d);
   height: var(--dot-d);
@@ -140,8 +140,25 @@
     right: 12px;
     bottom: 12px;
   }
-  /* .dot {
-    --pill-w: 44px;
-    --dot-d: 9px;
-  } */
+
+  /* Подложка под точки */
+  .dotnav {
+    padding: 6px 10px;
+  }
+
+  .dot {
+    --pill-w: 14px;
+    --dot-d: 5px;
+    margin: 0 8px;
+  }
+
+  .playpause {
+    margin-left: 2px;
+    width: 32px;
+    height: 32px;
+  }
+  .icon {
+    width: 12px;
+    height: 12px;
+  }
 }

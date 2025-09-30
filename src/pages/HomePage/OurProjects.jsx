@@ -7,24 +7,24 @@ import { slugify } from "transliteration";
 
 // Helper function to decode HTML entities
 const decodeHtmlEntities = (text) => {
-  const textarea = document.createElement('textarea');
+  const textarea = document.createElement("textarea");
   textarea.innerHTML = text;
   return textarea.value;
 };
 
 // Function to process the description
 const processDescription = (description) => {
-  if (!description) return '';
+  if (!description) return "";
 
   // Decode HTML entities
   let processedText = decodeHtmlEntities(description);
 
   // Replace markdown links with just their text
-  processedText = processedText.replace(/\[(.*?)\]\((.*?)\)/g, '$1');
+  processedText = processedText.replace(/\[(.*?)\]\((.*?)\)/g, "$1");
 
   // Apply truncation logic (first two sentences)
-  const sentences = processedText.split('.');
-  const truncatedText = sentences.slice(0, 2).join('.') + '.';
+  const sentences = processedText.split(".");
+  const truncatedText = sentences.slice(0, 2).join(".") + ".";
 
   return truncatedText;
 };
@@ -46,12 +46,14 @@ const OurProjects = () => {
 
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+      scrollContainer.addEventListener("wheel", handleWheel, {
+        passive: false,
+      });
     }
 
     return () => {
       if (scrollContainer) {
-        scrollContainer.removeEventListener('wheel', handleWheel);
+        scrollContainer.removeEventListener("wheel", handleWheel);
       }
     };
   }, []);
@@ -62,6 +64,9 @@ const OurProjects = () => {
         {
           populate: "*",
           sort: "createdAt:desc",
+          pagination: {
+            limit: 5,
+          },
         },
         { encodeValuesOnly: true }
       );
@@ -161,7 +166,7 @@ const OurProjects = () => {
 
                 <p
                   dangerouslySetInnerHTML={{
-                    __html: processDescription(project.project_card?.about)
+                    __html: processDescription(project.project_card?.about),
                   }}
                 />
 

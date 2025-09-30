@@ -26,7 +26,8 @@
   margin: 0;
 }
 
-.navList a {
+.navList a,
+.navList span {
   text-decoration: none;
   color: var(--primary-default-color);
   font-size: 18px;
@@ -34,7 +35,9 @@
   transition: 0.2s ease-in-out;
 }
 
-.navList a:hover {
+.navList a:hover,
+.navList span:hover {
+  cursor: pointer;
   color: var(--secondary-hover-color);
 }
 
@@ -100,7 +103,7 @@
   align-items: center;
 }
 .logoContainer img {
-  width: 6.5rem;  
+  width: 6.5rem;
   height: auto;
 }
 
@@ -114,5 +117,10 @@
   }
   .infoContainer {
     padding-top: 30px;
+  }
+  .navList a,
+  .navList span {
+    font-size: 16px;
+    line-height: 22px;
   }
 }

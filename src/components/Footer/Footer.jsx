@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FaTelegram, FaInstagram, FaPinterest } from "react-icons/fa";
+import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaTelegram, FaPinterest } from "react-icons/fa";
 import styles from "./Footer.module.css";
 
-const Footer = () => {
+const Footer = ({ setShowSolutions }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const isSpecialPage =
-    location.pathname.startsWith("/card") ||
-    location.pathname.startsWith("/products") ||
-    location.pathname === "/map" ||
-    location.pathname === "/search-results";
+  const handleSolutionsClick = () => {
+    if (setShowSolutions) {
+      setShowSolutions(false);
+    }
+
+    if (location.pathname === "/") {
+      window.dispatchEvent(new Event("scroll-to-solutions"));
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        window.dispatchEvent(new Event("scroll-to-solutions"));
+      }, 300);
+    }
+  };
 
   return (
     <footer className={styles.footer}>
@@ -18,19 +28,70 @@ const Footer = () => {
         <div className={styles.links}>
           <ul className={styles.navList}>
             <li>
-              <Link to="/products">Продукты</Link>
+              <span
+                onClick={handleSolutionsClick}
+                className={
+                  location.pathname.startsWith("/solutions")
+                    ? styles.active
+                    : ""
+                }
+              >
+                Решения
+              </span>
             </li>
             <li>
-              <Link to="/projects">Проекты</Link>
+              <Link
+                to="/products"
+                className={
+                  location.pathname.startsWith("/products") ? styles.active : ""
+                }
+              >
+                Каталог
+              </Link>
             </li>
             <li>
-              <Link to="/blog">Блог</Link>
+              <Link
+                to="/projects"
+                className={
+                  location.pathname.startsWith("/projects") ? styles.active : ""
+                }
+              >
+                Проекты
+              </Link>
             </li>
             <li>
-              <Link to="/contacts">Контакты</Link>
+              <Link
+                to="/blog"
+                className={
+                  location.pathname.startsWith("/blog") ? styles.active : ""
+                }
+              >
+                Блог
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className={
+                  location.pathname.startsWith("/about") ? styles.active : ""
+                }
+              >
+                Команда
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contacts"
+                className={
+                  location.pathname.startsWith("/contacts") ? styles.active : ""
+                }
+              >
+                Контакты
+              </Link>
             </li>
           </ul>
         </div>
+
         <div className={styles.contactInfo}>
           <p>8 800 350 2420</p>
           <a href="mailto:info@ludno.com">info@ludno.ru</a>
@@ -47,6 +108,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
         <div className={styles.infoContainer}>
           <div className={styles.logoContainer}>
             <img src="/assets/icons/logo-rounded-rus.svg" alt="logo" />
