@@ -2,29 +2,27 @@ import React from "react";
 import styles from "./styles/Main.module.css";
 import { useNavigate } from "react-router-dom";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import AppleDotSlider from "../../components/AppleDotSlider/AppleDotSlider";
 
 const Main = () => {
   const navigate = useNavigate();
-
   const handleClick = () => {
     navigate("/products", { state: { focusEmail: true } });
   };
+
+  const slides = [
+    "/assets/images/third.webp",
+    "/assets/images/first.webp",
+    "/assets/images/second.webp",
+  ];
+
   return (
     <section className={styles.title}>
-      <picture>
-        <source
-          srcSet="/assets/images/vulkan.avif"
-          media="(min-width: 769px)"
-          type="image/avif"
-        />
-        <img
-          src="/assets/images/vulkan-small.avif"
-          alt="Vulkan"
-          width="800"
-          height="460"
-        />
-      </picture>
+      {/* СЛАЙДЕР вместо picture */}
+      <AppleDotSlider images={slides} interval={4500} autoplay loop />
 
+      {/* как и раньше — твой текст поверх. 
+          если у тебя .titleText позиционирован абсолютно, ничего делать не надо */}
       <div className={styles.titleText}>
         <h1>Архитектурные игровые площадки</h1>
         <p>Создаем продукты для благоустройства детской и спортивной среды</p>
