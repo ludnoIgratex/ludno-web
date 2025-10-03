@@ -32,6 +32,7 @@ import TowersMain from "./pages/Landings/Towers/TowersMain";
 import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
 import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import UrlNormalizer from "./hooks/UrlNormalizer";
 
 
 const App = () => {
@@ -82,6 +83,7 @@ const App = () => {
 
   return (
     <Router>
+      <UrlNormalizer/>
       <YandexPageviewTracker />
       {loading ? (
         <Loader loading={loading} />
