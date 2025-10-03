@@ -15,9 +15,9 @@ const About = () => {
 
   const handleCatalogClick = () => {
     if (isTouchDevice) {
-      navigate("/products?brands=34");
+      navigate("/products?solutions=92");
     } else {
-      navigate("/products/Трамптек");
+      navigate("/products/Батутные%20парки");
     }
   };
 
