@@ -23,7 +23,7 @@ const SCHEMES = [
     title: "урбан",
     subtitle: "нержавейка",
     img: `${IMG_BASE}/GAV0000S.webp`,
-    swatch: { type: "steel" },
+    swatch: { type: "image", src: `${IMG_BASE}/material_5.webp` },
   },
 ];
 
@@ -37,33 +37,49 @@ const Materials = () => {
         <h2 className={styles.title}>Материалы</h2>
 
         <p className={styles.lead}>
-          В оборудовании мы используем только долговечные и безопасные материалы.
-          Основные элементы — из стали с порошковой покраской, устойчивой к влаге,
-          солнцу и механическим нагрузкам. Деревянные детали выполнены из
-          лиственницы, которая хорошо чувствует себя на улице и не требует
-          сложного ухода.
+          В оборудовании мы используем только долговечные и безопасные
+          материалы. Основные элементы — из стали с порошковой покраской,
+          устойчивой к влаге, солнцу и механическим нагрузкам. Деревянные детали
+          выполнены из лиственницы, которая хорошо чувствует себя на улице и не
+          требует сложного ухода.
         </p>
 
         <h3 className={styles.subtitle}>
-          Создайте уникальную площадку с помощью кастомизации внешнего вида под проект
+          Создайте уникальную площадку с помощью кастомизации внешнего вида под
+          проект
         </h3>
 
-        <div className={styles.swatches} role="tablist" aria-label="Цветовые схемы">
+        <div
+          className={styles.swatches}
+          role="tablist"
+          aria-label="Цветовые схемы"
+        >
           {SCHEMES.map((s) => (
             <button
               key={s.key}
               type="button"
               role="tab"
               aria-selected={activeKey === s.key}
-              className={`${styles.swatch} ${activeKey === s.key ? styles.swatchActive : ""}`}
+              className={`${styles.swatch} ${
+                activeKey === s.key ? styles.swatchActive : ""
+              }`}
               onClick={() => setActiveKey(s.key)}
               title={`${s.title} — ${s.subtitle}`}
             >
               <span
                 aria-hidden="true"
-                className={`${styles.dot} ${s.swatch.type === "steel" ? styles.dotSteel : ""}`}
-                style={s.swatch.type === "solid" ? { backgroundColor: s.swatch.color } : undefined}
+                className={`${styles.dot} ${
+                  s.swatch.type === "steel" ? styles.dotSteel : ""
+                }`}
+                style={
+                  s.swatch.type === "solid"
+                    ? { backgroundColor: s.swatch.color }
+                    : s.swatch.type === "image"
+                    ? { backgroundImage: `url(${s.swatch.src})` }
+                    : undefined
+                }
               />
+
               <span className={styles.caption}>
                 <span className={styles.captionMain}>{s.title}</span>
                 <span className={styles.captionSub}>{s.subtitle}</span>
@@ -72,8 +88,15 @@ const Materials = () => {
           ))}
 
           {/* Некликабельный вариант */}
-          <div className={`${styles.swatch} ${styles.swatchDisabled}`} aria-disabled="true">
-            <span aria-hidden="true" className={styles.dot} style={{ backgroundColor: "#dcdcdc" }} />
+          <div
+            className={`${styles.swatch} ${styles.swatchDisabled}`}
+            aria-disabled="true"
+          >
+            <span
+              aria-hidden="true"
+              className={styles.dot}
+              style={{ backgroundColor: "#dcdcdc" }}
+            />
             <span className={styles.caption}>
               <span className={styles.captionMain}>ваш дизайн</span>
               <span className={styles.captionSub}></span>
@@ -83,13 +106,18 @@ const Materials = () => {
       </div>
 
       <div className={styles.right}>
-        <img
-          key={active.img}
-          src={active.img}
-          alt={`${active.title} — ${active.subtitle}`}
-          className={styles.image}
-          loading="lazy"
-        />
+        <div className={styles.imageBox}>
+          <img
+            src={active.img}
+            alt={`${active.title} — ${active.subtitle}`}
+            className={styles.image}
+            decoding="sync"
+            loading="eager"
+            fetchpriority="high"
+            width={1280}
+            height={720}
+          />
+        </div>
       </div>
     </section>
   );

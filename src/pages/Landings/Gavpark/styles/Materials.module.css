@@ -31,7 +31,6 @@
   margin: 28px 0 8px 0;
 }
 
-/* --- свотчи --- */
 .swatches {
   display: flex;
   flex-wrap: wrap;
@@ -40,9 +39,10 @@
 
 .swatch {
   display: flex;
-  flex-direction: column; /* подпись под кружком */
+  flex-direction: column;
   align-items: center;
   gap: 8px;
+  color: black;
   background: transparent;
   border: 0;
   padding: 8px 6px;
@@ -74,9 +74,11 @@
   height: 40px;
   border-radius: 50%;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* «Нержавейка» — лёгкий металл-эффект */
 .dotSteel {
   background: radial-gradient(
       120% 120% at 30% 20%,
@@ -112,10 +114,20 @@
   min-height: 100%;
 }
 
-.image {
+.imageBox {
+  position: relative;
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  aspect-ratio: 16 / 9; /* подставь своё реальное соотношение */
+  overflow: hidden;
+}
+
+/* картинка растягивается внутри коробки */
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* или cover */
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.12));
 }
 
@@ -142,8 +154,8 @@
     line-height: 22px;
   }
 
-  .left{
-    gap:0px
+  .left {
+    gap: 0px;
   }
 
   .swatches {

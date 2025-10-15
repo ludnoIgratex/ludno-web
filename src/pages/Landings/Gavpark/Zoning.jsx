@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles/Zoning.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 
@@ -60,6 +60,19 @@ const Zoning = () => {
   const [activeKey, setActiveKey] = useState(TABS[0].key);
   const active = TABS.find((t) => t.key === activeKey) || TABS[0];
 
+  useEffect(() => {
+    TABS.forEach(({ img }) => {
+      const i = new Image();
+      i.src = img;
+    });
+  }, []);
+
+  const [fadeIn, setFadeIn] = useState(false);
+  const prevSrcRef = useRef(active.img);
+  useEffect(() => {
+    setFadeIn(false);
+  }, [active.img]);
+
   return (
     <section className={styles.wrap}>
       <div className={styles.header}>
@@ -98,10 +111,14 @@ const Zoning = () => {
 
         <div className={styles.imageCol}>
           <img
-            key={active.img}
             src={active.img}
             alt={active.title}
-            className={styles.image}
+            className={`${styles.image} ${fadeIn ? styles.imageVisible : ""}`}
+            decoding="sync"
+            loading="eager"
+            fetchpriority="high"
+            onLoad={() => setFadeIn(true)}
+            onError={() => setFadeIn(true)}
           />
         </div>
       </div>
