@@ -33,7 +33,7 @@ import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
 import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import UrlNormalizer from "./hooks/UrlNormalizer";
-
+import GavparkMain from "./pages/Landings/GavPark/GavParkMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -83,7 +83,7 @@ const App = () => {
 
   return (
     <Router>
-      <UrlNormalizer/>
+      <UrlNormalizer />
       <YandexPageviewTracker />
       {loading ? (
         <Loader loading={loading} />
@@ -138,7 +138,6 @@ const App = () => {
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/about" element={<AboutUs />} />
 
-
               <Route path="/card/:id/:slug" element={<Card />} />
               <Route
                 path="/project-cards/:projectId/:slug"
@@ -158,6 +157,7 @@ const App = () => {
                 path="/nature-navigation-solution"
                 element={<NatureNavMain />}
               />
+              <Route path="/gavpark-solution" element={<GavparkMain />} />
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />

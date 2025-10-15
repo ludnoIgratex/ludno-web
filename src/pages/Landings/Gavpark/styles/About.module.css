@@ -1,0 +1,111 @@
+.aboutWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 200px 150px 220px;
+  gap: 32px;
+
+  background-image: url("/assets/images/gavpark-solution/doggy-play.svg"),
+    url("/assets/images/gavpark-solution/paw.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 320px auto, 140px auto; 
+  background-position: left 60px bottom 40px, right 100px bottom 60px;
+}
+
+.aboutWrapper p {
+  font-size: 34px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.highlight {
+  color: var(--accent-color-gavpark);
+}
+
+.linkWrapper {
+  padding-top: 24px;
+  display: flex;
+  gap: 60px;
+  font-size: 34px;
+  line-height: 40px;
+  justify-content: space-between;
+}
+
+.arrow {
+  height: 40px;
+  width: auto;
+}
+
+.linkContainer {
+  text-decoration: underline;
+  display: flex;
+  gap: 8px;
+  transition: 0.1s ease-in-out;
+  align-items: center;
+}
+
+.linkContainer:hover {
+  color: var(--accent-color-gavpark);
+}
+
+.gif {
+  width: 470px;
+  height: 100px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .aboutWrapper {
+    padding: 115px 16px;
+    gap: 16px;
+
+    background-image: url("/assets/images/gavpark-solution/doggy-play.svg"),
+    url("/assets/images/gavpark-solution/paw.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100px auto, 50px auto; 
+  background-position: left 10px bottom 290px, right 100px bottom 30px;
+  }
+
+  .aboutWrapper p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .linkWrapper {
+    padding-top: 28px;
+    font-size: 18px;
+    line-height: 24px;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .gif {
+    width: 340px;
+    height: 50px;
+  }
+  .arrow {
+    height: 24px;
+    width: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aboutWrapper {
+    padding: 160px 26px;
+    gap: 24px;
+  }
+  .aboutWrapper p {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .linkWrapper {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .arrow {
+    height: 24px;
+    width: auto;
+  }
+}

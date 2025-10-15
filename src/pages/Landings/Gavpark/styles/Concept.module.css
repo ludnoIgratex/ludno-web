@@ -1,0 +1,104 @@
+.wrapper {
+  position: relative;
+  padding: 120px 32px;
+  overflow: hidden;
+
+  background-image: url("/assets/images/gavpark-solution/doggy-sit.svg");
+  background-repeat: no-repeat;
+  background-size: 180px auto;
+  background-position: right 80px bottom 40px;
+}
+
+.title {
+  font-size: 60px;
+  line-height: 72px;
+  margin-bottom: 24px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  margin: 0 auto;
+}
+
+.imageCol {
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.text {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.button {
+  margin-top: 12px;
+  align-self: flex-start;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 18px;
+  padding: 12px 60px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background-color: var(--accent-color-gavpark);
+  transform: translateY(-2px);
+}
+
+/* --- адаптив --- */
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    padding: 100px 16px;
+    background-size: 140px auto;
+    background-position: right 30px bottom 20px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    margin-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 80px 16px;
+    background-size: 100px auto;
+    background-position: right 16px bottom 12px;
+  }
+
+  .title {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 16px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 12px 28px;
+  }
+}

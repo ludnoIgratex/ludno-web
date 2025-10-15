@@ -203,3 +203,5 @@ main().catch(err => {
   console.error("❌ Sitemap generation failed:", err);
   process.exit(1);
 });
+
+// STRAPI_URL="https://admin.ludno.ru" BASE_URL="https://ludno.ru" node ./src/scripts/generate-sitemap.mjs
