@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles/main.module.css";
-import Head from "./Head";
-import About from "./About";
 import Consultation from "../../../components/Consultation/Consultation";
-import Items from "./Items";
 import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 import LoaderRound from "../../../components/Loader/LoaderRound";
-import Projects from "./Projects";
+import Head from "./Head";
 import Zoning from "./Zoning";
-import Concept from "./Concept";
 import Materials from "./Materials";
+import About from "./About";
+import Concept from "./Concept";
+import Projects from "./Projects";
+import Items from "./Items";
 
 const GavparkMain = () => {
   const [loading, setLoading] = useState(true);
@@ -28,13 +28,20 @@ const GavparkMain = () => {
 
   return (
     <div className={styles.gavparkWrapper}>
-      <Head />
+      {/* <Head />
       <About />
       <Zoning />
       <Materials/>
       <Concept />
       <Projects />
-      <Items />
+      <Items /> */}
+      <Head/>
+      <About/>
+      <Zoning/>
+      <Materials/>
+      <Concept/>
+      <Projects/>
+      <Items/>
       <Consultation color="var(--accent-color-gavpark)" />
       <OtherSolutions currentSlug="gavpark-solution" />
     </div>
