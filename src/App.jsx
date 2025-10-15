@@ -33,7 +33,7 @@ import ParkfitMain from "./pages/Landings/Parkfit/ParkfitMain";
 import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import UrlNormalizer from "./hooks/UrlNormalizer";
-import GavparkMain from "./pages/Landings/GavPark/GavParkMain";
+import GavparkMain from "./pages/Landings/Gavpark/GavParkMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
