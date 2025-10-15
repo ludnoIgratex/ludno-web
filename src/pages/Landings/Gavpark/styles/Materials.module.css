@@ -1,3 +1,8 @@
+:root {
+  /* чтобы браузер не «дорисовывал» жирный и не менял метрики текста */
+  font-synthesis-weight: none;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -31,10 +36,19 @@
   margin: 28px 0 8px 0;
 }
 
+/* --- свотчи --- */
 .swatches {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
+}
+
+/* фиксируем минимальную высоту, чтобы при кликах высота блока не росла,
+   и картинка снизу не «уезжала». подгони под свой максимум строк. */
+@media (max-width: 1024px) {
+  .swatches {
+    min-height: 120px; /* ~= 2 ряда по 60px (примерно) */
+  }
 }
 
 .swatch {
@@ -60,8 +74,26 @@
   box-shadow: inset 0 0 0 2px #000;
 }
 
+.caption {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  /* фикс высоты подписи — исключаем изменение метрик от жирного/переносов */
+  min-height: 30px;
+}
+
+.captionMain {
+  font-weight: 600;
+  font-size: 14px;
+}
+
 .swatchActive .captionMain {
-  font-weight: 800;
+  font-weight: 700; /* усиление без заметной смены метрик */
+}
+
+.captionSub {
+  font-size: 12px;
+  color: #666;
 }
 
 .swatchDisabled {
@@ -79,6 +111,7 @@
   background-repeat: no-repeat;
 }
 
+/* «Нержавейка» — декоративный вариант, если понадобится */
 .dotSteel {
   background: radial-gradient(
       120% 120% at 30% 20%,
@@ -90,35 +123,19 @@
   background-blend-mode: multiply;
 }
 
-.caption {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.captionMain {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.captionSub {
-  font-size: 12px;
-  color: #666;
-}
-
-/* картинка справа */
+/* --- картинка снизу --- */
 .right {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
 }
 
 .imageBox {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; /* подставь своё реальное соотношение */
+  aspect-ratio: 16 / 9;          /* подставь своё реальное соотношение */
   overflow: hidden;
+  contain: layout paint;         /* изоляция: внешние изменения высоты не трогают бокс */
 }
 
 /* картинка растягивается внутри коробки */
@@ -127,19 +144,17 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* или cover */
+  object-fit: contain;           /* или cover */
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.12));
 }
 
-/* Адаптив */
+/* --- Адаптив --- */
 @media (max-width: 1024px) {
   .wrapper {
-    grid-template-columns: 1fr; /* одна колонка */
+    grid-template-columns: 1fr;  /* одна колонка */
     padding: 60px 16px;
   }
-  .right {
-    margin-top: 12px;
-  }
+  /* ВАЖНО: НЕ меняем порядок — картинка остаётся под текстом */
 }
 
 @media (max-width: 768px) {
@@ -154,17 +169,8 @@
     line-height: 22px;
   }
 
-  .left {
-    gap: 0px;
-  }
+  .left { gap: 0px; }
 
-  .swatches {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .dot {
-    width: 32px;
-    height: 32px;
-  }
+  .swatches { gap: 16px; }
+  .dot { width: 32px; height: 32px; }
 }

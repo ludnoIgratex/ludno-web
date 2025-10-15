@@ -49,28 +49,20 @@ const Materials = () => {
           проект
         </h3>
 
-        <div
-          className={styles.swatches}
-          role="tablist"
-          aria-label="Цветовые схемы"
-        >
+        <div className={styles.swatches} role="tablist" aria-label="Цветовые схемы">
           {SCHEMES.map((s) => (
             <button
               key={s.key}
               type="button"
               role="tab"
               aria-selected={activeKey === s.key}
-              className={`${styles.swatch} ${
-                activeKey === s.key ? styles.swatchActive : ""
-              }`}
+              className={`${styles.swatch} ${activeKey === s.key ? styles.swatchActive : ""}`}
               onClick={() => setActiveKey(s.key)}
               title={`${s.title} — ${s.subtitle}`}
             >
               <span
                 aria-hidden="true"
-                className={`${styles.dot} ${
-                  s.swatch.type === "steel" ? styles.dotSteel : ""
-                }`}
+                className={`${styles.dot} ${s.swatch.type === "steel" ? styles.dotSteel : ""}`}
                 style={
                   s.swatch.type === "solid"
                     ? { backgroundColor: s.swatch.color }
@@ -79,7 +71,6 @@ const Materials = () => {
                     : undefined
                 }
               />
-
               <span className={styles.caption}>
                 <span className={styles.captionMain}>{s.title}</span>
                 <span className={styles.captionSub}>{s.subtitle}</span>
@@ -87,16 +78,8 @@ const Materials = () => {
             </button>
           ))}
 
-          {/* Некликабельный вариант */}
-          <div
-            className={`${styles.swatch} ${styles.swatchDisabled}`}
-            aria-disabled="true"
-          >
-            <span
-              aria-hidden="true"
-              className={styles.dot}
-              style={{ backgroundColor: "#dcdcdc" }}
-            />
+          <div className={`${styles.swatch} ${styles.swatchDisabled}`} aria-disabled="true">
+            <span aria-hidden="true" className={styles.dot} style={{ backgroundColor: "#dcdcdc" }} />
             <span className={styles.caption}>
               <span className={styles.captionMain}>ваш дизайн</span>
               <span className={styles.captionSub}></span>
@@ -105,6 +88,7 @@ const Materials = () => {
         </div>
       </div>
 
+      {/* картинка остаётся ПОД текстом */}
       <div className={styles.right}>
         <div className={styles.imageBox}>
           <img
