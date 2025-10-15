@@ -28,13 +28,6 @@ const GavparkMain = () => {
 
   return (
     <div className={styles.gavparkWrapper}>
-      {/* <Head />
-      <About />
-      <Zoning />
-      <Materials/>
-      <Concept />
-      <Projects />
-      <Items /> */}
       <Head/>
       <About/>
       <Zoning/>
