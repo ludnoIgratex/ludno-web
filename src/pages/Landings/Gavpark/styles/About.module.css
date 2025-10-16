@@ -8,7 +8,7 @@
   background-image: url("/assets/images/gavpark-solution/doggy-play.svg"),
     url("/assets/images/gavpark-solution/paw.svg");
   background-repeat: no-repeat, no-repeat;
-  background-size: 320px auto, 140px auto; 
+  background-size: 320px auto, 340px auto; 
   background-position: left 60px bottom 40px, right 100px bottom 60px;
 }
 
@@ -62,8 +62,8 @@
     background-image: url("/assets/images/gavpark-solution/doggy-play.svg"),
     url("/assets/images/gavpark-solution/paw.svg");
   background-repeat: no-repeat, no-repeat;
-  background-size: 100px auto, 50px auto; 
-  background-position: left 10px bottom 290px, right 100px bottom 30px;
+  background-size: 100px auto, 140px auto; 
+  background-position: left 10px bottom 290px, right 60px bottom 0px;
   }
 
   .aboutWrapper p {

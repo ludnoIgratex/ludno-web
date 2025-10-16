@@ -1,7 +1,6 @@
 .relatedPostsWrapper {
   padding-top: 100px;
   padding-bottom: 160px;
-
 }
 
 .relatedPostsWrapper h3 {
@@ -35,6 +34,7 @@
   background-color: var(--bg-default-color);
   transition: 0.2s ease-in-out;
   max-width: 460px;
+  width: 100%;
 }
 
 .postItem:hover {
@@ -52,8 +52,8 @@
 
 .imageContainer img {
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  height: 150px;
+  /* max-height: 220px; */
   object-fit: cover;
   padding: 0;
 }
@@ -97,6 +97,9 @@
     padding-top: 60px;
     padding-bottom: 80px;
   }
+  .relatedPostsContainer {
+    gap: 16px;
+  }
 
   .relatedPostsWrapper h3 {
     font-size: 26px;
@@ -115,7 +118,8 @@
   }
 
   .postItem {
-    max-width: 260px;
+    width: 100%;
+    min-width: 260px;
   }
 
   .imageContainer img {

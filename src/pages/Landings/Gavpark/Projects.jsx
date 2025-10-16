@@ -5,8 +5,8 @@ const videoSrc = ["/assets/videos/dog.mp4"];
 
 const imagePaths = [
   "/assets/images/gavpark-solution/park.webp",
-  "/assets/images/gavpark-solution/barriers.avif",
   "/assets/images/gavpark-solution/sign.webp",
+  "/assets/images/gavpark-solution/barriers.webp",
 ];
 
 const Projects = () => {
@@ -20,6 +20,11 @@ const Projects = () => {
           className={styles.projectMedia}
         />
 
+        <img
+          src={imagePaths[1]}
+          alt="project-2"
+          className={styles.projectMedia}
+        />
         <video
           autoPlay
           loop
@@ -30,12 +35,6 @@ const Projects = () => {
         >
           Ваш браузер не поддерживает воспроизведение видео.
         </video>
-
-        <img
-          src={imagePaths[1]}
-          alt="project-2"
-          className={styles.projectMedia}
-        />
         <img
           src={imagePaths[2]}
           alt="project-3"

@@ -28,7 +28,15 @@ const Concept = () => {
             размера, чтобы вы могли выбрать оптимальную конфигурацию для своего
             пространства.
           </p>
-          <button className={styles.button}>Подробнее</button>
+
+          <a
+            href="https://disk.yandex.ru/d/SxMlgfocKDqYRw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.button}
+          >
+            Подробнее
+          </a>
         </div>
       </div>
     </section>

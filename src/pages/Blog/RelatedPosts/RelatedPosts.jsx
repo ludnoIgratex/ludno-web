@@ -13,7 +13,7 @@ const RelatedPosts = () => {
     const fetchPosts = async () => {
       try {
         const query = qs.stringify({
-          populate: ["image", "post_tags"],
+          populate: ["image"],
         });
 
         const response = await fetch(
@@ -48,6 +48,13 @@ const RelatedPosts = () => {
     return h1Token ? h1Token.text : "Без заголовка";
   };
 
+  // ✨ Вспомогательная функция — берёт только первое предложение
+  const getFirstSentence = (text) => {
+    if (!text) return "";
+    const match = text.match(/[^.!?]+[.!?]/);
+    return match ? match[0].trim() : text;
+  };
+
   return (
     <div className={styles.relatedPostsWrapper}>
       <h3>Другие статьи</h3>
@@ -72,21 +79,15 @@ const RelatedPosts = () => {
                   ) : (
                     <p>Изображение не найдено</p>
                   )}
-                  <div className={styles.tagsContainer}>
-                    {post.post_tags.map((tag) => (
-                      <span key={tag.id} className={styles.tag}>
-                        {tag.name}
-                      </span>
-                    ))}
-                  </div>
+                  {/* ✨ Удалено: блок с тегами */}
                 </div>
 
                 <section className={styles.content}>
                   <div className={styles.mainContent}>
+                    <p>{post.date}</p>
                     <h4>{postTitle}</h4>
-                    <p>{post.description}</p>
+                    {/* <p>{getFirstSentence(post.description)}</p>  */}
                   </div>
-                  <p>{post.date}</p>
                 </section>
               </Link>
             </div>
