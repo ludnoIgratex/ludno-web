@@ -1,8 +1,9 @@
+// src/hooks/ProductsUrlMapper.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { slugify } from "transliteration";
 
-const CACHE_KEY = "taxonomyMaps:v1";
+const CACHE_KEY = "taxonomyMaps:v2"; // <- bump версия, чтобы очистить старый кэш
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
 const toSlug = (s) => slugify(String(s || "").trim());
@@ -17,11 +18,9 @@ async function fetchAll(urlBase, fieldName) {
     url.searchParams.set("pagination[page]", page);
     url.searchParams.set("pagination[pageSize]", 100);
     url.searchParams.append("fields[0]", fieldName);
-
     const res = await fetch(url.toString());
     if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
     const json = await res.json();
-
     (json?.data || []).forEach((item) => {
       const name =
         item?.attributes?.[fieldName] ??
@@ -30,10 +29,8 @@ async function fetchAll(urlBase, fieldName) {
         item?.name ??
         item?.attributes?.title ??
         item?.title;
-
       if (name) out.push({ id: item.id, name });
     });
-
     pageCount = json?.meta?.pagination?.pageCount || 1;
     page += 1;
   }
@@ -81,30 +78,50 @@ async function loadMaps() {
   return maps;
 }
 
+/** Парсим path с поддержкой 2/3/4 сегментов и 'all' как отсутствия */
 function parseDesktopPath(pathname, maps) {
   const parts = pathname.split("/").filter(Boolean);
-  if (parts[0] !== "products" || parts.length < 4) return null;
+  if (parts[0] !== "products") return null;
 
-  const solSeg = fromSlug(parts[1]);
-  const brandSeg = fromSlug(parts[2]);
-  const catSeg = fromSlug(parts[3]);
+  // допустимые длины: 2 (/products/<solution>), 3 (/products/<solution>/<brand>), 4 (/products/<solution>/<brand>/<category>)
+  if (parts.length < 2 || parts.length > 4) return null;
 
-  const solId =
-    maps.solutions.NAME_TO_ID[solSeg] ??
-    maps.solutions.SLUG_TO_ID[toSlug(solSeg)];
-  const catId =
-    maps.categories.NAME_TO_ID[catSeg] ??
-    maps.categories.SLUG_TO_ID[toSlug(catSeg)];
+  const solSeg = parts[1] ? fromSlug(parts[1]) : undefined;
+  const brandSeg = parts[2] ? fromSlug(parts[2]) : undefined;
+  const catSeg = parts[3] ? fromSlug(parts[3]) : undefined;
 
-  let brandId;
-  if (brandSeg && brandSeg.toLowerCase() !== "all") {
-    brandId =
-      maps.brands.NAME_TO_ID[brandSeg] ??
-      maps.brands.SLUG_TO_ID[toSlug(brandSeg)];
+  const isAll = (s) => !s || s.toLowerCase() === "all";
+
+  let solutions, brand, categories;
+
+  // solution
+  if (!isAll(solSeg)) {
+    solutions =
+      maps.solutions.NAME_TO_ID[solSeg] ??
+      maps.solutions.SLUG_TO_ID[toSlug(solSeg)];
+    if (!solutions) return null; // если явно указано не 'all', но не распознали — это не наш формат
   }
 
-  if (!solId || !catId) return null;
-  return { solutions: solId, brand: brandId, categories: catId };
+  // brand
+  if (!isAll(brandSeg) && brandSeg !== undefined) {
+    brand =
+      maps.brands.NAME_TO_ID[brandSeg] ??
+      maps.brands.SLUG_TO_ID[toSlug(brandSeg)];
+    if (!brand) return null;
+  }
+
+  // category
+  if (!isAll(catSeg) && catSeg !== undefined) {
+    categories =
+      maps.categories.NAME_TO_ID[catSeg] ??
+      maps.categories.SLUG_TO_ID[toSlug(catSeg)];
+    if (!categories) return null;
+  }
+
+  // если в итоге не выбран ни один фильтр — это не фильтрованный путь
+  if (!solutions && !brand && !categories) return null;
+
+  return { solutions, brand, categories };
 }
 
 function parseQuery(search) {
@@ -128,17 +145,53 @@ function buildQueryUrl(filters) {
   return u;
 }
 
+/** Собираем САМЫЙ КОРОТКИЙ path по наличию фильтров */
 function buildPathUrl(filters, maps) {
-  const solName = maps.solutions.ID_TO_NAME[String(filters.solutions)];
-  const catName = maps.categories.ID_TO_NAME[String(filters.categories)];
+  const solName = filters.solutions
+    ? maps.solutions.ID_TO_NAME[String(filters.solutions)]
+    : undefined;
   const brandName = filters.brand
     ? maps.brands.ID_TO_NAME[String(filters.brand)]
-    : "all";
-  if (!solName || !catName) return null;
-  const path =
-    `/products/${encodeURIComponent(solName)}` +
-    `/${filters.brand ? encodeURIComponent(brandName) : "all"}` +
-    `/${encodeURIComponent(catName)}`;
+    : undefined;
+  const catName = filters.categories
+    ? maps.categories.ID_TO_NAME[String(filters.categories)]
+    : undefined;
+
+  // ничего не выбрано
+  if (!solName && !brandName && !catName) return null;
+
+  let path;
+  if (solName && !brandName && !catName) {
+    // только solution
+    path = `/products/${encodeURIComponent(solName)}`;
+  } else if (!solName && brandName && !catName) {
+    // только brand
+    path = `/products/all/${encodeURIComponent(brandName)}`;
+  } else if (!solName && !brandName && catName) {
+    // только category
+    path = `/products/all/all/${encodeURIComponent(catName)}`;
+  } else if (solName && brandName && !catName) {
+    // solution + brand
+    path = `/products/${encodeURIComponent(solName)}/${encodeURIComponent(
+      brandName
+    )}`;
+  } else if (solName && !brandName && catName) {
+    // solution + category
+    path = `/products/${encodeURIComponent(solName)}/all/${encodeURIComponent(
+      catName
+    )}`;
+  } else if (!solName && brandName && catName) {
+    // brand + category
+    path = `/products/all/${encodeURIComponent(brandName)}/${encodeURIComponent(
+      catName
+    )}`;
+  } else {
+    // все три
+    path = `/products/${encodeURIComponent(solName)}/${encodeURIComponent(
+      brandName
+    )}/${encodeURIComponent(catName)}`;
+  }
+
   return new URL(window.location.origin + path);
 }
 
@@ -146,7 +199,7 @@ export default function ProductsUrlMapper() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [maps, setMaps] = useState(undefined);
+  const [maps, setMaps] = useState(undefined); // undefined — грузим, null — ошибка
 
   const isMobile = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -156,6 +209,7 @@ export default function ProductsUrlMapper() {
     );
   }, []);
 
+  // загрузка словарей
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -171,11 +225,13 @@ export default function ProductsUrlMapper() {
     };
   }, []);
 
+  // нормализация
   useEffect(() => {
     const { pathname, search, hash } = location;
     if (!pathname.startsWith("/products")) return;
 
     if (maps === null) {
+      // безопасный фоллбэк: без карт не строим path, только query распознаём
       const fromQuery = parseQuery(search);
       if (!fromQuery && pathname !== "/products") {
         navigate("/products" + (hash || ""), { replace: true });
@@ -190,10 +246,12 @@ export default function ProductsUrlMapper() {
     if (!fromPath && !fromQuery) return;
 
     const filters = fromQuery || fromPath;
-    const targetUrl = isMobile
-      ? buildQueryUrl(filters) // моб → query
-      : buildPathUrl(filters, maps) || buildQueryUrl(filters); // десктоп → path (или query, если не собрали)
 
+    const targetUrl = isMobile
+      ? buildQueryUrl(filters)
+      : buildPathUrl(filters, maps) || buildQueryUrl(filters);
+
+    // переносим UTM/прочие параметры + hash
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.forEach((v, k) => {
       if (!["solutions", "categories", "brand"].includes(k)) {
