@@ -34,6 +34,7 @@ import NatureNavMain from "./pages/Landings/NatureNav/NatureNavMain";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import UrlNormalizer from "./hooks/UrlNormalizer";
 import GavparkMain from "./pages/Landings/Gavpark/GavparkMain";
+import ProductsUrlMapper from "./hooks/ProductsUrlMapper";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -84,6 +85,7 @@ const App = () => {
   return (
     <Router>
       <UrlNormalizer />
+      <ProductsUrlMapper/>
       <YandexPageviewTracker />
       {loading ? (
         <Loader loading={loading} />
