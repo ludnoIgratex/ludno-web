@@ -35,8 +35,6 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import UrlNormalizer from "./hooks/UrlNormalizer";
 import GavparkMain from "./pages/Landings/Gavpark/GavparkMain";
 import ProductsUrlMapper from "./hooks/ProductsUrlMapper";
-import PrettyOgUrl from "./hooks/PrettyOgUrl";
-
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -88,7 +86,6 @@ const App = () => {
     <Router>
       <UrlNormalizer />
       <ProductsUrlMapper />
-      <PrettyOgUrl/>
       <YandexPageviewTracker />
       {loading ? (
         <Loader loading={loading} />

@@ -3,18 +3,35 @@ import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Brand.module.css";
 
+// helpers
+const normalizeParam = (seg) => {
+  if (!seg) return undefined;
+  const s = decodeURIComponent(seg);
+  if (s.toLowerCase() === "all") return undefined;
+  return s.replace(/-+/g, " ").trim();
+};
+const prettySeg = (s) =>
+  encodeURI(
+    String(s || "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+  );
+
 const Brand = () => {
   const navigate = useNavigate();
-  const { brand: selectedBrandName, solution: selectedSolutionName } =
-    useParams();
+  const { brand: brandParam, solution: solutionParam } = useParams();
 
-  // Если выбрано решение, формируем URL с фильтром по нему.
-  const brandsUrl =
-    selectedSolutionName && selectedSolutionName !== "all"
-      ? `https://admin.ludno.ru/api/brands?filters[solutions][name][$eq]=${encodeURIComponent(
-          selectedSolutionName
-        )}&populate=categories`
-      : "https://admin.ludno.ru/api/brands?populate=categories";
+  // нормализуем выбранные значения из URL
+  const selectedSolutionName = normalizeParam(solutionParam);
+  const selectedBrandNameFromUrl = normalizeParam(brandParam); // для isActive
+
+  // URL брендов: если выбрано решение — фильтруем по нему
+  const brandsUrl = selectedSolutionName
+    ? `https://admin.ludno.ru/api/brands?filters[solutions][name][$eq]=${encodeURIComponent(
+        selectedSolutionName
+      )}&populate=categories`
+    : "https://admin.ludno.ru/api/brands?populate=categories";
 
   const { data, loading, error } = useFetch(brandsUrl);
 
@@ -22,12 +39,18 @@ const Brand = () => {
   if (error) return <p>Error: {error}</p>;
 
   const brands = data || [];
+  const solutionSeg = selectedSolutionName
+    ? prettySeg(selectedSolutionName)
+    : "all";
 
   const handleBrandClick = (brand) => {
-    if (selectedBrandName === brand.name) {
-      navigate(`/products/${selectedSolutionName || "all"}`);
+    const isActive = selectedBrandNameFromUrl === brand.name;
+    if (isActive) {
+      // снять бренд: /products/<solution | all>
+      navigate(`/products/${solutionSeg}`);
     } else {
-      navigate(`/products/${selectedSolutionName || "all"}/${brand.name}`);
+      // выбрать бренд: /products/<solution | all>/<brand>
+      navigate(`/products/${solutionSeg}/${prettySeg(brand.name)}`);
     }
   };
 
@@ -37,7 +60,7 @@ const Brand = () => {
       <nav>
         <ul className={styles.brandList}>
           {brands.map((brand) => {
-            const isActive = selectedBrandName === brand.name;
+            const isActive = selectedBrandNameFromUrl === brand.name;
             return (
               <li
                 key={brand.id}

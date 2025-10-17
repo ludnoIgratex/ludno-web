@@ -3,12 +3,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { slugify } from "transliteration";
 
-const CACHE_KEY = "taxonomyMaps:v2"; // <- bump версия, чтобы очистить старый кэш
+const CACHE_KEY = "taxonomyMaps:v4";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
 const toSlug = (s) => slugify(String(s || "").trim());
-const fromSlug = (s) => decodeURIComponent(s || "");
 
+// путь "красивый": пробелы -> '-', мягкая кодировка только опасных символов (encodeURI)
+const prettyCyrSeg = (s) =>
+  encodeURI(String(s || "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"));
+
+// обратно: '-' -> ' ' для поиска по NAME_TO_ID
+const unprettyCyrSeg = (s) => String(s || "").replace(/-+/g, " ").trim();
+
+// ---------------- fetch & cache maps ----------------
 async function fetchAll(urlBase, fieldName) {
   let page = 1;
   let pageCount = 1;
@@ -29,7 +36,7 @@ async function fetchAll(urlBase, fieldName) {
         item?.name ??
         item?.attributes?.title ??
         item?.title;
-      if (name) out.push({ id: item.id, name });
+      if (name) out.push({ id: item.id, name: String(name) });
     });
     pageCount = json?.meta?.pagination?.pageCount || 1;
     page += 1;
@@ -40,8 +47,7 @@ async function fetchAll(urlBase, fieldName) {
 async function loadMaps() {
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-    if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS)
-      return cached.maps;
+    if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS) return cached.maps;
   } catch {}
 
   const [solutions, brands, categories] = await Promise.all([
@@ -55,9 +61,11 @@ async function loadMaps() {
     const SLUG_TO_ID = {};
     const ID_TO_NAME = {};
     arr.forEach(({ id, name }) => {
-      NAME_TO_ID[name] = id;
-      SLUG_TO_ID[toSlug(name)] = id;
-      ID_TO_NAME[String(id)] = name;
+      const n = String(name || "").trim();
+      if (!n) return;
+      NAME_TO_ID[n] = id;
+      SLUG_TO_ID[toSlug(n)] = id;
+      ID_TO_NAME[String(id)] = n;
     });
     return { NAME_TO_ID, SLUG_TO_ID, ID_TO_NAME };
   };
@@ -69,40 +77,39 @@ async function loadMaps() {
   };
 
   try {
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({ savedAt: Date.now(), maps })
-    );
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), maps }));
   } catch {}
 
   return maps;
 }
 
-/** Парсим path с поддержкой 2/3/4 сегментов и 'all' как отсутствия */
+// ---------------- parsers / builders ----------------
+
+/** парсим desktop-путь с 2/3/4 сегментами, 'all' = пусто; понимаем дефисы и %D0... */
 function parseDesktopPath(pathname, maps) {
   const parts = pathname.split("/").filter(Boolean);
   if (parts[0] !== "products") return null;
-
-  // допустимые длины: 2 (/products/<solution>), 3 (/products/<solution>/<brand>), 4 (/products/<solution>/<brand>/<category>)
   if (parts.length < 2 || parts.length > 4) return null;
 
-  const solSeg = parts[1] ? fromSlug(parts[1]) : undefined;
-  const brandSeg = parts[2] ? fromSlug(parts[2]) : undefined;
-  const catSeg = parts[3] ? fromSlug(parts[3]) : undefined;
+  const solSegRaw = parts[1] ? decodeURIComponent(parts[1]) : undefined;
+  const brandSegRaw = parts[2] ? decodeURIComponent(parts[2]) : undefined;
+  const catSegRaw = parts[3] ? decodeURIComponent(parts[3]) : undefined;
+
+  const solSeg = solSegRaw ? unprettyCyrSeg(solSegRaw) : undefined;
+  const brandSeg = brandSegRaw ? unprettyCyrSeg(brandSegRaw) : undefined;
+  const catSeg = catSegRaw ? unprettyCyrSeg(catSegRaw) : undefined;
 
   const isAll = (s) => !s || s.toLowerCase() === "all";
 
   let solutions, brand, categories;
 
-  // solution
   if (!isAll(solSeg)) {
     solutions =
       maps.solutions.NAME_TO_ID[solSeg] ??
       maps.solutions.SLUG_TO_ID[toSlug(solSeg)];
-    if (!solutions) return null; // если явно указано не 'all', но не распознали — это не наш формат
+    if (!solutions) return null;
   }
 
-  // brand
   if (!isAll(brandSeg) && brandSeg !== undefined) {
     brand =
       maps.brands.NAME_TO_ID[brandSeg] ??
@@ -110,7 +117,6 @@ function parseDesktopPath(pathname, maps) {
     if (!brand) return null;
   }
 
-  // category
   if (!isAll(catSeg) && catSeg !== undefined) {
     categories =
       maps.categories.NAME_TO_ID[catSeg] ??
@@ -118,35 +124,74 @@ function parseDesktopPath(pathname, maps) {
     if (!categories) return null;
   }
 
-  // если в итоге не выбран ни один фильтр — это не фильтрованный путь
   if (!solutions && !brand && !categories) return null;
-
   return { solutions, brand, categories };
 }
 
-function parseQuery(search) {
+/** парсим mobile-query; поддерживаем ID И имена (solutionName/brandName/categoryName) */
+function parseQuery(search, maps) {
   const p = new URLSearchParams(search);
-  const q = {
-    solutions: p.get("solutions") ? Number(p.get("solutions")) : undefined,
-    brand: p.get("brand") ? Number(p.get("brand")) : undefined,
-    categories: p.get("categories") ? Number(p.get("categories")) : undefined,
-  };
-  if (!q.solutions && !q.categories && !q.brand) return null;
-  return q;
+
+  const solId = p.get("solutions");
+  const brandId = p.get("brand");
+  const catId = p.get("categories");
+
+  let solutions = solId ? Number(solId) : undefined;
+  let brand = brandId ? Number(brandId) : undefined;
+  let categories = catId ? Number(catId) : undefined;
+
+  // если ID нет/устарел — попробуем по имени
+  const solutionName = p.get("solutionName");
+  const brandName = p.get("brandName");
+  const categoryName = p.get("categoryName");
+
+  if (!solutions && solutionName && maps) {
+    const n = decodeURIComponent(solutionName);
+    solutions =
+      maps.solutions.NAME_TO_ID[n] ??
+      maps.solutions.SLUG_TO_ID[toSlug(n)] ??
+      undefined;
+  }
+  if (!brand && brandName && maps) {
+    const n = decodeURIComponent(brandName);
+    brand =
+      maps.brands.NAME_TO_ID[n] ?? maps.brands.SLUG_TO_ID[toSlug(n)] ?? undefined;
+  }
+  if (!categories && categoryName && maps) {
+    const n = decodeURIComponent(categoryName);
+    categories =
+      maps.categories.NAME_TO_ID[n] ??
+      maps.categories.SLUG_TO_ID[toSlug(n)] ??
+      undefined;
+  }
+
+  if (!solutions && !brand && !categories) return null;
+  return { solutions, brand, categories };
 }
 
-function buildQueryUrl(filters) {
-  const u = new URL(window.location.origin + "/products");
-  if (filters.solutions)
-    u.searchParams.set("solutions", String(filters.solutions));
-  if (filters.categories)
-    u.searchParams.set("categories", String(filters.categories));
-  if (filters.brand) u.searchParams.set("brand", String(filters.brand));
-  return u;
+/** соберём mobile-query; добавим и ID, и имена (на случай смены ID в будущем) */
+function buildQueryString(filters, maps) {
+  const sp = new URLSearchParams();
+  if (filters.solutions) {
+    sp.set("solutions", String(filters.solutions));
+    const name = maps?.solutions?.ID_TO_NAME?.[String(filters.solutions)];
+    if (name) sp.set("solutionName", name);
+  }
+  if (filters.categories) {
+    sp.set("categories", String(filters.categories));
+    const name = maps?.categories?.ID_TO_NAME?.[String(filters.categories)];
+    if (name) sp.set("categoryName", name);
+  }
+  if (filters.brand) {
+    sp.set("brand", String(filters.brand));
+    const name = maps?.brands?.ID_TO_NAME?.[String(filters.brand)];
+    if (name) sp.set("brandName", name);
+  }
+  return `?${sp.toString()}`;
 }
 
-/** Собираем САМЫЙ КОРОТКИЙ path по наличию фильтров */
-function buildPathUrl(filters, maps) {
+/** соберём desktop-path с кириллицей и дефисами; БЕЗ URL(), просто строка */
+function buildPathString(filters, maps) {
   const solName = filters.solutions
     ? maps.solutions.ID_TO_NAME[String(filters.solutions)]
     : undefined;
@@ -157,49 +202,50 @@ function buildPathUrl(filters, maps) {
     ? maps.categories.ID_TO_NAME[String(filters.categories)]
     : undefined;
 
-  // ничего не выбрано
   if (!solName && !brandName && !catName) return null;
 
-  let path;
-  if (solName && !brandName && !catName) {
-    // только solution
-    path = `/products/${encodeURIComponent(solName)}`;
-  } else if (!solName && brandName && !catName) {
-    // только brand
-    path = `/products/all/${encodeURIComponent(brandName)}`;
-  } else if (!solName && !brandName && catName) {
-    // только category
-    path = `/products/all/all/${encodeURIComponent(catName)}`;
-  } else if (solName && brandName && !catName) {
-    // solution + brand
-    path = `/products/${encodeURIComponent(solName)}/${encodeURIComponent(
-      brandName
-    )}`;
-  } else if (solName && !brandName && catName) {
-    // solution + category
-    path = `/products/${encodeURIComponent(solName)}/all/${encodeURIComponent(
-      catName
-    )}`;
-  } else if (!solName && brandName && catName) {
-    // brand + category
-    path = `/products/all/${encodeURIComponent(brandName)}/${encodeURIComponent(
-      catName
-    )}`;
-  } else {
-    // все три
-    path = `/products/${encodeURIComponent(solName)}/${encodeURIComponent(
-      brandName
-    )}/${encodeURIComponent(catName)}`;
-  }
+  const solSeg = solName ? prettyCyrSeg(solName) : undefined;
+  const brandSeg = brandName ? prettyCyrSeg(brandName) : undefined;
+  const catSeg = catName ? prettyCyrSeg(catName) : undefined;
 
-  return new URL(window.location.origin + path);
+  let path;
+  if (solSeg && !brandSeg && !catSeg) {
+    path = `/products/${solSeg}`;
+  } else if (!solSeg && brandSeg && !catSeg) {
+    path = `/products/all/${brandSeg}`;
+  } else if (!solSeg && !brandSeg && catSeg) {
+    path = `/products/all/all/${catSeg}`;
+  } else if (solSeg && brandSeg && !catSeg) {
+    path = `/products/${solSeg}/${brandSeg}`;
+  } else if (solSeg && !brandSeg && catSeg) {
+    path = `/products/${solSeg}/all/${catSeg}`;
+  } else if (!solSeg && brandSeg && catSeg) {
+    path = `/products/all/${brandSeg}/${catSeg}`;
+  } else {
+    path = `/products/${solSeg}/${brandSeg}/${catSeg}`;
+  }
+  return path;
 }
 
+// переносим все НЕ-фильтровые параметры из текущего URL в новый search
+function mergeNonFilterParams(currentSearch, newSearch) {
+  const keep = new URLSearchParams(currentSearch);
+  const next = new URLSearchParams(newSearch);
+  ["solutions", "categories", "brand", "solutionName", "categoryName", "brandName"].forEach((k) =>
+    keep.delete(k)
+  );
+  // переносим оставшиеся
+  keep.forEach((v, k) => next.set(k, v));
+  const qs = next.toString();
+  return qs ? `?${qs}` : "";
+}
+
+// ---------------- main ----------------
 export default function ProductsUrlMapper() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [maps, setMaps] = useState(undefined); // undefined — грузим, null — ошибка
+  const [maps, setMaps] = useState(undefined); // undefined — грузим; null — ошибка
 
   const isMobile = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -231,8 +277,8 @@ export default function ProductsUrlMapper() {
     if (!pathname.startsWith("/products")) return;
 
     if (maps === null) {
-      // безопасный фоллбэк: без карт не строим path, только query распознаём
-      const fromQuery = parseQuery(search);
+      // безопасный фоллбэк: без карт — только query
+      const fromQuery = parseQuery(search, null);
       if (!fromQuery && pathname !== "/products") {
         navigate("/products" + (hash || ""), { replace: true });
       }
@@ -242,33 +288,32 @@ export default function ProductsUrlMapper() {
     if (maps === undefined) return;
 
     const fromPath = parseDesktopPath(pathname, maps);
-    const fromQuery = parseQuery(search);
+    const fromQuery = parseQuery(search, maps);
     if (!fromPath && !fromQuery) return;
 
     const filters = fromQuery || fromPath;
 
-    const targetUrl = isMobile
-      ? buildQueryUrl(filters)
-      : buildPathUrl(filters, maps) || buildQueryUrl(filters);
+    let targetPath = "";
+    let targetSearch = "";
+    if (isMobile) {
+      // mobile → всегда query (ID + имена)
+      targetPath = "/products";
+      targetSearch = buildQueryString(filters, maps);
+      // + UTM
+      targetSearch = mergeNonFilterParams(search, targetSearch);
+    } else {
+      // desktop → красивый path
+      const p = buildPathString(filters, maps);
+      targetPath = p || "/products";
+      // сохраняем UTM (но без фильтров)
+      targetSearch = mergeNonFilterParams(search, "");
+    }
 
-    // переносим UTM/прочие параметры + hash
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.forEach((v, k) => {
-      if (!["solutions", "categories", "brand"].includes(k)) {
-        targetUrl.searchParams.set(k, v);
-      }
-    });
-    if (hash) targetUrl.hash = hash;
+    const targetUrl = targetPath + targetSearch + (hash || "");
 
-    const same =
-      targetUrl.pathname === currentUrl.pathname &&
-      targetUrl.search === currentUrl.search &&
-      targetUrl.hash === currentUrl.hash;
-
-    if (!same) {
-      navigate(targetUrl.pathname + targetUrl.search + targetUrl.hash, {
-        replace: true,
-      });
+    const currentUrl = location.pathname + location.search + (location.hash || "");
+    if (targetUrl !== currentUrl) {
+      navigate(targetUrl, { replace: true });
     }
   }, [location, navigate, maps, isMobile]);
 
