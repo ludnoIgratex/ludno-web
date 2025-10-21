@@ -10,6 +10,72 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { slugify } from "transliteration";
 import ProductItem from "./ProductItem";
 
+// какие ключи считаем "фильтрами" – их будем перезаписывать
+const FILTER_KEYS = new Set([
+  "solutions",
+  "brands",
+  "categories",
+  "ages",
+  "solutionName",
+  "brandName",
+  "categoryName",
+]);
+
+// соберём search для текущих фильтров (arrays -> ?a=1&a=2)
+const buildSearchFromFilters = (
+  filters,
+  { solutionsList, brandsList, categoriesList }
+) => {
+  const params = {};
+
+  // массивы ID как есть
+  if (filters.solutions?.length) params.solutions = filters.solutions;
+  if (filters.brands?.length) params.brands = filters.brands;
+  if (filters.categories?.length) params.categories = filters.categories;
+  if (filters.ages?.length) params.ages = filters.ages;
+
+  // если выбран ровно ОДИН элемент — добавим "человекочитаемое" имя
+  if (filters.solutions?.length === 1 && Array.isArray(solutionsList)) {
+    const id = filters.solutions[0];
+    const item = solutionsList.find((s) => s.id === id);
+    if (item?.name) params.solutionName = item.name;
+  }
+  if (filters.brands?.length === 1 && Array.isArray(brandsList)) {
+    const id = filters.brands[0];
+    const item = brandsList.find((b) => b.id === id);
+    if (item?.name) params.brandName = item.name;
+  }
+  if (filters.categories?.length === 1 && Array.isArray(categoriesList)) {
+    const id = filters.categories[0];
+    const item = categoriesList.find((c) => c.id === id);
+    if (item?.title) params.categoryName = item.title;
+  }
+
+  // собираем query через qs: ?a=1&a=2
+  return qs.stringify(params, {
+    addQueryPrefix: true,
+    encodeValuesOnly: true,
+    arrayFormat: "repeat",
+  });
+};
+
+// оставим в URL все НЕ-фильтровые параметры (например, sort, q, utm_*)
+const mergeNonFilterParams = (currentSearch, nextSearch) => {
+  const current = qs.parse(currentSearch, { ignoreQueryPrefix: true }); // obj
+  const next = qs.parse(nextSearch, { ignoreQueryPrefix: true }); // obj
+
+  for (const key of Object.keys(current)) {
+    if (!FILTER_KEYS.has(key)) {
+      next[key] = current[key];
+    }
+  }
+  return qs.stringify(next, {
+    addQueryPrefix: true,
+    encodeValuesOnly: true,
+    arrayFormat: "repeat",
+  });
+};
+
 const ProductsMobile = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -98,7 +164,7 @@ const ProductsMobile = () => {
           page,
           pageSize: serverPageSize,
         },
-        sort: ['name:asc']
+        sort: ["name:asc"],
       },
       { encodeValuesOnly: true }
     );
@@ -310,6 +376,20 @@ const ProductsMobile = () => {
     setAppliedFilters(filters);
     setFilteredProducts([]);
     setCurrentPage(1);
+
+    const rawSearch = buildSearchFromFilters(filters, {
+      solutionsList: solutions,
+      brandsList: brands,
+      categoriesList: categories,
+    });
+
+    const mergedSearch = mergeNonFilterParams(location.search, rawSearch);
+
+    navigate(
+      { pathname: "/products", search: mergedSearch },
+      { replace: false }
+    );
+
     fetchProductsPage(1, filters, brandCategoryMap);
     setIsFilterOpen(false);
   };
@@ -320,10 +400,25 @@ const ProductsMobile = () => {
         ...prevFilters,
         [type]: prevFilters[type].filter((filterId) => filterId !== id),
       };
+
+      setFilteredProducts([]);
+      setCurrentPage(1);
+
+      const rawSearch = buildSearchFromFilters(updated, {
+        solutionsList: solutions,
+        brandsList: brands,
+        categoriesList: categories,
+      });
+      const mergedSearch = mergeNonFilterParams(location.search, rawSearch);
+      navigate(
+        { pathname: "/products", search: mergedSearch },
+        { replace: false }
+      );
+
+      fetchProductsPage(1, updated, brandCategoryMap);
+
       return updated;
     });
-    setFilteredProducts([]);
-    setCurrentPage(1);
   };
 
   useEffect(() => {

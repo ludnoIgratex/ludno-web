@@ -8,14 +8,19 @@ const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
 const toSlug = (s) => slugify(String(s || "").trim());
 
-// путь "красивый": пробелы -> '-', мягкая кодировка только опасных символов (encodeURI)
 const prettyCyrSeg = (s) =>
-  encodeURI(String(s || "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"));
+  encodeURI(
+    String(s || "")
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+  );
 
-// обратно: '-' -> ' ' для поиска по NAME_TO_ID
-const unprettyCyrSeg = (s) => String(s || "").replace(/-+/g, " ").trim();
+const unprettyCyrSeg = (s) =>
+  String(s || "")
+    .replace(/-+/g, " ")
+    .trim();
 
-// ---------------- fetch & cache maps ----------------
 async function fetchAll(urlBase, fieldName) {
   let page = 1;
   let pageCount = 1;
@@ -47,7 +52,8 @@ async function fetchAll(urlBase, fieldName) {
 async function loadMaps() {
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-    if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS) return cached.maps;
+    if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS)
+      return cached.maps;
   } catch {}
 
   const [solutions, brands, categories] = await Promise.all([
@@ -77,15 +83,15 @@ async function loadMaps() {
   };
 
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), maps }));
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ savedAt: Date.now(), maps })
+    );
   } catch {}
 
   return maps;
 }
 
-// ---------------- parsers / builders ----------------
-
-/** парсим desktop-путь с 2/3/4 сегментами, 'all' = пусто; понимаем дефисы и %D0... */
 function parseDesktopPath(pathname, maps) {
   const parts = pathname.split("/").filter(Boolean);
   if (parts[0] !== "products") return null;
@@ -128,79 +134,109 @@ function parseDesktopPath(pathname, maps) {
   return { solutions, brand, categories };
 }
 
-/** парсим mobile-query; поддерживаем ID И имена (solutionName/brandName/categoryName) */
+/** Чтение query с поддержкой массивов (?a=1&a=2) */
 function parseQuery(search, maps) {
   const p = new URLSearchParams(search);
 
-  const solId = p.get("solutions");
-  const brandId = p.get("brand");
-  const catId = p.get("categories");
+  const getIds = (key) => {
+    const raw = p.getAll(key);
+    if (!raw || raw.length === 0) return undefined;
+    const nums = raw.map((v) => Number(v)).filter((n) => Number.isFinite(n));
+    return nums.length ? nums : undefined;
+  };
 
-  let solutions = solId ? Number(solId) : undefined;
-  let brand = brandId ? Number(brandId) : undefined;
-  let categories = catId ? Number(catId) : undefined;
+  // поддержим и brand, и brands
+  let solutions = getIds("solutions");
+  let brand = getIds("brands") || getIds("brand");
+  let categories = getIds("categories");
 
-  // если ID нет/устарел — попробуем по имени
   const solutionName = p.get("solutionName");
   const brandName = p.get("brandName");
   const categoryName = p.get("categoryName");
 
+  // если id нет, но есть name — найдём один id и обернём в массив
   if (!solutions && solutionName && maps) {
     const n = decodeURIComponent(solutionName);
-    solutions =
-      maps.solutions.NAME_TO_ID[n] ??
-      maps.solutions.SLUG_TO_ID[toSlug(n)] ??
-      undefined;
+    const id =
+      maps.solutions.NAME_TO_ID[n] ?? maps.solutions.SLUG_TO_ID[toSlug(n)];
+    if (id) solutions = [id];
   }
   if (!brand && brandName && maps) {
     const n = decodeURIComponent(brandName);
-    brand =
-      maps.brands.NAME_TO_ID[n] ?? maps.brands.SLUG_TO_ID[toSlug(n)] ?? undefined;
+    const id = maps.brands.NAME_TO_ID[n] ?? maps.brands.SLUG_TO_ID[toSlug(n)];
+    if (id) brand = [id];
   }
   if (!categories && categoryName && maps) {
     const n = decodeURIComponent(categoryName);
-    categories =
-      maps.categories.NAME_TO_ID[n] ??
-      maps.categories.SLUG_TO_ID[toSlug(n)] ??
-      undefined;
+    const id =
+      maps.categories.NAME_TO_ID[n] ?? maps.categories.SLUG_TO_ID[toSlug(n)];
+    if (id) categories = [id];
   }
 
   if (!solutions && !brand && !categories) return null;
   return { solutions, brand, categories };
 }
 
-/** соберём mobile-query; добавим и ID, и имена (на случай смены ID в будущем) */
+/** Запись query. Массивы пишем как повторяющиеся ключи. Имя *только если* выбран ровно один. */
 function buildQueryString(filters, maps) {
   const sp = new URLSearchParams();
-  if (filters.solutions) {
-    sp.set("solutions", String(filters.solutions));
-    const name = maps?.solutions?.ID_TO_NAME?.[String(filters.solutions)];
-    if (name) sp.set("solutionName", name);
+
+  const toArr = (v) =>
+    Array.isArray(v)
+      ? v
+      : typeof v === "number" && Number.isFinite(v)
+      ? [v]
+      : [];
+
+  const appendAll = (key, arr) => {
+    arr.forEach((id) => sp.append(key, String(id)));
+  };
+
+  const solArr = toArr(filters.solutions);
+  const brandArr = toArr(filters.brand ?? filters.brands);
+  const catArr = toArr(filters.categories);
+
+  if (solArr.length) {
+    appendAll("solutions", solArr);
+    if (solArr.length === 1) {
+      const n = maps?.solutions?.ID_TO_NAME?.[String(solArr[0])];
+      if (n) sp.set("solutionName", n);
+    }
   }
-  if (filters.categories) {
-    sp.set("categories", String(filters.categories));
-    const name = maps?.categories?.ID_TO_NAME?.[String(filters.categories)];
-    if (name) sp.set("categoryName", name);
+
+  if (catArr.length) {
+    appendAll("categories", catArr);
+    if (catArr.length === 1) {
+      const n = maps?.categories?.ID_TO_NAME?.[String(catArr[0])];
+      if (n) sp.set("categoryName", n);
+    }
   }
-  if (filters.brand) {
-    sp.set("brand", String(filters.brand));
-    const name = maps?.brands?.ID_TO_NAME?.[String(filters.brand)];
-    if (name) sp.set("brandName", name);
+
+  if (brandArr.length) {
+    appendAll("brands", brandArr); // ключ во мн. числе
+    if (brandArr.length === 1) {
+      const n = maps?.brands?.ID_TO_NAME?.[String(brandArr[0])];
+      if (n) sp.set("brandName", n);
+    }
   }
-  return `?${sp.toString()}`;
+
+  const qs = sp.toString();
+  return qs ? `?${qs}` : "";
 }
 
-/** соберём desktop-path с кириллицей и дефисами; БЕЗ URL(), просто строка */
+/** Построение десктопного пути: берём ПЕРВЫЕ значения (десктоп поддерживает по одному). */
 function buildPathString(filters, maps) {
-  const solName = filters.solutions
-    ? maps.solutions.ID_TO_NAME[String(filters.solutions)]
+  const first = (v) => (Array.isArray(v) ? v[0] : v);
+
+  const solId = first(filters.solutions);
+  const brandId = first(filters.brand ?? filters.brands);
+  const catId = first(filters.categories);
+
+  const solName = solId ? maps.solutions.ID_TO_NAME[String(solId)] : undefined;
+  const brandName = brandId
+    ? maps.brands.ID_TO_NAME[String(brandId)]
     : undefined;
-  const brandName = filters.brand
-    ? maps.brands.ID_TO_NAME[String(filters.brand)]
-    : undefined;
-  const catName = filters.categories
-    ? maps.categories.ID_TO_NAME[String(filters.categories)]
-    : undefined;
+  const catName = catId ? maps.categories.ID_TO_NAME[String(catId)] : undefined;
 
   if (!solName && !brandName && !catName) return null;
 
@@ -227,25 +263,29 @@ function buildPathString(filters, maps) {
   return path;
 }
 
-// переносим все НЕ-фильтровые параметры из текущего URL в новый search
+/** Сохраняем не-фильтровые параметры. */
 function mergeNonFilterParams(currentSearch, newSearch) {
   const keep = new URLSearchParams(currentSearch);
   const next = new URLSearchParams(newSearch);
-  ["solutions", "categories", "brand", "solutionName", "categoryName", "brandName"].forEach((k) =>
-    keep.delete(k)
-  );
-  // переносим оставшиеся
+  [
+    "solutions",
+    "categories",
+    "brand",
+    "brands", // <— добавили множественное
+    "solutionName",
+    "categoryName",
+    "brandName",
+  ].forEach((k) => keep.delete(k));
   keep.forEach((v, k) => next.set(k, v));
   const qs = next.toString();
   return qs ? `?${qs}` : "";
 }
 
-// ---------------- main ----------------
 export default function ProductsUrlMapper() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [maps, setMaps] = useState(undefined); // undefined — грузим; null — ошибка
+  const [maps, setMaps] = useState(undefined);
 
   const isMobile = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -255,7 +295,6 @@ export default function ProductsUrlMapper() {
     );
   }, []);
 
-  // загрузка словарей
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -271,13 +310,11 @@ export default function ProductsUrlMapper() {
     };
   }, []);
 
-  // нормализация
   useEffect(() => {
     const { pathname, search, hash } = location;
     if (!pathname.startsWith("/products")) return;
 
     if (maps === null) {
-      // безопасный фоллбэк: без карт — только query
       const fromQuery = parseQuery(search, null);
       if (!fromQuery && pathname !== "/products") {
         navigate("/products" + (hash || ""), { replace: true });
@@ -295,23 +332,23 @@ export default function ProductsUrlMapper() {
 
     let targetPath = "";
     let targetSearch = "";
+
     if (isMobile) {
-      // mobile → всегда query (ID + имена)
+      // на мобилке всегда query, с массивами
       targetPath = "/products";
       targetSearch = buildQueryString(filters, maps);
-      // + UTM
       targetSearch = mergeNonFilterParams(search, targetSearch);
     } else {
-      // desktop → красивый path
+      // на десктопе — семплируем первыми значениями в путь
       const p = buildPathString(filters, maps);
       targetPath = p || "/products";
-      // сохраняем UTM (но без фильтров)
       targetSearch = mergeNonFilterParams(search, "");
     }
 
     const targetUrl = targetPath + targetSearch + (hash || "");
+    const currentUrl =
+      location.pathname + location.search + (location.hash || "");
 
-    const currentUrl = location.pathname + location.search + (location.hash || "");
     if (targetUrl !== currentUrl) {
       navigate(targetUrl, { replace: true });
     }
