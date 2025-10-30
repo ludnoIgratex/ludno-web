@@ -1,0 +1,324 @@
+/* Kacheli.module.css */
+.wrapper {
+  padding: 48px 24px 72px;
+  background: #fff;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--primary-text-color);
+  margin: 0 0 12px;
+}
+
+.lead {
+  max-width: 760px;
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+  margin: 0 0 32px;
+}
+
+.canvas {
+  background: var(--bg-default-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 42px;
+  border-radius: 24px;
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 42px;
+}
+
+.left {
+}
+.right {
+}
+
+/* Field */
+.field {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 100;
+  color: var(--secondary-text-color);
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* убрали цветную точку */
+.dot {
+  display: none;
+}
+
+.input {
+  max-width: 80px;
+  padding: 6px 16px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid var(--bg-border-color);
+  color: var(--primary-text-color);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+  border-color: var(--primary-hover-color);
+  box-shadow: 0 0 0 4px rgba(25, 25, 25, 0.06);
+}
+
+/* Контейнер с равномерными маленькими карточками */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+/* Карточка */
+.seatCard {
+  position: relative;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Радио-инпут */
+.seatCard input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Картинка с рамкой */
+.seatImageWrap {
+  width: 100%;
+  height: 100px;
+  border-radius: 12px;
+  border: 1px solid var(--bg-border-color);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cards label:first-child .seatImageWrap {
+  justify-content: flex-start;
+}
+
+/* Hover-эффект */
+.seatCard:hover .seatImageWrap {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Активная карточка */
+.seatCardActive .seatImageWrap {
+  border-color: var(--primary-hover-color);
+  box-shadow: 0 0 0 3px rgba(25, 25, 25, 0.05), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Картинка внутри */
+.seatImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Подпись — отдельно, вне рамки */
+.seatTitle {
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  font-weight: 100;
+  margin-top: 4px;
+}
+
+.seatCard:not(.seatCardActive) .seatTitle {
+  color: var(--secondary-text-color);
+}
+
+.seatCardActive .seatTitle {
+  color: var(--primary-text-color);
+}
+
+/* Actions */
+.actions {
+  margin-top: 16px;
+}
+
+.submit {
+  padding: 8px 24px;
+  background-color: var(--primary-text-color);
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 32px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: var(--secondary-text-color);
+  cursor: pointer;
+}
+
+.submit:active {
+  transform: translateY(0);
+}
+
+/* Right card content */
+.cardTitle {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 800;
+  margin: 0 0 18px;
+  color: var(--primary-text-color);
+}
+
+.calcLoader {
+  padding: 18px 0;
+  color: var(--secondary-text-color);
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 32px;
+  margin-bottom: 12px;
+}
+
+.resultList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.resultRow {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 12px 0;
+}
+
+.resultRow > span {
+  color: var(--secondary-text-color);
+  line-height: 1.35;
+}
+
+.resultRow > strong {
+  color: var(--primary-text-color);
+  font-weight: 200;
+}
+
+/* убрали точку у .withDot */
+.withDot::before {
+  display: none;
+}
+
+/* перенос длинных текстов в лейблах */
+.multilineLabel span {
+  display: inline-block;
+  max-width: 70%;
+}
+
+/* Error state */
+.error {
+  background: var(--danger-bg-color);
+  color: var(--danger-text-color);
+  border: 1px solid rgba(235, 85, 69, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  line-height: 1.4;
+}
+
+/* Footer text and links in the right card */
+.cardFoot {
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* убрали троеточие */
+.dots {
+  display: none;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--accent-color);
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.link:hover {
+  border-color: var(--accent-color);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .canvas {
+    grid-template-columns: 1fr;
+  }
+  .resultGrid {
+    grid-template-columns: 1fr;
+  }
+  .multilineLabel span {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 26px;
+  }
+  .wrapper {
+    padding: 16px;
+  }
+  .canvas {
+    padding: 12px;
+    gap: 12px;
+  }
+  .card {
+    padding: 12px;
+  }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .seatImageWrap {
+    aspect-ratio: 1.6 / 1;
+  }
+}

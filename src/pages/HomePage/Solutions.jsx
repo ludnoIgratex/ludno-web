@@ -84,6 +84,20 @@ const Solutions = forwardRef((props, ref) => {
             </div>
           </Link>
         </div>
+        <div className={styles.gavpark}>
+          <Link to="gavpark-solution" className={styles.link}>
+            <div className={styles.textBlock}>
+              <div className={styles.textBlockTitle}>
+                <h3>Площадки для собак</h3>
+                <p>Городская среда для собак</p>
+              </div>
+              <div className={styles.linkContainer}>
+                <RiArrowRightDownLine className={styles.arrow} />
+                <span>Подробнее</span>
+              </div>
+            </div>
+          </Link>
+        </div>
 
         <div className={styles.parkfit}>
           <Link to="parkfit-solution" className={styles.link}>

@@ -1,0 +1,243 @@
+.wrapper {
+  padding: 48px 24px 72px;
+  background: #fff;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--primary-text-color);
+  margin: 0 0 12px;
+}
+
+.lead {
+  max-width: 760px;
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+  margin: 0 0 32px;
+}
+
+.canvas {
+  background: var(--bg-default-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 42px;
+  border-radius: 24px;
+}
+
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* поля */
+.field {
+  margin-bottom: 18px;
+}
+
+.label {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--secondary-text-color);
+  margin-bottom: 4px;
+}
+
+.select {
+  height: 44px;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 12px;
+  border: 1px solid var(--bg-border-color);
+  background: #fff;
+  color: var(--primary-text-color);
+  padding: 0 14px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none; /* ровный вид в разных браузерах */
+  background-image: none; /* убираем стандартную стрелку */
+}
+
+.select:focus {
+  border-color: var(--primary-hover-color);
+  box-shadow: 0 0 0 4px rgba(25, 25, 25, 0.06);
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.submit {
+  padding: 8px 24px;
+  background-color: var(--primary-text-color);
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 32px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: var(--secondary-text-color);
+  cursor: pointer;
+}
+
+.optionsList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardTitle {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  margin: 0 0 16px;
+  color: var(--primary-text-color);
+}
+
+.calcLoader {
+  padding: 18px 0;
+  color: var(--secondary-text-color);
+}
+
+.resultList {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.resultRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bg-border-color);
+}
+.resultRow > span {
+  color: var(--secondary-text-color);
+}
+.resultRow > strong {
+  color: var(--primary-text-color);
+  font-weight: 700;
+}
+
+.cardFoot {
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.links {
+  margin-top: 10px;
+}
+.link {
+  text-decoration: none;
+  color: var(--accent-color);
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.link:hover {
+  border-color: var(--accent-color);
+}
+
+.groupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.dropdownContainer {
+  width: 200px;
+  position: relative;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.currentDimension {
+  border: 2px solid var(--primary-text-color);
+  color: var(--primary-text-color);
+  border-radius: 32px;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  position: relative;
+  background: #fff;
+}
+
+.arrowContainer {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  padding: 13px 0;
+  list-style: none;
+  border-radius: 30px;
+  background-color: var(--bg-default-color);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 10;
+  width: max-content;
+  min-width: 100%;
+  border: 1px solid var(--bg-border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.dropdownList li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdownList li:last-child {
+  border-bottom: none;
+}
+
+.dropdownList li:hover {
+  text-decoration: underline;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1024px) {
+  .canvas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 16px;
+  }
+  .canvas {
+    padding: 12px;
+    gap: 12px;
+  }
+  .card {
+    padding: 12px;
+  }
+}

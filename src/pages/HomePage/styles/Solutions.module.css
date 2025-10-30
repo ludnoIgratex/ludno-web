@@ -13,6 +13,7 @@
     "landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape landscape"
     "tramptek tramptek tramptek tramptek tramptek mini mini mini mini mini mini mini"
     "bloqi bloqi bloqi bloqi bloqi bloqi bloqi playlet playlet playlet playlet playlet"
+    "gavpark gavpark gavpark gavpark gavpark gavpark gavpark gavpark gavpark gavpark gavpark gavpark"
     "parkfit parkfit parkfit parkfit parkfit towers towers towers towers towers towers towers"
     "nature nature nature nature nature nature nature nature nature nature nature nature";
 }
@@ -60,6 +61,7 @@
 .bloqi:hover .linkContainer,
 .playlet:hover .linkContainer,
 .towers:hover .linkContainer,
+.gavpark:hover .linkContainer,
 .nature:hover .linkContainer {
   color: var(--accent-color);
   cursor: pointer;
@@ -83,7 +85,8 @@
 .bloqi,
 .playlet,
 .towers,
-.nature {
+.nature,
+.gavpark {
   background-color: var(--bg-default-color);
   display: flex;
   flex-direction: column;
@@ -98,7 +101,8 @@
 .bloqi:hover,
 .playlet:hover,
 .towers:hover,
-.nature:hover {
+.nature:hover,
+.gavpark:hover {
   transform: scale(1.02);
   cursor: pointer;
 }
@@ -157,6 +161,17 @@
   color: var(--primary-text-color);
 }
 
+.gavpark {
+  grid-area: gavpark;
+  background-image: url("/assets/images/gavpark.avif");
+  background-repeat: no-repeat;
+  background-position-x: 260px;
+  background-position-y: -30px;
+  background-size: cover;
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
 .parkfit {
   grid-area: parkfit;
   background-image: url("/assets/images/parkfit_wrapper.avif");
@@ -179,7 +194,7 @@
   color: var(--primary-text-color);
 }
 
-.nature{
+.nature {
   grid-area: nature;
   background-image: url("/assets/images/nature.avif");
   background-repeat: no-repeat;
@@ -202,6 +217,7 @@
       "bloqi"
       "towers"
       "parkfit"
+      "gavpark"
       "nature";
   }
 
@@ -282,6 +298,11 @@
     background-position-y: 40px;
     background-size: 400px;
   }
+  .gavpark {
+    background-position-x: 60px;
+    background-position-y: 80px;
+    background-size: 400px;
+  }
 
   .linkContainer span {
     font-size: 18px;
@@ -300,7 +321,8 @@
   .bloqi,
   .playlet,
   .towers,
-  .nature {
+  .nature,
+  .gavpark {
     padding: 16px;
   }
 
@@ -350,5 +372,15 @@
     background-position-x: 0px;
     background-position-y: 100px;
     background-size: 800px;
+  }
+  .nature {
+    background-position-x: 300px;
+    background-position-y: 0px;
+    background-size: 700px;
+  }
+  .gavpark {
+    background-position-x: 200px;
+    background-position-y: 100px;
+    background-size: 700px;
   }
 }

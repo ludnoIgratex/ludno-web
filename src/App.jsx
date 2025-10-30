@@ -35,6 +35,8 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import UrlNormalizer from "./hooks/UrlNormalizer";
 import GavparkMain from "./pages/Landings/Gavpark/GavparkMain";
 import ProductsUrlMapper from "./hooks/ProductsUrlMapper";
+import Kacheli from "./pages/Calculators/Kacheli/Kacheli";
+import Pokrytiya from "./pages/Calculators/Pokrytiya/Pokrytiya";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -163,6 +165,16 @@ const App = () => {
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />
+
+              <Route
+                path="/kalkulyator-prizemleniya-kacheley"
+                element={<Kacheli />}
+              />
+              <Route
+                path="/kalkulyator-tolshchiny-pokrytiya"
+                element={<Pokrytiya />}
+              />
+
               <Route path="/policy" element={<Policy />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
