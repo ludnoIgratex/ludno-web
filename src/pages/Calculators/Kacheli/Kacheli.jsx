@@ -1,6 +1,10 @@
 import React, { useMemo, useState } from "react";
 import styles from "./Kacheli.module.css";
 
+// Границы высоты для всех типов подвеса (мм)
+const MIN_HEIGHT = 1500;
+const MAX_HEIGHT = 3500;
+
 // Типы подвеса (мм, кг)
 const SEAT_TYPES = {
   odinochnoe: {
@@ -77,6 +81,9 @@ export default function Kacheli() {
     const H = heightCommitted;
     if (!Number.isFinite(H) || H <= 0) return null;
 
+    // Общее ограничение для всех типов подвеса
+    if (H < MIN_HEIGHT || H > MAX_HEIGHT) return null;
+
     const W = cfg.width;
     const T = cfg.thickness;
 
@@ -84,6 +91,8 @@ export default function Kacheli() {
     if (cfg.kind === "basic") {
       clearance = 350;
     } else {
+      // Для «гнезда» техническая проверка сохраняется,
+      // но при H >= 1500 она всегда выполняется
       if (!canComputeNestClearance(H, W)) return null;
       const a = (H - 400) ** 2 - (W / 2) ** 2;
       clearance = H - Math.sqrt(Math.max(0, a));
@@ -113,12 +122,16 @@ export default function Kacheli() {
     setSubmitted(true);
     setTimeout(() => {
       if (Number.isFinite(heightNumDraft) && heightNumDraft > 0) {
+        // Коммитим введённое значение всегда, чтобы справа либо посчиталось, либо показалась ошибка
         setHeightCommitted(heightNumDraft);
         setSeatTypeCommitted(draftSeatType);
       }
       setLoading(false);
     }, 500); // ощущение “подсчёта”
   };
+
+  // Текст ошибки под общее правило
+  const errorText = `Введите корректную высоту. Допустимый диапазон: ${MIN_HEIGHT}–${MAX_HEIGHT} мм.`;
 
   return (
     <div className={styles.wrapper}>
@@ -145,6 +158,9 @@ export default function Kacheli() {
               value={draftHeight}
               onChange={(e) => setDraftHeight(e.target.value)}
             />
+            {/* <div className={styles.hint}>
+              Допустимый диапазон: {MIN_HEIGHT}–{MAX_HEIGHT} мм
+            </div> */}
           </div>
 
           <div className={styles.field}>
@@ -223,10 +239,7 @@ export default function Kacheli() {
               </ul>
             </div>
           ) : (
-            <div className={styles.error}>
-              Введите корректную высоту. Для «гнезда» минимально:{" "}
-              {r(400 + SEAT_TYPES[seatTypeCommitted].width / 2)} мм.
-            </div>
+            <div className={styles.error}>{errorText}</div>
           )}
 
           <p className={styles.cardFoot}>
