@@ -102,7 +102,7 @@ export default function Kacheli() {
     const zoneWidth = W <= 500 ? 1750 : W + 1250; // ширина зоны
     const zoneLength = (0.867 * L + 2250) * 2; // длина зоны
     const distToSupport = cfg.kind === "basic" ? 0.2 * L + 200 : 0.2 * L + 400;
-    const freeFallHeight = L / 2 + H;
+    const freeFallHeight = L / 2 + (H - L);
     const distBetweenSeats = cfg.kind === "basic" ? 0.2 * L + 300 : 0;
 
     return {
