@@ -94,6 +94,7 @@
 .optionsList {
   display: flex;
   flex-wrap: wrap;
+  gap:42px 20px
 }
 
 .cardTitle {

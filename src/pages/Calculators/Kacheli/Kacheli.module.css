@@ -54,7 +54,7 @@
   margin-bottom: 10px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  /* gap: 8px; */
 }
 
 /* убрали цветную точку */
@@ -206,7 +206,7 @@
 .resultGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 32px;
+  gap: 12px 20px;
   margin-bottom: 12px;
 }
 
@@ -214,7 +214,9 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   gap: 12px;
 }
 

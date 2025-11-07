@@ -1,0 +1,101 @@
+/* Материалы */
+
+.cardMaterial {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  margin-bottom: 80px;
+}
+
+.cardMaterial h2 {
+  margin-bottom: 28px;
+}
+
+.materialBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.materialList {
+  list-style: none;
+  display: flex;
+  overflow-x: scroll;
+  gap: 120px;
+  padding-left: 0;
+  padding-right: 72px;
+  /* scrollbar-width: 210px; */
+}
+
+.materialList li {
+  justify-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.2s color;
+  gap: 12px;
+  /* width: 100%; */
+  min-width: 170px;
+}
+
+.materialList h4 {
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.materialList:hover {
+  cursor: pointer;
+}
+
+.materialImage {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.materialDescription {
+  padding-right: 30px;
+  max-width: 800px;
+}
+
+.selected h4 {
+  color: var(--primary-text-color);
+  font-weight: 600;
+}
+
+.selected img {
+  opacity: 1;
+}
+
+@media screen and (max-width: 1024px) {
+  .scrollTitle,
+  .cardMaterial {
+    padding-left: 20px;
+  }
+  .priceLinkContainer {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .descriptionBlock {
+    margin-top: 44px;
+  }
+  .materialImage {
+    height: 64px;
+    width: 64px;
+  }
+  .cardMaterial {
+    margin-top: 44px;
+  }
+  .cardMaterial h2 {
+    margin-bottom: 16px;
+  }
+  .materialList {
+    gap: 60px;
+  }
+  .groupContainer {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+}

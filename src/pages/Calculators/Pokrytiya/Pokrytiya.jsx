@@ -1,13 +1,15 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import styles from "./Pokrytiya.module.css";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import InfoTooltip from "../../../components/InfoTooltip/InfoTooltip";
+import Materials from "./Materials/Materials";
+import qs from "qs";
 
-/** Универсальный кастомный дропдаун под твои стили */
+
 function Dropdown({ value, options, onChange, width = 200, label }) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
-  // закрытие по клику вне/ESC
   useEffect(() => {
     const onDocClick = (e) => {
       if (!ref.current) return;
@@ -24,6 +26,8 @@ function Dropdown({ value, options, onChange, width = 200, label }) {
 
   const shown = options || [];
   const rest = shown.filter((o) => o !== value);
+
+  
 
   return (
     <div className={styles.field}>
@@ -60,7 +64,6 @@ function Dropdown({ value, options, onChange, width = 200, label }) {
   );
 }
 
-/** Справочник толщин: Тип покрытия → Тип оборудования → Высота падения → Толщина (мм) */
 const DB = {
   "Синтетическое (epdm, sbr)": {
     "Без принудительного движения": {
@@ -154,6 +157,59 @@ export default function Pokrytiya() {
     [draftType, draftEquip]
   );
 
+  const [materials, setMaterials] = useState([]);
+  const [selectedMaterialIndex, setSelectedMaterialIndex] = useState(null);
+
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        const query = qs.stringify(
+          {
+            populate: {
+              image: {
+                fields: ["url", "alternativeText", "formats"],
+              },
+            },
+            pagination: {
+              limit: 100,
+            },
+          },
+          { encodeValuesOnly: true }
+        );
+
+        const res = await fetch(
+          `https://admin.ludno.ru/api/materials?${query}`
+        );
+        const json = await res.json();
+
+        const items =
+          json?.data?.map((item) => {
+            const img = item.image || item.image?.data;
+
+            return {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              image: img
+                ? {
+                    url: img.url,
+                    formats: img.formats || {},
+                    alternativeText: img.alternativeText,
+                  }
+                : null,
+            };
+          }) || [];
+
+        setMaterials(items);
+      } catch (e) {
+        console.error("Failed to load materials", e);
+        setMaterials([]);
+      }
+    };
+
+    fetchMaterials();
+  }, []);
+
   // держим валидные значения при смене родителя
   useEffect(() => {
     if (!equipOptions.includes(draftEquip)) {
@@ -205,7 +261,16 @@ export default function Pokrytiya() {
         <form className={`${styles.card} ${styles.left}`} onSubmit={onSubmit}>
           <div className={styles.optionsList}>
             <Dropdown
-              label="Высота падения"
+              label={
+                <>
+                  Высота падения
+                  <InfoTooltip
+                    text={
+                      "Максимальная высота свободного падения определяется производителем для каждого отдельного оборудования."
+                    }
+                  />
+                </>
+              }
               value={draftHeightBand}
               options={heightBandOptions}
               onChange={setDraftHeightBand}
@@ -219,7 +284,16 @@ export default function Pokrytiya() {
               width={260}
             />
             <Dropdown
-              label="Тип оборудования"
+              label={
+                <>
+                  Тип оборудования
+                  <InfoTooltip
+                    text={
+                      "К принудительному типу движения относится оборудование, которое приводится в движение за счет механики устройства. Например: качели, горки, канатные дороги, карусели, качалки и балансиры."
+                    }
+                  />
+                </>
+              }
               value={draftEquip}
               options={equipOptions}
               onChange={setDraftEquip}
@@ -259,6 +333,14 @@ export default function Pokrytiya() {
           )}
         </div>
       </section>
+
+      <div>
+        <Materials
+          materials={materials}
+          selectedMaterialIndex={selectedMaterialIndex}
+          setSelectedMaterialIndex={setSelectedMaterialIndex}
+        />
+      </div>
     </div>
   );
 }

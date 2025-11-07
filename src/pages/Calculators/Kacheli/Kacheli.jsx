@@ -1,11 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import styles from "./Kacheli.module.css";
+import InfoTooltip from "../../../components/InfoTooltip/InfoTooltip";
+// import Materials from "./Materials/Materials";
+import qs from "qs";
 
-// Границы высоты для всех типов подвеса (мм)
 const MIN_HEIGHT = 1500;
 const MAX_HEIGHT = 3500;
 
-// Типы подвеса (мм, кг)
 const SEAT_TYPES = {
   odinochnoe: {
     label: "Одиночное",
@@ -58,15 +59,14 @@ const r = (n) => (Number.isFinite(n) ? Math.round(n) : "–");
 const canComputeNestClearance = (H, width) => H >= 400 + width / 2;
 
 export default function Kacheli() {
-  // ДРАФТ (то, что вводит пользователь)
+  
+
   const [draftHeight, setDraftHeight] = useState("2500");
   const [draftSeatType, setDraftSeatType] = useState("odinochnoe");
 
-  // ЗАКОММИЧЕНО (то, что реально считается и показывается справа)
   const [heightCommitted, setHeightCommitted] = useState(2500);
   const [seatTypeCommitted, setSeatTypeCommitted] = useState("odinochnoe");
 
-  // Управление показом результатов и “подсчётом”
   const [submitted, setSubmitted] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -81,7 +81,6 @@ export default function Kacheli() {
     const H = heightCommitted;
     if (!Number.isFinite(H) || H <= 0) return null;
 
-    // Общее ограничение для всех типов подвеса
     if (H < MIN_HEIGHT || H > MAX_HEIGHT) return null;
 
     const W = cfg.width;
@@ -91,16 +90,14 @@ export default function Kacheli() {
     if (cfg.kind === "basic") {
       clearance = 350;
     } else {
-      // Для «гнезда» техническая проверка сохраняется,
-      // но при H >= 1500 она всегда выполняется
       if (!canComputeNestClearance(H, W)) return null;
       const a = (H - 400) ** 2 - (W / 2) ** 2;
       clearance = H - Math.sqrt(Math.max(0, a));
     }
 
-    const L = H - clearance - T; // длина подвеса
-    const zoneWidth = W <= 500 ? 1750 : W + 1250; // ширина зоны
-    const zoneLength = (0.867 * L + 2250) * 2; // длина зоны
+    const L = H - clearance - T;
+    const zoneWidth = W <= 500 ? 1750 : W + 1250;
+    const zoneLength = (0.867 * L + 2250) * 2;
     const distToSupport = cfg.kind === "basic" ? 0.2 * L + 200 : 0.2 * L + 400;
     const freeFallHeight = L / 2 + (H - L);
     const distBetweenSeats = cfg.kind === "basic" ? 0.2 * L + 300 : 0;
@@ -117,25 +114,22 @@ export default function Kacheli() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // имитируем расчёт
     setLoading(true);
     setSubmitted(true);
     setTimeout(() => {
       if (Number.isFinite(heightNumDraft) && heightNumDraft > 0) {
-        // Коммитим введённое значение всегда, чтобы справа либо посчиталось, либо показалась ошибка
         setHeightCommitted(heightNumDraft);
         setSeatTypeCommitted(draftSeatType);
       }
       setLoading(false);
-    }, 500); // ощущение “подсчёта”
+    }, 500);
   };
 
-  // Текст ошибки под общее правило
   const errorText = `Введите корректную высоту. Допустимый диапазон: ${MIN_HEIGHT}–${MAX_HEIGHT} мм.`;
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>Калькулятор зоны приземления качелей</h1>
+      <h2 className={styles.title}>Калькулятор зоны приземления качелей</h2>
       <p className={styles.lead}>
         OmniRoom is truly modular. You can arrange individual Rooms or combine
         them into cross-functional hubs to build the perfect, flexible office
@@ -144,11 +138,15 @@ export default function Kacheli() {
       </p>
 
       <div className={styles.canvas}>
-        {/* Левая карточка */}
         <form onSubmit={onSubmit} className={`${styles.card} ${styles.left}`}>
           <div className={styles.field}>
             <label htmlFor="height" className={styles.label}>
               Высота крепления качелей, мм <span className={styles.dot} />
+              <InfoTooltip
+                text={
+                  "Расстояние между поверхностью игровой площадки и осью вращения подвеса качелей / нижней поверхностью несущей перекладины"
+                }
+              />
             </label>
             <input
               id="height"
@@ -158,9 +156,6 @@ export default function Kacheli() {
               value={draftHeight}
               onChange={(e) => setDraftHeight(e.target.value)}
             />
-            {/* <div className={styles.hint}>
-              Допустимый диапазон: {MIN_HEIGHT}–{MAX_HEIGHT} мм
-            </div> */}
           </div>
 
           <div className={styles.field}>
@@ -201,60 +196,107 @@ export default function Kacheli() {
           </div>
         </form>
 
-        {/* Правая карточка */}
         <section className={`${styles.card} ${styles.right}`}>
           <h2 className={styles.cardTitle}>Покрытие</h2>
 
-          {!submitted ? null : loading ? (
+          {/* 1. Ещё не отправляли форму */}
+          {!submitted && null}
+
+          {/* 2. Считаем */}
+          {submitted && loading && (
             <div className={styles.calcLoader}>Выполняется расчёт…</div>
-          ) : result ? (
-            <div className={styles.resultGrid}>
-              <ul className={styles.resultList}>
-                <li className={styles.resultRow}>
-                  <span>Ширина зоны приземления, мм</span>
-                  <strong>{r(result.zoneWidth)} мм</strong>
-                </li>
-                <li className={styles.resultRow}>
-                  <span>Длина зоны приземления, мм</span>
-                  <strong>{r(result.zoneLength)} мм</strong>
-                </li>
-                <li className={`${styles.resultRow} ${styles.withDot}`}>
-                  <span>Высота свободного падения, мм</span>
-                  <strong>{r(result.freeFallHeight)} мм</strong>
-                </li>
-              </ul>
-              <ul className={styles.resultList}>
-                <li className={`${styles.resultRow}`}>
-                  <span>Расстояние до стойки</span>
-                  <strong>{r(result.distToSupport)} мм</strong>
-                </li>
-                <li className={`${styles.resultRow} ${styles.multilineLabel}`}>
-                  <span>Расстояние до соседнего подвеса</span>
-                  <strong>{r(result.distBetweenSeats)} мм</strong>
-                </li>
-                <li className={styles.resultRow}>
-                  <span>Клиренс</span>
-                  <strong>{r(result.clearance)} мм</strong>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className={styles.error}>{errorText}</div>
           )}
 
-          <p className={styles.cardFoot}>
-            OmniRoom is truly modular. You can arrange individual Rooms or
-            combine them into cross-functional
-          </p>
+          {/* 3. Есть результат */}
+          {submitted && !loading && result && (
+            <>
+              <div className={styles.resultGrid}>
+                <ul className={styles.resultList}>
+                  <li className={styles.resultRow}>
+                    <span>Ширина зоны приземления, мм</span>
+                    <strong>{r(result.zoneWidth)} мм</strong>
+                  </li>
+                  <li className={styles.resultRow}>
+                    <span>Длина зоны приземления, мм</span>
+                    <strong>{r(result.zoneLength)} мм</strong>
+                  </li>
+                  <li className={`${styles.resultRow} ${styles.withDot}`}>
+                    <span>
+                      Высота свободного падения, мм
+                      <InfoTooltip
+                        text={
+                          "Расстояние от середины поверхности сиденья качелей до поверхности игровой площадки в момент, когда сиденье отклонено от исходного положения на угол 60 градусов"
+                        }
+                      />
+                    </span>
+                    <strong>{r(result.freeFallHeight)} мм</strong>
+                  </li>
+                </ul>
 
-          <div className={styles.links}>
-            <span className={styles.dots}>…</span>
-            <a href="/contacts" className={styles.link}>
-              Узнать цену
-            </a>
-          </div>
+                <ul className={styles.resultList}>
+                  <li className={styles.resultRow}>
+                    <span>
+                      Расстояние до стойки
+                      <InfoTooltip
+                        text={
+                          "Расстояние между опорной стойкой и боковой поверхностью сиденья качелей"
+                        }
+                      />
+                    </span>
+                    <strong>{r(result.distToSupport)} мм</strong>
+                  </li>
+
+                  <li
+                    className={`${styles.resultRow} ${styles.multilineLabel}`}
+                  >
+                    <span>
+                      Расстояние до соседнего подвеса
+                      <InfoTooltip
+                        text={
+                          "Расстояние между боковыми поверхностями двух сидений качелей. Используется только люльки, одиночного и гибкого сидений."
+                        }
+                      />
+                    </span>
+                    <strong>{r(result.distBetweenSeats)} мм</strong>
+                  </li>
+
+                  <li className={styles.resultRow}>
+                    <span>
+                      Клиренс
+                      <InfoTooltip
+                        text={
+                          "Расстояние между нижней поверхностью сиденья качелей и поверхностью игровой площадки"
+                        }
+                      />
+                    </span>
+                    <strong>{r(result.clearance)} мм</strong>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 👉 Показываем только после удачного расчёта */}
+              <p className={styles.cardFoot}>
+                Ударопоглощающее покрытие с указанной толщиной необходимо
+                размещать по всей зоне приземления. Размер зоны приземления
+                определяется производителем оборудования.
+              </p>
+
+              <div className={styles.links}>
+                <span className={styles.dots}>…</span>
+                <a href="/contacts" className={styles.link}>
+                  Узнать цену
+                </a>
+              </div>
+            </>
+          )}
+
+          {/* 4. Ошибка */}
+          {submitted && !loading && !result && (
+            <div className={styles.error}>{errorText}</div>
+          )}
         </section>
       </div>
+      
     </div>
   );
 }

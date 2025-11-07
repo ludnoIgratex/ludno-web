@@ -1,0 +1,46 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 6px;
+  line-height: 1;
+  color: var(--accent-color);
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 24px;
+  z-index: 10;
+  background: var(--bg-default-color);
+  color: #111114;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  min-width: 220px;
+  max-width: 320px;
+  white-space: pre-line;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); */
+}
+
+/* стороны для десктопа */
+.right {
+  left: 0;
+  right: auto;
+}
+.left {
+  right: 0;
+  left: auto;
+}
+
