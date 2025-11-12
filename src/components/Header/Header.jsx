@@ -9,12 +9,14 @@ import Search from "../Search/Search";
 import SolutionsDropdown from "../SolutionsDropdown/SolutionsDropdown";
 import styles from "./styles/Header.module.css";
 import TgLink from "./TgLink";
+import UsefulDropdown from "../UsefulDropdown.jsx/UsefulDropdown";
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const [showSolutions, setShowSolutions] = useState(false);
+  const [showUseful, setShowUseful] = useState(false);
 
   const toggleSearch = (state) => {
     if (typeof state === "boolean") {
@@ -85,7 +87,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <HeaderNav setShowSolutions={setShowSolutions} />
+              <HeaderNav setShowSolutions={setShowSolutions} setShowUseful={setShowUseful} />
               <div className={styles.headerIcons}>
                 <TgLink />
                 <IoSearch
@@ -108,6 +110,19 @@ const Header = () => {
           <SolutionsDropdown
             visible={showSolutions}
             onClose={() => setShowSolutions(false)}
+          />
+        </>
+      )}
+
+      {showUseful && (
+        <>
+          <div
+            className={styles.overlay}
+            onClick={() => setShowUseful(false)}
+          />
+          <UsefulDropdown
+            visible={showUseful}
+            onClose={() => setShowUseful(false)}
           />
         </>
       )}

@@ -18,7 +18,7 @@ const SearchResults = ({
             {productResults.slice(0, 4).map((item) => {
               const imageUrl =
                 Array.isArray(item.image) && item.image.length > 0
-                  ? item.image[0]?.formats?.medium?.url || item.image[0]?.url
+                  ? item.image[0]?.formats?.small?.url || item.image[0]?.url
                   : null;
               const title = item.title || "Без названия";
 

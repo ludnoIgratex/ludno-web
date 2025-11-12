@@ -59,8 +59,6 @@ const r = (n) => (Number.isFinite(n) ? Math.round(n) : "–");
 const canComputeNestClearance = (H, width) => H >= 400 + width / 2;
 
 export default function Kacheli() {
-  
-
   const [draftHeight, setDraftHeight] = useState("2500");
   const [draftSeatType, setDraftSeatType] = useState("odinochnoe");
 
@@ -131,10 +129,9 @@ export default function Kacheli() {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Калькулятор зоны приземления качелей</h2>
       <p className={styles.lead}>
-        OmniRoom is truly modular. You can arrange individual Rooms or combine
-        them into cross-functional hubs to build the perfect, flexible office
-        around them. Configuration sized at 8430 × 3170 × 2400 mm provides space
-        and complexity.
+        Калькулятор зоны приземления качелей помогает определить размеры зоны
+        приземления в соответствии с ГОСТ. Полезен при проектировании качелей,
+        установленных на перголах или нестандартных конструкциях.
       </p>
 
       <div className={styles.canvas}>
@@ -296,7 +293,6 @@ export default function Kacheli() {
           )}
         </section>
       </div>
-      
     </div>
   );
 }

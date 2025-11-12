@@ -6,6 +6,7 @@ import Consultation from "../../../components/Consultation/Consultation";
 import Items from "./Items";
 import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 import LoaderRound from "../../../components/Loader/LoaderRound";
+import Importance from "./Importance";
 
 const ParkfitMain = () => {
   const [loading, setLoading] = useState(true);
@@ -25,6 +26,7 @@ const ParkfitMain = () => {
     <div className={styles.parkfitWrapper}>
       <Head />
       <About />
+      <Importance/>
       <Items />
       <Consultation color="var(--primary-deafault-color)" />
       <OtherSolutions currentSlug="parkfit-solution" />

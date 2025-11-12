@@ -2,13 +2,12 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles/HeaderNav.module.css";
 
-const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
+const HeaderNav = ({ setShowSolutions, setShowUseful }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleSolutionsClick = () => {
     setShowSolutions(false);
-
     if (location.pathname === "/") {
       window.dispatchEvent(new Event("scroll-to-solutions"));
     } else {
@@ -25,7 +24,10 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
         <li>
           <span
             onClick={handleSolutionsClick}
-            onMouseEnter={() => setShowSolutions(true)}
+            onMouseEnter={() => {
+              setShowSolutions(true);
+              setShowUseful(false);
+            }}
             className={
               location.pathname.startsWith("/solutions") ? styles.active : ""
             }
@@ -33,7 +35,7 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
             Решения
           </span>
         </li>
-        <li onMouseEnter={() => setShowSolutions(false)}>
+        <li onMouseEnter={() => { setShowSolutions(false); setShowUseful(false); }}>
           <Link
             to="/products"
             className={
@@ -43,7 +45,7 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
             Каталог
           </Link>
         </li>
-        <li onMouseEnter={() => setShowSolutions(false)}>
+        <li onMouseEnter={() => { setShowSolutions(false); setShowUseful(false); }}>
           <Link
             to="/projects"
             className={
@@ -53,17 +55,27 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
             Проекты
           </Link>
         </li>
-        <li onMouseEnter={() => setShowSolutions(false)}>
-          <Link
-            to="/blog"
+
+        {/* 🆕 Полезное */}
+        <li
+          onMouseEnter={() => {
+            setShowUseful(true);
+            setShowSolutions(false);
+          }}
+        >
+          <span
             className={
-              location.pathname.startsWith("/blog") ? styles.active : ""
+              location.pathname.startsWith("/blog") ||
+              location.pathname.startsWith("/kalkulyator")
+                ? styles.active
+                : ""
             }
           >
-            Блог
-          </Link>
+            Полезное
+          </span>
         </li>
-        <li onMouseEnter={() => setShowSolutions(false)}>
+
+        <li onMouseEnter={() => { setShowSolutions(false); setShowUseful(false); }}>
           <Link
             to="/about"
             className={
@@ -73,7 +85,7 @@ const HeaderNav = ({ setShowSolutions, scrollToSolutions }) => {
             Команда
           </Link>
         </li>
-        <li onMouseEnter={() => setShowSolutions(false)}>
+        <li onMouseEnter={() => { setShowSolutions(false); setShowUseful(false); }}>
           <Link
             to="/contacts"
             className={

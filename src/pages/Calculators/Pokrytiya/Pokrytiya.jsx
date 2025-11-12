@@ -5,7 +5,6 @@ import InfoTooltip from "../../../components/InfoTooltip/InfoTooltip";
 import Materials from "./Materials/Materials";
 import qs from "qs";
 
-
 function Dropdown({ value, options, onChange, width = 200, label }) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -26,8 +25,6 @@ function Dropdown({ value, options, onChange, width = 200, label }) {
 
   const shown = options || [];
   const rest = shown.filter((o) => o !== value);
-
-  
 
   return (
     <div className={styles.field}>
@@ -250,10 +247,9 @@ export default function Pokrytiya() {
     <div className={styles.wrapper}>
       <h1 className={styles.title}>Калькулятор толщины покрытий</h1>
       <p className={styles.lead}>
-        OmniRoom is truly modular. You can arrange individual Rooms or combine
-        them into cross-functional hubs to build the perfect, flexible office
-        around them. Configuration sized at 8430 × 3170 × 2400 mm provides space
-        and complexity.
+        Рассчет необходимой толщины ударопоглощающего слоя в соответствии с
+        требованиями. Инструмент помогает обеспечить безопасность игровой зоны и
+        соответствие нормативам.
       </p>
 
       <section className={styles.canvas}>

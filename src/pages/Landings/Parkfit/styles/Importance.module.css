@@ -1,0 +1,71 @@
+/* Обёртка секции */
+.section {
+  background: var(--bg-default-color);
+  width: 100%;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 80px 62px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0;
+}
+
+.accent {
+  color: var(--accent-color-parkfit);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px 60px ;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+/* Респонсив до мобильной колонки */
+@media (max-width: 980px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    max-width: 20ch;
+  }
+}
+
+@supports (hanging-punctuation: first) {
+  .title {
+    hanging-punctuation: first;
+  }
+}

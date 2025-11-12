@@ -1,4 +1,3 @@
-// src/components/CardMaterial/CardMaterial.jsx
 import React, { useEffect } from "react";
 import styles from "./Materials.module.css";
 
@@ -15,14 +14,18 @@ const Materials = ({
 
   const handleMaterialClick = (index) => setSelectedMaterialIndex(index);
 
+  // ✅ оставляем только нужные ID
+  const allowedIds = [43, 69, 71, 70, 73, 75];
+  const filteredMaterials = materials.filter((m) => allowedIds.includes(m.id));
+
   return (
     <div className={styles.cardMaterial}>
       <h2>Материалы</h2>
       <div className={styles.materialBlock}>
-        {materials.length > 0 ? (
+        {filteredMaterials.length > 0 ? (
           <>
             <ul className={styles.materialList}>
-              {materials.map((material, index) => {
+              {filteredMaterials.map((material, index) => {
                 const imageUrl = material.image?.formats?.medium?.url
                   ? `https://admin.ludno.ru${material.image.formats.medium.url}`
                   : material.image?.url
@@ -54,12 +57,14 @@ const Materials = ({
 
             <p className={styles.materialDescription}>
               {selectedMaterialIndex !== null &&
-              selectedMaterialIndex < materials.length
-                ? materials[selectedMaterialIndex]?.description || null
+              selectedMaterialIndex < filteredMaterials.length
+                ? filteredMaterials[selectedMaterialIndex]?.description || null
                 : "Выберите материал, чтобы увидеть описание"}
             </p>
           </>
-        ) : null}
+        ) : (
+          <p>Нет доступных материалов</p>
+        )}
       </div>
     </div>
   );

@@ -154,8 +154,8 @@ const SearchResultsPage = () => {
                   ) : (
                     <p>Изображение не найдено</p>
                   )}
-                  <p className={styles.producTitle}>{title}</p>
-                  <h4 className={styles.productName}>{description}</h4>
+                  <h4 className={styles.productName}>{title}</h4>
+                  {/* <h4 className={styles.productName}>{description}</h4> */}
                 </li>
               );
             })}

@@ -64,7 +64,7 @@ const RelatedPosts = () => {
           const postSlug = slugify(postTitle, { lower: true, strict: true });
           const imageUrl =
             Array.isArray(post.image) && post.image.length > 0
-              ? post.image[0]?.formats?.large?.url || post.image[0]?.url || null
+              ? post.image[0]?.formats?.small?.url || post.image[0]?.url || null
               : null;
 
           return (
@@ -79,14 +79,12 @@ const RelatedPosts = () => {
                   ) : (
                     <p>Изображение не найдено</p>
                   )}
-                  {/* ✨ Удалено: блок с тегами */}
                 </div>
 
                 <section className={styles.content}>
                   <div className={styles.mainContent}>
                     <p>{post.date}</p>
                     <h4>{postTitle}</h4>
-                    {/* <p>{getFirstSentence(post.description)}</p>  */}
                   </div>
                 </section>
               </Link>

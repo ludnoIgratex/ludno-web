@@ -7,6 +7,7 @@ import styles from "./BurgerMenu.module.css";
 const BurgerMenu = ({ isOpen, onClose }) => {
   const [solutions, setSolutions] = useState([]);
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isUsefulOpen, setIsUsefulOpen] = useState(false); // 🆕 новое состояние
 
   useEffect(() => {
     fetch("https://admin.ludno.ru/api/solutions?fields[0]=name&fields[1]=url")
@@ -21,6 +22,21 @@ const BurgerMenu = ({ isOpen, onClose }) => {
       .catch((err) => console.error("Ошибка при загрузке решений:", err));
   }, []);
 
+  const usefulLinks = [
+    {
+      name: "Блог",
+      url: "/blog",
+    },
+    {
+      name: "Калькулятор приземления качелей",
+      url: "/kalkulyator-prizemleniya-kacheley",
+    },
+    {
+      name: "Калькулятор толщины покрытия",
+      url: "/kalkulyator-tolshchiny-pokrytiya",
+    },
+  ];
+
   if (!isOpen) return null;
 
   return (
@@ -31,6 +47,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
             <img src="/assets/icons/logo-rounded-rus.svg" alt="logo" />
             <IoCloseOutline className={styles.burgerClose} onClick={onClose} />
           </div>
+
           <ul className={styles.burgerNav}>
             <li>
               <Link to="/products" onClick={onClose}>
@@ -38,10 +55,14 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               </Link>
             </li>
 
+            {/* Решения */}
             <li>
               <button
                 className={styles.dropdownToggle}
-                onClick={() => setIsSolutionsOpen((prev) => !prev)}
+                onClick={() => {
+                  setIsSolutionsOpen((prev) => !prev);
+                  setIsUsefulOpen(false);
+                }}
               >
                 Решения
               </button>
@@ -63,11 +84,31 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                 Проекты
               </Link>
             </li>
+
+            {/* 🆕 Полезное */}
             <li>
-              <Link to="/blog" onClick={onClose}>
-                Блог
-              </Link>
+              <button
+                className={styles.dropdownToggle}
+                onClick={() => {
+                  setIsUsefulOpen((prev) => !prev);
+                  setIsSolutionsOpen(false);
+                }}
+              >
+                Полезное
+              </button>
+              {isUsefulOpen && (
+                <ul className={styles.dropdownMenu}>
+                  {usefulLinks.map((link, idx) => (
+                    <li key={idx}>
+                      <Link to={link.url} onClick={onClose}>
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
+
             <li>
               <Link to="/about" onClick={onClose}>
                 Команда
@@ -80,6 +121,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
             </li>
           </ul>
         </div>
+
         <div className={styles.burgerMenuLinks}>
           <a
             href="https://www.pinterest.com/ludnoru"

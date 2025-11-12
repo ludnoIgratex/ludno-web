@@ -74,7 +74,7 @@
     width: 2px !important;
     height: 2px !important;
   }
-  
+
   *::-webkit-scrollbar-thumb {
     background: rgba(102, 102, 102, 0.5) !important;
   }
@@ -93,7 +93,8 @@ html {
   --accent-color-mini: #ffaecf;
   --accent-color-playlet: #ffcb00;
   --accent-color-bloqi: #9bcf74;
-  --accent-color-gavpark: #B66BAE;
+  --accent-color-gavpark: #b66bae;
+  --accent-color-parkfit: #cdd52a;
 
   /* Primary */
   --primary-default-color: #191919;
