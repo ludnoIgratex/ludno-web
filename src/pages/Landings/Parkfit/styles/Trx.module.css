@@ -1,0 +1,141 @@
+/* секция с фоном-оборудованием */
+.trx {
+  position: relative;
+  padding: 0px 32px 160px 32px;
+  overflow: hidden;
+}
+
+/* внутренняя обёртка, чтобы текст был по центру */
+.inner {
+  margin: 0 auto;
+  /* padding: 0 40px; */
+  box-sizing: border-box;
+}
+
+/* заголовок */
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 60px;
+  line-height: 72px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+/* грид 2x2 */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  padding-left: 450px; /* пол экрана */
+}
+
+/* общие стили ячеек */
+
+.cellTitle {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 12px;
+}
+
+.cellText {
+  margin: 0;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+/* ячейка с мышцами */
+
+.cellMuscles {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.musclesImage {
+  width: 170px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.musclesCaption {
+  margin: 0;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+/* адаптив */
+
+@media (max-width: 1024px) {
+  .trx {
+    padding: 40px 0;
+    background-size: auto 70%;
+    background-position: left top;
+  }
+
+  .inner {
+    padding-left: 200px; /* оставляем место для фона слева */
+  }
+}
+
+@media (max-width: 768px) {
+  .trx {
+    background-size: 70% auto;
+    background-position: center top;
+  }
+
+  .inner {
+    padding: 220px 16px 40px; /* фон сверху, текст ниже */
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding: 0;
+    gap: 16px;
+  }
+
+  .title {
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 4px;
+  }
+
+  .cellTitle {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 4px;
+  }
+
+  .cellText {
+    margin: 0;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .cellMuscles {
+    align-items: center;
+  }
+
+  .musclesCaption {
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+}

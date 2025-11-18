@@ -3,6 +3,13 @@
   line-height: 72px;
 }
 
+.backgroundImage {
+  background-image: url("/assets/images/parkfit-solution/gibkie-podvesy-eq.png");
+  background-repeat: no-repeat;
+  background-size: 1000px;
+  background-position: -360px -40px;
+}
+
 @media screen and (max-width: 768px) {
   .parkfitWrapper {
     padding-bottom: 32px;
@@ -10,6 +17,13 @@
   .parkfitWrapper h2 {
     font-size: 26px;
     line-height: 32px;
+  }
+
+  .backgroundImage {
+    background-image: url(/assets/images/parkfit-solution/gibkie-podvesy-eq.png);
+    background-repeat: no-repeat;
+    background-size: 400px;
+    background-position: -100px 0px;
   }
 }
 

@@ -37,6 +37,7 @@ import GavparkMain from "./pages/Landings/Gavpark/GavparkMain";
 import ProductsUrlMapper from "./hooks/ProductsUrlMapper";
 import Kacheli from "./pages/Calculators/Kacheli/Kacheli";
 import Pokrytiya from "./pages/Calculators/Pokrytiya/Pokrytiya";
+import Mixer from "./pages/Mixer/Mixer";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -173,6 +174,10 @@ const App = () => {
               <Route
                 path="/kalkulyator-tolshchiny-pokrytiya"
                 element={<Pokrytiya />}
+              />
+              <Route
+                path="/epdm-configurator"
+                element={<Mixer />}
               />
 
               <Route path="/policy" element={<Policy />} />

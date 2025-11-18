@@ -257,6 +257,13 @@ export default function Pokrytiya() {
         <form className={`${styles.card} ${styles.left}`} onSubmit={onSubmit}>
           <div className={styles.optionsList}>
             <Dropdown
+              label="Тип покрытия"
+              value={draftType}
+              options={TYPES}
+              onChange={setDraftType}
+              width={260}
+            />
+            <Dropdown
               label={
                 <>
                   Высота падения
@@ -272,13 +279,7 @@ export default function Pokrytiya() {
               onChange={setDraftHeightBand}
               width={260}
             />
-            <Dropdown
-              label="Тип покрытия"
-              value={draftType}
-              options={TYPES}
-              onChange={setDraftType}
-              width={260}
-            />
+
             <Dropdown
               label={
                 <>

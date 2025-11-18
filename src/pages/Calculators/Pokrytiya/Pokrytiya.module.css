@@ -4,8 +4,8 @@
 }
 
 .title {
-  font-size: 32px;
-  line-height: 1.15;
+  font-size: 60px;
+  line-height: 72px;
   font-weight: 700;
   color: var(--primary-text-color);
   margin: 0 0 12px;
@@ -236,6 +236,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .title {
+    font-size: 34px;
+    line-height: 40px;
+  }
   .wrapper {
     padding: 16px;
   }

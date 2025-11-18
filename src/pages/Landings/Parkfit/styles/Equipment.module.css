@@ -1,0 +1,161 @@
+.equipment {
+  padding: 160px 32px 0px 32px;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tab {
+  appearance: none;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  color: black;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+
+.tab:hover {
+  border-color: var(--accent-color-parkfit);
+}
+
+.tabActive {
+  color: var(--accent-color-parkfit);
+  border-color: var(--accent-color-parkfit);
+  box-shadow: 0 0 0 6px
+    color-mix(in srgb, var(--accent-color-parkfit), transparent 85%);
+}
+
+/* ---------- КОНТЕНТ ---------- */
+
+.content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.textBlock {
+  flex: 0 0 40%;
+}
+
+.textBlock div {
+  margin-top: 32px;
+}
+
+.title {
+  font-size: 34px !important;
+  line-height: 40px !important;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0 0 32px;
+  max-width: 460px;
+}
+
+/* блок с мышцами (svg) */
+
+.muscles {
+  max-width: 300px;
+}
+
+.musclesImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- КАРТИНКА ОБОРУДОВАНИЯ ---------- */
+
+.equipmentImageWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* фиксированный по высоте и ширине контейнер, чтобы не было прыжков */
+.equipmentImageInner {
+  position: relative;
+  width: 100%;
+  max-width: 2000px;
+  /* подгони высоту под макет, если нужно другое значение */
+  aspect-ratio: 1 / 1;
+}
+
+/* обе картинки кладём друг на друга */
+.equipmentImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.5s ease;
+}
+
+/* видима / скрыта по opacity, без изменения размеров блока */
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* адаптив */
+
+@media (max-width: 900px) {
+  .equipment {
+    padding: 100px 16px 0px 16px;
+  }
+  .content {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tab {
+    font-size: 13px;
+  }
+
+  .equipmentImageWrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .textBlock div {
+    margin-top: 0px;
+  }
+
+  .textBlock {
+    order: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .equipmentImageInner {
+    order: 0;
+  }
+
+  .title {
+    font-size: 18px !important;
+    line-height: 24px !important;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0;
+    max-width: 460px;
+  }
+}

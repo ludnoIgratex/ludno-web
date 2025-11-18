@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import styles from "./Kacheli.module.css";
 import InfoTooltip from "../../../components/InfoTooltip/InfoTooltip";
-// import Materials from "./Materials/Materials";
 import qs from "qs";
 
 const MIN_HEIGHT = 1500;
@@ -127,7 +126,7 @@ export default function Kacheli() {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>Калькулятор зоны приземления качелей</h2>
+      <h1 className={styles.title}>Калькулятор зоны приземления качелей</h1>
       <p className={styles.lead}>
         Калькулятор зоны приземления качелей помогает определить размеры зоны
         приземления в соответствии с ГОСТ. Полезен при проектировании качелей,

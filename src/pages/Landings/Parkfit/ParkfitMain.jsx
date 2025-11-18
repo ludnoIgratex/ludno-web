@@ -7,6 +7,9 @@ import Items from "./Items";
 import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 import LoaderRound from "../../../components/Loader/LoaderRound";
 import Importance from "./Importance";
+import Equipment from "./Equipment";
+import Trx from "./Trx";
+import Pliobox from "./Pliobox";
 
 const ParkfitMain = () => {
   const [loading, setLoading] = useState(true);
@@ -26,9 +29,14 @@ const ParkfitMain = () => {
     <div className={styles.parkfitWrapper}>
       <Head />
       <About />
-      <Importance/>
+      <Importance />
+      <Equipment />
+      <div className={styles.backgroundImage}>
+        <Trx />
+        <Pliobox />
+      </div>
       <Items />
-      <Consultation color="var(--primary-deafault-color)" />
+      <Consultation color="var(--accent-color-parkfit)" />
       <OtherSolutions currentSlug="parkfit-solution" />
     </div>
   );
