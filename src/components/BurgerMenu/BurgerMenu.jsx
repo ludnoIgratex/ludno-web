@@ -35,6 +35,10 @@ const BurgerMenu = ({ isOpen, onClose }) => {
       name: "Калькулятор толщины покрытия",
       url: "/kalkulyator-tolshchiny-pokrytiya",
     },
+    {
+      name: "Конфигуратор EPDM крошки",
+      url: "/epdm-configurator",
+    },
   ];
 
   if (!isOpen) return null;

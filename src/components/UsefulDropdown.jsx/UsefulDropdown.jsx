@@ -24,13 +24,13 @@ const usefulPages = [
     url: "/kalkulyator-tolshchiny-pokrytiya",
     imageUrl: "/assets/images/useful-cover.jpg",
   },
-  // {
-  //   id: 4,
-  //   name: "Конфигуратор EPDM крошки",
-  //   description: "Поможет подобрать кастомную крошку",
-  //   url: "/epdm-configurator",
-  //   imageUrl: "/assets/images/useful-cover.jpg",
-  // },
+  {
+    id: 4,
+    name: "Конфигуратор EPDM крошки",
+    description: "Поможет подобрать кастомную крошку",
+    url: "/epdm-configurator",
+    imageUrl: "/assets/images/useful-cover.jpg",
+  },
 ];
 
 const UsefulDropdown = ({ visible, onClose }) => {
