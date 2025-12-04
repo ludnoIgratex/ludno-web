@@ -9,7 +9,7 @@ const EQUIPMENT_ITEMS = [
     label: "Турники",
     title: "Турники разной высоты",
     text: "Подтягивания различными хватами, горизонтальные подтягивания, негативные подтягивания, отжимания.",
-    png: ["turniki-1-eq.png", "turniki-2-eq.png"],
+    png: ["turniki-1-eq.avif", "turniki-2-eq.avif"],
     svg: "turniki.svg",
   },
   {
@@ -17,7 +17,7 @@ const EQUIPMENT_ITEMS = [
     label: "Брусья",
     title: "Брусья",
     text: "Отжимания на брусьях для укрепления грудных мышц, трицепсов и дельт.",
-    png: ["brusya-eq.png"],
+    png: ["brusya-eq.avif"],
     svg: "brusya.svg",
   },
   {
@@ -25,7 +25,7 @@ const EQUIPMENT_ITEMS = [
     label: "Скамья",
     title: "Скамья",
     text: "Скручивания и подъёмы ног для тренировки пресса. Обратные отжимания для развития трицепсов и грудных мышц.",
-    png: ["skamya-eq.png"],
+    png: ["skamya-eq.avif"],
     svg: "skamya.svg",
   },
   {
@@ -33,7 +33,7 @@ const EQUIPMENT_ITEMS = [
     label: "Спинка для пресса",
     title: "Спинка для пресса",
     text: "Изолированные упражнения для мышц пресса с упорами и фиксацией.",
-    png: ["brusya-eq.png"], // если отдельная картинка под спинку — поменяй тут
+    png: ["spinka-eq.avif"], // если отдельная картинка под спинку — поменяй тут
     svg: "brusya.svg",
   },
   {
@@ -41,7 +41,7 @@ const EQUIPMENT_ITEMS = [
     label: "Степы",
     title: "Степы",
     text: "Тренировка ног: прыжки, выпады, степ-апы для развития ног и общей выносливости.",
-    png: ["stepy-eq.png"],
+    png: ["stepy-eq.avif"],
     svg: "stepy.svg",
   },
   {
@@ -49,7 +49,7 @@ const EQUIPMENT_ITEMS = [
     label: "Шведская стенка",
     title: "Шведская стенка",
     text: "Упражнения на растяжку, подтягивания, тренировки с фитнес-резинкой.",
-    png: ["shvedskaya-stenka-eq.png"],
+    png: ["shvedskaya-stenka-eq.avif"],
     svg: "shvedskaya-stenka.svg",
   },
 ];
