@@ -94,7 +94,7 @@ const Footer = ({ setShowSolutions }) => {
 
         <div className={styles.contactInfo}>
           <p>8 800 350 2420</p>
-          <a href="mailto:info@ludno.com">info@ludno.ru</a>
+          <a href="mailto:info@ludno.ru">info@ludno.ru</a>
           <div className={styles.socialIcons}>
             <a href="https://t.me/ludno_info" target="_blank" rel="noreferrer">
               <FaTelegram />

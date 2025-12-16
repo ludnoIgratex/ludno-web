@@ -63,7 +63,7 @@ const Contacts = () => {
       <div className={styles.column}>
         <div className={styles.blockMail}>
           <h4 className={styles.title}>Почта</h4>
-          <p className={styles.text}>info@ludno.com</p>
+          <p className={styles.text}>info@ludno.ru</p>
         </div>
       </div>
     </div>
