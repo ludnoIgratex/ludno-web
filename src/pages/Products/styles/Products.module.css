@@ -36,6 +36,7 @@
 
 .productContainer {
   display: flex;
+  flex-direction: column;
   background-color: var(--bg-border-color);
 }
 
@@ -124,7 +125,7 @@
 }
 
 .showMoreContainer {
-  padding-top: 60px;
+  padding: 60px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -207,7 +208,11 @@
 @media (min-width: 728px) and (max-width: 1024px) {
   .product__list {
     grid-template-columns: repeat(3, 1fr);
-    padding-right: 32px;
+    padding:0  32px;
+  }
+
+  .filterControls{
+    padding:32px 32px 8px 32px
   }
 }
 
@@ -261,4 +266,5 @@
   .product__image {
     height: 224px;
   }
+
 }
