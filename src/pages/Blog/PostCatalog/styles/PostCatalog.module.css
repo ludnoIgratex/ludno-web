@@ -37,6 +37,7 @@
 
 .postPreview img {
   max-height: 220px;
+  min-height: 220px;
   object-fit: cover;
   width: 100%;
 }

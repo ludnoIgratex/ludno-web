@@ -113,7 +113,7 @@
 
 /* адаптив */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .equipment {
     padding: 100px 16px 0px 16px;
   }
@@ -157,5 +157,27 @@
     line-height: 22px;
     margin: 0;
     max-width: 460px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .content {
+    margin-top: 32px;
+
+    flex-direction: row;
+  }
+
+  .equipment{
+    padding: 100px 24px 0px 24px;
+  }
+  .textBlock {
+    order: 0;
+    flex-direction: column;
+    align-items: start;
+    gap: 32px;
+  }
+
+  .musclesImage {
+    width: 300px;
   }
 }

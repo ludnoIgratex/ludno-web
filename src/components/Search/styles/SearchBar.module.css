@@ -27,7 +27,7 @@
   border: none;
   outline: none;
   flex-grow: 1;
-  background: transparent;
+  background: transparent !important;
   font-size: 16px;
 }
 

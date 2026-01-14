@@ -141,4 +141,12 @@
   .iconItem img {
     width: 72px;
   }
+
+  .imageBlock {
+    width: 100%;
+  }
+
+  .content {
+    width: 100%;
+  }
 }

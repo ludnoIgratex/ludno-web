@@ -75,8 +75,7 @@
   .textBlock {
     flex: 1;
     max-width: 660px;
-    order: 1
-    ;
+    order: 1;
   }
 
   .accent {
@@ -104,12 +103,30 @@
   .imageBlock {
     flex-shrink: 0;
     max-width: 600px;
-    order:0;
+    order: 0;
   }
 
   .bookImage {
     display: block;
     width: 100%;
     height: auto;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .manualContent {
+    flex-direction: column;
+  }
+
+  .bookImage {
+    margin-top: 32px;
+  }
+
+  .textBlock {
+    order: 1;
+  }
+
+  .downloadBtn {
+    margin-top: 32px;
   }
 }

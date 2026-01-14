@@ -9,7 +9,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap:140px;
+  gap: 140px;
   justify-content: space-between;
 }
 
@@ -121,7 +121,7 @@
 
 @media screen and (max-width: 768px) {
   .equipmentContainer {
-    padding:80px 16px 0px 16px;
+    padding: 80px 16px 0px 16px;
   }
   .equipmentDescription {
     max-width: none;
@@ -132,7 +132,7 @@
     flex-direction: column;
   }
 
-  .hammockImage{
+  .hammockImage {
     max-height: 220px;
   }
 
@@ -143,8 +143,8 @@
     max-width: none;
   }
 
-  .ageBlock{
-    gap:24px;
+  .ageBlock {
+    gap: 24px;
     margin-bottom: 40px;
   }
 
@@ -173,7 +173,7 @@
     align-items: start;
   }
 
-  .textWrapper{
+  .textWrapper {
     max-width: none;
     padding-bottom: 40px;
   }
@@ -181,4 +181,10 @@
   /* .equipmentDescription{
     max-width: none;
   } */
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px)  {
+  .hammockSection {
+    gap: 10px;
+  }
 }

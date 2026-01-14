@@ -87,3 +87,13 @@
     transition: background-color 0.3s ease;
   }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px)  {
+  .conceptWrapper {
+    flex-direction: column;
+    gap: 52px;
+  }
+  .textBlock button {
+    margin-top: 32px;
+  }
+}
