@@ -24,6 +24,7 @@ const Intro = () => {
   const containerRef = useRef(null);
   const itemsRef = useRef([]);
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(min-width: 769px) and (max-width: 1024px)");
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -45,6 +46,33 @@ const Intro = () => {
           .to(itemsRef.current[1], { yPercent: 20, opacity: 1 }, 0.25)
           .to(itemsRef.current[2], { yPercent: 40, opacity: 1 }, 0.75)
           .to(itemsRef.current[3], { yPercent: 140, opacity: 1 }, 1);
+      } else if (isTablet) {
+        // Анимация для планшетов
+        gsap.set(itemsRef.current, { yPercent: 80, opacity: 0 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=3000",
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
+
+        const showHide = (el, at) => {
+          tl.to(el, { yPercent: 0, opacity: 1, duration: 0.8 }, at).to(
+            el,
+            { opacity: 0, duration: 0.4 },
+            at + 0.6
+          );
+        };
+
+        showHide(itemsRef.current[0], 0);
+        showHide(itemsRef.current[1], 0.5);
+        showHide(itemsRef.current[2], 1.1);
+        showHide(itemsRef.current[3], 1.7);
       } else {
         // Анимация для десктопа
         gsap.set(itemsRef.current, { yPercent: 80, opacity: 1 });
@@ -86,7 +114,7 @@ const Intro = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, isTablet]);
 
   const desktopOrder = [
     {

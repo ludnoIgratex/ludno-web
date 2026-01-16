@@ -72,7 +72,19 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+  }
   .introContainer {
-    height: 130vh;
+    height: 70vh;
   }
 }
