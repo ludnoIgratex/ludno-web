@@ -290,8 +290,8 @@ export default function ProductsUrlMapper() {
   const isMobile = useMemo(() => {
     if (typeof window === "undefined") return false;
     return (
-      window.innerWidth <= 768 ||
-      (window.matchMedia && window.matchMedia("(max-width: 768px)").matches)
+      window.innerWidth <= 1024 ||
+      (window.matchMedia && window.matchMedia("(max-width: 1024px)").matches)
     );
   }, []);
 

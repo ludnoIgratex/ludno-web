@@ -107,14 +107,20 @@
   }
 }
 
-@media (min-width: 765px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .resultList {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 0;
   }
 
   .resultProjectList {
     grid-template-columns: repeat(2, 1fr);
     padding-right: 0;
-    padding-bottom: 0;
+  }
+
+  .resultImageProject{
+    object-fit: cover;
+    min-height: 300px;
+    width: 100%;
   }
 }

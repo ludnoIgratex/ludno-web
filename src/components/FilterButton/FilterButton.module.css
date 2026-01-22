@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .filterButton {
     display: flex;
     align-items: center;
@@ -23,23 +23,23 @@
   }
 }
 
-/* @media (max-width: 980px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .filterButton {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border: solid 1px var(--black-font-color);
-    padding: 5px 10px;
-    max-width: 130px;
+    border: solid 1px var(--primary-text-color) !important;
+    border: none;
+    padding: 8px 12px;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 14px;
-    color: var(--black-font-color);
-    margin-bottom: 30px;
+    color: var(--primary-text-color) !important;
   }
 
   .filterButton span {
     margin-left: 5px;
+    font-size: 13px;
+    line-height: 18px;
   }
-} */
+}

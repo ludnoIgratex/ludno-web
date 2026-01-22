@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import debounce from "lodash/debounce";
@@ -19,19 +19,30 @@ const Search = ({ onClose }) => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
+  const closeResults = useCallback(
+    (shouldCloseSearch = false) => {
+      setShowResults(false);
+      if (shouldCloseSearch && typeof onClose === "function") {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handlePointerDown = (event) => {
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
-        onClose();
+        closeResults(true);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [onClose]);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () =>
+      document.removeEventListener("pointerdown", handlePointerDown);
+  }, [closeResults]);
 
   const extractH1FromText = (text) => {
     const tokens = marked.lexer(text);
@@ -39,11 +50,21 @@ const Search = ({ onClose }) => {
     return h1Token ? h1Token.text : "Без заголовка";
   };
 
+  const buildSearchVariants = (term) => {
+    if (!term) return [];
+    const variants = [term];
+    if (term.length > 3) {
+      variants.push(term.slice(0, -1));
+    }
+    return Array.from(new Set(variants.filter(Boolean)));
+  };
+
   const handleSearch = debounce(async (searchTerm) => {
     if (searchTerm.trim()) {
       console.log("handleSearch called with:", searchTerm);
       setIsSearching(true);
       const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+      const searchVariants = buildSearchVariants(normalizedSearchTerm);
 
       // Проверяем, является ли поисковый запрос артикулом (только цифры и буквы)
       const isArticleSearch = /^[a-zA-Z0-9]+$/.test(normalizedSearchTerm);
@@ -51,12 +72,11 @@ const Search = ({ onClose }) => {
 
       try {
         // Поиск продуктов
-        let productFilters = {
-          $or: [
-            { title: { $containsi: normalizedSearchTerm } },
-            { name: { $containsi: normalizedSearchTerm } },
-          ],
-        };
+        const productOr = searchVariants.flatMap((term) => [
+          { title: { $containsi: term } },
+          { name: { $containsi: term } },
+        ]);
+        let productFilters = { $or: productOr };
 
         // Если это поиск по артикулу, добавляем точный поиск
         if (isArticleSearch) {
@@ -83,10 +103,10 @@ const Search = ({ onClose }) => {
         const projectQuery = qs.stringify(
           {
             filters: {
-              $or: [
-                { title: { $containsi: normalizedSearchTerm } },
-                { name: { $containsi: normalizedSearchTerm } },
-              ],
+              $or: searchVariants.flatMap((term) => [
+                { title: { $containsi: term } },
+                { name: { $containsi: term } },
+              ]),
             },
             populate: {
               image: true,
@@ -102,9 +122,9 @@ const Search = ({ onClose }) => {
         const postQuery = qs.stringify(
           {
             filters: {
-              $or: [
-                { text: { $containsi: normalizedSearchTerm } },  // Ищем по полю text
-              ],
+              $or: searchVariants.map((term) => ({
+                text: { $containsi: term },
+              })), // Ищем по полю text
             },
             populate: {
               image: true,
@@ -202,7 +222,7 @@ const Search = ({ onClose }) => {
       });
       navigate(`/blog/${item.id}/${postSlug}`);
     }
-    onClose();
+    closeResults(true);
   };
 
   const handleShowAllResults = () => {
@@ -217,7 +237,8 @@ const Search = ({ onClose }) => {
         postResults,
       },
     });
-    onClose();
+    handleClear();
+    closeResults(true);
   };
 
   const handleKeyDown = async (e) => {
@@ -239,6 +260,7 @@ const Search = ({ onClose }) => {
       
       // Выполняем поиск синхронно
       const normalizedSearchTerm = query.trim().toLowerCase();
+      const searchVariants = buildSearchVariants(normalizedSearchTerm);
       console.log("Starting synchronous search for:", normalizedSearchTerm);
       setIsSearching(true);
 
@@ -248,12 +270,11 @@ const Search = ({ onClose }) => {
 
       try {
         // Поиск продуктов
-        let productFilters = {
-          $or: [
-            { title: { $containsi: normalizedSearchTerm } },
-            { name: { $containsi: normalizedSearchTerm } },
-          ],
-        };
+        const productOr = searchVariants.flatMap((term) => [
+          { title: { $containsi: term } },
+          { name: { $containsi: term } },
+        ]);
+        let productFilters = { $or: productOr };
 
         // Если это поиск по артикулу, добавляем точный поиск
         if (isArticleSearch) {
@@ -280,10 +301,10 @@ const Search = ({ onClose }) => {
         const projectQuery = qs.stringify(
           {
             filters: {
-              $or: [
-                { title: { $containsi: normalizedSearchTerm } },
-                { name: { $containsi: normalizedSearchTerm } },
-              ],
+              $or: searchVariants.flatMap((term) => [
+                { title: { $containsi: term } },
+                { name: { $containsi: term } },
+              ]),
             },
             populate: {
               image: true,
@@ -299,9 +320,9 @@ const Search = ({ onClose }) => {
         const postQuery = qs.stringify(
           {
             filters: {
-              $or: [
-                { text: { $containsi: normalizedSearchTerm } },
-              ],
+              $or: searchVariants.map((term) => ({
+                text: { $containsi: term },
+              })),
             },
             populate: {
               image: true,
@@ -375,7 +396,7 @@ const Search = ({ onClose }) => {
             postResults: postsWithTitles || [],
           },
         });
-        onClose();
+        closeResults(true);
       } catch (error) {
         console.error("Ошибка поиска:", error);
         setIsSearching(false);
