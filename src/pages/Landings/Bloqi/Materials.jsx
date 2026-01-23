@@ -13,7 +13,7 @@ const Materials = () => {
             className={styles.image}
           />
           <img
-            src="/assets/images/bloqi-solution/blue-prints.svg"
+            src="/assets/images/bloqi-solution/green-prints.svg"
             alt="Декор"
             className={styles.overlay}
           />
@@ -33,7 +33,7 @@ const Materials = () => {
             </div>
             <div className={styles.spec}>
               <span className={styles.label}>Цвет</span>
-              <span className={styles.value}>ral 6019</span>
+              <span className={styles.value}>pantone 2597U</span>
             </div>
           </div>
         </div>
