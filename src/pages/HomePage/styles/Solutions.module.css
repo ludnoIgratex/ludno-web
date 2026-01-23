@@ -288,8 +288,8 @@
   }
 
   .bloqi {
-    background-position-x: 0px;
-    background-position-y: 0px;
+    background-position-x: -50px;
+    background-position-y: -150px;
     background-size: 900px;
   }
 
@@ -369,8 +369,8 @@
   }
 
   .bloqi {
-    background-position-x: 0px;
-    background-position-y: 100px;
+    background-position-x: -60px;
+    background-position-y: -10px;
     background-size: 800px;
   }
   .nature {
