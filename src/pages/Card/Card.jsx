@@ -213,6 +213,20 @@ const Card = () => {
   if (error) return <p>{error}</p>;
   if (!card) return <p>Карточка не загружена</p>;
 
+  const approveBadge = (
+    <div className={styles.approveBadge}>
+      <img
+        className={styles.approveLogo}
+        src="/assets/icons/diom_logo.png"
+        alt="ГКУ ДИОМ"
+      />
+      <span>
+        Согласовано с Дирекцией инфраструктуры Департамента образования и науки
+        города Москвы (ГКУ ДИОМ)
+      </span>
+    </div>
+  );
+
   return isMobile ? (
     // Мобильная разметка
     <div className={styles.fullCard}>
@@ -262,6 +276,11 @@ const Card = () => {
           <section className={styles.cardDetails}>
             <DescriptionBlock card={card} />
             <CardDetails card={card} />
+            {card?.approve && (
+              <div className={styles.approveBadgeStandalone}>
+                {approveBadge}
+              </div>
+            )}
           </section>
         </div>
         <CardMaterial
@@ -315,7 +334,14 @@ const Card = () => {
                   setSelectedImage={setSelectedImage}
                   setCarouselIndex={setCarouselIndex}
                 />
-                <PriceLink />
+                {card?.approve ? (
+                  <div className={styles.approvePriceGroup}>
+                    {approveBadge}
+                    <PriceLink />
+                  </div>
+                ) : (
+                  <PriceLink />
+                )}
               </section>
               <section>
                 <CardDetails card={card} />
