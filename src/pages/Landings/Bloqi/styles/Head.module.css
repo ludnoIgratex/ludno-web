@@ -48,9 +48,10 @@
     gap: 42px;
     padding: 36px 16px;
     background-repeat: no-repeat;
-    background-position-x: 50px;
-    background-position-y: 0px;
-    background-size: 380px;
+    background-repeat: no-repeat;
+    background-position-x: -110px;
+    background-position-y: -30px;
+    background-size: 640px;
   }
 
   .headWrapper h1 {
