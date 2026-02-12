@@ -1,10 +1,11 @@
 .collectionsWrapper {
   background-color: var(--bg-default-color);
-  padding: 32px 0px 32px 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .infoWrapper {
-  padding-bottom: 60px;
+      padding: 32px 32px 52px 32px;
 }
 
 .infoWrapper h2 {
@@ -21,6 +22,7 @@
   display: flex;
   overflow-x: auto;
   gap: 20px;
+  padding: 0px 32px;
 }
 
 .card {
@@ -44,7 +46,21 @@
   transform: rotateY(180deg);
 }
 
-.cardFront,
+.cardFront {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: 32px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 32px;
+}
+
 .cardBack {
   position: absolute;
   width: 100%;
@@ -100,7 +116,6 @@
 }
 
 .detailsThreeColumns {
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .detailsFourColumns {
@@ -146,12 +161,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .collectionsWrapper {
-    padding: 16px;
-  }
-
   .infoWrapper {
-    padding-bottom: 24px;
+      padding: 16px 16px 32px 16px;
+
   }
 
   .infoWrapper h2 {
@@ -181,7 +193,6 @@
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding: 16px;
     box-sizing: border-box;
     background-color: #fff;
@@ -192,6 +203,7 @@
     display: flex;
     overflow-x: auto;
     gap: 20px;
+    padding: 0px 16px;
   }
 
   .cardFront h3 {
@@ -215,7 +227,7 @@
   }
 
   .detailsThreeColumns {
-    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(2, 1fr); */
   }
 
   .detailsFourColumns {

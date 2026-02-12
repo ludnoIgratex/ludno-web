@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 112px - 64px - 28px);
-  background-color: #EEF9E7;
+  background-color: #ddc1f2;
   justify-content: space-between;
   padding: 56px 32px;
   background-image: url("/assets/images/bloqi.avif");
@@ -45,12 +45,12 @@
     justify-content: start;
     display: flex;
     flex-direction: column;
-    gap:42px;
+    gap: 42px;
     padding: 36px 16px;
     background-repeat: no-repeat;
-    background-position-x: 0px;
-    background-position-y: 300px;
-    background-size: 500px;
+    background-position-x: 50px;
+    background-position-y: 0px;
+    background-size: 380px;
   }
 
   .headWrapper h1 {
@@ -72,8 +72,8 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .headWrapper {
-    background-position-x: 300px;
-    background-size: 700px;
-    background-position-y: 300px;
+    background-position-x: -60px;
+    background-size: 1400px;
+    background-position-y: -260px;
   }
 }
