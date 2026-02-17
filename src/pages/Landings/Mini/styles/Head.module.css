@@ -5,11 +5,9 @@
   background-color: #ffe2ee;
   justify-content: space-between;
   padding: 56px 32px;
-  background-image: url("/assets/images/mini.avif");
+  background-image: url("/assets/images/mini.webp");
   background-repeat: no-repeat;
-  background-position-x: 670px;
-  background-position-y: 30px;
-  background-size: 740px;
+  background-size: cover;
 }
 
 .headWrapper h1 {
@@ -47,9 +45,8 @@
     gap: 40px;
     padding: 36px 16px;
     background-repeat: no-repeat;
-    background-position-x: 120px;
-    background-position-y: 200px;
-    background-size: 300px;
+    background-position-x: -370px;
+    background-size: cover;
   }
 
   .headWrapper h1 {
@@ -71,8 +68,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .headWrapper {
-    background-position-x: 200px;
-    background-size: 900px;
-    background-position-y: 100px;
+    background-position-x: -700px;
+    background-size: cover;
   }
 }
