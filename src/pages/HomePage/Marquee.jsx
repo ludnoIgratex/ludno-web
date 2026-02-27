@@ -11,11 +11,11 @@ const Marquee = () => {
     >
       <div className={styles.marquee}>
         <div className={styles.track}>
-          <span>playground architecture. follow us on telegram :)</span>
-          <span>playground architecture. follow us on telegram :)</span>
-          <span>playground architecture. follow us on telegram :)</span>
-          <span>playground architecture. follow us on telegram :)</span>
-          <span>playground architecture. follow us on telegram :)</span>
+          <span>подписывайтесь на нас в телеграме :)</span>
+          <span>подписывайтесь на нас в телеграме :)</span>
+          <span>подписывайтесь на нас в телеграме :)</span>
+          <span>подписывайтесь на нас в телеграме :)</span>
+          <span>подписывайтесь на нас в телеграме :)</span>
         </div>
       </div>
     </a>
