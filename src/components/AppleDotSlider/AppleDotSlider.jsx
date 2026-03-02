@@ -12,12 +12,14 @@ export default function AppleDotSlider({
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoplay);
   const timerRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, y: 0 });
 
   const goTo = (i) => {
     if (!count) return;
     const next = loop ? (i + count) % count : Math.min(Math.max(i, 0), count - 1);
     setIndex(next);
   };
+  const prev = () => goTo(index - 1);
   const next = () => goTo(index + 1);
 
   // автопрокрутка
@@ -33,11 +35,40 @@ export default function AppleDotSlider({
   const onEnter = () => pauseOnHover && setIsPlaying(false);
   const onLeave = () => pauseOnHover && setIsPlaying(true);
 
+  const onTouchStart = (e) => {
+    const touch = e.touches?.[0];
+    if (!touch) return;
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (e) => {
+    const touch = e.changedTouches?.[0];
+    if (!touch || count <= 1) return;
+
+    const dx = touch.clientX - touchStartRef.current.x;
+    const dy = touch.clientY - touchStartRef.current.y;
+    const threshold = 40;
+
+    if (Math.abs(dx) < threshold || Math.abs(dx) <= Math.abs(dy)) return;
+
+    if (dx < 0) {
+      next();
+    } else {
+      prev();
+    }
+  };
+
   // для анимации (если изменишь interval — сразу подтянется)
   const pillVars = useMemo(() => ({ "--dur": `${Math.min(interval, 800)}ms` }), [interval]);
 
   return (
-    <div className={s.gallery} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <div
+      className={s.gallery}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <div className={s.viewport}>
         {images.map((src, i) => (
           <div
