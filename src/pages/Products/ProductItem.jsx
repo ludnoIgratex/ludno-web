@@ -18,6 +18,7 @@ const ProductItem = ({
   const placeholderImageUrl = "/assets/images/placeholder.avif";
   const title = product.title || "Без названия";
   const name = product.name || "";
+  const extraInfo = product.extraInfo?.trim();
 
   return (
     <li
@@ -26,40 +27,45 @@ const ProductItem = ({
       className={styles.productItem}
     >
       {imageUrl && (
-        <LazyLoadImage
-          className={styles.product__image}
-          src={imageUrl}
-          placeholderSrc={placeholderImageUrl}
-          effect="blur"
-          alt={title}
-          loading={imageLoading}
-        />
-      )}
-      {showColors && product.card?.groupImage?.length > 0 && (
-        <div className={styles.colorSwatches}>
-          {product.card.groupImage.map((group, index) => {
-            const colorImg = group.group_color?.image;
-            const colorImageUrl = colorImg
-              ? `https://admin.ludno.ru${
-                  colorImg.formats?.thumbnail?.url ||
-                  colorImg.formats?.small?.url ||
-                  colorImg.url
-                }`
-              : null;
-            return (
-              <div
-                key={index}
-                className={styles.colorCircle}
-                style={{
-                  backgroundImage: colorImageUrl
-                    ? `url(${colorImageUrl})`
-                    : "none",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-            );
-          })}
+        <div className={styles.productImageWrapper}>
+          <LazyLoadImage
+            className={styles.product__image}
+            src={imageUrl}
+            placeholderSrc={placeholderImageUrl}
+            effect="blur"
+            alt={title}
+            loading={imageLoading}
+          />
+
+          {extraInfo && <span className={styles.productExtraInfo}>{extraInfo}</span>}
+
+          {showColors && product.card?.groupImage?.length > 0 && (
+            <div className={styles.colorSwatches}>
+              {product.card.groupImage.map((group, index) => {
+                const colorImg = group.group_color?.image;
+                const colorImageUrl = colorImg
+                  ? `https://admin.ludno.ru${
+                      colorImg.formats?.thumbnail?.url ||
+                      colorImg.formats?.small?.url ||
+                      colorImg.url
+                    }`
+                  : null;
+                return (
+                  <div
+                    key={index}
+                    className={styles.colorCircle}
+                    style={{
+                      backgroundImage: colorImageUrl
+                        ? `url(${colorImageUrl})`
+                        : "none",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
       <div>

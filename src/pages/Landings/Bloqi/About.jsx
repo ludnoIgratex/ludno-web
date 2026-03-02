@@ -23,7 +23,7 @@ const About = () => {
 
   return (
     <section className={styles.aboutWrapper}>
-      <h2>bloqi</h2>
+      <h2>Блоки</h2>
       <p>
         <span className={styles.highlight}>
           Игровые элементы, поощряющие творчество.
