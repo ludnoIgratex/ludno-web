@@ -7,6 +7,7 @@ export default function AppleDotSlider({
   autoplay = true,
   loop = true,
   pauseOnHover = true,
+  showPlayPause = true,
 }) {
   const count = images.length;
   const [index, setIndex] = useState(0);
@@ -98,13 +99,15 @@ export default function AppleDotSlider({
             );
           })}
         </div>
-        <button
-          className={s.playpause}
-          aria-label={isPlaying ? "Пауза" : "Играть"}
-          onClick={() => setIsPlaying((p) => !p)}
-        >
-          <span className={`${s.icon} ${isPlaying ? s.pause : s.play}`} />
-        </button>
+        {showPlayPause && (
+          <button
+            className={s.playpause}
+            aria-label={isPlaying ? "Пауза" : "Играть"}
+            onClick={() => setIsPlaying((p) => !p)}
+          >
+            <span className={`${s.icon} ${isPlaying ? s.pause : s.play}`} />
+          </button>
+        )}
       </div>
     </div>
   );

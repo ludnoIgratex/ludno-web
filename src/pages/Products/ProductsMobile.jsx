@@ -156,9 +156,29 @@ const ProductsMobile = () => {
 
     const serverPageSize = pageSize * 2;
 
+    const populate = {
+      image: true,
+      extraImage: {
+        populate: "*",
+      },
+      groups: true,
+      card: {
+        populate: {
+          groupImage: {
+            populate: {
+              image: true,
+              group_color: {
+                populate: "image",
+              },
+            },
+          },
+        },
+      },
+    };
+
     const query = qs.stringify(
       {
-        populate: "*",
+        populate,
         filters: filterQuery,
         pagination: {
           page,
@@ -567,7 +587,7 @@ const ProductsMobile = () => {
               key={product.id}
               product={product}
               onClick={handleClick}
-              showColors={false}
+              showColors={true}
               imageLoading="eager"
             />
           ))

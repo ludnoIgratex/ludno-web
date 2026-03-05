@@ -21,7 +21,13 @@ const Main = () => {
   return (
     <section className={styles.title}>
       {/* СЛАЙДЕР вместо picture */}
-      <AppleDotSlider images={slides} interval={4500} autoplay loop />
+      <AppleDotSlider
+        images={slides}
+        interval={4500}
+        autoplay
+        loop
+        showPlayPause={false}
+      />
 
       {/* как и раньше — твой текст поверх. 
           если у тебя .titleText позиционирован абсолютно, ничего делать не надо */}

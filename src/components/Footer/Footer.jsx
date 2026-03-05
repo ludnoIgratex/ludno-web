@@ -116,7 +116,7 @@ const Footer = ({ setShowSolutions }) => {
           <div className={styles.policyContainer}>
             <Link to="/policy">Правовая информация</Link>
             <p className={styles.copyright}>
-              &copy; Ludno {new Date().getFullYear()}
+              &copy; Людно {new Date().getFullYear()}
             </p>
           </div>
         </div>

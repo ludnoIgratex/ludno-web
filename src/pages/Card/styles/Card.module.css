@@ -285,6 +285,16 @@ outline: none;
   color: var(--accent-color);
 }
 
+.brandLink {
+  color: var(--primary-text-color);
+  text-decoration: underline;
+  width: fit-content;
+}
+
+.brandLink:hover {
+  color: var(--secondary-text-color);
+}
+
 /* Материалы */
 
 .cardMaterial {

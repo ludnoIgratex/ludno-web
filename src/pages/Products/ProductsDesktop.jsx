@@ -123,6 +123,9 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
     const populate = {
       image: true,
+      extraImage: {
+        populate: "*",
+      },
       groups: true,
       card: {
         populate: {
@@ -276,7 +279,9 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
       <div className={styles.catalogWrapper}>
         <div className={styles.catalogNav}>
-          <Brand setSelectedCategory={setSelectedCategory} />
+          <div className={styles.hiddenBrandBlock} aria-hidden="true">
+            <Brand setSelectedCategory={setSelectedCategory} />
+          </div>
           <Categories
             brand={selectedBrand}
             allCategories={allCategoriesData || []}
