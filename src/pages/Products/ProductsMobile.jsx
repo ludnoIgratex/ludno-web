@@ -263,7 +263,9 @@ const ProductsMobile = () => {
     const fetchFilters = async () => {
       try {
         const [solutionsRes, brandsRes, categoriesRes] = await Promise.all([
-          fetch("https://admin.ludno.ru/api/solutions?populate=*"),
+          fetch(
+            "https://admin.ludno.ru/api/solutions?populate=*&sort[0]=order:asc"
+          ),
           fetch("https://admin.ludno.ru/api/brands"),
           fetch("https://admin.ludno.ru/api/categories"),
         ]);
@@ -272,22 +274,33 @@ const ProductsMobile = () => {
         const brandsData = await brandsRes.json();
         const categoriesData = await categoriesRes.json();
 
-        const flattenedSolutions = solutionsData.data.map((item) => {
-          const brandIds = Array.isArray(item.brands)
-            ? item.brands.map((b) => b.id)
-            : [];
+        const flattenedSolutions = (solutionsData.data || [])
+          .map((item) => {
+            const brandIds = Array.isArray(item.brands)
+              ? item.brands.map((b) => b.id)
+              : [];
 
-          const categoryIds = Array.isArray(item.categories)
-            ? item.categories.map((c) => c.id)
-            : [];
+            const categoryIds = Array.isArray(item.categories)
+              ? item.categories.map((c) => c.id)
+              : [];
 
-          return {
-            id: item.id,
-            name: item.name,
-            brands: brandIds,
-            categories: categoryIds,
-          };
-        });
+            return {
+              id: item.id,
+              name: item.name,
+              order: item.order,
+              brands: brandIds,
+              categories: categoryIds,
+            };
+          })
+          .sort((a, b) => {
+            const aOrder = Number.isFinite(Number(a?.order))
+              ? Number(a.order)
+              : Number.MAX_SAFE_INTEGER;
+            const bOrder = Number.isFinite(Number(b?.order))
+              ? Number(b.order)
+              : Number.MAX_SAFE_INTEGER;
+            return aOrder - bOrder;
+          });
 
         setSolutions(flattenedSolutions);
         setBrands(brandsData.data || []);

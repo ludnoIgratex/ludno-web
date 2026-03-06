@@ -26,7 +26,7 @@ const Solution = () => {
   const selectedSolutionNameFromUrl = normalizeParam(solutionParam);
 
   const { data, loading, error } = useFetch(
-    "https://admin.ludno.ru/api/solutions?populate=image"
+    "https://admin.ludno.ru/api/solutions?populate=image&sort[0]=order:asc"
   );
 
   if (loading)
@@ -42,7 +42,15 @@ const Solution = () => {
     );
   if (error) return <p>Error: {error}</p>;
 
-  const solutions = data || [];
+  const solutions = (data || []).slice().sort((a, b) => {
+    const aOrder = Number.isFinite(Number(a?.order))
+      ? Number(a.order)
+      : Number.MAX_SAFE_INTEGER;
+    const bOrder = Number.isFinite(Number(b?.order))
+      ? Number(b.order)
+      : Number.MAX_SAFE_INTEGER;
+    return aOrder - bOrder;
+  });
 
   const handleSolutionClick = (solution) => {
     const isActive = selectedSolutionNameFromUrl === solution.name;
