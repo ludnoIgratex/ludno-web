@@ -7,17 +7,28 @@ const SolutionsDropdown = ({ visible, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://admin.ludno.ru/api/solutions?populate=image")
+    fetch("https://admin.ludno.ru/api/solutions?populate=image&sort[0]=order:asc")
       .then((res) => res.json())
       .then((data) => {
         if (data && data.data) {
-          const parsed = data.data.map((item) => ({
-            id: item.id,
-            name: item.name,
-            description: item.description,
-            url: item.url,
-            imageUrl: item.image?.url || "",
-          }));
+          const parsed = data.data
+            .map((item) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              url: item.url,
+              order: item.order,
+              imageUrl: item.image?.url || "",
+            }))
+            .sort((a, b) => {
+              const aOrder = Number.isFinite(Number(a?.order))
+                ? Number(a.order)
+                : Number.MAX_SAFE_INTEGER;
+              const bOrder = Number.isFinite(Number(b?.order))
+                ? Number(b.order)
+                : Number.MAX_SAFE_INTEGER;
+              return aOrder - bOrder;
+            });
           setSolutions(parsed);
         }
       })
