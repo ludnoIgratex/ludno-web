@@ -9,6 +9,7 @@ import Advantages from "./Advantages";
 import Collections from "./Collections";
 import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 import LoaderRound from "../../../components/Loader/LoaderRound";
+import Projects from "./Projects";
 
 const BloqiMain = () => {
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ const BloqiMain = () => {
       <Collections />
       <Advantages />
       <Materials />
+      <Projects />
       <Storage />
       <Consultation color="var(--accent-color-bloqi)" />
       <OtherSolutions currentSlug="bloqi-solution" />
