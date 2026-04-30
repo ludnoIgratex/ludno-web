@@ -38,6 +38,7 @@ import ProductsUrlMapper from "./hooks/ProductsUrlMapper";
 import Kacheli from "./pages/Calculators/Kacheli/Kacheli";
 import Pokrytiya from "./pages/Calculators/Pokrytiya/Pokrytiya";
 import Mixer from "./pages/Mixer/Mixer";
+import DvorMain from "./pages/Landings/Dvor/DvorMain";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -163,6 +164,8 @@ const App = () => {
                 element={<NatureNavMain />}
               />
               <Route path="/gavpark-solution" element={<GavparkMain />} />
+              <Route path="/dvor-solution" element={<DvorMain />} />
+
 
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id/:slug" element={<PostPage />} />

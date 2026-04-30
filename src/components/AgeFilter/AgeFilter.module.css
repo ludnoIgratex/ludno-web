@@ -29,6 +29,12 @@
   color: var(--primary-inverted-text-color);
 }
 
+.ageButton.disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  color: var(--secondary-text-color);
+}
+
 @media screen and (max-width: 1024px) {
   .ageButton {
     padding: 8px 12px;
@@ -44,5 +50,10 @@
     background-color: transparent;
     border: 1px solid var(--primary-default-color);
     color: var(--primary-default-color);
+  }
+
+  .ageButton.disabled {
+    border-color: var(--secondary-text-color);
+    color: var(--secondary-text-color);
   }
 }

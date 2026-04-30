@@ -20,6 +20,8 @@ const normalizeParam = (seg) => {
   return s.replace(/-+/g, " ").trim();
 };
 
+const AGE_RANGES = ["Age0+", "Age1-7", "Age7-14", "Age14+"];
+
 const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [ageFilter, setAgeFilter] = useState([]);
   const [showSkeleton, setShowSkeleton] = useState(true);
@@ -31,6 +33,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [hasMore, setHasMore] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [disabledAgeRanges, setDisabledAgeRanges] = useState([]);
 
   const navigate = useNavigate();
 
@@ -46,6 +49,10 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const selectedCategoryName = normalizeParam(categoryParam);
 
   const pageSize = 32;
+  const shouldRestrictAgeFilters =
+    Boolean(selectedSolutionName) ||
+    Boolean(selectedBrandName) ||
+    Boolean(selectedCategoryName);
 
   // ===== данные для левой колонки: бренды и категории =====
   // Бренды: если выбрано решение — отфильтровать по нему; иначе — все с категориями
@@ -243,6 +250,91 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     );
   };
 
+  useEffect(() => {
+    if (!shouldRestrictAgeFilters) {
+      setDisabledAgeRanges([]);
+      return;
+    }
+
+    const abortController = new AbortController();
+
+    const fetchAvailableAgeRanges = async () => {
+      try {
+        const baseFilters = {};
+
+        if (selectedBrandName) {
+          baseFilters.brand = { name: { $eq: selectedBrandName } };
+        }
+
+        if (selectedCategoryName) {
+          baseFilters.category = { title: { $eq: selectedCategoryName } };
+        }
+
+        if (selectedSolutionName) {
+          baseFilters.solutions = { name: { $eq: selectedSolutionName } };
+        }
+
+        let page = 1;
+        let pageCount = 1;
+        const availableAges = new Set();
+
+        while (page <= pageCount) {
+          const queryString = qs.stringify(
+            {
+              filters: baseFilters,
+              fields: ["ageRange"],
+              pagination: { page, pageSize: 100 },
+            },
+            { encodeValuesOnly: true }
+          );
+
+          const response = await fetch(
+            `https://admin.ludno.ru/api/products?${queryString}`,
+            { signal: abortController.signal }
+          );
+
+          if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const pageProducts = data.data || [];
+
+          pageProducts.forEach((product) => {
+            const ageRange = product.ageRange;
+
+            AGE_RANGES.forEach((range) => {
+              if (typeof ageRange === "string" && ageRange.includes(range)) {
+                availableAges.add(range);
+              }
+            });
+          });
+
+          pageCount = data.meta?.pagination?.pageCount || 1;
+          page += 1;
+        }
+
+        setDisabledAgeRanges(
+          AGE_RANGES.filter((range) => !availableAges.has(range))
+        );
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Ошибка при загрузке доступных возрастов:", err);
+          setDisabledAgeRanges([]);
+        }
+      }
+    };
+
+    fetchAvailableAgeRanges();
+
+    return () => abortController.abort();
+  }, [
+    selectedSolutionName,
+    selectedBrandName,
+    selectedCategoryName,
+    shouldRestrictAgeFilters,
+  ]);
+
   // ===== заголовок =====
   let titleText = "Все продукты";
   if (selectedCategoryName && (!selectedBrand || selectedBrand === null)) {
@@ -295,6 +387,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
             <AgeFilter
               onFilterSelect={handleAgeFilter}
               selectedAgeRanges={ageFilter}
+              disabledRanges={disabledAgeRanges}
             />
             <span className={styles.category__title}>{titleText}</span>
 
