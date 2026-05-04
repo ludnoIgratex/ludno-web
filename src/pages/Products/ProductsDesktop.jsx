@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -19,6 +19,11 @@ const normalizeParam = (seg) => {
   if (s.toLowerCase() === "all") return undefined;
   return s.replace(/-+/g, " ").trim();
 };
+
+const normalizeName = (value) =>
+  String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 const AGE_RANGES = ["Age0+", "Age1-7", "Age7-14", "Age14+"];
 
@@ -47,6 +52,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const selectedSolutionName = normalizeParam(solutionParam);
   const selectedBrandName = normalizeParam(brandParam);
   const selectedCategoryName = normalizeParam(categoryParam);
+  const normalizedSelectedCategoryName = normalizeName(selectedCategoryName);
 
   const pageSize = 32;
   const shouldRestrictAgeFilters =
@@ -81,6 +87,20 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     error: allCatError,
   } = useFetch(allCategoriesUrl);
 
+  const selectedCategoryId = useMemo(() => {
+    if (!normalizedSelectedCategoryName || !Array.isArray(allCategoriesData)) {
+      return undefined;
+    }
+
+    const matchedCategory = allCategoriesData.find(
+      (category) =>
+        normalizeName(category?.title || category?.name) ===
+        normalizedSelectedCategoryName
+    );
+
+    return matchedCategory?.id;
+  }, [allCategoriesData, normalizedSelectedCategoryName]);
+
   // Найдём объект выбранного бренда (если он вообще выбран)
   const selectedBrand =
     selectedBrandName && Array.isArray(brands)
@@ -113,7 +133,9 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       filters.brand = { name: { $eq: selectedBrandName } };
     }
 
-    if (selectedCategoryName) {
+    if (selectedCategoryId) {
+      filters.category = { id: { $eq: selectedCategoryId } };
+    } else if (selectedCategoryName) {
       filters.category = { title: { $eq: selectedCategoryName } };
     }
 
@@ -163,7 +185,13 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   useEffect(() => {
     setProducts([]);
     setCurrentPage(1);
-  }, [selectedSolutionName, selectedBrandName, selectedCategoryName, ageFilter]);
+  }, [
+    selectedSolutionName,
+    selectedBrandName,
+    selectedCategoryName,
+    selectedCategoryId,
+    ageFilter,
+  ]);
 
   // ===== подгрузка продуктов =====
   useEffect(() => {
@@ -174,6 +202,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     selectedSolutionName,
     selectedBrandName,
     selectedCategoryName,
+    selectedCategoryId,
     ageFilter,
   ]);
 
@@ -266,7 +295,9 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
           baseFilters.brand = { name: { $eq: selectedBrandName } };
         }
 
-        if (selectedCategoryName) {
+        if (selectedCategoryId) {
+          baseFilters.category = { id: { $eq: selectedCategoryId } };
+        } else if (selectedCategoryName) {
           baseFilters.category = { title: { $eq: selectedCategoryName } };
         }
 
@@ -332,6 +363,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     selectedSolutionName,
     selectedBrandName,
     selectedCategoryName,
+    selectedCategoryId,
     shouldRestrictAgeFilters,
   ]);
 
