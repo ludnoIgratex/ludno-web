@@ -16,7 +16,7 @@ const Contacts = () => {
         <div className={styles.block}>
           <h4 className={styles.title}>Социальные сети</h4>
           <div className={styles.links}>
-            <a href="https://t.me/ludnoo" target="_blank" rel="noreferrer">
+            <a href="https://t.me/ludno_x" target="_blank" rel="noreferrer">
               <FaTelegram />
             </a>
             <a
@@ -36,7 +36,7 @@ const Contacts = () => {
           <div className={styles.linkContainer}>
             <RiArrowRightDownLine className={styles.arrow} />
             <a
-              href="https://t.me/ludno_info"
+              href="https://t.me/ludno_x"
               target="_blank"
               rel="noreferrer"
               className={styles.link}

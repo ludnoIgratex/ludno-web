@@ -120,6 +120,11 @@
   transition: 0.2s ease-in-out;
 }
 
+.colorCircleSelected {
+  width: 32px;
+  border-radius: 999px;
+}
+
 .colorCircle:hover {
   width: 32px;
   border-radius: 32px;
@@ -134,6 +139,11 @@
     width: 10px;
     height: 10px;
     margin-right: 4px;
+  }
+
+  .colorCircleSelected {
+    width: 20px;
+    border-radius: 999px;
   }
 
   .colorCircle:hover {

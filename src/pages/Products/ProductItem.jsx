@@ -115,7 +115,9 @@ const ProductItem = ({
                 return (
                   <div
                     key={index}
-                    className={styles.colorCircle}
+                    className={`${styles.colorCircle} ${
+                      index === 0 ? styles.colorCircleSelected : ""
+                    }`}
                     style={{
                       backgroundImage: colorImageUrl
                         ? `url(${colorImageUrl})`
