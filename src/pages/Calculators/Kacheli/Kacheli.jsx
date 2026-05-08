@@ -193,7 +193,7 @@ export default function Kacheli() {
         </form>
 
         <section className={`${styles.card} ${styles.right}`}>
-          <h2 className={styles.cardTitle}>Покрытие</h2>
+          <h2 className={styles.cardTitle}>Расчет зоны качелей</h2>
 
           {/* 1. Ещё не отправляли форму */}
           {!submitted && null}
@@ -269,13 +269,6 @@ export default function Kacheli() {
                   </li>
                 </ul>
               </div>
-
-              {/* 👉 Показываем только после удачного расчёта */}
-              <p className={styles.cardFoot}>
-                Ударопоглощающее покрытие с указанной толщиной необходимо
-                размещать по всей зоне приземления. Размер зоны приземления
-                определяется производителем оборудования.
-              </p>
 
               <div className={styles.links}>
                 <span className={styles.dots}>…</span>
