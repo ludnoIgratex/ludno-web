@@ -11,6 +11,9 @@ const CardDetails = ({ card }) => {
         <h4>Масса</h4> <p>{card.weight || "—"}</p>
       </div>
       <div>
+        <h4>Высота падения</h4> <p>{card.fallHeight || "—"}</p>
+      </div>
+      <div>
         <h4>Заглубление фундамента</h4> <p>{card.depth || "Не требуется"}</p>
       </div>
     </section>
