@@ -14,7 +14,7 @@ const partners = [
   { src: "/assets/icons/da_logo.svg", alt: "Da" },
   { src: "/assets/icons/scape_logo.svg", alt: "Scape" },
   { src: "/assets/icons/lburo_logo.svg", alt: "L.BURO" },
-  { src: "/assets/icons/alterra_logo.svg", alt: "L.BURO" },
+  { src: "/assets/icons/alterra_logo-black.svg", alt: "L.BURO" },
 ];
 
 const Partners = () => {
