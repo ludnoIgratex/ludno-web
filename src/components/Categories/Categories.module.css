@@ -1,6 +1,8 @@
 .categories {
+  width: 100%;
   min-width: 200px;
   padding-right: 32px;
+  box-sizing: border-box;
 }
 
 .categories h4 {

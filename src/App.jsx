@@ -102,37 +102,7 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
 
               <Route
-                path="/products"
-                element={
-                  <Products
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                }
-              />
-
-              <Route
-                path="/products/:solution"
-                element={
-                  <Products
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                }
-              />
-
-              <Route
-                path="/products/:solution/:brand"
-                element={
-                  <Products
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                }
-              />
-
-              <Route
-                path="/products/:solution/:brand/:category"
+                path="/products/*"
                 element={
                   <Products
                     selectedCategory={selectedCategory}

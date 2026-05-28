@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import styles from "./styles/Products.module.css";
 
@@ -9,6 +9,7 @@ const ProductItem = ({
   imageLoading = "lazy",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isHoverImageLoaded, setIsHoverImageLoaded] = useState(false);
 
   const toCdnUrl = (url) => {
     if (!url) return null;
@@ -56,8 +57,7 @@ const ProductItem = ({
     product.card?.extraImage ??
     product.card?.extra_image;
   const hoverImageUrl = resolveMediaUrl(hoverMedia) || resolveMediaUrl(imageList[1]);
-  const displayedImageUrl = isHovered && hoverImageUrl ? hoverImageUrl : imageUrl;
-  const isHoverImageActive = Boolean(isHovered && hoverImageUrl);
+  const hasHoverImage = Boolean(hoverImageUrl);
   const placeholderImageUrl = "/assets/images/placeholder.avif";
   const title = product.title || "Без названия";
   const name = product.name || "";
@@ -68,6 +68,29 @@ const ProductItem = ({
       : product.card?._colorSwitcher?.length > 0
       ? product.card._colorSwitcher
       : [];
+
+  useEffect(() => {
+    if (!hoverImageUrl) {
+      setIsHoverImageLoaded(false);
+      return;
+    }
+
+    const image = new Image();
+    image.src = hoverImageUrl;
+
+    if (image.complete) {
+      setIsHoverImageLoaded(true);
+      return;
+    }
+
+    image.onload = () => setIsHoverImageLoaded(true);
+    image.onerror = () => setIsHoverImageLoaded(false);
+
+    return () => {
+      image.onload = null;
+      image.onerror = null;
+    };
+  }, [hoverImageUrl]);
 
   return (
     <li
@@ -80,16 +103,25 @@ const ProductItem = ({
       {imageUrl && (
         <div className={styles.productImageWrapper}>
           <LazyLoadImage
-            className={`${styles.product__image} ${
-              isHoverImageActive ? styles.product__imageHover : ""
-            }`}
+            className={styles.product__image}
             wrapperClassName={styles.productImageLazyWrapper}
-            src={displayedImageUrl}
+            src={imageUrl}
             placeholderSrc={placeholderImageUrl}
             effect="blur"
             alt={title}
             loading={imageLoading}
           />
+
+          {hasHoverImage && isHoverImageLoaded && (
+            <img
+              className={`${styles.productHoverImage} ${
+                isHovered ? styles.productHoverImageVisible : ""
+              }`}
+              src={hoverImageUrl}
+              alt={title}
+              aria-hidden="true"
+            />
+          )}
 
           {extraInfo && <span className={styles.productExtraInfo}>{extraInfo}</span>}
 

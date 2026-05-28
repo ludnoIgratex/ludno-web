@@ -1,16 +1,10 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Solution.module.css";
+import useProductsRouteParams from "../../hooks/useProductsRouteParams";
 
-// helpers
-const normalizeParam = (seg) => {
-  if (!seg) return undefined;
-  const s = decodeURIComponent(seg);
-  if (s.toLowerCase() === "all") return undefined;
-  return s.replace(/-+/g, " ").trim();
-};
 const prettySeg = (s) =>
   encodeURI(
     String(s || "")
@@ -21,15 +15,16 @@ const prettySeg = (s) =>
 
 const Solution = () => {
   const navigate = useNavigate();
-  const { solution: solutionParam } = useParams();
-
-  const selectedSolutionNameFromUrl = normalizeParam(solutionParam);
+  const { solution: selectedSolutionNameFromUrl } =
+    useProductsRouteParams();
 
   const { data, loading, error } = useFetch(
     "https://admin.ludno.ru/api/solutions?populate=image&sort[0]=order:asc"
   );
 
-  if (loading)
+  const solutionsData = data || [];
+
+  if (loading && solutionsData.length === 0)
     return (
       <div className={styles.loader}>
         <p>Загружаем решения...</p>
@@ -40,9 +35,9 @@ const Solution = () => {
         </ul>
       </div>
     );
-  if (error) return <p>Error: {error}</p>;
+  if (error && solutionsData.length === 0) return <p>Error: {error}</p>;
 
-  const solutions = (data || []).slice().sort((a, b) => {
+  const solutions = solutionsData.slice().sort((a, b) => {
     const aOrder = Number.isFinite(Number(a?.order))
       ? Number(a.order)
       : Number.MAX_SAFE_INTEGER;

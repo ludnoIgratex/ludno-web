@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import LoaderRound from "../../components/Loader/LoaderRound";
@@ -11,14 +11,7 @@ import useFetch from "../../hooks/useFetch";
 import qs from "qs";
 import ProductItem from "./ProductItem";
 import Solution from "../../components/Solution/Solution";
-
-// 👇 нормализация сегмента из URL: decode + дефисы -> пробелы; 'all' и пустое -> undefined
-const normalizeParam = (seg) => {
-  if (!seg) return undefined;
-  const s = decodeURIComponent(seg);
-  if (s.toLowerCase() === "all") return undefined;
-  return s.replace(/-+/g, " ").trim();
-};
+import useProductsRouteParams from "../../hooks/useProductsRouteParams";
 
 const normalizeName = (value) =>
   String(value || "")
@@ -26,10 +19,19 @@ const normalizeName = (value) =>
     .trim();
 
 const AGE_RANGES = ["Age0+", "Age1-7", "Age7-14", "Age14+"];
+const PRODUCT_SKELETON_COUNT = 8;
+
+const ProductSkeletons = ({ count = PRODUCT_SKELETON_COUNT }) =>
+  Array.from({ length: count }, (_, index) => (
+    <li key={index} className={styles.productSkeletonItem} aria-hidden="true">
+      <div className={styles.productSkeletonImage}></div>
+      <div className={styles.productSkeletonTitle}></div>
+      <div className={styles.productSkeletonName}></div>
+    </li>
+  ));
 
 const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [ageFilter, setAgeFilter] = useState([]);
-  const [showSkeleton, setShowSkeleton] = useState(true);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -38,20 +40,21 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   const [hasMore, setHasMore] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isRefreshingProducts, setIsRefreshingProducts] = useState(false);
+  const [showSkeletonOverlay, setShowSkeletonOverlay] = useState(false);
+  const [isSkeletonOverlayFading, setIsSkeletonOverlayFading] = useState(false);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const [disabledAgeRanges, setDisabledAgeRanges] = useState([]);
+  const activeRequestRef = useRef(0);
+  const skeletonFadeTimeoutRef = useRef(null);
 
   const navigate = useNavigate();
 
-  // ===== читаем URL-параметры (могут быть с дефисами) и НОРМАЛИЗУЕМ =====
   const {
-    solution: solutionParam,
-    brand: brandParam,
-    category: categoryParam,
-  } = useParams();
-
-  const selectedSolutionName = normalizeParam(solutionParam);
-  const selectedBrandName = normalizeParam(brandParam);
-  const selectedCategoryName = normalizeParam(categoryParam);
+    solution: selectedSolutionName,
+    brand: selectedBrandName,
+    category: selectedCategoryName,
+  } = useProductsRouteParams();
   const normalizedSelectedCategoryName = normalizeName(selectedCategoryName);
 
   const pageSize = 32;
@@ -183,8 +186,11 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   // ===== при изменении фильтров сбрасываем список и страницу =====
   useEffect(() => {
-    setProducts([]);
     setCurrentPage(1);
+    setHasMore(true);
+    setTotalPages(0);
+    setTotalProducts(0);
+    setError(null);
   }, [
     selectedSolutionName,
     selectedBrandName,
@@ -195,8 +201,9 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   // ===== подгрузка продуктов =====
   useEffect(() => {
-    fetchProducts(currentPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const controller = new AbortController();
+    fetchProducts(currentPage, controller.signal);
+    return () => controller.abort();
   }, [
     currentPage,
     selectedSolutionName,
@@ -206,21 +213,40 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     ageFilter,
   ]);
 
-  const fetchProducts = async (page) => {
+  const fetchProducts = async (page, signal) => {
+    const requestId = activeRequestRef.current + 1;
+    activeRequestRef.current = requestId;
+    const isFirstPage = page === 1;
+
     try {
       setLoading(true);
-      setIsLoadingMore(true);
+      setError(null);
+
+      if (isFirstPage) {
+        setIsRefreshingProducts(hasLoadedOnce);
+        setIsLoadingMore(false);
+      } else {
+        setIsLoadingMore(true);
+      }
 
       const url = buildFetchUrlWithQs(page);
-      const response = await fetch(url);
+      const response = await fetch(url, { signal });
       if (!response.ok) {
         throw new Error(`Ошибка сервера: ${response.status}`);
       }
 
       const data = await response.json();
+      if (requestId !== activeRequestRef.current) {
+        return;
+      }
+
       const newProducts = data.data || [];
 
       setProducts((prev) => {
+        if (isFirstPage) {
+          return filterProductsByGroup(newProducts);
+        }
+
         const productIds = new Set(prev.map((p) => p.id));
         const unique = newProducts.filter((p) => !productIds.has(p.id));
         const combined = [...prev, ...unique];
@@ -230,6 +256,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
       const meta = data.meta?.pagination || {};
       setTotalProducts(meta.total || 0);
       setTotalPages(meta.pageCount || 0);
+      setHasLoadedOnce(true);
 
       // Проверяем, достаточно ли продуктов на странице; если нет — предзагружаем следующую
       const filteredNew = filterProductsByGroup(newProducts);
@@ -239,19 +266,58 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
         setCurrentPage(page + 1);
       } else {
         setHasMore(page < (meta.pageCount || 0));
-        setIsLoadingMore(false);
       }
     } catch (err) {
+      if (err.name === "AbortError") {
+        return;
+      }
       console.error("Ошибка при загрузке продуктов:", err);
       setError("Ошибка при загрузке продуктов.");
-      setIsLoadingMore(false);
     } finally {
-      setLoading(false);
-      setShowSkeleton(false);
+      if (requestId === activeRequestRef.current) {
+        setLoading(false);
+        setIsLoadingMore(false);
+        setIsRefreshingProducts(false);
+      }
     }
   };
 
   // ===== предпрелоад первых картинок =====
+  useEffect(() => {
+    if (isRefreshingProducts) {
+      if (skeletonFadeTimeoutRef.current) {
+        clearTimeout(skeletonFadeTimeoutRef.current);
+      }
+      setShowSkeletonOverlay(true);
+      setIsSkeletonOverlayFading(false);
+      return;
+    }
+
+    if (!showSkeletonOverlay) {
+      return;
+    }
+
+    setIsSkeletonOverlayFading(true);
+    skeletonFadeTimeoutRef.current = setTimeout(() => {
+      setShowSkeletonOverlay(false);
+      setIsSkeletonOverlayFading(false);
+    }, 220);
+
+    return () => {
+      if (skeletonFadeTimeoutRef.current) {
+        clearTimeout(skeletonFadeTimeoutRef.current);
+      }
+    };
+  }, [isRefreshingProducts, showSkeletonOverlay]);
+
+  useEffect(() => {
+    return () => {
+      if (skeletonFadeTimeoutRef.current) {
+        clearTimeout(skeletonFadeTimeoutRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (products.length > 0) {
       const firstProductsImages = products.slice(0, 8);
@@ -375,7 +441,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     titleText = `${selectedCategoryName}`;
   }
 
-  if (loading && currentPage === 1) {
+  if (loading && !hasLoadedOnce && products.length === 0) {
     return <LoaderRound show={true} />;
   }
 
@@ -414,7 +480,11 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
           />
         </div>
 
-        <div className={`${styles.productContainer} ${styles.fadeIn}`}>
+        <div
+          className={`${styles.productContainer} ${styles.fadeIn} ${
+            isRefreshingProducts ? styles.productContainerLoading : ""
+          }`}
+        >
           <div className={styles.contentWrapper}>
             <AgeFilter
               onFilterSelect={handleAgeFilter}
@@ -423,21 +493,43 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
             />
             <span className={styles.category__title}>{titleText}</span>
 
-            <ul className={styles.product__list}>
+            <div className={styles.productsListWrapper}>
+              <ul
+                className={`${styles.product__list} ${
+                  showSkeletonOverlay ? styles.productListHidden : ""
+                }`}
+              >
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <ProductItem
+                      key={product.id}
+                      product={product}
+                      onClick={handleClick}
+                      showColors={true}
+                      imageLoading="lazy"
+                    />
+                  ))
+                ) : (
+                  <p>Тут пока нет продуктов, но в скором времени они появятся!</p>
+                )}
+              </ul>
+
               {products.length > 0 ? (
-                products.map((product) => (
-                  <ProductItem
-                    key={product.id}
-                    product={product}
-                    onClick={handleClick}
-                    showColors={true}
-                    imageLoading="lazy"
-                  />
-                ))
-              ) : (
-                <p>Тут пока нет продуктов, но в скором времени они появятся!</p>
-              )}
-            </ul>
+                showSkeletonOverlay && (
+                  <div className={styles.productsSkeletonOverlay}>
+                    <ul
+                      className={`${styles.product__list} ${
+                        isSkeletonOverlayFading
+                          ? styles.productsSkeletonOverlayFading
+                          : ""
+                      }`}
+                    >
+                      <ProductSkeletons />
+                    </ul>
+                  </div>
+                )
+              ) : null}
+            </div>
 
             {hasMore && currentPage < totalPages && !isLoadingMore && (
               <div className={styles.showMoreContainer}>

@@ -1,14 +1,8 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Categories.module.css";
+import useProductsRouteParams from "../../hooks/useProductsRouteParams";
 
-// helpers
-const normalizeParam = (seg) => {
-  if (!seg) return undefined;
-  const s = decodeURIComponent(seg);
-  if (s.toLowerCase() === "all") return undefined;
-  return s.replace(/-+/g, " ").trim();
-};
 const prettySeg = (s) =>
   encodeURI(String(s || "").trim().replace(/\s+/g, "-").replace(/-+/g, "-"));
 
@@ -20,13 +14,9 @@ const Categories = ({
 }) => {
   const navigate = useNavigate();
   const {
-    solution: solutionParam,
-    category: categoryParam,
-  } = useParams();
-
-  // нормализованные значения из URL
-  const selectedSolutionName = normalizeParam(solutionParam);
-  const selectedCategoryNameFromUrl = normalizeParam(categoryParam);
+    solution: selectedSolutionName,
+    category: selectedCategoryNameFromUrl,
+  } = useProductsRouteParams();
 
   // набор категорий для показа
   const categoriesToShow = brand ? brand.categories : allCategories;

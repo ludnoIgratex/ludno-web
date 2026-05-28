@@ -1,15 +1,9 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Brand.module.css";
+import useProductsRouteParams from "../../hooks/useProductsRouteParams";
 
-// helpers
-const normalizeParam = (seg) => {
-  if (!seg) return undefined;
-  const s = decodeURIComponent(seg);
-  if (s.toLowerCase() === "all") return undefined;
-  return s.replace(/-+/g, " ").trim();
-};
 const prettySeg = (s) =>
   encodeURI(
     String(s || "")
@@ -20,11 +14,8 @@ const prettySeg = (s) =>
 
 const Brand = () => {
   const navigate = useNavigate();
-  const { brand: brandParam, solution: solutionParam } = useParams();
-
-  // нормализуем выбранные значения из URL
-  const selectedSolutionName = normalizeParam(solutionParam);
-  const selectedBrandNameFromUrl = normalizeParam(brandParam); // для isActive
+  const { solution: selectedSolutionName, brand: selectedBrandNameFromUrl } =
+    useProductsRouteParams();
 
   // URL брендов: если выбрано решение — фильтруем по нему
   const brandsUrl = selectedSolutionName
@@ -35,10 +26,11 @@ const Brand = () => {
 
   const { data, loading, error } = useFetch(brandsUrl);
 
-  if (loading) return <p>Загружаем бренды...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   const brands = data || [];
+
+  if (loading && brands.length === 0) return <p>Загружаем бренды...</p>;
+  if (error && brands.length === 0) return <p>Error: {error}</p>;
+
   const solutionSeg = selectedSolutionName
     ? prettySeg(selectedSolutionName)
     : "all";
