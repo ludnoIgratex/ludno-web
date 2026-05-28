@@ -1,22 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "./Materials.module.css";
+
+const allowedMaterialNames = [
+  "EPDM крошка",
+  "SBR крошка",
+  "Галька",
+  "Песок",
+  "Щепа",
+  "Кора",
+];
 
 const Materials = ({
   materials = [],
   selectedMaterialIndex,
   setSelectedMaterialIndex,
 }) => {
+  const filteredMaterials = useMemo(() => {
+    const materialMap = new Map(
+      materials
+        .filter((material) => allowedMaterialNames.includes(material.name))
+        .map((material) => [material.name, material])
+    );
+
+    return allowedMaterialNames
+      .map((name) => materialMap.get(name))
+      .filter(Boolean);
+  }, [materials]);
+
   useEffect(() => {
-    if (materials.length > 0 && selectedMaterialIndex === null) {
+    if (filteredMaterials.length > 0 && selectedMaterialIndex === null) {
       setSelectedMaterialIndex(0);
     }
-  }, [materials, selectedMaterialIndex, setSelectedMaterialIndex]);
+  }, [filteredMaterials, selectedMaterialIndex, setSelectedMaterialIndex]);
 
   const handleMaterialClick = (index) => setSelectedMaterialIndex(index);
-
-  // ✅ оставляем только нужные ID
-  const allowedIds = [43, 69, 71, 70, 73, 75];
-  const filteredMaterials = materials.filter((m) => allowedIds.includes(m.id));
 
   return (
     <div className={styles.cardMaterial}>
