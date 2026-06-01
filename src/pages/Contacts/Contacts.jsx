@@ -3,6 +3,9 @@ import styles from "./styles/Contacts.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 
+const MAX_LINK =
+  "https://max.ru/u/f9LHodD0cOLgjnSqWeNNcx7AhWxWIPge9c-T-WNnLM1h4WJNTgle2DKimNs";
+
 const Contacts = () => {
   return (
     <div className={styles.container}>
@@ -54,6 +57,17 @@ const Contacts = () => {
               aria-label="Открыть чат WhatsApp"
             >
               Whatsapp
+            </a>
+          </div>
+          <div className={styles.linkContainer}>
+            <RiArrowRightDownLine className={styles.arrow} />
+            <a
+              href={MAX_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.link}
+            >
+              Max
             </a>
           </div>
         </div>

@@ -223,6 +223,21 @@
   transition: 0.2s ease-in-out;
 }
 
+.colorCircleMore {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 4px;
+  background-color: #d3d3d3;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 .colorCircleSelected {
   width: 32px;
   border-radius: 999px;
@@ -242,6 +257,13 @@
     width: 10px;
     height: 10px;
     margin-right: 4px;
+  }
+
+  .colorCircleMore {
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    font-size: 8px;
   }
 
   .colorCircleSelected {

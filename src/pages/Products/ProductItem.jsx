@@ -163,6 +163,9 @@ const ProductItem = ({
                   />
                 );
               })}
+              <div className={styles.colorCircleMore} aria-hidden="true">
+                +
+              </div>
             </div>
           )}
         </div>

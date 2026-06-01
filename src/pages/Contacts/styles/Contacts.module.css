@@ -35,6 +35,7 @@
   color: var(--primary-default-color);
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 40px;
 }
 
