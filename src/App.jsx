@@ -39,6 +39,7 @@ import Kacheli from "./pages/Calculators/Kacheli/Kacheli";
 import Pokrytiya from "./pages/Calculators/Pokrytiya/Pokrytiya";
 import Mixer from "./pages/Mixer/Mixer";
 import DvorMain from "./pages/Landings/Dvor/DvorMain";
+import NewsletterModal from "./components/NewsletterModal/NewsletterModal";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -97,6 +98,7 @@ const App = () => {
         <div className="app__container">
           <Header />
           <Scroller />
+          <NewsletterModal />
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
