@@ -6,7 +6,7 @@ import { extname, join, normalize } from "node:path";
 const PORT = Number(process.env.PORT) || 3000;
 const DIST_DIR = join(process.cwd(), "dist");
 const API_KEY = process.env.UNISENDER_API_KEY;
-const LIST_ID = process.env.UNISENDER_LIST_ID || "5";
+const LIST_ID = process.env.UNISENDER_LIST_ID || "6";
 const BODY_LIMIT = 10_000;
 const attempts = new Map();
 

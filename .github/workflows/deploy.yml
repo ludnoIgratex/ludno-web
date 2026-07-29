@@ -49,7 +49,7 @@ jobs:
               --restart unless-stopped \
               -p 8080:80 \
               -e UNISENDER_API_KEY="$UNISENDER_API_KEY" \
-              -e UNISENDER_LIST_ID=5 \
+              -e UNISENDER_LIST_ID=6 \
               fijispawn/ludno-ui:latest
 
             echo "[SUCCESS] Redeploy complete!"
