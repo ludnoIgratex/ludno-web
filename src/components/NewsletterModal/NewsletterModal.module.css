@@ -38,12 +38,13 @@
   cursor: pointer;
 }
 
-.description {
+.title {
   max-width: 520px;
   margin: 0 48px 36px 0;
   color: var(--primary-default-color);
   font-size: 26px;
   line-height: 32px;
+  font-weight: 400;
 }
 
 .form {
@@ -89,11 +90,29 @@
 }
 
 .consent input {
-  width: 18px;
-  height: 18px;
+  appearance: none;
+  width: 22px;
+  height: 22px;
   margin: 1px 0 0;
   flex: 0 0 auto;
-  accent-color: var(--primary-default-color);
+  border: 1.5px solid var(--primary-default-color);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.consent input:checked {
+  background:
+    radial-gradient(
+      circle,
+      var(--primary-default-color) 0 5px,
+      transparent 6px
+    );
+}
+
+.consent input:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 .consent a {
@@ -150,7 +169,7 @@
     padding: 48px 20px 28px;
   }
 
-  .description {
+  .title {
     margin: 0 36px 28px 0;
     font-size: 22px;
     line-height: 28px;

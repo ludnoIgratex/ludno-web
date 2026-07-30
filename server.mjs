@@ -105,9 +105,12 @@ async function subscribe(request, response) {
       message: "Проверьте имя и адрес электронной почты.",
     });
   }
-  if (data.consent !== true) {
+  if (
+    data.personalDataConsent !== true ||
+    data.marketingConsent !== true
+  ) {
     return json(response, 400, {
-      message: "Для подписки необходимо согласие на рассылку.",
+      message: "Для подписки необходимо принять оба согласия.",
     });
   }
 

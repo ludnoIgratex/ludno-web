@@ -8,7 +8,12 @@ const DISMISSED_AT_KEY = "ludno_newsletter_dismissed_at";
 const SUBSCRIBED_KEY = "ludno_newsletter_subscribed";
 
 function NewsletterModal() {
-  const [form, setForm] = useState({ name: "", email: "", consent: false });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    personalDataConsent: false,
+    marketingConsent: false,
+  });
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +77,12 @@ function NewsletterModal() {
       localStorage.removeItem(DISMISSED_AT_KEY);
       setStatus("success");
       setMessage(data.message || "Готово! Вы подписаны на рассылку.");
-      setForm({ name: "", email: "", consent: false });
+      setForm({
+        name: "",
+        email: "",
+        personalDataConsent: false,
+        marketingConsent: false,
+      });
     } catch (error) {
       setStatus("error");
       setMessage(error.message);
@@ -103,9 +113,7 @@ function NewsletterModal() {
           ×
         </button>
 
-        <p className={styles.description}>
-          Новости, новые проекты и полезные материалы — без спама.
-        </p>
+        <h2 className={styles.title}>Подпишитесь на новости</h2>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <label className={styles.field}>
@@ -138,16 +146,32 @@ function NewsletterModal() {
           <label className={styles.consent}>
             <input
               type="checkbox"
-              name="consent"
-              checked={form.consent}
+              name="personalDataConsent"
+              checked={form.personalDataConsent}
               onChange={handleChange}
               required
             />
             <span>
-              Соглашаюсь получать рассылку и на{" "}
+              Ставя отметку, я даю{" "}
               <Link to="/policy" onClick={closeModal}>
-                обработку персональных данных
+                согласие на обработку моих персональных данных
               </Link>
+              {" "}(Федеральный закон № 152-ФЗ «О персональных данных»).
+            </span>
+          </label>
+
+          <label className={styles.consent}>
+            <input
+              type="checkbox"
+              name="marketingConsent"
+              checked={form.marketingConsent}
+              onChange={handleChange}
+              required
+            />
+            <span>
+              Ставя отметку, я даю согласие на получение
+              рекламно-информационных рассылок (Федеральный закон № 38-ФЗ «О
+              рекламе»).
             </span>
           </label>
 
