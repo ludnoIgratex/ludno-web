@@ -26,18 +26,23 @@ export async function generateMetadata({ params }) {
   const card = await getProjectCard(projectId);
   if (!card?.project?.name) return {};
 
-  const name = card.project.name;
+  const name = card.project.name.trim();
+  const address = card.adress?.trim();
   const slug = projectSlug(name);
-  const description = projectDescription(card.about) || `Реализованный проект «${name}» от компании Людно.`;
+  const title = address
+    ? `${name}, ${address} | Проект Людно`
+    : `${name} | Проект Людно`;
+  const firstSentence = projectDescription(card.about) || `Проект «${name}».`;
+  const description = `${firstSentence} | Проект Людно`;
   const mainImage = Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage;
   const imageUrl = mediaUrl(mainImage);
 
   return {
-    title: `${name} — реализованный проект | Людно`,
+    title,
     description,
     alternates: { canonical: `/project-cards/${projectId}/${slug}` },
     openGraph: {
-      title: `${name} — реализованный проект | Людно`,
+      title,
       description,
       url: `/project-cards/${projectId}/${slug}`,
       siteName: "Людно",

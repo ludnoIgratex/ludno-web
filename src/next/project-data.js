@@ -96,7 +96,8 @@ export function projectDescription(markdown = "") {
     .replace(/\s+/g, " ")
     .trim();
 
-  if (plainText.length <= 155) return plainText;
-  const shortened = plainText.slice(0, 155);
-  return `${shortened.slice(0, shortened.lastIndexOf(" "))}…`;
+  if (!plainText) return "";
+
+  const firstSentence = plainText.match(/^.*?[.!?](?=\s|$)/)?.[0];
+  return firstSentence || plainText;
 }
