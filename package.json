@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:vite && npm run build:landings && node src/scripts/merge-landings.mjs",
+    "build:vite": "vite build",
+    "dev:landings": "next dev landings-next --webpack",
+    "build:landings": "next build landings-next --webpack",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.mjs"
@@ -18,6 +21,7 @@
     "keen-slider": "^6.8.6",
     "lodash": "^4.17.21",
     "marked": "^15.0.7",
+    "next": "^16.2.12",
     "node-fetch": "^3.3.2",
     "qs": "^6.13.1",
     "react": "^18.3.1",

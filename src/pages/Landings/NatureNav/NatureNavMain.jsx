@@ -11,7 +11,7 @@ import Adaptation from "./Adaptation";
 import RouteStructure from "./RouteStructure";
 
 const NatureNavMain = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

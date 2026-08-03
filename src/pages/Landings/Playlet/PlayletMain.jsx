@@ -11,7 +11,7 @@ import OtherSolutions from "../../../components/OtherSolutions/OtherSolutions";
 import LoaderRound from "../../../components/Loader/LoaderRound";
 
 const PlayletMain = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

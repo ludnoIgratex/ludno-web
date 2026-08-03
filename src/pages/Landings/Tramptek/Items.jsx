@@ -10,9 +10,7 @@ const Items = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [itemsPerSlide, setItemsPerSlide] = useState(
-    window.innerWidth < 1025 ? 1 : 3
-  );
+  const [itemsPerSlide, setItemsPerSlide] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {

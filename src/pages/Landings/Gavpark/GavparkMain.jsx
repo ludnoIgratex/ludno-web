@@ -12,7 +12,7 @@ import Projects from "./Projects";
 import Items from "./Items";
 
 const GavparkMain = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

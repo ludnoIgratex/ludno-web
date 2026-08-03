@@ -1,12 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./styles/Contacts.module.css";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 
 const MAX_LINK =
   "https://max.ru/u/f9LHodD0cOLgjnSqWeNNcx7AhWxWIPge9c-T-WNnLM1h4WJNTgle2DKimNs";
+const SUBSCRIBED_KEY = "ludno_newsletter_subscribed";
 
 const Contacts = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    personalDataConsent: false,
+    marketingConsent: false,
+  });
+  const [status, setStatus] = useState("idle");
+  const [message, setMessage] = useState("");
+  const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+  const canSubmit =
+    form.name.trim().length > 0 &&
+    emailIsValid &&
+    form.personalDataConsent &&
+    form.marketingConsent &&
+    status !== "loading";
+
+  const handleChange = ({ target }) => {
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    setForm((current) => ({ ...current, [target.name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!canSubmit) return;
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.message || "Не удалось оформить подписку.");
+      }
+
+      localStorage.setItem(SUBSCRIBED_KEY, "true");
+      setStatus("success");
+      setMessage(data.message || "Готово! Вы подписаны на рассылку.");
+      setForm({
+        name: "",
+        email: "",
+        personalDataConsent: false,
+        marketingConsent: false,
+      });
+    } catch (error) {
+      setStatus("error");
+      setMessage(error.message);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* Левая колонка: телефон + соцсети ниже */}
@@ -81,6 +138,84 @@ const Contacts = () => {
         </div>
       </div>
 
+      <section className={styles.newsletter} aria-labelledby="newsletter-title">
+        <h2 className={styles.newsletterTitle} id="newsletter-title">
+          Подпишитесь на новости
+        </h2>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label className={styles.field}>
+            <span>Имя</span>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              autoComplete="name"
+              maxLength="100"
+              required
+            />
+          </label>
+
+          <label className={styles.field}>
+            <span>Почта</span>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              autoComplete="email"
+              maxLength="254"
+              required
+            />
+          </label>
+
+          <label className={styles.consent}>
+            <input
+              type="checkbox"
+              name="personalDataConsent"
+              checked={form.personalDataConsent}
+              onChange={handleChange}
+              required
+            />
+            <span>
+              Я даю{" "}
+              <Link to="/policy">
+                согласие на обработку персональных данных
+              </Link>
+              .
+            </span>
+          </label>
+
+          <label className={styles.consent}>
+            <input
+              type="checkbox"
+              name="marketingConsent"
+              checked={form.marketingConsent}
+              onChange={handleChange}
+              required
+            />
+            <span>Я согласен получать рекламно-информационные рассылки.</span>
+          </label>
+
+          <button
+            className={styles.submit}
+            type="submit"
+            disabled={!canSubmit}
+          >
+            {status === "loading" ? "Отправляем…" : "Подписаться"}
+          </button>
+
+          {message && (
+            <p
+              className={status === "success" ? styles.success : styles.error}
+              role="status"
+            >
+              {message}
+            </p>
+          )}
+        </form>
+      </section>
     </div>
   );
 };

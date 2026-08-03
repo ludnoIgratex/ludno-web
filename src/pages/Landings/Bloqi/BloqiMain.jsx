@@ -12,7 +12,7 @@ import LoaderRound from "../../../components/Loader/LoaderRound";
 import Projects from "./Projects";
 
 const BloqiMain = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

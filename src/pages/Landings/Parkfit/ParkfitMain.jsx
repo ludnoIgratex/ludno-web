@@ -12,7 +12,7 @@ import Trx from "./Trx";
 import Pliobox from "./Pliobox";
 
 const ParkfitMain = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

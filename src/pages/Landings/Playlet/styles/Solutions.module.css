@@ -1,25 +1,3 @@
-:root {
-  --active-slide-width: 750;
-  --inactive-slide-width: 300;
-  --slide-gap: 700;
-}
-
-@media (max-width: 1024px) {
-  :root {
-    --active-slide-width: 550;
-    --inactive-slide-width: 240;
-    --slide-gap: 520;
-  }
-}
-
-@media (max-width: 768px) {
-  :root {
-    --active-slide-width: 360;
-    --inactive-slide-width: 180;
-    --slide-gap: 380;
-  }
-}
-
 .container {
   position: relative;
   flex-direction: column;
