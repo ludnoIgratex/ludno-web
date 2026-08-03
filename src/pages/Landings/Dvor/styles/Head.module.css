@@ -48,8 +48,8 @@
     padding: 36px 16px;
     background-repeat: no-repeat;
     background-position-x: -120px;
-        background-position-y: 260px;
-        background-size: 730px;
+    background-position-y: 260px;
+    background-size: 730px;
   }
 
   .headWrapper h1 {
@@ -71,8 +71,8 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .headWrapper {
-    background-position-x: 400px;
-    background-position-y: 100px;
-    background-size: 500px;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 1200px;
   }
 }
