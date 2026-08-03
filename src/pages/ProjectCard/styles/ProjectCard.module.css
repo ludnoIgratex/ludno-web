@@ -36,11 +36,11 @@
   white-space: normal; /* обязательно */
 }
 
-:global(.markdown p) {
+.card :global(.markdown p) {
   margin-bottom: 1em;
 }
 
-:global(.markdown a) {
+.card :global(.markdown a) {
   color: var(--accent-color);
   text-decoration: underline;
 }

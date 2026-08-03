@@ -19,4 +19,10 @@ for (const slug of landingSlugs) {
   });
 }
 
-console.log(`Merged ${landingSlugs.length} prerendered landings into dist.`);
+await cp(
+  path.join(exportDir, "project-cards"),
+  path.join(distDir, "project-cards"),
+  { recursive: true, force: true }
+);
+
+console.log(`Merged ${landingSlugs.length} landings and project cards into dist.`);
