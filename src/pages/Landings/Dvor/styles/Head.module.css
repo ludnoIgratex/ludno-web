@@ -8,8 +8,8 @@
   padding: 56px 32px;
   background-image: url("/assets/images/dvor.webp");
   background-repeat: no-repeat, no-repeat;
-  background-position: 0px -10px, 700px -40px;
-    background-size: 1500px, 600px;
+  background-position: 300px -100px, 700px -40px;
+    background-size: 1600px, 600px;
 }
 
 .headWrapper h1 {
@@ -48,7 +48,7 @@
     padding: 36px 16px;
     background-repeat: no-repeat;
     background-position-x: -120px;
-        background-position-y: 180px;
+        background-position-y: 260px;
         background-size: 730px;
   }
 
