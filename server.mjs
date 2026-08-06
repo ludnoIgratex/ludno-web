@@ -167,7 +167,7 @@ async function serveStatic(request, response) {
     if (fileStat.isDirectory()) filePath = join(filePath, "index.html");
     await access(filePath);
   } catch {
-    filePath = join(DIST_DIR, "index.html");
+    filePath = join(DIST_DIR, "vite.html");
   }
 
   const extension = extname(filePath).toLowerCase();
