@@ -1,7 +1,8 @@
 .itemsContainer {
   margin: 0 auto;
-  padding: 32px;
+  padding: clamp(24px, 3vw, 48px) 32px;
   background-color: var(--bg-default-color);
+  overflow: hidden;
 }
 
 .title {
@@ -12,47 +13,20 @@
 .carouselWrapper {
   position: relative;
   display: flex;
-  align-items: center;
-}
-
-.carouselWrapper:hover{
-  cursor: pointer;
-}
-
-.arrowBtn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #333;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  z-index: 2;
-}
-
-.arrowBtn:disabled {
-  opacity: 0;
-  cursor: default;
-}
-
-.arrowBtn:nth-of-type(1) {
-  left: 0;
-}
-.arrowBtn:nth-of-type(2) {
-  right: 0;
+  align-items: stretch;
+  width: 100%;
 }
 
 .carouselViewport {
-  overflow: hidden;
   width: 100%;
-  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .carouselTrack {
   display: flex;
+  align-items: stretch;
+  min-height: 560px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -60,44 +34,57 @@
 }
 
 .slide {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 380px));
+  align-items: stretch;
   justify-content: center;
   flex-shrink: 0;
-  gap: 16px;
+  gap: clamp(12px, 1.5vw, 24px);
 }
 
 .productItem {
   display: flex;
   flex-direction: column;
-  flex: 0 0 auto;
-  max-width: 380px;
-  height: 460px;
+  min-width: 0;
+  min-height: 560px;
   width: 100%;
+  padding: 24px 24px 40px;
+  box-sizing: border-box;
   background-color: white;
   text-align: center;
-  justify-content: space-between;
-  padding-bottom: 64px;
+  cursor: pointer;
 }
 
 .productInfo {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 330px 48px 38px;
+  align-items: center;
+  min-width: 0;
 }
 
 .productImage {
+  display: block;
   width: 100%;
-  height: auto;
-  min-height: 330px;
+  height: 100%;
+  min-width: 0;
   object-fit: contain;
-  border-radius: 8px;
 }
 
 .productTitle {
+  display: -webkit-box;
+  align-self: center;
+  margin: 0;
+  overflow: hidden;
   font-size: 16px;
   line-height: 22px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .productName {
+  align-self: start;
+  margin: 0;
+  overflow-wrap: anywhere;
   font-size: 26px;
   line-height: 32px;
   font-weight: bold;
@@ -105,24 +92,56 @@
 
 .productLink {
   display: flex;
-  gap: 4px;
   align-items: center;
   justify-content: center;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 24px;
   text-decoration: underline;
 }
 
+.arrowBtn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 44px;
+  height: 56px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgb(255 255 255 / 85%);
+  color: #333;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.arrowBtn:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arrowBtn:nth-of-type(1) {
+  left: 0;
+}
+
+.arrowBtn:nth-of-type(2) {
+  right: 0;
+}
+
 .dots {
-  text-align: center;
-  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
 }
 
 .dot {
-  display: inline-block;
+  display: block;
   width: 8px;
   height: 8px;
   background-color: #ccc;
   border-radius: 50%;
-  margin: 0 4px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -135,33 +154,69 @@
   background-color: #333;
 }
 
-@media screen and (max-width: 768px) {
-  .itemsContainer {
-    padding: 16px;
-  }
-  .productItem {
-    max-width: 240px;
-    height: 290px;
-    width: 100%;
-    padding-bottom: 36px;
+@media screen and (max-width: 1024px) {
+  .carouselTrack {
+    min-height: 500px;
   }
 
-  .productImage {
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-    object-fit: contain;
-    border-radius: 8px;
+  .slide {
+    grid-template-columns: minmax(0, 420px);
+  }
+
+  .productItem {
+    min-height: 500px;
+  }
+
+  .productInfo {
+    grid-template-rows: 280px 48px 38px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .itemsContainer {
+    padding: 24px 16px 28px;
+  }
+
+  .title {
+    padding-bottom: 20px;
+  }
+
+  .carouselTrack {
+    min-height: 410px;
+  }
+
+  .slide {
+    grid-template-columns: minmax(0, 100%);
+    gap: 0;
+  }
+
+  .productItem {
+    min-height: 410px;
+    padding: 16px 16px 28px;
+  }
+
+  .productInfo {
+    grid-template-rows: 230px 42px 30px;
   }
 
   .productTitle {
-    font-size: 11px;
-    line-height: 14px;
+    font-size: 13px;
+    line-height: 18px;
   }
 
   .productName {
     font-size: 18px;
     line-height: 24px;
-    font-weight: bold;
+  }
+
+  .productLink {
+    padding-top: 16px;
+    font-size: 14px;
+  }
+
+  .arrowBtn {
+    width: 36px;
+    height: 48px;
+    font-size: 1.5rem;
   }
 }

@@ -15,8 +15,13 @@ const Items = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerSlide(window.innerWidth < 1025 ? 1 : 3);
+      const nextItemsPerSlide = window.innerWidth < 1025 ? 1 : 3;
+      setItemsPerSlide((current) => {
+        if (current !== nextItemsPerSlide) setCurrentSlide(0);
+        return nextItemsPerSlide;
+      });
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
