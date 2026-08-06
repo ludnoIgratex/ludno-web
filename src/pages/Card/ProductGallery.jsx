@@ -48,7 +48,7 @@ const ProductGallery = ({
   lightboxIndex,
   setLightboxIndex,
 }) => {
-  const baseUrl = import.meta.env.VITE_STRAPI_URL || "";
+  const baseUrl = "https://admin.ludno.ru";
   const items = useMemo(
     () => normalizeMedia({ media, images, gallery, strapiGallery, baseUrl }),
     [media, images, gallery, strapiGallery, baseUrl]

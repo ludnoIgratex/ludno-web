@@ -19,7 +19,6 @@ export function ProductsNext() {
   return <Products selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />;
 }
 
-export function ProductCardNext() {
-  return <Card />;
+export function ProductCardNext({ initialCard }) {
+  return <Card initialCard={initialCard} />;
 }
-

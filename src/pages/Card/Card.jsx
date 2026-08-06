@@ -20,19 +20,29 @@ import CodeSize from "./CodeSize";
 import LightboxModal from "../../components/Lightbox/LightboxModal";
 import ProductGallery from "./ProductGallery";
 
-const Card = () => {
+const collectGroupProducts = (cardItem) =>
+  (cardItem?.product?.groups || [])
+    .flatMap((group) => group.products || [])
+    .map((product) => ({
+      ...product,
+      cardId: product.card?.id,
+      productName: product.card?.product?.title || "без-названия",
+      isCurrent: product.id == cardItem?.product?.id,
+    }));
+
+const Card = ({ initialCard = null }) => {
   const { id, slug } = useParams();
   const cardId = id;
 
   const navigate = useNavigate();
-  const [card, setCard] = useState(null);
-  const [materials, setMaterials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [card, setCard] = useState(initialCard);
+  const [materials, setMaterials] = useState(initialCard?.materials || []);
+  const [loading, setLoading] = useState(!initialCard);
   const [error, setError] = useState(null);
   const [selectedMaterialIndex, setSelectedMaterialIndex] = useState(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [showArrows, setShowArrows] = useState(false);
-  const [groupProducts, setGroupProducts] = useState([]);
+  const [groupProducts, setGroupProducts] = useState(() => collectGroupProducts(initialCard));
   const [groupName, setGroupName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [groupColors, setGroupColors] = useState([]);
@@ -52,7 +62,7 @@ const Card = () => {
                 group.group_color.image.url
               }`
             : null,
-          images: group.image.map((img) => ({
+          images: (group.image || []).map((img) => ({
             url: `https://admin.ludno.ru${
               img.formats?.large?.url || img.formats?.thumbnail?.url || img.url
             }`,
@@ -180,20 +190,7 @@ const Card = () => {
 
         setMaterials(cardItem.materials || []);
 
-        const allGroupProducts = (cardItem.product.groups || []).flatMap(
-          (grp) => {
-            return grp.products || [];
-          }
-        );
-
-        const groupProductsWithCardId = allGroupProducts.map((p) => ({
-          ...p,
-          cardId: p.card?.id,
-          productName: p.card?.product?.title || "без-названия",
-          isCurrent: p.id == cardItem.product.id,
-        }));
-
-        setGroupProducts(groupProductsWithCardId);
+        setGroupProducts(collectGroupProducts(cardItem));
       } else {
         setError("Карточка не найдена");
       }
@@ -206,8 +203,16 @@ const Card = () => {
   };
 
   useEffect(() => {
+    if (initialCard && String(initialCard.id) === String(cardId)) {
+      setCard(initialCard);
+      setMaterials(initialCard.materials || []);
+      setGroupProducts(collectGroupProducts(initialCard));
+      setError(null);
+      setLoading(false);
+      return;
+    }
     fetchCardData();
-  }, [cardId]);
+  }, [cardId, initialCard]);
 
   if (loading) return <LoaderRound show={true} />;
   if (error) return <p>{error}</p>;

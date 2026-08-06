@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import { ProductCardNext } from "../../../../../src/next/LegacyNextPages";
-import { cardSlug, getCardParams, getCardSummary } from "../../../../../src/next/catalog-data";
+import { cardSlug, getCardParams, getCardSummary, getFullCard } from "../../../../../src/next/catalog-data";
 
 export const dynamicParams = false;
 
@@ -30,8 +30,7 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductCardPage({ params }) {
   const { id } = await params;
-  const card = await getCardSummary(id);
+  const card = await getFullCard(id);
   if (!card?.product) notFound();
-  return <div className="app__container"><SiteHeader /><main className="content"><ProductCardNext /></main><SiteFooter /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><ProductCardNext key={id} initialCard={card} /></main><SiteFooter /></div>;
 }
-

@@ -98,3 +98,18 @@ export async function getCardSummary(id) {
   return cards.find((card) => String(card.id) === String(id)) || null;
 }
 
+export const getFullCards = cache(() => fetchAll("/api/cards", {
+  "populate[product][populate][brand]": "true",
+  "populate[product][populate][category]": "true",
+  "populate[product][populate][groups][populate][products][populate][card][populate][product][fields][0]": "title",
+  "populate[materials][populate][0]": "image",
+  "populate[gallery]": "true",
+  "populate[productImage]": "true",
+  "populate[groupImage][populate][image]": "true",
+  "populate[groupImage][populate][group_color][populate][0]": "image",
+}));
+
+export async function getFullCard(id) {
+  const cards = await getFullCards();
+  return cards.find((card) => String(card.id) === String(id)) || null;
+}

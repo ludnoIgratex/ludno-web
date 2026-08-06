@@ -4,6 +4,7 @@ import { marked } from "marked";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import ProjectGallery from "../../../../../src/next/ProjectGallery";
 import RelatedProjectsStatic from "../../../../../src/next/RelatedProjectsStatic";
+import ProjectHeroImage from "../../../../../src/next/ProjectHeroImage";
 import {
   getProjectCard,
   getProjectParams,
@@ -60,7 +61,7 @@ export default async function ProjectPage({ params }) {
 
   const project = card.project;
   const mainImage = Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage;
-  const mainImageUrl = mediaUrl(mainImage);
+  const mainImageUrl = mediaUrl(mainImage, "original");
   const gallery = (card.image || []).map((image) => ({
     url: mediaUrl(image),
     alt: image.alternativeText || `Проект ${project.name}`,
@@ -79,9 +80,7 @@ export default async function ProjectPage({ params }) {
           </div>
 
           {mainImageUrl && (
-            <div className={styles.imageWrapper}>
-              <img src={mainImageUrl} alt={mainImage?.alternativeText || project.name} className={styles.mainImage} />
-            </div>
+            <ProjectHeroImage src={mainImageUrl} alt={mainImage?.alternativeText || project.name} />
           )}
 
           <section className={styles.cardContainer}>
