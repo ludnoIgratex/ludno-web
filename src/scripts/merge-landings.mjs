@@ -25,4 +25,22 @@ await cp(
   { recursive: true, force: true }
 );
 
-console.log(`Merged ${landingSlugs.length} landings and project cards into dist.`);
+await cp(path.join(exportDir, "projects"), path.join(distDir, "projects"), {
+  recursive: true,
+  force: true,
+});
+
+await cp(path.join(exportDir, "blog"), path.join(distDir, "blog"), {
+  recursive: true,
+  force: true,
+});
+
+await cp(path.join(exportDir, "index.html"), path.join(distDir, "index.html"), {
+  force: true,
+});
+
+await cp(path.join(exportDir, "index.txt"), path.join(distDir, "index.txt"), {
+  force: true,
+});
+
+console.log(`Merged the home page, ${landingSlugs.length} landings, projects, project cards and blog into dist.`);

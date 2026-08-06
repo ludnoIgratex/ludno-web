@@ -3,14 +3,14 @@
   padding-bottom: 160px;
 }
 
-.relatedPostsWrapper h3 {
+.relatedPostsWrapper > h2 {
   font-size: 34px;
   line-height: 40px;
   padding-bottom: 40px;
   padding-top: 0;
 }
 
-.relatedPostsWrapper h4 {
+.relatedPostsWrapper h3 {
   font-size: 18px;
   line-height: 24px;
   padding-bottom: 4px;
@@ -64,7 +64,7 @@
   color: var(--secondary-default-color);
 }
 
-.postItem h4 {
+.postItem h3 {
   font-size: 20px;
   line-height: 24px;
   color: var(--primary-default-color);
@@ -101,13 +101,13 @@
     gap: 16px;
   }
 
-  .relatedPostsWrapper h3 {
+  .relatedPostsWrapper > h2 {
     font-size: 26px;
     line-height: 32px;
     padding-bottom: 20px;
   }
 
-  .relatedPostsWrapper h4 {
+  .relatedPostsWrapper h3 {
     font-size: 13px;
     line-height: 18px;
   }

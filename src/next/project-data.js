@@ -87,6 +87,26 @@ export const getRelatedProjects = cache(async (currentProjectId) => {
   );
 });
 
+export const getProjects = cache(async () => {
+  const url = apiUrl("/api/projects", {
+    "populate[image]": "true",
+    "populate[project_type]": "true",
+    "pagination[pageSize]": PAGE_SIZE,
+    "sort[0]": "createdAt:desc",
+  });
+  const json = await fetchJson(url);
+  return json.data || [];
+});
+
+export const getProjectTypes = cache(async () => {
+  const url = apiUrl("/api/project-types", {
+    "pagination[pageSize]": PAGE_SIZE,
+    "sort[0]": "name:asc",
+  });
+  const json = await fetchJson(url);
+  return json.data || [];
+});
+
 export function projectDescription(markdown = "") {
   const plainText = markdown
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")

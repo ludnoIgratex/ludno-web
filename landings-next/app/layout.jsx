@@ -3,8 +3,9 @@ import "../../src/App.css";
 
 export const metadata = {
   metadataBase: new URL("https://ludno.ru"),
-  title: "Людно — архитектура игровых пространств",
-  description: "Архитектурные игровые и спортивные площадки Людно.",
+  title: "Архитектурные игровые и спортивные площадки | Людно",
+  description: "Людно проектирует и производит архитектурные детские и спортивные площадки, оборудование для парков, дворов и общественных пространств.",
+  applicationName: "Людно",
 };
 
 export default function RootLayout({ children }) {
