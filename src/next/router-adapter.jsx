@@ -74,6 +74,18 @@ export function useNavigate() {
         JSON.stringify(options.state)
       );
     }
+
+    const isProductsFilterNavigation =
+      typeof window !== "undefined" &&
+      window.location.pathname.startsWith("/products") &&
+      url.startsWith("/products");
+
+    if (isProductsFilterNavigation) {
+      const method = options.replace ? "replaceState" : "pushState";
+      window.history[method](window.history.state, "", url);
+      return;
+    }
+
     if (options.replace) router.replace(url);
     else router.push(url);
   }, [router]);
