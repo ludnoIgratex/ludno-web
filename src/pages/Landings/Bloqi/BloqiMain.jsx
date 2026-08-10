@@ -36,7 +36,7 @@ const BloqiMain = () => {
       <Projects />
       <Storage />
       <Consultation color="var(--accent-color-bloqi)" />
-      <OtherSolutions currentSlug="bloqi-solution" />
+      <OtherSolutions currentSlug="bloki-igrovoy-konstruktor" />
     </div>
   );
 };

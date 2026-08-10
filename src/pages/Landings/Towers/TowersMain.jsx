@@ -27,7 +27,7 @@ const TowersMain = () => {
       <About />
       <Items />
       <Consultation color="var(--primary-deafault-color)" />
-      <OtherSolutions currentSlug="towers-solution" />
+      <OtherSolutions currentSlug="bashni-igrovye-kompleksy" />
     </div>
   );
 };

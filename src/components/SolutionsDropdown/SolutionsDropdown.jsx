@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SolutionsDropdown.module.css";
 import { Link } from "react-router-dom";
+import { solutionSlug } from "../../utils/solution-slugs";
 
 const SolutionsDropdown = ({ visible, onClose }) => {
   const [solutions, setSolutions] = useState([]);
@@ -16,7 +17,7 @@ const SolutionsDropdown = ({ visible, onClose }) => {
               id: item.id,
               name: item.name,
               description: item.description,
-              url: item.url,
+              url: solutionSlug(item.url),
               order: item.order,
               imageUrl: item.image?.url || "",
             }))

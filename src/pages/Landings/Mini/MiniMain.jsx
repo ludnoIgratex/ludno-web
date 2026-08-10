@@ -37,7 +37,7 @@ const MiniMain = () => {
       <Manual />
       <Items />
       <Consultation color="var(--accent-color-mini)" />
-      <OtherSolutions currentSlug="mini-solution" />
+      <OtherSolutions currentSlug="mini-detskie-ploshchadki" />
     </div>
   );
 };

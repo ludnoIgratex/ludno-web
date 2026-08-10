@@ -33,7 +33,7 @@ const PlayletMain = () => {
       <Solutions />
       <Environment />
       <Consultation color="var(--accent-color-playlet)" />
-      <OtherSolutions currentSlug="playlet-solution" />
+      <OtherSolutions currentSlug="pleylet-sovremennye-mafy" />
     </div>
   );
 };

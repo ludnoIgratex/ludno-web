@@ -35,7 +35,7 @@ const KineticsMain = () => {
       <ColorSolutions />
       <Items />
       <Consultation color="var(--accent-color-kinetics)" />
-      <OtherSolutions currentSlug="kinetics-solution" />
+      <OtherSolutions currentSlug="kinetikomotornye-ploshchadki" />
     </div>
   );
 };

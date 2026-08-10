@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 import styles from "./BurgerMenu.module.css";
+import { solutionSlug } from "../../utils/solution-slugs";
 
 const BurgerMenu = ({ isOpen, onClose }) => {
   const [solutions, setSolutions] = useState([]);
@@ -15,7 +16,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
       .then((data) => {
         const solutionsList = data.data.map((item) => ({
           name: item.name,
-          url: item.url,
+          url: solutionSlug(item.url),
         }));
         setSolutions(solutionsList);
       })

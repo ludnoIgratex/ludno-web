@@ -37,7 +37,7 @@ const ParkfitMain = () => {
       </div>
       <Items />
       <Consultation color="var(--accent-color-parkfit)" />
-      <OtherSolutions currentSlug="parkfit-solution" />
+      <OtherSolutions currentSlug="parkfit-sportivnye-ploshchadki" />
     </div>
   );
 };

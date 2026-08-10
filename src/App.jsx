@@ -124,19 +124,19 @@ const App = () => {
               <Route path="/search-results" element={<SearchResultsPage />} />
               <Route path="/map" element={<YandexMap />} />
 
-              <Route path="/tramptec-solution" element={<TramptekMain />} />
-              <Route path="/kinetics-solution" element={<KineticsMain />} />
-              <Route path="/mini-solution" element={<MiniMain />} />
-              <Route path="/playlet-solution" element={<PlayletMain />} />
-              <Route path="/bloqi-solution" element={<BloqiMain />} />
-              <Route path="/towers-solution" element={<TowersMain />} />
-              <Route path="/parkfit-solution" element={<ParkfitMain />} />
+              <Route path="/tramptek-ulichnye-batuty" element={<TramptekMain />} />
+              <Route path="/kinetikomotornye-ploshchadki" element={<KineticsMain />} />
+              <Route path="/mini-detskie-ploshchadki" element={<MiniMain />} />
+              <Route path="/pleylet-sovremennye-mafy" element={<PlayletMain />} />
+              <Route path="/bloki-igrovoy-konstruktor" element={<BloqiMain />} />
+              <Route path="/bashni-igrovye-kompleksy" element={<TowersMain />} />
+              <Route path="/parkfit-sportivnye-ploshchadki" element={<ParkfitMain />} />
               <Route
-                path="/nature-navigation-solution"
+                path="/prirodnaya-navigaciya"
                 element={<NatureNavMain />}
               />
-              <Route path="/gavpark-solution" element={<GavparkMain />} />
-              <Route path="/dvor-solution" element={<DvorMain />} />
+              <Route path="/gavpark-ploshchadki-dlya-sobak" element={<GavparkMain />} />
+              <Route path="/dvory-detskie-ploshchadki-dlya-zhk" element={<DvorMain />} />
 
 
               <Route path="/blog" element={<Blog />} />

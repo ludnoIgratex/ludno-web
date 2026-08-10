@@ -12,13 +12,16 @@ const STATIC_URLS = [
   "/products",
   "/contacts",
   "/projects",
-  "/kinetics-solution",
-  "/tramptec-solution",
-  "/mini-solution",
-  "/playlet-solution",
-  "/bloqi-solution",
-  "/parkfit-solution",
-  "/towers-solution",
+  "/kinetikomotornye-ploshchadki",
+  "/tramptek-ulichnye-batuty",
+  "/mini-detskie-ploshchadki",
+  "/pleylet-sovremennye-mafy",
+  "/bloki-igrovoy-konstruktor",
+  "/parkfit-sportivnye-ploshchadki",
+  "/bashni-igrovye-kompleksy",
+  "/gavpark-ploshchadki-dlya-sobak",
+  "/dvory-detskie-ploshchadki-dlya-zhk",
+  "/prirodnaya-navigaciya",
 ];
 
 // ——— утилиты ———

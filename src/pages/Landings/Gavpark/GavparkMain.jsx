@@ -36,7 +36,7 @@ const GavparkMain = () => {
       <Projects/>
       <Items/>
       <Consultation color="var(--accent-color-gavpark)" />
-      <OtherSolutions currentSlug="gavpark-solution" />
+      <OtherSolutions currentSlug="gavpark-ploshchadki-dlya-sobak" />
     </div>
   );
 };

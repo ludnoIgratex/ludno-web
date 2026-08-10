@@ -27,7 +27,7 @@ const DvorMain = () => {
       <About />
       <Items />
       <Consultation color="var(--primary-default-color)" />
-      <OtherSolutions currentSlug="dvor-solution" />
+      <OtherSolutions currentSlug="dvory-detskie-ploshchadki-dlya-zhk" />
     </div>
   );
 };

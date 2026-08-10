@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./OtherSolutions.module.css";
 import { Link } from "react-router-dom";
 import { RiArrowRightDownLine } from "react-icons/ri";
+import { solutionSlug } from "../../utils/solution-slugs";
 
 const OtherSolutions = ({ currentSlug }) => {
   const [solutions, setSolutions] = useState([]);
@@ -13,12 +14,12 @@ const OtherSolutions = ({ currentSlug }) => {
       .then((data) => {
         if (data && data.data) {
           const parsed = data.data
-            .filter((item) => item.url !== currentSlug)
+            .filter((item) => solutionSlug(item.url) !== solutionSlug(currentSlug))
             .map((item) => ({
               id: item.id,
               name: item.name,
               description: item.description,
-              url: item.url,
+              url: solutionSlug(item.url),
               imageUrl: item.image?.url || "",
             }));
           setSolutions(parsed);

@@ -33,7 +33,7 @@ const NatureNavMain = () => {
       <Adaptation />
       <Items />
       <Consultation color="black" />
-      <OtherSolutions currentSlug="nature-navigation-solution" />
+      <OtherSolutions currentSlug="prirodnaya-navigaciya" />
     </div>
   );
 };

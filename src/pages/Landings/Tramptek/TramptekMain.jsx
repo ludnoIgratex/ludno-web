@@ -38,7 +38,7 @@ const TramptekMain = () => {
       <ImagesCarousel />
       <Items />
       <Consultation color="var(--accent-color-tramptek)" />
-      <OtherSolutions currentSlug="tramptec-solution" />
+      <OtherSolutions currentSlug="tramptek-ulichnye-batuty" />
     </div>
   );
 };

@@ -9,6 +9,27 @@ const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
 const attempts = new Map();
+const legacySolutionRedirects = new Map([
+  ["/bloqi-solution", "/bloki-igrovoy-konstruktor/"],
+  ["/bloki", "/bloki-igrovoy-konstruktor/"],
+  ["/dvor-solution", "/dvory-detskie-ploshchadki-dlya-zhk/"],
+  ["/dvory", "/dvory-detskie-ploshchadki-dlya-zhk/"],
+  ["/gavpark-solution", "/gavpark-ploshchadki-dlya-sobak/"],
+  ["/gavpark", "/gavpark-ploshchadki-dlya-sobak/"],
+  ["/kinetics-solution", "/kinetikomotornye-ploshchadki/"],
+  ["/kinetika", "/kinetikomotornye-ploshchadki/"],
+  ["/mini-solution", "/mini-detskie-ploshchadki/"],
+  ["/mini", "/mini-detskie-ploshchadki/"],
+  ["/nature-navigation-solution", "/prirodnaya-navigaciya/"],
+  ["/parkfit-solution", "/parkfit-sportivnye-ploshchadki/"],
+  ["/parkfit", "/parkfit-sportivnye-ploshchadki/"],
+  ["/playlet-solution", "/pleylet-sovremennye-mafy/"],
+  ["/pleylet", "/pleylet-sovremennye-mafy/"],
+  ["/towers-solution", "/bashni-igrovye-kompleksy/"],
+  ["/bashni", "/bashni-igrovye-kompleksy/"],
+  ["/tramptec-solution", "/tramptek-ulichnye-batuty/"],
+  ["/tramptek", "/tramptek-ulichnye-batuty/"],
+]);
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -185,6 +206,14 @@ async function serveStatic(request, response) {
 }
 
 const server = createServer(async (request, response) => {
+  const requestUrl = new URL(request.url, `http://${request.headers.host || "localhost"}`);
+  const normalizedPath = requestUrl.pathname.replace(/\/$/, "") || "/";
+  const redirectTarget = legacySolutionRedirects.get(normalizedPath);
+  if (redirectTarget && (request.method === "GET" || request.method === "HEAD")) {
+    response.writeHead(301, { Location: `${redirectTarget}${requestUrl.search}` });
+    return response.end();
+  }
+
   if (
     request.method === "POST" &&
     request.url === "/api/newsletter/subscribe"

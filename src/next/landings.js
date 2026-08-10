@@ -12,16 +12,16 @@ import TowersMain from "../pages/Landings/Towers/TowersMain";
 import TramptekMain from "../pages/Landings/Tramptek/TramptekMain";
 
 export const landings = {
-  "bloqi-solution": { component: BloqiMain },
-  "dvor-solution": { component: DvorMain },
-  "gavpark-solution": { component: GavparkMain },
-  "kinetics-solution": { component: KineticsMain },
-  "mini-solution": { component: MiniMain },
-  "nature-navigation-solution": { component: NatureNavMain },
-  "parkfit-solution": { component: ParkfitMain },
-  "playlet-solution": { component: PlayletMain },
-  "towers-solution": { component: TowersMain },
-  "tramptec-solution": { component: TramptekMain },
+  "bloki-igrovoy-konstruktor": { component: BloqiMain },
+  "dvory-detskie-ploshchadki-dlya-zhk": { component: DvorMain },
+  "gavpark-ploshchadki-dlya-sobak": { component: GavparkMain },
+  "kinetikomotornye-ploshchadki": { component: KineticsMain },
+  "mini-detskie-ploshchadki": { component: MiniMain },
+  "prirodnaya-navigaciya": { component: NatureNavMain },
+  "parkfit-sportivnye-ploshchadki": { component: ParkfitMain },
+  "pleylet-sovremennye-mafy": { component: PlayletMain },
+  "bashni-igrovye-kompleksy": { component: TowersMain },
+  "tramptek-ulichnye-batuty": { component: TramptekMain },
 };
 
 export const landingSlugs = Object.keys(landings);

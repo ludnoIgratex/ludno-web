@@ -40,7 +40,7 @@ export default async function sitemap() {
   ]);
 
   return [...paths].map((pathname) => ({
-    url: `${BASE_URL}${pathname}`,
+    url: pathname ? `${BASE_URL}${pathname}/` : `${BASE_URL}/`,
     changeFrequency: pathname.startsWith("/blog/") ? "monthly" : "weekly",
   }));
 }

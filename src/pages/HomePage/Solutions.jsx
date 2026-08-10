@@ -9,7 +9,7 @@ const Solutions = forwardRef((props, ref) => {
       <h2>Решения</h2>
       <section className={styles.solutions}>
         <div className={styles.landscape}>
-          <Link to="kinetics-solution" className={styles.link}>
+          <Link to="/kinetikomotornye-ploshchadki" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Кинетикомоторные площадки</h3>
@@ -26,7 +26,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.tramptek}>
-          <Link to="tramptec-solution" className={styles.link}>
+          <Link to="/tramptek-ulichnye-batuty" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Батутные парки</h3>
@@ -41,7 +41,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.mini}>
-          <Link to="mini-solution" className={styles.link}>
+          <Link to="/mini-detskie-ploshchadki" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Детские сады</h3>
@@ -56,7 +56,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.playlet}>
-          <Link to="playlet-solution" className={styles.link}>
+          <Link to="/pleylet-sovremennye-mafy" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Плейлеты</h3>
@@ -71,7 +71,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.bloqi}>
-          <Link to="bloqi-solution" className={styles.link}>
+          <Link to="/bloki-igrovoy-konstruktor" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Конструктор</h3>
@@ -85,7 +85,7 @@ const Solutions = forwardRef((props, ref) => {
           </Link>
         </div>
         <div className={styles.gavpark}>
-          <Link to="gavpark-solution" className={styles.link}>
+          <Link to="/gavpark-ploshchadki-dlya-sobak" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Площадки для собак</h3>
@@ -100,7 +100,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.parkfit}>
-          <Link to="parkfit-solution" className={styles.link}>
+          <Link to="/parkfit-sportivnye-ploshchadki" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Фитнес</h3>
@@ -115,7 +115,7 @@ const Solutions = forwardRef((props, ref) => {
         </div>
 
         <div className={styles.towers}>
-          <Link to="towers-solution" className={styles.link}>
+          <Link to="/bashni-igrovye-kompleksy" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Башни</h3>
@@ -129,7 +129,7 @@ const Solutions = forwardRef((props, ref) => {
           </Link>
         </div>
         <div className={styles.nature}>
-          <Link to="nature-navigation-solution" className={styles.link}>
+          <Link to="/prirodnaya-navigaciya" className={styles.link}>
             <div className={styles.textBlock}>
               <div className={styles.textBlockTitle}>
                 <h3>Природная навигация</h3>
