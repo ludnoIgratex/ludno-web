@@ -2,7 +2,37 @@
 
 import React from "react";
 import LinkNext from "next/link";
-import { useParams as useNextParams, usePathname, useRouter } from "next/navigation";
+import {
+  useParams as useNextParams,
+  usePathname,
+  useRouter,
+} from "next/navigation";
+
+const HISTORY_PATCHED = Symbol.for("ludno.nextHistoryPatched");
+
+function subscribeToLocation(callback) {
+  if (!window[HISTORY_PATCHED]) {
+    ["pushState", "replaceState"].forEach((method) => {
+      const original = window.history[method].bind(window.history);
+      window.history[method] = (...args) => {
+        const result = original(...args);
+        window.dispatchEvent(new Event("next-location-change"));
+        return result;
+      };
+    });
+    window[HISTORY_PATCHED] = true;
+  }
+
+  window.addEventListener("popstate", callback);
+  window.addEventListener("next-location-change", callback);
+  return () => {
+    window.removeEventListener("popstate", callback);
+    window.removeEventListener("next-location-change", callback);
+  };
+}
+
+const getSearchSnapshot = () => window.location.search;
+const getServerSearchSnapshot = () => "";
 
 function targetUrl(target) {
   if (typeof target === "string") return target;
@@ -18,7 +48,7 @@ export function Link({ to, children, ...props }) {
 
 export function useNavigate() {
   const router = useRouter();
-  return (to, options = {}) => {
+  return React.useCallback((to, options = {}) => {
     if (typeof to === "number") {
       if (to < 0) router.back();
       else router.forward();
@@ -33,33 +63,28 @@ export function useNavigate() {
     }
     if (options.replace) router.replace(url);
     else router.push(url);
-    if (typeof window !== "undefined") {
-      window.setTimeout(() => window.dispatchEvent(new Event("next-location-change")), 0);
-    }
-  };
+  }, [router]);
 }
 
 export function useLocation() {
   const pathname = usePathname();
-  const [search, setSearch] = React.useState("");
+  const search = React.useSyncExternalStore(
+    subscribeToLocation,
+    getSearchSnapshot,
+    getServerSearchSnapshot
+  );
   const [state, setState] = React.useState(null);
+
   React.useEffect(() => {
-    const syncLocation = () => {
-      const currentSearch = window.location.search;
-      const url = `${pathname}${currentSearch}`;
-      setSearch(currentSearch);
-      const storedState = window.sessionStorage.getItem(`next-navigation-state:${url}`);
-      setState(storedState ? JSON.parse(storedState) : null);
-    };
-    syncLocation();
-    window.addEventListener("popstate", syncLocation);
-    window.addEventListener("next-location-change", syncLocation);
-    return () => {
-      window.removeEventListener("popstate", syncLocation);
-      window.removeEventListener("next-location-change", syncLocation);
-    };
-  }, [pathname]);
-  return { pathname, search, hash: "", state, key: `${pathname}${search}` };
+    const url = `${pathname}${search}`;
+    const storedState = window.sessionStorage.getItem(`next-navigation-state:${url}`);
+    setState(storedState ? JSON.parse(storedState) : null);
+  }, [pathname, search]);
+
+  return React.useMemo(
+    () => ({ pathname, search, hash: "", state, key: `${pathname}${search}` }),
+    [pathname, search, state]
+  );
 }
 
 export function useParams() {

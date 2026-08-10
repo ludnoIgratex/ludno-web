@@ -1,5 +1,5 @@
 // src/hooks/ProductsUrlMapper.jsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { slugify } from "transliteration";
 
@@ -287,12 +287,14 @@ export default function ProductsUrlMapper() {
 
   const [maps, setMaps] = useState(undefined);
 
-  const isMobile = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      window.innerWidth <= 1024 ||
-      (window.matchMedia && window.matchMedia("(max-width: 1024px)").matches)
-    );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
+    const syncViewport = () => setIsMobile(mediaQuery.matches);
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+    return () => mediaQuery.removeEventListener("change", syncViewport);
   }, []);
 
   useEffect(() => {
@@ -345,11 +347,15 @@ export default function ProductsUrlMapper() {
       targetSearch = mergeNonFilterParams(search, "");
     }
 
+    const normalizePath = (value) =>
+      value === "/" ? "/" : value.replace(/\/+$/, "");
     const targetUrl = targetPath + targetSearch + (hash || "");
-    const currentUrl =
-      location.pathname + location.search + (location.hash || "");
+    const isCurrentUrl =
+      normalizePath(targetPath) === normalizePath(location.pathname) &&
+      targetSearch === location.search &&
+      (hash || "") === (location.hash || "");
 
-    if (targetUrl !== currentUrl) {
+    if (!isCurrentUrl) {
       navigate(targetUrl, { replace: true });
     }
   }, [location, navigate, maps, isMobile]);

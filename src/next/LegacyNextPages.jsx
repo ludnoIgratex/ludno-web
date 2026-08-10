@@ -11,6 +11,7 @@ import SearchResultsPage from "../components/SearchResultPage/SearchResultsPage"
 import Kacheli from "../pages/Calculators/Kacheli/Kacheli";
 import Pokrytiya from "../pages/Calculators/Pokrytiya/Pokrytiya";
 import Mixer from "../pages/Mixer/Mixer";
+import ProductsUrlMapper from "../hooks/ProductsUrlMapper";
 
 export function ContactsNext() {
   return <Contacts />;
@@ -22,7 +23,15 @@ export function AboutNext() {
 
 export function ProductsNext() {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  return <Products selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />;
+  return (
+    <>
+      <ProductsUrlMapper />
+      <Products
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+    </>
+  );
 }
 
 export function ProductCardNext({ initialCard }) {
