@@ -34,12 +34,25 @@ function subscribeToLocation(callback) {
 const getSearchSnapshot = () => window.location.search;
 const getServerSearchSnapshot = () => "";
 
+function withTrailingSlash(url) {
+  if (!url.startsWith("/")) return url;
+
+  const match = url.match(/^([^?#]*)([?#].*)?$/);
+  const pathname = match?.[1] || url;
+  const suffix = match?.[2] || "";
+  const lastSegment = pathname.split("/").filter(Boolean).at(-1) || "";
+  const isFile = /\.[a-z0-9]+$/i.test(lastSegment);
+
+  if (pathname === "/" || pathname.endsWith("/") || isFile) return url;
+  return `${pathname}/${suffix}`;
+}
+
 function targetUrl(target) {
-  if (typeof target === "string") return target;
+  if (typeof target === "string") return withTrailingSlash(target);
   const pathname = target?.pathname || "";
   const search = target?.search || "";
   const hash = target?.hash || "";
-  return `${pathname}${search}${hash}`;
+  return withTrailingSlash(`${pathname}${search}${hash}`);
 }
 
 export function Link({ to, children, ...props }) {
