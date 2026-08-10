@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:vite && npm run build:landings && node src/scripts/merge-landings.mjs",
+    "build": "npm run build:landings && node src/scripts/merge-landings.mjs",
     "build:vite": "vite build",
     "dev:landings": "next dev landings-next --webpack",
     "build:landings": "next build landings-next --webpack",

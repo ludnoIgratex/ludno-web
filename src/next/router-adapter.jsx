@@ -25,6 +25,12 @@ export function useNavigate() {
       return;
     }
     const url = targetUrl(to);
+    if (options.state && typeof window !== "undefined") {
+      window.sessionStorage.setItem(
+        `next-navigation-state:${url}`,
+        JSON.stringify(options.state)
+      );
+    }
     if (options.replace) router.replace(url);
     else router.push(url);
     if (typeof window !== "undefined") {
@@ -36,8 +42,15 @@ export function useNavigate() {
 export function useLocation() {
   const pathname = usePathname();
   const [search, setSearch] = React.useState("");
+  const [state, setState] = React.useState(null);
   React.useEffect(() => {
-    const syncLocation = () => setSearch(window.location.search);
+    const syncLocation = () => {
+      const currentSearch = window.location.search;
+      const url = `${pathname}${currentSearch}`;
+      setSearch(currentSearch);
+      const storedState = window.sessionStorage.getItem(`next-navigation-state:${url}`);
+      setState(storedState ? JSON.parse(storedState) : null);
+    };
     syncLocation();
     window.addEventListener("popstate", syncLocation);
     window.addEventListener("next-location-change", syncLocation);
@@ -46,7 +59,7 @@ export function useLocation() {
       window.removeEventListener("next-location-change", syncLocation);
     };
   }, [pathname]);
-  return { pathname, search, hash: "", state: null, key: `${pathname}${search}` };
+  return { pathname, search, hash: "", state, key: `${pathname}${search}` };
 }
 
 export function useParams() {

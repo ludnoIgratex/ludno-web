@@ -161,18 +161,20 @@ async function serveStatic(request, response) {
     ""
   );
   let filePath = join(DIST_DIR, requestedPath);
+  let statusCode = 200;
 
   try {
     const fileStat = await stat(filePath);
     if (fileStat.isDirectory()) filePath = join(filePath, "index.html");
     await access(filePath);
   } catch {
-    filePath = join(DIST_DIR, "vite.html");
+    filePath = join(DIST_DIR, "404.html");
+    statusCode = 404;
   }
 
   const extension = extname(filePath).toLowerCase();
   const immutable = requestedPath.startsWith("/assets/");
-  response.writeHead(200, {
+  response.writeHead(statusCode, {
     "Content-Type": mimeTypes[extension] || "application/octet-stream",
     "Cache-Control": immutable
       ? "public, max-age=31536000, immutable"

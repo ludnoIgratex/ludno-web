@@ -5,6 +5,12 @@ import Contacts from "../pages/Contacts/Contacts";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Products from "../pages/Products/Products";
 import Card from "../pages/Card/Card";
+import YandexMap from "../pages/Map/YandexMap";
+import Policy from "../pages/Policy/Policy";
+import SearchResultsPage from "../components/SearchResultPage/SearchResultsPage";
+import Kacheli from "../pages/Calculators/Kacheli/Kacheli";
+import Pokrytiya from "../pages/Calculators/Pokrytiya/Pokrytiya";
+import Mixer from "../pages/Mixer/Mixer";
 
 export function ContactsNext() {
   return <Contacts />;
@@ -21,4 +27,28 @@ export function ProductsNext() {
 
 export function ProductCardNext({ initialCard }) {
   return <Card initialCard={initialCard} />;
+}
+
+export function MapNext() {
+  return <YandexMap />;
+}
+
+export function PolicyNext() {
+  return <Policy />;
+}
+
+export function SearchResultsNext() {
+  return <SearchResultsPage />;
+}
+
+export function SwingCalculatorNext() {
+  return <Kacheli />;
+}
+
+export function SurfaceCalculatorNext() {
+  return <Pokrytiya />;
+}
+
+export function EpdmConfiguratorNext() {
+  return <Mixer />;
 }
