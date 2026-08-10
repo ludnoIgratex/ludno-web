@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./styles/HeaderLogo.module.css";
 
 const emojis = ["🛝", "🧩", "🧒🏼", "🌳", "🪜", "🏗️", "🎨"];
@@ -13,14 +13,12 @@ const getOriginalText = () => {
 };
 
 const HeaderLogo = () => {
-  const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0);
   const [logoContent, setLogoContent] = useState(getOriginalText());
   const [isMobile, setIsMobile] = useState(false);
 
   const handleClick = () => {
     setClickCount((prev) => prev + 1);
-    navigate("/");
   };
 
   useEffect(() => {
@@ -92,9 +90,14 @@ const HeaderLogo = () => {
   }, [clickCount, isMobile]);
 
   return (
-    <h1 className={styles.headerLogo} onClick={handleClick}>
+    <Link
+      to="/"
+      className={styles.headerLogo}
+      onClick={handleClick}
+      aria-label="Людно — главная"
+    >
       {logoContent}
-    </h1>
+    </Link>
   );
 };
 
