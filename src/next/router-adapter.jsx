@@ -33,6 +33,7 @@ function subscribeToLocation(callback) {
 
 const getSearchSnapshot = () => window.location.search;
 const getServerSearchSnapshot = () => "";
+const getPathnameSnapshot = () => window.location.pathname;
 
 function withTrailingSlash(url) {
   if (!url.startsWith("/")) return url;
@@ -92,7 +93,12 @@ export function useNavigate() {
 }
 
 export function useLocation() {
-  const pathname = usePathname();
+  const nextPathname = usePathname();
+  const pathname = React.useSyncExternalStore(
+    subscribeToLocation,
+    getPathnameSnapshot,
+    () => nextPathname
+  );
   const search = React.useSyncExternalStore(
     subscribeToLocation,
     getSearchSnapshot,
