@@ -32,10 +32,10 @@ export async function generateMetadata({ params }) {
   const address = card.adress?.trim();
   const slug = projectSlug(name);
   const title = address
-    ? `${name}, ${address} | Проект Людно`
-    : `${name} | Проект Людно`;
+    ? `${name}, ${address} | Детские площадки Людно`
+    : `${name} | Детские площадки Людно`;
   const firstSentence = projectDescription(card.about) || `Проект «${name}».`;
-  const description = `${firstSentence} | Проект Людно`;
+  const description = `${firstSentence} | Детские площадки Людно`;
   const mainImage = Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage;
   const imageUrl = mediaUrl(mainImage);
 
