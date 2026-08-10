@@ -13,6 +13,7 @@ import {
 } from "../../../../../src/next/blog-data";
 import styles from "../../../../../src/pages/Blog/PostPage/styles/PostPage.module.css";
 import breadcrumbsStyles from "../../../../../src/pages/Blog/BreadCrumbs/styles/BreadCrumbs.module.css";
+import { imageAlt } from "../../../../../src/next/image-alt";
 
 export const dynamicParams = false;
 
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }) {
       publishedTime: post.publishedAt || post.date,
       modifiedTime: post.updatedAt,
       tags: post.post_tags?.map((tag) => tag.name) || [],
-      images: imageUrl ? [{ url: imageUrl, alt: image?.alternativeText || heading }] : [],
+      images: imageUrl ? [{ url: imageUrl, alt: imageAlt(image?.alternativeText, heading) }] : [],
     },
   };
 }

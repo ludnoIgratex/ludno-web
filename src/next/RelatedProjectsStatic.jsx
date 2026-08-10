@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { mediaUrl, projectSlug } from "./project-data";
 import styles from "../pages/Projects/components/RelatedProjects/RelatedProjects.module.css";
+import { imageAlt } from "./image-alt";
 
 export default function RelatedProjectsStatic({ projects }) {
   if (!projects.length) return null;
@@ -21,7 +22,7 @@ export default function RelatedProjectsStatic({ projects }) {
               {imageUrl && (
                 <img
                   src={imageUrl}
-                  alt={image?.alternativeText || project.name || "Проект Людно"}
+                  alt={imageAlt(image?.alternativeText, project.name || "Проект")}
                   className={styles.projectImage}
                   loading="lazy"
                 />

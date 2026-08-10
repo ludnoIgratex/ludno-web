@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 import styles from "../pages/Blog/PostPage/styles/PostPage.module.css";
+import { imageAlt } from "./image-alt";
 
 function contentBlocks(markdown = "") {
   const renderer = new marked.Renderer();
@@ -25,7 +26,8 @@ function contentBlocks(markdown = "") {
   for (const piece of pieces) {
     const image = piece.match(/<img.*?src="(.*?)".*?alt="(.*?)".*?>/);
     if (image) {
-      images.push({ src: image[1], alt: image[2] || "Изображение" });
+      const caption = image[2] || "Изображение";
+      images.push({ src: image[1], alt: imageAlt(caption, "Изображение"), caption });
       continue;
     }
     flushImages();
@@ -51,7 +53,7 @@ export default function PostContent({ text }) {
             {block.content.map((image) => (
               <figure key={image.src} className={styles.scrollImage}>
                 <img src={image.src} alt={image.alt} loading="lazy" />
-                <figcaption className={styles.alt}>{image.alt}</figcaption>
+                <figcaption className={styles.alt}>{image.caption}</figcaption>
               </figure>
             ))}
           </div>
@@ -61,7 +63,7 @@ export default function PostContent({ text }) {
       return (
         <figure className={styles.singleImageContainer} key={index}>
           <img src={image.src} alt={image.alt} loading="lazy" />
-          <figcaption className={styles.altSingle}>{image.alt}</figcaption>
+          <figcaption className={styles.altSingle}>{image.caption}</figcaption>
         </figure>
       );
     }

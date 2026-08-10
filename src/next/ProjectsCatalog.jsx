@@ -6,6 +6,7 @@ import { PiMapPinArea } from "react-icons/pi";
 import { slugify } from "transliteration";
 import styles from "../pages/Projects/styles/Projects.module.css";
 import typeStyles from "../pages/Projects/components/ProjectType/ProjectType.module.css";
+import { imageAlt } from "./image-alt";
 
 function projectSlug(name = "") {
   return slugify(name || "bez-nazvaniya", { lowercase: true, separator: "-" });
@@ -76,7 +77,7 @@ export default function ProjectsCatalog({ projects, projectTypes }) {
                 <img
                   className={styles.projectImage}
                   src={imageUrl}
-                  alt={image?.alternativeText || project.name || "Проект Людно"}
+                  alt={imageAlt(image?.alternativeText, project.name || "Проект")}
                   loading="lazy"
                 />
               )}

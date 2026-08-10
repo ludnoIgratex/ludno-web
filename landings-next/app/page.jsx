@@ -15,7 +15,7 @@ export const metadata = {
     siteName: "Людно",
     locale: "ru_RU",
     type: "website",
-    images: [{ url: "/assets/images/third.webp", alt: "Архитектурная игровая площадка Людно" }],
+    images: [{ url: "/assets/images/third.webp", alt: "Архитектурная игровая площадка | Людно" }],
   },
 };
 
@@ -46,4 +46,3 @@ export default function HomePage() {
     </div>
   );
 }
-

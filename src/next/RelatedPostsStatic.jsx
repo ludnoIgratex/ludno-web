@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { mediaUrl, postSlug, postTitle } from "./blog-data";
 import styles from "../pages/Blog/RelatedPosts/styles/RelatedPosts.module.css";
+import { imageAlt } from "./image-alt";
 
 const dateFormatter = new Intl.DateTimeFormat("ru-RU");
 
@@ -19,7 +20,7 @@ export default function RelatedPostsStatic({ posts }) {
               <Link href={`/blog/${post.id}/${postSlug(post.text)}`}>
                 {imageUrl && (
                   <div className={styles.imageContainer}>
-                    <img src={imageUrl} alt={image?.alternativeText || title} loading="lazy" />
+                    <img src={imageUrl} alt={imageAlt(image?.alternativeText, title)} loading="lazy" />
                   </div>
                 )}
                 <div className={styles.content}>
@@ -36,4 +37,3 @@ export default function RelatedPostsStatic({ posts }) {
     </aside>
   );
 }
-

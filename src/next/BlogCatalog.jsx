@@ -6,6 +6,7 @@ import { mediaUrl, postSlug, postTitle } from "./blog-data";
 import styles from "../pages/Blog/styles/Blog.module.css";
 import catalogStyles from "../pages/Blog/PostCatalog/styles/PostCatalog.module.css";
 import tagStyles from "../pages/Blog/PostTag/styles/PostTag.module.css";
+import { imageAlt } from "./image-alt";
 
 const dateFormatter = new Intl.DateTimeFormat("ru-RU");
 
@@ -57,7 +58,7 @@ export default function BlogCatalog({ posts, tags }) {
                       <img
                         loading="lazy"
                         src={imageUrl}
-                        alt={image?.alternativeText || title}
+                        alt={imageAlt(image?.alternativeText, title)}
                       />
                     )}
                     <div className={catalogStyles.tagsOverlay}>
@@ -84,4 +85,3 @@ export default function BlogCatalog({ posts, tags }) {
     </div>
   );
 }
-

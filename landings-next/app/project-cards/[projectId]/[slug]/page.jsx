@@ -15,6 +15,7 @@ import {
 } from "../../../../../src/next/project-data";
 import styles from "../../../../../src/pages/ProjectCard/styles/ProjectCard.module.css";
 import breadcrumbsStyles from "../../../../../src/pages/Projects/components/BreadCrumbs/BreadCrumbs.module.css";
+import { imageAlt } from "../../../../../src/next/image-alt";
 
 export const dynamicParams = false;
 
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }) {
       siteName: "Людно",
       locale: "ru_RU",
       type: "article",
-      images: imageUrl ? [{ url: imageUrl, alt: name }] : [],
+      images: imageUrl ? [{ url: imageUrl, alt: imageAlt(mainImage?.alternativeText, name) }] : [],
     },
   };
 }
@@ -62,9 +63,9 @@ export default async function ProjectPage({ params }) {
   const project = card.project;
   const mainImage = Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage;
   const mainImageUrl = mediaUrl(mainImage, "original");
-  const gallery = (card.image || []).map((image) => ({
+  const gallery = (card.image || []).map((image, index) => ({
     url: mediaUrl(image),
-    alt: image.alternativeText || `Проект ${project.name}`,
+    alt: imageAlt(image.alternativeText, `${project.name}, фотография ${index + 1}`),
   })).filter((image) => image.url);
   const relatedProjects = await getRelatedProjects(project.id);
 
@@ -80,7 +81,7 @@ export default async function ProjectPage({ params }) {
           </div>
 
           {mainImageUrl && (
-            <ProjectHeroImage src={mainImageUrl} alt={mainImage?.alternativeText || project.name} />
+            <ProjectHeroImage src={mainImageUrl} alt={imageAlt(mainImage?.alternativeText, project.name)} />
           )}
 
           <section className={styles.cardContainer}>
