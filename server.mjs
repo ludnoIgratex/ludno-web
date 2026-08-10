@@ -29,6 +29,10 @@ const legacySolutionRedirects = new Map([
   ["/bashni", "/bashni-igrovye-kompleksy/"],
   ["/tramptec-solution", "/tramptek-ulichnye-batuty/"],
   ["/tramptek", "/tramptek-ulichnye-batuty/"],
+  [
+    "/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii.",
+    "/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii/",
+  ],
 ]);
 
 const mimeTypes = {

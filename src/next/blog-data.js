@@ -32,7 +32,10 @@ export function postSlug(text = "") {
   return slugify(postTitle(text, "statya"), {
     lowercase: true,
     separator: "-",
-  });
+  })
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function mediaUrl(media, format = "large") {
