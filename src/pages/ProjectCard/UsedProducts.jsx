@@ -30,7 +30,7 @@ export default function UsedProducts({ products = [] }) {
       aria-labelledby="used-products-title"
     >
       <h2 id="used-products-title">
-        Какое оборудование было использовано на этой площадке
+        Оборудование для этой площадки
       </h2>
       <div className={styles.productsList}>
         {linkedProducts.map((product) => {
