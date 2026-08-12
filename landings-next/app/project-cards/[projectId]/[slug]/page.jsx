@@ -5,6 +5,7 @@ import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import ProjectGallery from "../../../../../src/next/ProjectGallery";
 import RelatedProjectsStatic from "../../../../../src/next/RelatedProjectsStatic";
 import ProjectHeroImage from "../../../../../src/next/ProjectHeroImage";
+import UsedProductsStatic from "../../../../../src/next/UsedProductsStatic";
 import {
   getProjectCard,
   getProjectParams,
@@ -108,6 +109,7 @@ export default async function ProjectPage({ params }) {
           </section>
 
           <ProjectGallery images={gallery} />
+          <UsedProductsStatic products={card.products} />
           <RelatedProjectsStatic projects={relatedProjects} />
         </article>
       </main>

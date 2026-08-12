@@ -7,6 +7,7 @@ import Breadcrumbs from "../Projects/components/BreadCrumbs/BreadCrumbs";
 import RelatedProjects from "../Projects/components/RelatedProjects/RelatedProjects";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import LightboxModal from "../../components/Lightbox/LightboxModal";
+import UsedProducts from "./UsedProducts";
 import { marked } from "marked";
 
 // Включаем переносы строк (\n => <br>)
@@ -38,6 +39,12 @@ const ProjectCard = () => {
             image: true,
             project: {
               populate: "project_type",
+            },
+            products: {
+              populate: {
+                image: true,
+                card: true,
+              },
             },
           },
         },
@@ -219,6 +226,7 @@ const ProjectCard = () => {
         />
       )}
 
+      <UsedProducts products={projectCard.products} />
       <RelatedProjects currentProjectId={projectCard.project.id} />
     </div>
   );

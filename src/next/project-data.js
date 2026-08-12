@@ -70,6 +70,8 @@ export const getProjectCard = cache(async (projectId) => {
     "populate[mainImage]": "true",
     "populate[image]": "true",
     "populate[project][populate]": "project_type",
+    "populate[products][populate][image]": "true",
+    "populate[products][populate][card]": "true",
   });
   const json = await fetchJson(url);
   return json.data?.[0] || null;
