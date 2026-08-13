@@ -73,6 +73,11 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               </button>
               {isSolutionsOpen && (
                 <ul className={styles.dropdownMenu}>
+                  <li>
+                    <Link to="/detskie-ploshchadki-moskva" onClick={onClose}>
+                      Детские площадки в Москве
+                    </Link>
+                  </li>
                   {solutions.map((solution, idx) => (
                     <li key={idx}>
                       <Link to={`/${solution.url}`} onClick={onClose}>

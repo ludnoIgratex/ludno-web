@@ -28,6 +28,18 @@ const Footer = ({ setShowSolutions }) => {
         <div className={styles.links}>
           <ul className={styles.navList}>
             <li>
+              <Link
+                to="/detskie-ploshchadki-moskva"
+                className={
+                  location.pathname.startsWith("/detskie-ploshchadki-moskva")
+                    ? styles.active
+                    : ""
+                }
+              >
+                Детские площадки в Москве
+              </Link>
+            </li>
+            <li>
               <span
                 onClick={handleSolutionsClick}
                 className={
