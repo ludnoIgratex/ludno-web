@@ -36,6 +36,7 @@ const legacySolutionRedirects = new Map([
 ]);
 
 const mimeTypes = {
+  ".avif": "image/avif",
   ".css": "text/css; charset=utf-8",
   ".gif": "image/gif",
   ".html": "text/html; charset=utf-8",
@@ -52,6 +53,7 @@ const mimeTypes = {
   ".txt": "text/plain; charset=utf-8",
   ".webmanifest": "application/manifest+json",
   ".woff2": "font/woff2",
+  ".webp": "image/webp",
 };
 
 function json(response, status, body) {
