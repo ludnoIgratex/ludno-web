@@ -15,9 +15,9 @@ const About = () => {
 
   const handleCatalogClick = () => {
     if (isTouchDevice) {
-      navigate("/products?solutions=96");
+      navigate("/products?solutions=153");
     } else {
-      navigate("/products/Фитнес");
+      navigate("/products/Спорт");
     }
   };
 
