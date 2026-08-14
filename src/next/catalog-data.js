@@ -3,14 +3,18 @@ import { slugify } from "transliteration";
 
 const STRAPI_URL = process.env.STRAPI_URL || "https://admin.ludno.ru";
 const PAGE_SIZE = 100;
+const BUILD_CACHE_BUSTER = process.env.BUILD_CACHE_BUSTER || Date.now().toString();
 
 function apiUrl(pathname, params = {}) {
   const url = new URL(pathname, STRAPI_URL);
+  url.searchParams.set("_build", BUILD_CACHE_BUSTER);
   Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)));
   return url;
 }
 
 async function fetchJson(url) {
+  // The build-specific URL avoids stale data between deployments while still
+  // allowing Next to cache and statically export the response during one build.
   const response = await fetch(url, { cache: "force-cache" });
   if (!response.ok) throw new Error(`Strapi request failed: ${response.status} ${url}`);
   return response.json();
