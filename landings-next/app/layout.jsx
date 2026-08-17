@@ -6,6 +6,9 @@ export const metadata = {
   title: "Архитектурные игровые и спортивные площадки | Людно",
   description: "Людно проектирует и производит архитектурные детские и спортивные площадки, оборудование для парков, дворов и общественных пространств.",
   applicationName: "Людно",
+  verification: {
+    yandex: "01566f4a9307cd48",
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
