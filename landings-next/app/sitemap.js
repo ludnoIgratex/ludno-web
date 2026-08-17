@@ -18,7 +18,6 @@ const staticPaths = [
   "/kalkulyator-prizemleniya-kacheley",
   "/kalkulyator-tolshchiny-pokrytiya",
   "/epdm-configurator",
-  "/detskie-ploshchadki-moskva",
 ];
 
 export default async function sitemap() {
