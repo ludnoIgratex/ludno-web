@@ -200,15 +200,65 @@ async function serveStatic(request, response) {
     statusCode = 404;
   }
 
+  const fileStat = await stat(filePath);
   const extension = extname(filePath).toLowerCase();
   const immutable = requestedPath.startsWith("/assets/");
-  response.writeHead(statusCode, {
+  const headers = {
     "Content-Type": mimeTypes[extension] || "application/octet-stream",
     "Cache-Control": immutable
       ? "public, max-age=31536000, immutable"
       : "no-cache",
+    "Accept-Ranges": "bytes",
     "X-Content-Type-Options": "nosniff",
+  };
+
+  const range = request.headers.range;
+  if (range && statusCode === 200) {
+    const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+    let start;
+    let end;
+
+    if (match?.[1]) {
+      start = Number(match[1]);
+      end = match[2] ? Number(match[2]) : fileStat.size - 1;
+    } else if (match?.[2]) {
+      const suffixLength = Number(match[2]);
+      start = Math.max(fileStat.size - suffixLength, 0);
+      end = fileStat.size - 1;
+    }
+
+    if (
+      start === undefined ||
+      end === undefined ||
+      !Number.isSafeInteger(start) ||
+      !Number.isSafeInteger(end) ||
+      start < 0 ||
+      start >= fileStat.size ||
+      end < start
+    ) {
+      response.writeHead(416, {
+        ...headers,
+        "Content-Range": `bytes */${fileStat.size}`,
+        "Content-Length": "0",
+      });
+      return response.end();
+    }
+
+    end = Math.min(end, fileStat.size - 1);
+    response.writeHead(206, {
+      ...headers,
+      "Content-Range": `bytes ${start}-${end}/${fileStat.size}`,
+      "Content-Length": String(end - start + 1),
+    });
+    if (request.method === "HEAD") return response.end();
+    return createReadStream(filePath, { start, end }).pipe(response);
+  }
+
+  response.writeHead(statusCode, {
+    ...headers,
+    "Content-Length": String(fileStat.size),
   });
+  if (request.method === "HEAD") return response.end();
   createReadStream(filePath).pipe(response);
 }
 
