@@ -12,6 +12,5 @@ export const metadata = {
 };
 
 export default function ContactsPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><ContactsNext /></main><SiteFooter /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Контакты компании Людно</h1><ContactsNext /></main><SiteFooter /></div>;
 }
-

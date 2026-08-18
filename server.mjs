@@ -10,6 +10,8 @@ const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
 const attempts = new Map();
 const legacySolutionRedirects = new Map([
+  ["/card/1947/plioboks-mobilnyy", "/parkfit-sportivnye-ploshchadki/"],
+  ["/card/1947/plioboks-mobilnyi", "/parkfit-sportivnye-ploshchadki/"],
   ["/bloqi-solution", "/bloki-igrovoy-konstruktor/"],
   ["/bloki", "/bloki-igrovoy-konstruktor/"],
   ["/dvor-solution", "/dvory-detskie-ploshchadki-dlya-zhk/"],

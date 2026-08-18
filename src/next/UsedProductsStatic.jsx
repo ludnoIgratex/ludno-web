@@ -6,7 +6,7 @@ import styles from "../pages/Products/components/RelatedProducts/RelatedProducts
 
 function productHref(product) {
   if (!product?.card?.id) return null;
-  return `/card/${product.card.id}/${cardSlug(product.title)}`;
+  return `/card/${product.card.id}/${cardSlug(product.title)}/`;
 }
 
 export default function UsedProductsStatic({ products = [] }) {

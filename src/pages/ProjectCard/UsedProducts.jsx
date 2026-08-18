@@ -11,7 +11,7 @@ const productUrl = (product) => {
     lowercase: true,
     separator: "-",
   });
-  return `/card/${product.card.id}/${slug}`;
+  return `/card/${product.card.id}/${slug}/`;
 };
 
 const productImage = (product) => {

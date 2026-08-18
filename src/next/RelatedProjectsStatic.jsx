@@ -16,7 +16,7 @@ export default function RelatedProjectsStatic({ projects }) {
           return (
             <Link
               key={project.id}
-              href={`/project-cards/${project.id}/${projectSlug(project.name)}`}
+              href={`/project-cards/${project.id}/${projectSlug(project.name)}/`}
               className={styles.projectItem}
             >
               {imageUrl && (

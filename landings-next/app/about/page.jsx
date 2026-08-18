@@ -12,6 +12,5 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><AboutNext /></main><SiteFooter /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">О компании Людно</h1><AboutNext /></main><SiteFooter /></div>;
 }
-

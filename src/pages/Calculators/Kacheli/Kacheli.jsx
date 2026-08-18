@@ -272,7 +272,7 @@ export default function Kacheli() {
 
               <div className={styles.links}>
                 <span className={styles.dots}>…</span>
-                <a href="/contacts" className={styles.link}>
+                <a href="/contacts/" className={styles.link}>
                   Узнать цену
                 </a>
               </div>

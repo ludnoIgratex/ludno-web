@@ -322,7 +322,7 @@ export default function Pokrytiya() {
               </p>
 
               <div className={styles.links}>
-                <a href="/contacts" className={styles.link}>
+                <a href="/contacts/" className={styles.link}>
                   Узнать цену
                 </a>
               </div>

@@ -2,7 +2,10 @@ import React from "react";
 import styles from "./styles/Card.module.css";
 
 const CardTitle = ({ title }) => {
-  return <h1 className={styles.cardTitle}>{title || "Нет имени продукта"}</h1>;
+  const normalizedTitle = (title || "Нет имени продукта")
+    .replace(/Игровой компекс/gi, "Игровой комплекс")
+    .replace(/Игровой комлекс/gi, "Игровой комплекс");
+  return <h1 className={styles.cardTitle}>{normalizedTitle}</h1>;
 };
 
 export default CardTitle;

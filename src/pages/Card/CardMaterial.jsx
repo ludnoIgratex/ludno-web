@@ -28,7 +28,7 @@ const CardMaterial = ({
                   ? `https://admin.ludno.ru${material.image.formats.medium.url}`
                   : material.image?.url
                   ? `https://admin.ludno.ru${material.image.url}`
-                  : "/path/to/default-image.jpg";
+                  : null;
 
                 return (
                   <li
@@ -38,15 +38,17 @@ const CardMaterial = ({
                       selectedMaterialIndex === index ? styles.selected : ""
                     }
                   >
-                    <img
-                      loading="lazy"
-                      src={imageUrl}
-                      alt={
-                        material.image?.alternativeText ||
-                        "Изображение материала"
-                      }
-                      className={styles.materialImage}
-                    />
+                    {imageUrl && (
+                      <img
+                        loading="lazy"
+                        src={imageUrl}
+                        alt={
+                          material.image?.alternativeText ||
+                          `Материал: ${material.name || "без названия"}`
+                        }
+                        className={styles.materialImage}
+                      />
+                    )}
                     <h4>{material.name || "Без названия"}</h4>
                   </li>
                 );
