@@ -1,0 +1,81 @@
+.page { color: var(--primary-default-color); padding: 28px 32px 120px; }
+.breadcrumbs { margin-bottom: 56px; padding-top: 22px; }
+.breadcrumbs ul { align-items: center; display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.breadcrumbs li { font-size: 18px; margin-right: 10px; }
+.breadcrumbs li:not(:last-child)::after { color: var(--secondary-text-color); content: ">"; margin-left: 10px; }
+.breadcrumbs a { color: var(--secondary-text-color); font-weight: 500; text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.breadcrumbs li:last-child { color: var(--primary-text-color); cursor: default; font-weight: bold; }
+.hero { display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr); min-height: 690px; }
+.heroCopy { align-self: center; max-width: 820px; padding: 50px 4vw 70px 0; }
+.eyebrow { color: var(--secondary-default-color); font-size: 18px; line-height: 24px; margin: 0 0 26px; }
+.hero h1 { font-size: 76px; font-weight: 100; letter-spacing: -.035em; line-height: .95; margin: 0; }
+.lead { font-size: 26px; line-height: 32px; margin: 42px 0 0; max-width: 760px; }
+.contactChooser { margin-top: 46px; width: min(100%, 560px); }
+.action, .cta a { align-items: center; color: inherit; display: inline-flex; font-size: 26px; gap: 9px; line-height: 32px; text-decoration: underline; text-underline-offset: 5px; }
+.cta a { margin-top: 60px; }
+.action { appearance: none; background: transparent; border: 0; cursor: pointer; font-family: inherit; font-weight: inherit; padding: 0; }
+.action:focus-visible, .messengers a:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 5px; }
+.action span, .cta a span { color: var(--accent-color); }
+.action span { display: inline-block; transition: transform .35s ease; }
+.action .actionIconOpen { transform: rotate(90deg); }
+.messengers { display: grid; grid-template-rows: 0fr; opacity: 0; transform: translateY(-8px); transition: grid-template-rows .45s ease, opacity .3s ease, transform .45s ease, visibility 0s linear .45s; visibility: hidden; }
+.messengers > div { display: flex; flex-wrap: wrap; gap: 10px; min-height: 0; overflow: hidden; padding-top: 0; transition: padding-top .45s ease; }
+.messengersOpen { grid-template-rows: 1fr; opacity: 1; transform: translateY(0); transition-delay: 0s; visibility: visible; }
+.messengersOpen > div { padding-top: 24px; }
+.messengers a { align-items: center; border: 1px solid currentColor; border-radius: 999px; color: inherit; display: inline-flex; font-size: 18px; gap: 8px; line-height: 24px; padding: 10px 18px; text-decoration: none; transition: background-color .25s ease, color .25s ease, transform .25s ease; }
+.messengers a:hover { background: var(--primary-default-color); color: var(--primary-inverted-text-color); transform: translateY(-2px); }
+.messengers a span { color: var(--accent-color); }
+.heroImage { height: 100%; margin: 0; min-height: 620px; overflow: hidden; }
+.heroImage img, .gallery img { height: 100%; object-fit: cover; width: 100%; }
+.focus, .process, .regions { padding: 120px 0; }
+.sectionHeading { display: grid; gap: 32px; grid-template-columns: 1fr 3fr; margin-bottom: 72px; }
+.sectionHeading .eyebrow { margin: 10px 0 0; }
+.sectionHeading h2, .regions h2, .cta h2 { font-size: 60px; font-weight: 100; line-height: 1; margin: 0; max-width: 900px; }
+.focusGrid { display: grid; gap: 28px; grid-template-columns: repeat(3, 1fr); margin-left: 25%; }
+.focusGrid article { background: var(--bg-hover-color); min-height: 290px; padding: 28px; }
+.focusGrid article > span, .process li > span { color: var(--secondary-default-color); font-size: 14px; }
+.focusGrid h3 { font-size: 26px; font-weight: 400; line-height: 32px; margin: 76px 0 18px; }
+.focusGrid p { font-size: 16px; line-height: 22px; margin: 0; }
+.gallery { display: grid; gap: 28px; grid-template-columns: 1.25fr .75fr; height: 680px; }
+.gallery figure { margin: 0; min-width: 0; overflow: hidden; }
+.process ol { list-style: none; margin: 0 0 0 25%; padding: 0; }
+.process li { align-items: start; display: grid; gap: 28px; grid-template-columns: 56px minmax(220px, .8fr) 1.4fr; padding: 28px 0; }
+.process h3 { font-size: 26px; font-weight: 400; line-height: 32px; margin: 0; }
+.process li p { font-size: 18px; line-height: 24px; margin: 0; max-width: 620px; }
+.regions { background: var(--primary-default-color); color: var(--primary-inverted-text-color); display: grid; gap: 8vw; grid-template-columns: 1.05fr .95fr; margin: 0 -32px; padding-left: 32px; padding-right: 32px; }
+.regionsLead { font-size: 26px; line-height: 32px; margin: 36px 0 0; max-width: 660px; }
+.regions ul { list-style: none; margin: 0; padding: 0; }
+.regions li a { align-items: center; color: inherit; display: flex; font-size: 22px; justify-content: space-between; line-height: 28px; padding: 13px 0; text-decoration: none; }
+.regions li a:hover { color: var(--accent-color); }
+.cta { padding: 140px 0 40px; }
+.cta h2 { font-size: 76px; max-width: 1000px; }
+.cta > p:not(.eyebrow) { font-size: 26px; line-height: 32px; margin: 36px 0 0; max-width: 680px; }
+@media (max-width: 900px) {
+  .page { padding: 20px 20px 80px; }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .heroCopy { padding: 35px 0 28px; }
+  .hero h1, .cta h2 { font-size: 52px; line-height: 1; }
+  .heroImage { min-height: 480px; }
+  .focus, .process, .regions { padding-bottom: 80px; padding-top: 80px; }
+  .sectionHeading { grid-template-columns: 1fr; margin-bottom: 44px; }
+  .sectionHeading h2, .regions h2 { font-size: 42px; line-height: 48px; }
+  .focusGrid { grid-template-columns: 1fr; margin-left: 0; }
+  .gallery { height: auto; }
+  .gallery figure { height: 420px; }
+  .process ol { margin-left: 0; }
+  .process li { grid-template-columns: 42px 1fr; }
+  .process li p { grid-column: 2; }
+  .regions { grid-template-columns: 1fr; margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+}
+@media (max-width: 560px) {
+  .hero h1, .cta h2 { font-size: 42px; line-height: 48px; }
+  .lead, .regionsLead, .cta > p:not(.eyebrow), .action, .cta a { font-size: 18px; line-height: 24px; }
+  .contactChooser { margin-top: 32px; }
+  .cta a { margin-top: 42px; }
+  .messengers > div { align-items: stretch; flex-direction: column; }
+  .messengers a { justify-content: space-between; width: 100%; box-sizing: border-box; }
+  .heroImage { min-height: 380px; }
+  .gallery { grid-template-columns: 1fr; }
+  .gallery figure { height: 320px; }
+}

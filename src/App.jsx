@@ -40,6 +40,9 @@ import Pokrytiya from "./pages/Calculators/Pokrytiya/Pokrytiya";
 import Mixer from "./pages/Mixer/Mixer";
 import DvorMain from "./pages/Landings/Dvor/DvorMain";
 import NewsletterModal from "./components/NewsletterModal/NewsletterModal";
+import MoscowPlaygrounds from "./pages/MoscowPlaygrounds/MoscowPlaygrounds";
+import SiteMap from "./pages/SiteMap/SiteMap";
+import SeoPageRoute from "./pages/SeoPage/SeoPageRoute";
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -102,6 +105,13 @@ const App = () => {
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/sitemap" element={<SiteMap />} />
+              {import.meta.env.DEV && (
+                <Route
+                  path="/detskie-ploshchadki-moskva"
+                  element={<MoscowPlaygrounds />}
+                />
+              )}
               <Route
                 path="/products/*"
                 element={
@@ -155,6 +165,7 @@ const App = () => {
               />
 
               <Route path="/policy" element={<Policy />} />
+              <Route path="/:seoSlug" element={<SeoPageRoute />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

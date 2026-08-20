@@ -114,6 +114,7 @@ const Footer = ({ setShowSolutions }) => {
             <img src="/assets/icons/logo-rounded-rus.svg" alt="logo" />
           </div>
           <div className={styles.policyContainer}>
+            <Link to="/sitemap">Карта сайта</Link>
             <Link to="/policy">Правовая информация</Link>
             <p className={styles.copyright}>
               &copy; Людно {new Date().getFullYear()}
