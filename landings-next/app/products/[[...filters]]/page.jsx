@@ -1,6 +1,7 @@
 import { SiteFooter, SiteHeader } from "../../../../src/next/SiteChrome";
 import { ProductsNext } from "../../../../src/next/LegacyNextPages";
-import { getProductPaths } from "../../../../src/next/catalog-data";
+import { cardSlug, getCardIndex, getProductPaths } from "../../../../src/next/catalog-data";
+import { JsonLd, breadcrumbSchema, itemListSchema, webPageSchema } from "../../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -29,6 +30,22 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ProductsPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Каталог оборудования для благоустройства</h1><ProductsNext /></main><SiteFooter /></div>;
+export default async function ProductsPage({ params }) {
+  const { filters = [] } = await params;
+  const cards = filters.length === 0 ? await getCardIndex() : [];
+  const title = "Оборудование для детских и спортивных площадок";
+  const description = "Каталог Людно: оборудование для детских и спортивных площадок, парков, дворов и общественных пространств.";
+  const schema = [
+    webPageSchema({ name: title, description, path: "/products/", type: "CollectionPage" }),
+    breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Каталог", path: "/products/" }]),
+    ...(cards.length ? [itemListSchema({
+      name: title,
+      path: "/products/",
+      items: cards.filter((card) => card.product?.title).map((card) => ({
+        name: [card.product.title, card.product.name].filter(Boolean).join(" "),
+        path: `/card/${card.id}/${cardSlug(card.product.title)}/`,
+      })),
+    })] : []),
+  ];
+  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Каталог оборудования для благоустройства</h1><ProductsNext /></main><SiteFooter /><JsonLd data={schema} /></div>;
 }

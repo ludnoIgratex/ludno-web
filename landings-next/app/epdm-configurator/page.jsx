@@ -1,5 +1,6 @@
 import { SiteFooter, SiteHeader } from "../../../src/next/SiteChrome";
 import { EpdmConfiguratorNext } from "../../../src/next/LegacyNextPages";
+import { StandardPageJsonLd } from "../../../src/next/structured-data";
 
 const title = "Конфигуратор цветовых смесей EPDM | Людно";
 const description = "Онлайн-конфигуратор смесей EPDM-крошки: подбор цветов и пропорций для покрытий детских и спортивных площадок.";
@@ -12,5 +13,5 @@ export const metadata = {
 };
 
 export default function EpdmConfiguratorPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><EpdmConfiguratorNext /></main><SiteFooter /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><EpdmConfiguratorNext /></main><SiteFooter /><StandardPageJsonLd name={title} description={description} path="/epdm-configurator/" type="WebApplication" /></div>;
 }

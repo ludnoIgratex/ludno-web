@@ -14,6 +14,7 @@ import {
 import styles from "../../../../../src/pages/Blog/PostPage/styles/PostPage.module.css";
 import breadcrumbsStyles from "../../../../../src/pages/Blog/BreadCrumbs/styles/BreadCrumbs.module.css";
 import { imageAlt } from "../../../../../src/next/image-alt";
+import { JsonLd, ORGANIZATION_ID, breadcrumbSchema, webPageSchema } from "../../../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -73,6 +74,24 @@ export default async function PostPage({ params }) {
   const title = postTitle(post.text);
   const date = post.date ? new Date(`${post.date}T00:00:00`) : null;
   const relatedPosts = await getRelatedPosts(post.id);
+  const canonicalPath = `/blog/${post.id}/${postSlug(post.text)}/`;
+  const description = cleanDescription(post.description) || `Статья Людно: ${title}.`;
+  const imageUrl = mediaUrl(post.image?.[0]);
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `https://ludno.ru${canonicalPath}#article`,
+    headline: title,
+    description,
+    url: `https://ludno.ru${canonicalPath}`,
+    image: imageUrl || undefined,
+    datePublished: post.publishedAt || post.date || undefined,
+    dateModified: post.updatedAt || post.publishedAt || post.date || undefined,
+    inLanguage: "ru-RU",
+    author: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    keywords: post.post_tags?.map((tag) => tag.name).join(", ") || undefined,
+  };
 
   return (
     <div className="app__container">
@@ -109,6 +128,11 @@ export default async function PostPage({ params }) {
         </article>
       </main>
       <SiteFooter />
+      <JsonLd data={[
+        articleSchema,
+        webPageSchema({ name: title, description, path: canonicalPath }),
+        breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Блог", path: "/blog/" }, { name: title, path: canonicalPath }]),
+      ]} />
     </div>
   );
 }

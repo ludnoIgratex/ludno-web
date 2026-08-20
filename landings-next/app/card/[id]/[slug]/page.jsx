@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import { ProductCardNext } from "../../../../../src/next/LegacyNextPages";
 import { cardSlug, getCardParams, getFullCard } from "../../../../../src/next/catalog-data";
+import { JsonLd, breadcrumbSchema, webPageSchema } from "../../../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -73,15 +74,8 @@ export default async function ProductCardPage({ params }) {
       description: typeof card.description === "string" ? card.description : undefined,
       url: canonical,
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Главная", item: "https://ludno.ru/" },
-        { "@type": "ListItem", position: 2, name: "Каталог", item: "https://ludno.ru/products/" },
-        { "@type": "ListItem", position: 3, name, item: canonical },
-      ],
-    },
+    webPageSchema({ name, description: typeof card.description === "string" ? card.description : name, path: new URL(canonical).pathname, type: "ItemPage" }),
+    breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Каталог", path: "/products/" }, { name, path: new URL(canonical).pathname }]),
   ];
-  return <div className="app__container"><SiteHeader /><main className="content"><ProductCardNext key={id} initialCard={card} /></main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><ProductCardNext key={id} initialCard={card} /></main><SiteFooter /><JsonLd data={schema} /></div>;
 }

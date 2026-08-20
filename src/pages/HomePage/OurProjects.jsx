@@ -6,11 +6,15 @@ import { RiArrowRightDownLine } from "react-icons/ri";
 import { slugify } from "transliteration";
 
 // Helper function to decode HTML entities
-const decodeHtmlEntities = (text) => {
-  const textarea = document.createElement("textarea");
-  textarea.innerHTML = text;
-  return textarea.value;
-};
+const decodeHtmlEntities = (text) => String(text || "")
+  .replace(/&nbsp;/gi, " ")
+  .replace(/&quot;/gi, '"')
+  .replace(/&#0*39;|&apos;/gi, "'")
+  .replace(/&lt;/gi, "<")
+  .replace(/&gt;/gi, ">")
+  .replace(/&amp;/gi, "&")
+  .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+  .replace(/&#x([\da-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16)));
 
 // Function to process the description
 const processDescription = (description) => {
@@ -29,9 +33,10 @@ const processDescription = (description) => {
   return truncatedText;
 };
 
-const OurProjects = () => {
-  const [projects, setProjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const OurProjects = ({ initialProjects }) => {
+  const hasInitialProjects = Array.isArray(initialProjects);
+  const [projects, setProjects] = useState(initialProjects || []);
+  const [isLoading, setIsLoading] = useState(!hasInitialProjects);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const scrollContainerRef = useRef(null);
@@ -59,6 +64,8 @@ const OurProjects = () => {
   }, []);
 
   useEffect(() => {
+    if (hasInitialProjects) return;
+
     const fetchProjects = async () => {
       const query = qs.stringify(
         {
@@ -89,7 +96,7 @@ const OurProjects = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [hasInitialProjects]);
 
   const handleProjectClick = (project) => {
     if (project.id) {
@@ -97,7 +104,7 @@ const OurProjects = () => {
         lowercase: true,
         separator: "-",
       });
-      navigate(`/project-cards/${project.id}/${projectSlug}`);
+      navigate(`/project-cards/${project.id}/${projectSlug}/`);
     }
   };
 
@@ -119,11 +126,16 @@ const OurProjects = () => {
         <h2>Наши проекты</h2>
         <div className={styles.watchAll}>
           <RiArrowRightDownLine className={styles.watchAllArrow} />
-          <a href="/projects"> Все проекты</a>
+          <a href="/projects/"> Все проекты</a>
         </div>
       </div>
       <div className={styles.scrollContainer} ref={scrollContainerRef}>
         {projects.map((project) => {
+          const projectSlug = slugify(project.name || "project", {
+            lowercase: true,
+            separator: "-",
+          });
+          const projectHref = `/project-cards/${project.id}/${projectSlug}/`;
           const firstImage = project.image?.[0];
           const imageUrl = firstImage
             ? `https://admin.ludno.ru${
@@ -153,9 +165,9 @@ const OurProjects = () => {
                 <section className={styles.mainInfo}>
                   <section>
                     <h3>
-                      {project.name}, {project.project_card.year}
+                      {project.name}, {project.project_card?.year}
                     </h3>
-                    <p>{project.project_card.adress}</p>
+                    <p>{project.project_card?.adress}</p>
                   </section>
 
                   {/* <section className={styles.projectSection}>
@@ -172,7 +184,7 @@ const OurProjects = () => {
 
                 <div className={styles.linkContainer}>
                   <RiArrowRightDownLine className={styles.arrow} />
-                  <a>Подробнее</a>
+                  <a href={projectHref}>Подробнее</a>
                 </div>
               </div>
             </div>

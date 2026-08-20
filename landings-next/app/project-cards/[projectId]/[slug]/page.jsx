@@ -17,6 +17,7 @@ import {
 import styles from "../../../../../src/pages/ProjectCard/styles/ProjectCard.module.css";
 import breadcrumbsStyles from "../../../../../src/pages/Projects/components/BreadCrumbs/BreadCrumbs.module.css";
 import { imageAlt } from "../../../../../src/next/image-alt";
+import { JsonLd, ORGANIZATION_ID, breadcrumbSchema, webPageSchema } from "../../../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -69,6 +70,22 @@ export default async function ProjectPage({ params }) {
     alt: imageAlt(image.alternativeText, `${project.name}, фотография ${index + 1}`),
   })).filter((image) => image.url);
   const relatedProjects = await getRelatedProjects(project.id);
+  const canonicalPath = `/project-cards/${projectId}/${projectSlug(project.name)}/`;
+  const canonical = `https://ludno.ru${canonicalPath}`;
+  const description = projectDescription(card.about) || `Проект «${project.name}».`;
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${canonical}#project`,
+    name: project.name,
+    description,
+    url: canonical,
+    image: mainImageUrl || undefined,
+    dateCreated: card.year ? String(card.year) : undefined,
+    creator: { "@id": ORGANIZATION_ID },
+    author: card.author ? { "@type": "Person", name: card.author } : undefined,
+    locationCreated: card.adress ? { "@type": "Place", name: card.adress } : undefined,
+  };
 
   return (
     <div className="app__container">
@@ -114,6 +131,11 @@ export default async function ProjectPage({ params }) {
         </article>
       </main>
       <SiteFooter />
+      <JsonLd data={[
+        projectSchema,
+        webPageSchema({ name: project.name, description, path: canonicalPath, type: "ItemPage" }),
+        breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Проекты", path: "/projects/" }, { name: project.name, path: canonicalPath }]),
+      ]} />
     </div>
   );
 }

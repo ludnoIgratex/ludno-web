@@ -1,5 +1,7 @@
 import { SiteFooter, SiteHeader } from "../../src/next/SiteChrome";
 import HomePageNext from "../../src/next/HomePageNext";
+import { JsonLd, webPageSchema } from "../../src/next/structured-data";
+import { getHomeProjects } from "../../src/next/project-data";
 
 const title = "Архитектурные игровые и спортивные площадки | Людно";
 const description = "Людно проектирует и производит архитектурные детские и спортивные площадки, оборудование для парков, дворов и современных общественных пространств.";
@@ -19,30 +21,16 @@ export const metadata = {
   },
 };
 
-const organizationData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Людно",
-  url: "https://ludno.ru",
-  logo: "https://ludno.ru/favicon.svg",
-  description,
-  email: "info@ludno.ru",
-  telephone: "+7-800-350-24-20",
-  sameAs: ["https://t.me/ludnoo", "https://www.pinterest.com/ludnoru"],
-};
-
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await getHomeProjects();
   return (
     <div className="app__container">
       <SiteHeader />
       <main className="content">
-        <HomePageNext />
+        <HomePageNext initialProjects={projects} />
       </main>
       <SiteFooter />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
-      />
+      <JsonLd data={webPageSchema({ name: title, description, path: "/" })} />
     </div>
   );
 }

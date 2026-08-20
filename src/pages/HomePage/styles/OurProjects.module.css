@@ -97,7 +97,14 @@
 }
 
 .linkContainer a {
+  color: white;
   text-decoration: underline;
+}
+
+.linkContainer a:visited,
+.linkContainer a:hover,
+.linkContainer a:active {
+  color: white;
 }
 
 .arrow {

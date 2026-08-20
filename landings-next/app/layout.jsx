@@ -2,6 +2,7 @@ import Script from "next/script";
 import "../../src/index.css";
 import "../../src/App.css";
 import YandexMetrikaPageview from "./yandex-metrika-pageview";
+import { JsonLd, organizationSchema, websiteSchema } from "../../src/next/structured-data";
 
 export const metadata = {
   metadataBase: new URL("https://ludno.ru"),
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
     <html lang="ru">
       <body>
         {children}
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <YandexMetrikaPageview />
         <Script id="yandex-metrika" strategy="afterInteractive">
           {`

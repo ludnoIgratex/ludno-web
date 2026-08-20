@@ -1,5 +1,6 @@
 import { SiteFooter, SiteHeader } from "../../../src/next/SiteChrome";
 import { MapNext } from "../../../src/next/LegacyNextPages";
+import { StandardPageJsonLd } from "../../../src/next/structured-data";
 
 const title = "Карта реализованных проектов | Людно";
 const description = "Реализованные проекты Людно на карте: детские и спортивные площадки, общественные пространства и объекты благоустройства.";
@@ -12,5 +13,5 @@ export const metadata = {
 };
 
 export default function MapPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><MapNext /></main><SiteFooter /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><MapNext /></main><SiteFooter /><StandardPageJsonLd name={title} description={description} path="/map/" type="CollectionPage" /></div>;
 }

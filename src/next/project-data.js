@@ -100,6 +100,16 @@ export const getProjects = cache(async () => {
   return json.data || [];
 });
 
+export const getHomeProjects = cache(async () => {
+  const url = apiUrl("/api/projects", {
+    populate: "*",
+    "pagination[limit]": 5,
+    "sort[0]": "createdAt:desc",
+  });
+  const json = await fetchJson(url);
+  return json.data || [];
+});
+
 export const getProjectTypes = cache(async () => {
   const url = apiUrl("/api/project-types", {
     "pagination[pageSize]": PAGE_SIZE,

@@ -7,7 +7,7 @@ import About from "./About";
 import OurProjects from "./OurProjects";
 import Consultation from "../../components/Consultation/Consultation";
 
-const HomePage = () => {
+const HomePage = ({ initialProjects }) => {
   const solutionsRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const HomePage = () => {
       <Main />
       <Solutions ref={solutionsRef} />
       <Consultation color="var(--accent-color)" />
-      <OurProjects />
+      <OurProjects initialProjects={initialProjects} />
       <About />
     </div>
   );

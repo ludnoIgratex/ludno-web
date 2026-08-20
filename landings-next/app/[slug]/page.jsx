@@ -4,6 +4,7 @@ import { landingMetadata, landingSlugs } from "../../../src/next/landing-metadat
 import { getSeoPage, seoPageSlugs } from "../../../src/data/seoPageData";
 import SeoPage from "../../../src/pages/SeoPage/SeoPage";
 import { SiteFooter, SiteHeader } from "../../../src/next/SiteChrome";
+import { JsonLd, breadcrumbSchema, webPageSchema } from "../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -35,16 +36,27 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  if (landingMetadata[slug]) return <LandingPage slug={slug} />;
+  if (landingMetadata[slug]) {
+    const landing = landingMetadata[slug];
+    return (
+      <>
+        <LandingPage slug={slug} />
+        <JsonLd data={[
+          webPageSchema({ name: landing.title, description: landing.description, path: `/${slug}/` }),
+          breadcrumbSchema([{ name: "Главная", path: "/" }, { name: landing.title.replace(/ \|.*$/, ""), path: `/${slug}/` }]),
+        ]} />
+      </>
+    );
+  }
   const seoPage = getSeoPage(slug);
   if (!seoPage) notFound();
 
-  const schema = {
+  const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: seoPage.title,
     description: seoPage.description,
-    provider: { "@type": "Organization", name: "Людно", url: "https://ludno.ru" },
+    provider: { "@id": "https://ludno.ru/#organization" },
     url: `https://ludno.ru/${slug}/`,
   };
 
@@ -53,7 +65,11 @@ export default async function Page({ params }) {
       <SiteHeader />
       <SeoPage page={seoPage} />
       <SiteFooter />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <JsonLd data={[
+        serviceSchema,
+        webPageSchema({ name: seoPage.metaTitle || seoPage.title, description: seoPage.description, path: `/${slug}/` }),
+        breadcrumbSchema([{ name: "Главная", path: "/" }, { name: seoPage.title, path: `/${slug}/` }]),
+      ]} />
     </div>
   );
 }
