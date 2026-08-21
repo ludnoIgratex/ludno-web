@@ -76,7 +76,7 @@ const Zoning = () => {
   return (
     <section className={styles.wrap}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Зонирование площадки</h1>
+        <h2 className={styles.title}>Зонирование площадки</h2>
         <nav className={styles.tabs} aria-label="Зоны площадки">
           {TABS.map((tab) => (
             <button

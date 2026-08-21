@@ -11,6 +11,7 @@ const Head = () => {
   };
   return (
     <section className={styles.headWrapper}>
+      <h1 className="seo-visually-hidden">Уличный игровой конструктор Блоки</h1>
       <div className={styles.linkContainer} onClick={handleClick}>
         <RiArrowRightDownLine className={styles.arrow} />
         <a>Проконсультироваться</a>

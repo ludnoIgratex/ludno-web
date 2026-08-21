@@ -13,5 +13,5 @@ export const metadata = {
 };
 
 export default function MapPage() {
-  return <div className="app__container"><SiteHeader /><main className="content"><MapNext /></main><SiteFooter /><StandardPageJsonLd name={title} description={description} path="/map/" type="CollectionPage" /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Реализованные проекты Людно на карте</h1><MapNext /></main><SiteFooter /><StandardPageJsonLd name={title} description={description} path="/map/" type="CollectionPage" /></div>;
 }
