@@ -9,7 +9,6 @@ const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
 const attempts = new Map();
-const DESKTOP_CATALOG_PATH_RE = /^\/products\/(?!_next(?:\/|$))[^?]+[^\/]$/;
 const CATALOG_FILTER_QUERY_KEYS = new Set([
   "solutions",
   "brand",
@@ -20,6 +19,16 @@ const CATALOG_FILTER_QUERY_KEYS = new Set([
   "brandName",
   "categoryName",
 ]);
+
+function isDesktopCatalogPathWithoutTrailingSlash(pathname) {
+  if (!pathname.startsWith("/products/") || pathname.endsWith("/")) {
+    return false;
+  }
+
+  const lastSegment = pathname.split("/").at(-1) || "";
+  const isFileRequest = /\.[a-z0-9]+$/i.test(lastSegment);
+  return !isFileRequest;
+}
 const legacySolutionRedirects = new Map([
   ["/card/1947/plioboks-mobilnyy", "/parkfit-sportivnye-ploshchadki/"],
   ["/card/1947/plioboks-mobilnyi", "/parkfit-sportivnye-ploshchadki/"],
@@ -294,7 +303,7 @@ const server = createServer(async (request, response) => {
   // enter this branch.
   if (
     (request.method === "GET" || request.method === "HEAD") &&
-    DESKTOP_CATALOG_PATH_RE.test(requestUrl.pathname)
+    isDesktopCatalogPathWithoutTrailingSlash(requestUrl.pathname)
   ) {
     response.writeHead(308, {
       Location: `${requestUrl.pathname}/${requestUrl.search}`,
