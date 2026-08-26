@@ -82,7 +82,7 @@ export const getProductPaths = cache(async () => {
 });
 
 export const getCardIndex = cache(() => fetchAll("/api/cards", {
-  "fields[0]": "id",
+  "fields[0]": "updatedAt",
   "populate[product][fields][0]": "title",
   "populate[product][fields][1]": "name",
   "populate[product][populate][brand][fields][0]": "name",
@@ -94,6 +94,7 @@ export async function getCardParams() {
   return cards.filter((card) => card.product).map((card) => ({
     id: String(card.id),
     slug: cardSlug(card.product.title),
+    lastModified: card.updatedAt,
   }));
 }
 

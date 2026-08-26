@@ -5,6 +5,7 @@ import { getProjectParams } from "../../src/next/project-data";
 import { seoPageSlugs } from "../../src/data/seoPageData";
 
 const BASE_URL = "https://ludno.ru";
+const STATIC_CONTENT_LAST_MODIFIED = "2026-08-21";
 export const dynamic = "force-static";
 
 const staticPaths = [
@@ -29,16 +30,59 @@ export default async function sitemap() {
     getPostParams(),
   ]);
 
-  const paths = new Set([
-    ...staticPaths,
-    ...landingSlugs.map((slug) => `/${slug}`),
-    ...seoPageSlugs.map((slug) => `/${slug}`),
-    ...cards.map(({ id, slug }) => `/card/${id}/${slug}`),
-    ...projects.map(({ projectId, slug }) => `/project-cards/${projectId}/${slug}`),
-    ...posts.map(({ id, slug }) => `/blog/${id}/${slug}`),
-  ]);
+  const validDate = (value, fallback = STATIC_CONTENT_LAST_MODIFIED) => {
+    const date = new Date(value || fallback);
+    return Number.isNaN(date.getTime()) ? new Date(fallback) : date;
+  };
+  const latestDate = (items) => {
+    const latest = items.reduce((currentLatest, item) => {
+      const date = validDate(item.lastModified);
+      return !currentLatest || date > currentLatest ? date : currentLatest;
+    }, null);
+    return latest || validDate(STATIC_CONTENT_LAST_MODIFIED);
+  };
 
-  return [...paths].map((pathname) => ({
+  const catalogLastModified = latestDate(cards);
+  const projectsLastModified = latestDate(projects);
+  const blogLastModified = latestDate(posts);
+  const homeLastModified = [
+    validDate(STATIC_CONTENT_LAST_MODIFIED),
+    catalogLastModified,
+    projectsLastModified,
+    blogLastModified,
+  ].reduce((latest, date) => (date > latest ? date : latest));
+
+  const entries = new Map();
+  const add = (pathname, lastModified) => {
+    entries.set(pathname, validDate(lastModified));
+  };
+
+  staticPaths.forEach((pathname) => {
+    const lastModified = pathname === ""
+      ? homeLastModified
+      : pathname === "/products"
+        ? catalogLastModified
+        : pathname === "/projects"
+          ? projectsLastModified
+          : pathname === "/blog"
+            ? blogLastModified
+            : STATIC_CONTENT_LAST_MODIFIED;
+    add(pathname, lastModified);
+  });
+  landingSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
+  seoPageSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
+  cards.forEach(({ id, slug, lastModified }) =>
+    add(`/card/${id}/${slug}`, lastModified)
+  );
+  projects.forEach(({ projectId, slug, lastModified }) =>
+    add(`/project-cards/${projectId}/${slug}`, lastModified)
+  );
+  posts.forEach(({ id, slug, lastModified }) =>
+    add(`/blog/${id}/${slug}`, lastModified)
+  );
+
+  return [...entries].map(([pathname, lastModified]) => ({
     url: pathname ? `${BASE_URL}${pathname}/` : `${BASE_URL}/`,
+    lastModified,
   }));
 }

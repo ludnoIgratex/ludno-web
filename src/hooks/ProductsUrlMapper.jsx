@@ -260,7 +260,10 @@ function buildPathString(filters, maps) {
   } else {
     path = `/products/${solSeg}/${brandSeg}/${catSeg}`;
   }
-  return path;
+  // Static desktop catalog pages are exported as directories. Keeping the
+  // canonical trailing slash avoids a server redirect for Cyrillic segments.
+  // The mobile query format is built separately and is intentionally unchanged.
+  return `${path}/`;
 }
 
 /** Сохраняем не-фильтровые параметры. */

@@ -9,6 +9,17 @@ const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
 const attempts = new Map();
+const DESKTOP_CATALOG_PATH_RE = /^\/products\/(?!_next(?:\/|$))[^?]+[^\/]$/;
+const CATALOG_FILTER_QUERY_KEYS = new Set([
+  "solutions",
+  "brand",
+  "brands",
+  "categories",
+  "ages",
+  "solutionName",
+  "brandName",
+  "categoryName",
+]);
 const legacySolutionRedirects = new Map([
   ["/card/1947/plioboks-mobilnyy", "/parkfit-sportivnye-ploshchadki/"],
   ["/card/1947/plioboks-mobilnyi", "/parkfit-sportivnye-ploshchadki/"],
@@ -214,6 +225,14 @@ async function serveStatic(request, response) {
     "X-Content-Type-Options": "nosniff",
   };
 
+  const isCatalogPage = /^\/products\/?$/.test(url.pathname);
+  const hasCatalogFilter = [...CATALOG_FILTER_QUERY_KEYS].some((key) =>
+    url.searchParams.has(key)
+  );
+  if (isCatalogPage && hasCatalogFilter) {
+    headers["X-Robots-Tag"] = "noindex, follow";
+  }
+
   const range = request.headers.range;
   if (range && statusCode === 200) {
     const match = /^bytes=(\d*)-(\d*)$/.exec(range);
@@ -266,6 +285,23 @@ async function serveStatic(request, response) {
 
 const server = createServer(async (request, response) => {
   const requestUrl = new URL(request.url, `http://${request.headers.host || "localhost"}`);
+
+  // Desktop filters are encoded in the pathname and can contain Cyrillic.
+  // Redirect using URL.pathname (the original percent-encoded representation),
+  // never a decoded filesystem path: re-encoding decoded UTF-8 as Latin-1 is
+  // what produced locations such as `/products/ÐÐ¸Ð½Ð¸/`.
+  // Mobile catalog URLs stay query-based (`/products/?brands=...`) and do not
+  // enter this branch.
+  if (
+    (request.method === "GET" || request.method === "HEAD") &&
+    DESKTOP_CATALOG_PATH_RE.test(requestUrl.pathname)
+  ) {
+    response.writeHead(308, {
+      Location: `${requestUrl.pathname}/${requestUrl.search}`,
+    });
+    return response.end();
+  }
+
   const normalizedPath = requestUrl.pathname.replace(/\/$/, "") || "/";
   const redirectTarget = legacySolutionRedirects.get(normalizedPath);
   if (redirectTarget && (request.method === "GET" || request.method === "HEAD")) {

@@ -39,7 +39,7 @@ export async function getProjectParams() {
 
   while (true) {
     const url = apiUrl("/api/project-cards", {
-      "fields[0]": "id",
+      "fields[0]": "updatedAt",
       "populate[project][fields][0]": "id",
       "populate[project][fields][1]": "name",
       "pagination[page]": page,
@@ -53,6 +53,7 @@ export async function getProjectParams() {
         params.push({
           projectId: String(card.project.id),
           slug: projectSlug(card.project.name),
+          lastModified: card.updatedAt,
         });
       }
     }

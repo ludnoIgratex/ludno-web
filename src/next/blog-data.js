@@ -74,6 +74,7 @@ export async function getPostParams() {
   return posts.map((post) => ({
     id: String(post.id),
     slug: postSlug(post.text),
+    lastModified: post.updatedAt,
   }));
 }
 
