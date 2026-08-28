@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types:
+      - strapi_content_changed
+  workflow_dispatch:
+
+concurrency:
+  group: ludno-production-deploy
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -22,20 +30,27 @@ jobs:
       - name: Build and push Docker image
         run: |
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          docker build -t fijispawn/ludno-ui:$COMMIT_HASH .
+          BUILD_ID=$(date +%s)
+          docker build \
+            --build-arg BUILD_CACHE_BUSTER="$BUILD_ID" \
+            -t fijispawn/ludno-ui:$COMMIT_HASH \
+            -t fijispawn/ludno-ui:latest \
+            .
           docker push fijispawn/ludno-ui:$COMMIT_HASH
-          docker tag fijispawn/ludno-ui:$COMMIT_HASH fijispawn/ludno-ui:latest
           docker push fijispawn/ludno-ui:latest
 
       - name: SSH and redeploy container
         uses: appleboy/ssh-action@v1.0.0
         env:
           UNISENDER_API_KEY: ${{ secrets.UNISENDER_API_KEY }}
+          STRAPI_REBUILD_SECRET: ${{ secrets.STRAPI_REBUILD_SECRET }}
+          REBUILD_DISPATCH_TOKEN: ${{ secrets.REBUILD_DISPATCH_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          envs: UNISENDER_API_KEY
+          envs: UNISENDER_API_KEY,STRAPI_REBUILD_SECRET,REBUILD_DISPATCH_TOKEN,GITHUB_REPOSITORY
           script: |
             echo "[INFO] Stopping and removing existing container..."
             docker rm -f my-ludno-ui || echo "[INFO] Container not running."
@@ -50,6 +65,9 @@ jobs:
               -p 8080:80 \
               -e UNISENDER_API_KEY="$UNISENDER_API_KEY" \
               -e UNISENDER_LIST_ID=3 \
+              -e STRAPI_REBUILD_SECRET="$STRAPI_REBUILD_SECRET" \
+              -e REBUILD_DISPATCH_TOKEN="$REBUILD_DISPATCH_TOKEN" \
+              -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
               fijispawn/ludno-ui:latest
 
             echo "[SUCCESS] Redeploy complete!"

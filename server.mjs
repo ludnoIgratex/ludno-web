@@ -2,13 +2,28 @@ import { createReadStream } from "node:fs";
 import { access, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { timingSafeEqual } from "node:crypto";
 
 const PORT = Number(process.env.PORT) || 3000;
 const DIST_DIR = join(process.cwd(), "dist");
 const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
+const WEBHOOK_BODY_LIMIT = 1_000_000;
+const STRAPI_REBUILD_SECRET = process.env.STRAPI_REBUILD_SECRET;
+const REBUILD_DISPATCH_TOKEN = process.env.REBUILD_DISPATCH_TOKEN;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const attempts = new Map();
+const STRAPI_REBUILD_EVENTS = new Set([
+  "entry.create",
+  "entry.update",
+  "entry.delete",
+  "entry.publish",
+  "entry.unpublish",
+  "media.create",
+  "media.update",
+  "media.delete",
+]);
 const CATALOG_FILTER_QUERY_KEYS = new Set([
   "solutions",
   "brand",
@@ -102,27 +117,138 @@ function isRateLimited(ip) {
   return recent.length > 5;
 }
 
-function readJson(request) {
+function readJson(request, limit = BODY_LIMIT) {
   return new Promise((resolve, reject) => {
     let body = "";
+    let settled = false;
 
     request.setEncoding("utf8");
     request.on("data", (chunk) => {
+      if (settled) return;
       body += chunk;
-      if (body.length > BODY_LIMIT) {
+      if (body.length > limit) {
+        settled = true;
         reject(new Error("payload_too_large"));
-        request.destroy();
+        request.resume();
       }
     });
     request.on("end", () => {
+      if (settled) return;
       try {
+        settled = true;
         resolve(JSON.parse(body));
       } catch {
+        settled = true;
         reject(new Error("invalid_json"));
       }
     });
-    request.on("error", reject);
+    request.on("error", (error) => {
+      if (settled) return;
+      settled = true;
+      reject(error);
+    });
   });
+}
+
+function secureEquals(value, expected) {
+  if (typeof value !== "string" || typeof expected !== "string") return false;
+
+  const valueBuffer = Buffer.from(value);
+  const expectedBuffer = Buffer.from(expected);
+  return (
+    valueBuffer.length === expectedBuffer.length &&
+    timingSafeEqual(valueBuffer, expectedBuffer)
+  );
+}
+
+function webhookSecret(request) {
+  const explicitSecret = request.headers["x-rebuild-secret"];
+  if (typeof explicitSecret === "string") return explicitSecret;
+
+  const authorization = request.headers.authorization;
+  if (typeof authorization !== "string") return "";
+  return authorization.replace(/^Bearer\s+/i, "");
+}
+
+function githubRepositoryParts() {
+  const match = /^([^/]+)\/([^/]+)$/.exec(GITHUB_REPOSITORY || "");
+  return match ? { owner: match[1], repository: match[2] } : null;
+}
+
+async function dispatchRebuild(event) {
+  const repository = githubRepositoryParts();
+  if (!REBUILD_DISPATCH_TOKEN || !repository) {
+    throw new Error("GitHub rebuild dispatch is not configured");
+  }
+
+  const githubResponse = await fetch(
+    `https://api.github.com/repos/${repository.owner}/${repository.repository}/dispatches`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${REBUILD_DISPATCH_TOKEN}`,
+        "Content-Type": "application/json",
+        "User-Agent": "LudnoStrapiWebhook/1.0",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      body: JSON.stringify({
+        event_type: "strapi_content_changed",
+        client_payload: {
+          event: event.event,
+          model: event.model || null,
+          documentId:
+            event.entry?.documentId || event.entry?.id || event.media?.id || null,
+        },
+      }),
+      signal: AbortSignal.timeout(10_000),
+    }
+  );
+
+  if (!githubResponse.ok) {
+    const details = (await githubResponse.text()).slice(0, 500);
+    throw new Error(`GitHub dispatch failed: ${githubResponse.status} ${details}`);
+  }
+}
+
+async function rebuildFromStrapi(request, response) {
+  if (
+    !STRAPI_REBUILD_SECRET ||
+    !secureEquals(webhookSecret(request), STRAPI_REBUILD_SECRET)
+  ) {
+    return json(response, 401, { message: "Неверный webhook-секрет." });
+  }
+
+  if (!REBUILD_DISPATCH_TOKEN || !githubRepositoryParts()) {
+    console.error("GitHub rebuild dispatch is not configured");
+    return json(response, 503, { message: "Автосборка не настроена." });
+  }
+
+  let event;
+  try {
+    event = await readJson(request, WEBHOOK_BODY_LIMIT);
+  } catch (error) {
+    const status = error.message === "payload_too_large" ? 413 : 400;
+    return json(response, status, { message: "Некорректные данные webhook." });
+  }
+
+  if (!STRAPI_REBUILD_EVENTS.has(event?.event)) {
+    return json(response, 202, {
+      message: "Событие не требует пересборки.",
+      event: event?.event || null,
+    });
+  }
+
+  try {
+    await dispatchRebuild(event);
+    console.log(
+      `Strapi rebuild dispatched: ${event.event} ${event.model || "unknown"}`
+    );
+    return json(response, 202, { message: "Пересборка запущена." });
+  } catch (error) {
+    console.error("Strapi rebuild dispatch failed:", error.message);
+    return json(response, 502, { message: "Не удалось запустить пересборку." });
+  }
 }
 
 async function subscribe(request, response) {
@@ -320,9 +446,15 @@ const server = createServer(async (request, response) => {
 
   if (
     request.method === "POST" &&
-    request.url === "/api/newsletter/subscribe"
+    requestUrl.pathname === "/api/newsletter/subscribe"
   ) {
     return subscribe(request, response);
+  }
+  if (
+    request.method === "POST" &&
+    requestUrl.pathname === "/api/strapi-rebuild"
+  ) {
+    return rebuildFromStrapi(request, response);
   }
   if (request.method === "GET" || request.method === "HEAD") {
     return serveStatic(request, response);

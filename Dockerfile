@@ -7,6 +7,9 @@ RUN npm ci
 
 COPY . .
 
+ARG BUILD_CACHE_BUSTER
+ENV BUILD_CACHE_BUSTER=$BUILD_CACHE_BUSTER
+
 RUN npm run build
 
 FROM node:20-alpine
