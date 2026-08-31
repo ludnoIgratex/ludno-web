@@ -17,6 +17,23 @@
   align-items: center;
 }
 
+.desktopNav {
+  display: block;
+}
+
+.desktopIcons {
+  display: flex;
+}
+
+.compactIcons,
+.searchSlot {
+  display: none;
+}
+
+.headerContainer.searchActive .searchSlot {
+  display: block;
+}
+
 .searchIcon {
   width: 20px;
   height: auto;
@@ -49,15 +66,51 @@
   gap:24px
 }
 
+@media screen and (min-width: 729px) and (max-width: 1024px) {
+  .desktopNav,
+  .desktopIcons {
+    display: none;
+  }
+
+  .compactIcons,
+  .searchSlot {
+    display: flex;
+  }
+
+  .mobileSearchTrigger {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 728px) {
   .headerContainer {
     padding: 28px 16px 28px 16px;
     background-color: #fff;
   }
 
-  .mobileMenu {
+  .desktopNav,
+  .desktopIcons {
+    display: none;
+  }
+
+  .compactIcons {
     display: flex;
     align-items: center;
+  }
+
+  .searchSlot {
+    display: none;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .headerContainer.searchActive .logoSlot,
+  .headerContainer.searchActive .compactIcons {
+    display: none;
+  }
+
+  .headerContainer.searchActive .searchSlot {
+    display: block;
   }
 
   .searchOpen {

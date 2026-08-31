@@ -8,7 +8,7 @@ import styles from "./styles/Search.module.css";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 
-const Search = ({ onClose }) => {
+const Search = ({ onClose, autoFocus = false }) => {
   const [query, setQuery] = useState("");
   const [productResults, setProductResults] = useState([]);
   const [projectResults, setProjectResults] = useState([]);
@@ -415,6 +415,7 @@ const Search = ({ onClose }) => {
   return (
     <div className={styles.searchBarContainer} ref={containerRef}>
       <SearchBar
+        autoFocus={autoFocus}
         query={query}
         onSearchChange={(e) => {
           setQuery(e.target.value);

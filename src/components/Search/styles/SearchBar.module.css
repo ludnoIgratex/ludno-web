@@ -1,6 +1,8 @@
 .searchBarContainer {
   position: relative;
   width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
   padding: 16px;
   z-index: 1000;
   display: flex;
@@ -42,6 +44,9 @@
 
 @media screen and (max-width: 728px) {
   .searchBar {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
     padding: 6px 12px;
     font-size: 14px;
   }
@@ -49,6 +54,7 @@
     font-size: 16px;
   }
   .searchInput {
+    min-width: 0;
     font-size: 16px;
   }
 }

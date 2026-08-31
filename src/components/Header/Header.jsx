@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useMediaQuery } from "react-responsive";
 import { IoSearch } from "react-icons/io5";
 import HeaderLogo from "./HeaderLogo";
 import HeaderNav from "./HeaderNav";
@@ -28,9 +27,6 @@ const Header = () => {
 
   const toggleBurger = () => setIsBurgerOpen((prev) => !prev);
 
-  const isMobile = useMediaQuery({ maxWidth: 728 });
-  const isTablet = useMediaQuery({ minWidth: 729, maxWidth: 1024 });
-
   useEffect(() => {
     if (showSolutions) {
       document.body.style.overflow = "hidden";
@@ -53,51 +49,45 @@ const Header = () => {
             ${isSearchOpen ? styles.searchActive : ""}
           `}
         >
-          {(!isMobile || (isMobile && !isSearchOpen)) && <HeaderLogo />}
+          <div className={styles.logoSlot}>
+            <HeaderLogo />
+          </div>
 
-          {isMobile ? (
-            <>
-              {!isSearchOpen && (
-                <div className={styles.mobileMenu}>
-                  <IoSearch
-                    className={styles.searchIcon}
-                    onClick={() => toggleSearch(true)}
-                  />
-                  <TgLink />
-                  <BurgerMenuIcon toggleBurger={toggleBurger} />
-                  <BurgerMenu
-                    isOpen={isBurgerOpen}
-                    onClose={() => setIsBurgerOpen(false)}
-                  />
-                </div>
-              )}
-              {isSearchOpen && <Search onClose={() => toggleSearch(false)} />}
-            </>
-          ) : isTablet ? (
-            <>
-              <Search onClose={() => toggleSearch(false)} />
-              <div className={styles.headerIcons}>
-                <TgLink />
-                <BurgerMenuIcon toggleBurger={toggleBurger} />
-              </div>
-              <BurgerMenu
-                isOpen={isBurgerOpen}
-                onClose={() => setIsBurgerOpen(false)}
-              />
-            </>
-          ) : (
-            <>
-              <HeaderNav setShowSolutions={setShowSolutions} setShowUseful={setShowUseful} />
-              <div className={styles.headerIcons}>
-                <TgLink />
-                <IoSearch
-                  className={styles.searchIcon}
-                  onClick={() => toggleSearch(true)}
-                />
-              </div>
-              {isSearchOpen && <Search onClose={() => toggleSearch(false)} />}
-            </>
-          )}
+          <div className={styles.desktopNav}>
+            <HeaderNav
+              setShowSolutions={setShowSolutions}
+              setShowUseful={setShowUseful}
+            />
+          </div>
+
+          <div className={styles.searchSlot}>
+            <Search
+              autoFocus={isSearchOpen}
+              onClose={() => toggleSearch(false)}
+            />
+          </div>
+
+          <div className={`${styles.headerIcons} ${styles.desktopIcons}`}>
+            <TgLink />
+            <IoSearch
+              className={styles.searchIcon}
+              onClick={() => toggleSearch(true)}
+            />
+          </div>
+
+          <div className={`${styles.mobileMenu} ${styles.compactIcons}`}>
+            <IoSearch
+              className={`${styles.searchIcon} ${styles.mobileSearchTrigger}`}
+              onClick={() => toggleSearch(true)}
+            />
+            <TgLink />
+            <BurgerMenuIcon toggleBurger={toggleBurger} />
+          </div>
+
+          <BurgerMenu
+            isOpen={isBurgerOpen}
+            onClose={() => setIsBurgerOpen(false)}
+          />
         </div>
       </div>
 
