@@ -18,7 +18,7 @@ const About = () => {
   };
 
   const handleDownloadClick = () => {
-    window.open("https://disk.yandex.ru/d/1B_DLHd8-yDzzA", "_blank");
+    window.open("https://disk.yandex.ru/d/SxMlgfocKDqYRw", "_blank");
   };
 
   return (
