@@ -1,6 +1,6 @@
 import { SiteFooter, SiteHeader } from "../../../../src/next/SiteChrome";
 import { ProductsNext } from "../../../../src/next/LegacyNextPages";
-import { cardSlug, getCardIndex, getProductPaths } from "../../../../src/next/catalog-data";
+import { cardSlug, getCardIndex, getCatalogNavigation, getCatalogPage, getProductPaths } from "../../../../src/next/catalog-data";
 import { JsonLd, breadcrumbSchema, itemListSchema, webPageSchema } from "../../../../src/next/structured-data";
 
 export const dynamicParams = false;
@@ -32,7 +32,11 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductsPage({ params }) {
   const { filters = [] } = await params;
-  const cards = filters.length === 0 ? await getCardIndex() : [];
+  const [cards, initialCatalog, initialNavigation] = await Promise.all([
+    filters.length === 0 ? getCardIndex() : [],
+    getCatalogPage(filters),
+    getCatalogNavigation(),
+  ]);
   const title = "Оборудование для детских и спортивных площадок";
   const description = "Каталог Людно: оборудование для детских и спортивных площадок, парков, дворов и общественных пространств.";
   const schema = [
@@ -47,5 +51,5 @@ export default async function ProductsPage({ params }) {
       })),
     })] : []),
   ];
-  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Каталог оборудования для благоустройства</h1><ProductsNext /></main><SiteFooter /><JsonLd data={schema} /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content"><h1 className="seo-visually-hidden">Каталог оборудования для благоустройства</h1><ProductsNext initialCatalog={initialCatalog} initialNavigation={initialNavigation} /></main><SiteFooter /><JsonLd data={schema} /></div>;
 }

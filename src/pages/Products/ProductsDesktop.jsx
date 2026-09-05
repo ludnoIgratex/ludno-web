@@ -30,22 +30,30 @@ const ProductSkeletons = ({ count = PRODUCT_SKELETON_COUNT }) =>
     </li>
   ));
 
-const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
+const ProductsDesktop = ({
+  selectedCategory,
+  setSelectedCategory,
+  initialCatalog = null,
+  initialNavigation = null,
+}) => {
+  const initialProducts = initialCatalog?.products || [];
+  const initialPagination = initialCatalog?.pagination || {};
   const [ageFilter, setAgeFilter] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState(initialProducts);
+  const [loading, setLoading] = useState(!initialCatalog);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(initialPagination.total || initialProducts.length);
+  const [hasMore, setHasMore] = useState((initialPagination.page || 1) < (initialPagination.pageCount || 1));
+  const [totalPages, setTotalPages] = useState(initialPagination.pageCount || 1);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isRefreshingProducts, setIsRefreshingProducts] = useState(false);
   const [showSkeletonOverlay, setShowSkeletonOverlay] = useState(false);
   const [isSkeletonOverlayFading, setIsSkeletonOverlayFading] = useState(false);
-  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(Boolean(initialCatalog));
   const [disabledAgeRanges, setDisabledAgeRanges] = useState([]);
   const activeRequestRef = useRef(0);
+  const skipInitialRequestRef = useRef(Boolean(initialCatalog));
   const skeletonFadeTimeoutRef = useRef(null);
 
   const navigate = useNavigate();
@@ -75,7 +83,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     data: brands,
     loading: brandsLoading,
     error: brandsError,
-  } = useFetch(brandsUrl);
+  } = useFetch(brandsUrl, initialNavigation?.brands || null);
 
   // Категории: аналогично, если выбрано решение — фильтруем по нему
   const allCategoriesUrl = selectedSolutionName
@@ -88,7 +96,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
     data: allCategoriesData,
     loading: allCatLoading,
     error: allCatError,
-  } = useFetch(allCategoriesUrl);
+  } = useFetch(allCategoriesUrl, initialNavigation?.categories || null);
 
   const selectedCategoryId = useMemo(() => {
     if (!normalizedSelectedCategoryName || !Array.isArray(allCategoriesData)) {
@@ -186,6 +194,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   // ===== при изменении фильтров сбрасываем список и страницу =====
   useEffect(() => {
+    if (skipInitialRequestRef.current) return;
     setCurrentPage(1);
     setHasMore(true);
     setTotalPages(0);
@@ -201,6 +210,10 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
 
   // ===== подгрузка продуктов =====
   useEffect(() => {
+    if (skipInitialRequestRef.current) {
+      skipInitialRequestRef.current = false;
+      return;
+    }
     const controller = new AbortController();
     fetchProducts(currentPage, controller.signal);
     return () => controller.abort();
@@ -272,7 +285,7 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
         return;
       }
       console.error("Ошибка при загрузке продуктов:", err);
-      setError("Ошибка при загрузке продуктов.");
+      if (!initialProducts.length) setError("Ошибка при загрузке продуктов.");
     } finally {
       if (requestId === activeRequestRef.current) {
         setLoading(false);
@@ -464,13 +477,16 @@ const ProductsDesktop = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <div className={styles.catalogContainer}>
       <div className={styles.solutionWrapper}>
-        <Solution />
+        <Solution initialSolutions={initialNavigation?.solutions || null} />
       </div>
 
       <div className={styles.catalogWrapper}>
         <div className={styles.catalogNav}>
           <div className={styles.hiddenBrandBlock} aria-hidden="true">
-            <Brand setSelectedCategory={setSelectedCategory} />
+            <Brand
+              setSelectedCategory={setSelectedCategory}
+              initialBrands={initialNavigation?.brands || null}
+            />
           </div>
           <Categories
             brand={selectedBrand}

@@ -12,7 +12,7 @@ const prettySeg = (s) =>
       .replace(/-+/g, "-")
   );
 
-const Brand = () => {
+const Brand = ({ initialBrands = null }) => {
   const navigate = useNavigate();
   const { solution: selectedSolutionName, brand: selectedBrandNameFromUrl } =
     useProductsRouteParams();
@@ -24,7 +24,7 @@ const Brand = () => {
       )}&populate=categories`
     : "https://admin.ludno.ru/api/brands?populate=categories";
 
-  const { data, loading, error } = useFetch(brandsUrl);
+  const { data, loading, error } = useFetch(brandsUrl, initialBrands);
 
   const brands = data || [];
 

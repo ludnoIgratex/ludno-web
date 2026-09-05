@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import FilterButton from "../../components/FilterButton/FilterButton";
@@ -76,9 +76,12 @@ const mergeNonFilterParams = (currentSearch, nextSearch) => {
   });
 };
 
-const ProductsMobile = () => {
+const ProductsMobile = ({ initialCatalog = null, initialNavigation = null }) => {
+  const initialProducts = initialCatalog?.products || [];
+  const initialPagination = initialCatalog?.pagination || {};
+  const skipInitialRequestRef = useRef(Boolean(initialCatalog));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(initialProducts);
   const [appliedFilters, setAppliedFilters] = useState({
     solutions: [],
     brands: [],
@@ -86,16 +89,16 @@ const ProductsMobile = () => {
     ages: [],
   });
 
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(!initialCatalog);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const [solutions, setSolutions] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(initialPagination.total || initialProducts.length);
+  const [hasMore, setHasMore] = useState((initialPagination.page || 1) < (initialPagination.pageCount || 1));
+  const [solutions, setSolutions] = useState(initialNavigation?.solutions || []);
+  const [brands, setBrands] = useState(initialNavigation?.brands || []);
+  const [categories, setCategories] = useState(initialNavigation?.categories || []);
   const [allProductsForFilter, setAllProductsForFilter] = useState([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [loadingProducts, setLoadingProducts] = useState(!initialCatalog);
   const [loadingFilterData, setLoadingFilterData] = useState(false);
 
   const pageSize = 32;
@@ -209,13 +212,17 @@ const ProductsMobile = () => {
       setTotalProducts(data.meta.pagination.total);
       setHasMore(data.meta.pagination.page < data.meta.pagination.pageCount);
     } catch (err) {
-      setError("Ошибка при загрузке продуктов.");
+      if (!initialProducts.length) setError("Ошибка при загрузке продуктов.");
     } finally {
       setLoadingProducts(false);
     }
   };
 
   useEffect(() => {
+    if (skipInitialRequestRef.current) {
+      skipInitialRequestRef.current = false;
+      return;
+    }
     const params = qs.parse(location.search, { ignoreQueryPrefix: true });
     const initialFilters = {
       solutions: [],
@@ -307,7 +314,7 @@ const ProductsMobile = () => {
         setCategories(categoriesData.data || []);
       } catch (err) {
         console.error("Fetch filters error:", err);
-        setError("Ошибка при загрузке фильтров.");
+        if (!initialNavigation) setError("Ошибка при загрузке фильтров.");
       }
     };
 

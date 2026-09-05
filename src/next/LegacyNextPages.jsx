@@ -17,11 +17,11 @@ export function ContactsNext() {
   return <Contacts />;
 }
 
-export function AboutNext() {
-  return <AboutUs />;
+export function AboutNext({ initialTeam }) {
+  return <AboutUs initialTeam={initialTeam} />;
 }
 
-export function ProductsNext() {
+export function ProductsNext({ initialCatalog, initialNavigation }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   return (
     <>
@@ -29,6 +29,8 @@ export function ProductsNext() {
       <Products
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        initialCatalog={initialCatalog}
+        initialNavigation={initialNavigation}
       />
     </>
   );

@@ -45,6 +45,52 @@ export function cardSlug(title = "") {
   return slugify(title || "bez-nazvaniya", { lowercase: true, separator: "-" });
 }
 
+function routeFilter(segment) {
+  if (!segment || String(segment).toLowerCase() === "all") return undefined;
+  return decodeURIComponent(String(segment)).replace(/-+/g, " ").trim();
+}
+
+export const getCatalogPage = cache(async (routeFilters = []) => {
+  const [solution, brand, category] = [
+    routeFilter(routeFilters[0]),
+    routeFilter(routeFilters[1]),
+    routeFilter(routeFilters[2]),
+  ];
+  const params = {
+    "populate[image]": "true",
+    "populate[extraImage][populate]": "*",
+    "populate[groups]": "true",
+    "populate[card][populate][groupImage][populate][image]": "true",
+    "populate[card][populate][groupImage][populate][group_color][populate]": "image",
+    "pagination[page]": 1,
+    "pagination[pageSize]": 64,
+    "sort[0]": "name:asc",
+  };
+  if (solution) params["filters[solutions][name][$eq]"] = solution;
+  if (brand) params["filters[brand][name][$eq]"] = brand;
+  if (category) params["filters[category][title][$eq]"] = category;
+
+  const json = await fetchJson(apiUrl("/api/products", params));
+  return {
+    products: json.data || [],
+    pagination: json.meta?.pagination || {},
+  };
+});
+
+export const getCatalogNavigation = cache(async () => {
+  const [solutions, brands, categories] = await Promise.all([
+    fetchAll("/api/solutions", {
+      "populate[image]": "true",
+      "populate[brands]": "true",
+      "populate[categories]": "true",
+      "sort[0]": "order:asc",
+    }),
+    fetchAll("/api/brands", { "populate[categories]": "true" }),
+    fetchAll("/api/categories", { populate: "*" }),
+  ]);
+  return { solutions, brands, categories };
+});
+
 export const getCatalogRelations = cache(() => fetchAll("/api/products", {
   "fields[0]": "title",
   "populate[brand][fields][0]": "name",

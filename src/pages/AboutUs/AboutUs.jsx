@@ -7,7 +7,7 @@ import Consulting from "./Consulting/Consulting";
 import Production from "./Production/Production";
 import ShoutOut from "./ShoutOut/ShoutOut";
 
-const Main = () => {
+const Main = ({ initialTeam }) => {
   return (
     <div>
       <TeamMain/>
@@ -15,7 +15,7 @@ const Main = () => {
       <Consulting/>
       <Partners />
       <Production/>
-      <Members />
+      <Members initialTeam={initialTeam} />
       <ShoutOut/>
     </div>
   );

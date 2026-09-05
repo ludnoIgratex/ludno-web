@@ -13,13 +13,14 @@ const prettySeg = (s) =>
       .replace(/-+/g, "-")
   );
 
-const Solution = () => {
+const Solution = ({ initialSolutions = null }) => {
   const navigate = useNavigate();
   const { solution: selectedSolutionNameFromUrl } =
     useProductsRouteParams();
 
   const { data, loading, error } = useFetch(
-    "https://admin.ludno.ru/api/solutions?populate=image&sort[0]=order:asc"
+    "https://admin.ludno.ru/api/solutions?populate=image&sort[0]=order:asc",
+    initialSolutions
   );
 
   const solutionsData = data || [];

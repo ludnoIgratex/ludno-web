@@ -19,10 +19,43 @@ const query = qs.stringify(
 
 const withHost = (u) => (u?.startsWith?.("http") ? u : `${API_HOST}${u}`);
 
-const Members = () => {
-  const [boss, setBoss] = useState(null);
-  const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
+const normalizeMembers = (rows) => {
+  const norm = rows.map((r) => {
+    const staffArr = (r.staffImage || [])
+      .map((img) => img?.formats?.small?.url || img?.url || null)
+      .filter(Boolean)
+      .map(withHost);
+    const bossArr = (r.bossImage || [])
+      .map((img) => img?.formats?.small?.url || img?.url || null)
+      .filter(Boolean)
+      .map(withHost);
+    return {
+      id: r.id,
+      name: r.name,
+      position: r.position,
+      quote: r.quote,
+      order: typeof r.order === "number" ? r.order : null,
+      staff: staffArr,
+      bossImgs: bossArr,
+    };
+  });
+  const boss = norm.find((item) => item.bossImgs.length) || null;
+  const members = norm
+    .filter((item) => item.staff.length && item !== boss)
+    .sort((a, b) =>
+      (a.order ?? Number.POSITIVE_INFINITY) -
+      (b.order ?? Number.POSITIVE_INFINITY)
+    )
+    .map((member, index) => ({ ...member, displayOrder: index + 1 }));
+  return { boss, members };
+};
+
+const Members = ({ initialTeam = [] }) => {
+  const initial = normalizeMembers(initialTeam);
+  const hasInitialTeam = initialTeam.length > 0;
+  const [boss, setBoss] = useState(initial.boss);
+  const [members, setMembers] = useState(initial.members);
+  const [loading, setLoading] = useState(!hasInitialTeam);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -32,50 +65,12 @@ const Members = () => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
 
-        const rows = json?.data ?? [];
-
-        const norm = rows.map((r) => {
-          const staffArr = (r.staffImage || [])
-            .map((img) => img?.formats?.small?.url || img?.url || null)
-            .filter(Boolean)
-            .map(withHost);
-
-          const bossArr = (r.bossImage || [])
-            .map((img) => img?.formats?.small?.url || img?.url || null)
-            .filter(Boolean)
-            .map(withHost);
-
-          return {
-            id: r.id,
-            name: r.name,
-            position: r.position,
-            quote: r.quote,
-            order: typeof r.order === "number" ? r.order : null,
-            staff: staffArr,
-            bossImgs: bossArr,
-          };
-        });
-
-        const bossItem = norm.find((i) => i.bossImgs.length) || null;
-
-        const others = norm
-          .filter((i) => i.staff.length && i !== bossItem)
-          .sort((a, b) => {
-            const A = a.order ?? Number.POSITIVE_INFINITY;
-            const B = b.order ?? Number.POSITIVE_INFINITY;
-            return A - B;
-          });
-
-        const withDisplayOrder = others.map((m, idx) => ({
-          ...m,
-          displayOrder: idx + 1,
-        }));
-
-        setBoss(bossItem);
-        setMembers(withDisplayOrder);
+        const normalized = normalizeMembers(json?.data ?? []);
+        setBoss(normalized.boss);
+        setMembers(normalized.members);
       } catch (e) {
         console.error(e);
-        setError("Не удалось загрузить данные о команде");
+        if (!hasInitialTeam) setError("Не удалось загрузить данные о команде");
       } finally {
         setLoading(false);
       }

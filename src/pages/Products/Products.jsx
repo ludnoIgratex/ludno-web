@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import ProductsDesktop from "./ProductsDesktop";
 import ProductsMobile from "./ProductsMobile";
 
-const Products = ({ selectedCategory, setSelectedCategory }) => {
+const Products = ({
+  selectedCategory,
+  setSelectedCategory,
+  initialCatalog = null,
+  initialNavigation = null,
+}) => {
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth <= 1024
   );
@@ -15,11 +20,16 @@ const Products = ({ selectedCategory, setSelectedCategory }) => {
   }, []);
 
   return isMobile ? (
-    <ProductsMobile />
+    <ProductsMobile
+      initialCatalog={initialCatalog}
+      initialNavigation={initialNavigation}
+    />
   ) : (
     <ProductsDesktop
       selectedCategory={selectedCategory}
       setSelectedCategory={setSelectedCategory}
+      initialCatalog={initialCatalog}
+      initialNavigation={initialNavigation}
     />
   );
 };

@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 
-const useFetch = (url) => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+const useFetch = (url, initialData = null) => {
+  const hasInitialData = initialData !== null;
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(!hasInitialData);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
 
     const fetchData = async () => {
-      setLoading(true);
+      setLoading(!hasInitialData);
       setError(null);
 
       try {
@@ -23,7 +24,7 @@ const useFetch = (url) => {
         if (err.name === "AbortError") {
           return;
         }
-        setError(err.message);
+        if (!hasInitialData) setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -32,7 +33,7 @@ const useFetch = (url) => {
     fetchData();
 
     return () => controller.abort();
-  }, [url]);
+  }, [url, hasInitialData]);
 
   return { data, loading, error };
 };
