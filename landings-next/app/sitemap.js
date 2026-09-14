@@ -3,6 +3,7 @@ import { getPostParams } from "../../src/next/blog-data";
 import { getCardParams } from "../../src/next/catalog-data";
 import { getProjectParams } from "../../src/next/project-data";
 import { seoPageSlugs } from "../../src/data/seoPageData";
+import { moscowUpdatedAt } from "../../src/data/moscowPlaygrounds";
 
 const BASE_URL = "https://ludno.ru";
 const STATIC_CONTENT_LAST_MODIFIED = "2026-08-21";
@@ -71,6 +72,7 @@ export default async function sitemap() {
   });
   landingSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
   seoPageSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
+  add("/detskie-ploshchadki-moskva", moscowUpdatedAt);
   cards.forEach(({ id, slug, lastModified }) =>
     add(`/card/${id}/${slug}`, lastModified)
   );

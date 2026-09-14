@@ -1,6 +1,7 @@
 import { siteMapSections } from "./siteMapData.js";
 
 const RESERVED_SLUGS = new Set([
+  "detskie-ploshchadki-moskva",
   "about", "blog", "contacts", "map", "policy", "products", "projects", "search-results", "sitemap",
   "epdm-configurator", "kalkulyator-prizemleniya-kacheley", "kalkulyator-tolshchiny-pokrytiya",
   "bloki-igrovoy-konstruktor", "dvory-detskie-ploshchadki-dlya-zhk", "gavpark-ploshchadki-dlya-sobak",
@@ -108,6 +109,7 @@ export function getSeoPage(slug) {
 
   const relatedRegions = geoLinks
     .filter((item) => slugFromHref(item.href) !== slug)
+    .filter((item) => slugFromHref(item.href) !== "detskie-ploshchadki-moskva")
     .filter((item) => /Москве|Санкт-Петербурге|Казани|Екатеринбурге|Краснодаре|Новосибирске|Московской области/u.test(item.title))
     .slice(page.isGeo ? 0 : 1, page.isGeo ? 6 : 7);
 
