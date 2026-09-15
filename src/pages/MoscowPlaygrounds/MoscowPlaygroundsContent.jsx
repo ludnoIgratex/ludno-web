@@ -112,7 +112,7 @@ export default function MoscowPlaygroundsContent({ projects = [] }) {
       <section className={`${styles.section} ${styles.contact}`} id="discuss" aria-labelledby="contact-title">
         <p className={styles.eyebrow}>Начнём с вашего места</p><h2 id="contact-title">Давайте создадим<br />место для игры</h2>
         <p>Расскажите о площадке в Москве или Московской области. Пришлите план участка, поделитесь идеей или покажите проект Людно, который вам близок.</p>
-        <div className={styles.contactLinks}><a href="mailto:info@ludno.ru?subject=Детская%20площадка%20в%20Москве">Написать на почту <span aria-hidden="true">↗</span></a><a href="https://t.me/ludno_x" target="_blank" rel="noopener noreferrer">Обсудить в Telegram <span aria-hidden="true">↗</span></a></div>
+        <div className={styles.contactLinks}><a href="mailto:info@ludno.ru?subject=Детская%20площадка%20в%20Москве">Написать на почту <span aria-hidden="true">↗</span></a><a href="https://t.me/ludno_info" target="_blank" rel="noopener noreferrer">Обсудить в Telegram <span aria-hidden="true">↗</span></a></div>
         <div className={styles.contactDetails}><a href="tel:+78003502420">8 800 350 24 20</a><a href="/contacts/">Все контакты ↗</a><a href="/map/">Проекты на карте ↗</a></div>
       </section>
     </main>

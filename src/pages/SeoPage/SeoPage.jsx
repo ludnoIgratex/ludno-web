@@ -7,8 +7,7 @@ const MAX_LINK =
   "https://max.ru/u/f9LHodD0cOLgjnSqWeNNcx7AhWxWIPge9c-T-WNnLM1h4WJNTgle2DKimNs";
 
 const messengers = [
-  { label: "Telegram", href: "https://t.me/ludno_x" },
-  { label: "WhatsApp", href: "https://wa.me/79150831244" },
+  { label: "Telegram", href: "https://t.me/ludno_info" },
   { label: "Max", href: MAX_LINK },
 ];
 

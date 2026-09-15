@@ -96,24 +96,12 @@ const Contacts = () => {
           <div className={styles.linkContainer}>
             <RiArrowRightDownLine className={styles.arrow} />
             <a
-              href="https://t.me/ludno_x"
+              href="https://t.me/ludno_info"
               target="_blank"
               rel="noreferrer"
               className={styles.link}
             >
               Telegram
-            </a>
-          </div>
-          <div className={styles.linkContainer}>
-            <RiArrowRightDownLine className={styles.arrow} />
-            <a
-              href="https://wa.me/79150831244"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-              aria-label="Открыть чат WhatsApp"
-            >
-              Whatsapp
             </a>
           </div>
           <div className={styles.linkContainer}>
