@@ -1,10 +1,13 @@
+import EquipmentPage from "../../../src/pages/EquipmentPage/EquipmentPage";
+import { equipmentPages, selectEquipmentProducts } from "../../../src/data/equipmentPages";
+import { getEquipmentProducts, cardSlug } from "../../../src/next/catalog-data";
 import { notFound } from "next/navigation";
 import LandingPage from "../../../src/next/LandingPage";
 import { landingMetadata, landingSlugs } from "../../../src/next/landing-metadata";
 import { getSeoPage, seoPageSlugs } from "../../../src/data/seoPageData";
 import SeoPage from "../../../src/pages/SeoPage/SeoPage";
 import { SiteFooter, SiteHeader } from "../../../src/next/SiteChrome";
-import { JsonLd, breadcrumbSchema, webPageSchema } from "../../../src/next/structured-data";
+import { JsonLd, breadcrumbSchema, webPageSchema, itemListSchema } from "../../../src/next/structured-data";
 
 export const dynamicParams = false;
 
@@ -51,6 +54,9 @@ export default async function Page({ params }) {
   const seoPage = getSeoPage(slug);
   if (!seoPage) notFound();
 
+  const equipment = equipmentPages[slug];
+  const products = equipment ? selectEquipmentProducts(await getEquipmentProducts(), equipment) : [];
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -63,10 +69,10 @@ export default async function Page({ params }) {
   return (
     <div className="app__container">
       <SiteHeader />
-      <SeoPage page={seoPage} />
+      {equipment ? <EquipmentPage page={equipment} products={products} /> : <SeoPage page={seoPage} />}
       <SiteFooter />
       <JsonLd data={[
-        serviceSchema,
+        ...(equipment ? [itemListSchema({ name: equipment.title, path: `/${slug}/`, items: products.map(product => ({ name: [product.title, product.name].filter(Boolean).join(" "), path: `/card/${product.card.id}/${cardSlug(product.title)}/` })) })] : [serviceSchema]),
         webPageSchema({ name: seoPage.metaTitle || seoPage.title, description: seoPage.description, path: `/${slug}/` }),
         breadcrumbSchema([{ name: "Главная", path: "/" }, { name: seoPage.title, path: `/${slug}/` }]),
       ]} />

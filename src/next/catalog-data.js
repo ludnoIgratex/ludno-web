@@ -1,3 +1,4 @@
+import { fetchEquipmentProducts } from "../data/equipmentProducts";
 import { cache } from "react";
 import { slugify } from "transliteration";
 
@@ -164,3 +165,7 @@ export async function getFullCard(id) {
   const cards = await getFullCards();
   return cards.find((card) => String(card.id) === String(id)) || null;
 }
+
+export const getEquipmentProducts = cache(() => fetchEquipmentProducts({
+  baseUrl: STRAPI_URL, fetchOptions: { cache: "force-cache" }, build: BUILD_CACHE_BUSTER,
+}));
