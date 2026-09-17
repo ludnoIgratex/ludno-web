@@ -33,3 +33,47 @@ export const equipmentFrames = {
     'M 37 89 L 286 29 Q 300 25 315 31 L 564 94 L 570 574 Q 571 607 540 609 L 63 607 Q 31 609 32 576 Z',
   ],
 };
+
+// Individual corner profiles keep the family coherent without repeating outlines.
+// Values: top-left, top-right, bottom-right, bottom-left, lean, top bow, bottom bow.
+const frameProfiles = {
+  'igrovye-kompleksy': [36, 76, 44, 68, 3, 10, -8],
+  'vysotnye-igrovye-kompleksy': [84, 84, 24, 24, 0, -12, 6],
+  'ploshchadki-dlya-doshkolnikov': [88, 64, 86, 58, -3, 8, 10],
+  'lazatelnye-kompleksy': [28, 64, 28, 72, 7, -8, -6],
+  'kanatnye-kompleksy': [60, 26, 68, 30, -6, 12, -12],
+  'detskie-karuseli': [92, 88, 96, 84, 0, 6, -8],
+  'vorkaut-ploshchadki': [18, 24, 20, 30, 2, -8, 6],
+  'parkur-ploshchadki': [22, 78, 22, 78, 7, 12, -10],
+  'polosy-prepyatstviy': [54, 30, 76, 22, -7, -12, 12],
+  'ulichnye-trenazhery': [72, 34, 28, 62, 4, 8, 10],
+  'oborudovanie-dlya-funktsionalnogo-treninga': [34, 70, 62, 24, -4, -10, -6],
+  'detskie-sportivnye-kompleksy': [80, 40, 80, 40, 5, 6, -12],
+  'malye-arhitekturnye-formy': [30, 90, 46, 22, 0, 12, 8],
+  'ulichnaya-mebel': [56, 54, 36, 72, -2, -6, 12],
+  'skameyki': [24, 26, 62, 64, 4, 10, -4],
+  'navesy-i-pergoly': [96, 92, 22, 36, -3, -14, 6],
+  'veloparkovki': [64, 22, 28, 84, 6, 6, -10],
+  'urny': [40, 42, 76, 80, -5, -8, 8],
+  'ploshchadki-dlya-sobak': [74, 48, 90, 32, 3, 10, -12],
+};
+
+function contour([tl, tr, br, bl, lean, topBow, bottomBow], inset) {
+  const left = 22 + inset;
+  const right = 578 - inset;
+  const top = 22 + inset;
+  const bottom = 618 - inset;
+  return `M ${left + tl} ${top}
+    C 210 ${top + topBow} 390 ${top - topBow / 2} ${right - tr} ${top + lean}
+    Q ${right} ${top + lean} ${right} ${top + tr}
+    C ${right - lean} 210 ${right + lean} 430 ${right} ${bottom - br}
+    Q ${right} ${bottom} ${right - br} ${bottom}
+    C 390 ${bottom + bottomBow} 210 ${bottom - bottomBow / 2} ${left + bl} ${bottom - lean}
+    Q ${left} ${bottom - lean} ${left} ${bottom - bl}
+    C ${left + lean} 430 ${left - lean} 210 ${left} ${top + tl}
+    Q ${left} ${top} ${left + tl} ${top} Z`;
+}
+
+for (const [slug, profile] of Object.entries(frameProfiles)) {
+  equipmentFrames[slug] = [contour(profile, 0), contour(profile, 8)];
+}

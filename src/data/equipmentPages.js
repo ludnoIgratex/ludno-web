@@ -1,4 +1,8 @@
+import { additionalEquipmentPages } from "./additionalEquipmentPages.js";
+
 const solutions = {
+  navigation: { title: 'Природная навигация', href: '/prirodnaya-navigaciya/', text: 'Указатели, информационные элементы и мебель, которые помогают обустроить природный маршрут.' },
+  gavpark: { title: 'Гавпарк', href: '/gavpark-ploshchadki-dlya-sobak/', text: 'Тренировочные элементы и благоустройство для площадок выгула, занятий и общения с собаками.' },
   mini: { title: 'Мини', href: '/mini-detskie-ploshchadki/', text: 'Игровое пространство в масштабе дошкольника: первые маршруты, общение и самостоятельная игра.' },
   kinetics: { title: 'Кинетика', href: '/kinetikomotornye-ploshchadki/', text: 'Связываем отдельные элементы в маршрут для движения, равновесия и координации.' },
   tramptek: { title: 'Трамптек', href: '/tramptek-ulichnye-batuty/', text: 'Встраиваемые батуты: отдельная точка притяжения или целое пространство для прыжков.' },
@@ -90,13 +94,22 @@ export const equipmentPages = {
   },
 };
 
+Object.assign(equipmentPages, additionalEquipmentPages);
+
 for (const [slug, page] of Object.entries(equipmentPages)) {
   page.slug = slug;
   page.related = page.related.map(key => solutions[key]);
 }
 
 export function selectEquipmentProducts(products, page) {
-  return products.filter(product => product.card?.id && (page.solution
-    ? product.solutions?.some(solution => solution.name === page.solution)
-    : page.categories.includes(product.category?.title)));
+  return products.filter(product => {
+    if (!product.card?.id) return false;
+    const code = product.name?.trim();
+    if (page.excludeCodes?.includes(code)) return false;
+    if (page.productCodesExtra?.includes(code)) return true;
+    if (page.productCodes) return page.productCodes.includes(code);
+    const categoryMatches = !page.categories || page.categories.includes(product.category?.title);
+    const solutionMatches = !page.solution || product.solutions?.some(solution => solution.name === page.solution);
+    return categoryMatches && solutionMatches;
+  });
 }
