@@ -59,10 +59,11 @@ export default async function Page({ params }) {
 
   const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "Service",
+    "@type": seoPage.kind === "regulation" ? "Article" : "Service",
+    ...(seoPage.kind === "regulation" ? { headline: seoPage.title, citation: seoPage.sources.map(source => source.href), author: { "@id": "https://ludno.ru/#organization" } } : {}),
     name: seoPage.title,
     description: seoPage.description,
-    provider: { "@id": "https://ludno.ru/#organization" },
+    ...(seoPage.kind === "regulation" ? {} : { provider: { "@id": "https://ludno.ru/#organization" } }),
     url: `https://ludno.ru/${slug}/`,
   };
 

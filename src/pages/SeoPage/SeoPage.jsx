@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import RegulationPage from "../RegulationPage/RegulationPage";
 import styles from "./SeoPage.module.css";
 
 const MAX_LINK =
@@ -26,6 +27,7 @@ const steps = [
 
 export default function SeoPage({ page }) {
   const [showMessengers, setShowMessengers] = useState(false);
+  if (page.kind === "regulation") return <RegulationPage page={page} />;
   const regionalText = page.isGeo
     ? `География этого направления — ${page.location}. Также сопровождаем проекты в других городах и регионах России.`
     : "Проектируем и поставляем оборудование для объектов в разных городах и регионах России.";
