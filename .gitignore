@@ -27,3 +27,6 @@ landings-next/out
 *.njsproj
 *.sln
 *.sw?
+
+# Persistent content fingerprints for sitemap dates
+.cache/

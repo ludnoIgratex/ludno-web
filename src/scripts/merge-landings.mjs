@@ -1,5 +1,6 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { updateSitemapLastmod } from "./sitemap-lastmod.mjs";
 
 const projectRoot = process.cwd();
 const exportDir = path.join(projectRoot, "landings-next", "out");
@@ -130,3 +131,6 @@ await Promise.all(pages.map(async (file) => {
 }));
 
 console.log(`Created dist with social previews for ${pages.length} HTML pages.`);
+
+const sitemapPages = await updateSitemapLastmod({ distDir, stateFile: path.join(projectRoot, ".cache/sitemap-lastmod.json") });
+console.log(`Updated lastmod for ${Object.keys(sitemapPages).length} sitemap URLs from page content.`);

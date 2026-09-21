@@ -21,11 +21,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Restore sitemap content history
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/sitemap-lastmod.json
+          key: sitemap-lastmod-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sitemap-lastmod-v1-
+
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Recover sitemap history if the cache expired
+        if: hashFiles('.cache/sitemap-lastmod.json') == ''
+        run: |
+          docker pull fijispawn/ludno-ui:latest
+          CONTAINER_ID=$(docker create fijispawn/ludno-ui:latest)
+          trap 'docker rm "$CONTAINER_ID"' EXIT
+          mkdir -p .cache
+          if docker cp "$CONTAINER_ID:/app/.cache/sitemap-lastmod.json" .cache/sitemap-lastmod.json; then
+            echo "Recovered sitemap history from the previous image."
+          else
+            echo "Previous image has no sitemap history; establishing the initial baseline."
+          fi
+
+      - name: Test sitemap dates
+        run: node --test src/scripts/sitemap-lastmod.test.mjs
 
       - name: Build and push Docker image
         run: |
@@ -38,6 +62,13 @@ jobs:
             .
           docker push fijispawn/ludno-ui:$COMMIT_HASH
           docker push fijispawn/ludno-ui:latest
+
+      - name: Extract updated sitemap content history
+        run: |
+          mkdir -p .cache
+          CONTAINER_ID=$(docker create fijispawn/ludno-ui:latest)
+          trap 'docker rm "$CONTAINER_ID"' EXIT
+          docker cp "$CONTAINER_ID:/app/.cache/sitemap-lastmod.json" .cache/sitemap-lastmod.json
 
       - name: SSH and redeploy container
         uses: appleboy/ssh-action@v1.0.0
@@ -71,3 +102,9 @@ jobs:
               fijispawn/ludno-ui:latest
 
             echo "[SUCCESS] Redeploy complete!"
+
+      - name: Save sitemap content history after deployment
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/sitemap-lastmod.json
+          key: sitemap-lastmod-v1-${{ github.run_id }}-${{ github.run_attempt }}

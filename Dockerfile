@@ -20,6 +20,7 @@ ENV NODE_ENV=production
 ENV PORT=80
 
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/.cache/sitemap-lastmod.json ./.cache/sitemap-lastmod.json
 COPY server.mjs ./
 
 EXPOSE 80

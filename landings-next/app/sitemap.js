@@ -3,10 +3,8 @@ import { getPostParams } from "../../src/next/blog-data";
 import { getCardParams } from "../../src/next/catalog-data";
 import { getProjectParams } from "../../src/next/project-data";
 import { seoPageSlugs } from "../../src/data/seoPageData";
-import { moscowUpdatedAt } from "../../src/data/moscowPlaygrounds";
 
 const BASE_URL = "https://ludno.ru";
-const STATIC_CONTENT_LAST_MODIFIED = "2026-08-21";
 export const dynamic = "force-static";
 
 const staticPaths = [
@@ -31,48 +29,17 @@ export default async function sitemap() {
     getPostParams(),
   ]);
 
-  const validDate = (value, fallback = STATIC_CONTENT_LAST_MODIFIED) => {
-    const date = new Date(value || fallback);
-    return Number.isNaN(date.getTime()) ? new Date(fallback) : date;
-  };
-  const latestDate = (items) => {
-    const latest = items.reduce((currentLatest, item) => {
-      const date = validDate(item.lastModified);
-      return !currentLatest || date > currentLatest ? date : currentLatest;
-    }, null);
-    return latest || validDate(STATIC_CONTENT_LAST_MODIFIED);
-  };
-
-  const catalogLastModified = latestDate(cards);
-  const projectsLastModified = latestDate(projects);
-  const blogLastModified = latestDate(posts);
-  const homeLastModified = [
-    validDate(STATIC_CONTENT_LAST_MODIFIED),
-    catalogLastModified,
-    projectsLastModified,
-    blogLastModified,
-  ].reduce((latest, date) => (date > latest ? date : latest));
-
+  // Static page dates are computed from exported content after the build.
+  // CMS dates remain available for the initial content fingerprint baseline.
   const entries = new Map();
-  const add = (pathname, lastModified) => {
-    entries.set(pathname, validDate(lastModified));
+  const add = (pathname, value) => {
+    const date = value ? new Date(value) : null;
+    entries.set(pathname, date && Number.isFinite(date.getTime()) ? date : undefined);
   };
-
-  staticPaths.forEach((pathname) => {
-    const lastModified = pathname === ""
-      ? homeLastModified
-      : pathname === "/products"
-        ? catalogLastModified
-        : pathname === "/projects"
-          ? projectsLastModified
-          : pathname === "/blog"
-            ? blogLastModified
-            : STATIC_CONTENT_LAST_MODIFIED;
-    add(pathname, lastModified);
-  });
-  landingSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
-  seoPageSlugs.forEach((slug) => add(`/${slug}`, STATIC_CONTENT_LAST_MODIFIED));
-  add("/detskie-ploshchadki-moskva", moscowUpdatedAt);
+  staticPaths.forEach((pathname) => add(pathname));
+  landingSlugs.forEach((slug) => add(`/${slug}`));
+  seoPageSlugs.forEach((slug) => add(`/${slug}`));
+  add("/detskie-ploshchadki-moskva");
   cards.forEach(({ id, slug, lastModified }) =>
     add(`/card/${id}/${slug}`, lastModified)
   );
