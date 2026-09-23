@@ -45,10 +45,12 @@ export default function RootLayout({ children }) {
             })(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
 
             ym(103639967,"init",{
+              defer:true,
               clickmap:true,
               trackLinks:true,
               accurateTrackBounce:true
             });
+            window.dispatchEvent(new Event("ludno:metrika-ready"));
           `}
         </Script>
         <noscript>

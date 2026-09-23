@@ -1,3 +1,4 @@
+import { filterProductsByGroup } from "../../data/productGroups.js";
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./styles/Products.module.css";
@@ -81,7 +82,7 @@ const ProductsMobile = ({ initialCatalog = null, initialNavigation = null }) => 
   const initialPagination = initialCatalog?.pagination || {};
   const skipInitialRequestRef = useRef(Boolean(initialCatalog));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filteredProducts, setFilteredProducts] = useState(initialProducts);
+  const [filteredProducts, setFilteredProducts] = useState(() => filterProductsByGroup(initialProducts));
   const [appliedFilters, setAppliedFilters] = useState({
     solutions: [],
     brands: [],
@@ -357,24 +358,6 @@ const ProductsMobile = ({ initialCatalog = null, initialNavigation = null }) => 
     } finally {
       setLoadingFilterData(false);
     }
-  };
-
-  const filterProductsByGroup = (products) => {
-    const result = [];
-    const seenGroups = new Set();
-
-    for (const product of products) {
-      const groupId = product.groups?.[0]?.id;
-      if (groupId) {
-        if (!seenGroups.has(groupId)) {
-          seenGroups.add(groupId);
-          result.push(product);
-        }
-      } else {
-        result.push(product);
-      }
-    }
-    return result;
   };
 
   useEffect(() => {

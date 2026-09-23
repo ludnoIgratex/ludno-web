@@ -1,3 +1,4 @@
+import { trackGoal } from "../../analytics/metrika.js";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NewsletterModal.module.css";
@@ -75,6 +76,7 @@ function NewsletterModal() {
 
       localStorage.setItem(SUBSCRIBED_KEY, "true");
       localStorage.removeItem(DISMISSED_AT_KEY);
+      trackGoal("newsletter_subscribed", { form_location: "popup" });
       setStatus("success");
       setMessage(data.message || "Готово! Вы подписаны на рассылку.");
       setForm({

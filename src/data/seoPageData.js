@@ -1,3 +1,5 @@
+import { productionPages } from "./productionPages.js";
+import { materialPages } from "./materialPages.js";
 import { regulationPages } from "./regulationPages.js";
 import { equipmentPages } from "./equipmentPages.js";
 import { siteMapSections } from "./siteMapData.js";
@@ -115,5 +117,5 @@ export function getSeoPage(slug) {
     .filter((item) => /Москве|Санкт-Петербурге|Казани|Екатеринбурге|Краснодаре|Новосибирске|Московской области/u.test(item.title))
     .slice(page.isGeo ? 0 : 1, page.isGeo ? 6 : 7);
 
-  return { ...page, ...equipmentPages[slug], ...regulationPages[slug], relatedRegions };
+  return { ...page, ...equipmentPages[slug], ...regulationPages[slug], ...materialPages[slug], ...productionPages[slug], relatedRegions };
 }

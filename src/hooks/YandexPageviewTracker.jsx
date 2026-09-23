@@ -1,20 +1,8 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import useMetrikaTracking from '../analytics/useMetrikaTracking';
 
-const YandexPageviewTracker = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (window.ym) {
-      window.ym(
-        103639967,
-        "hit",
-        window.location.pathname + window.location.search
-      );
-    }
-  }, [location]);
-
+export default function YandexPageviewTracker() {
+  const { pathname, search } = useLocation();
+  useMetrikaTracking(pathname + search);
   return null;
-};
-
-export default YandexPageviewTracker;
+}

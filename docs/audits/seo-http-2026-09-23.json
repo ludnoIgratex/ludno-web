@@ -1,0 +1,72 @@
+[
+  {
+    "path": "/products",
+    "status": 200,
+    "final": "https://ludno.ru/products/",
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://ludno.ru/products/\"/>"
+    ],
+    "robots": []
+  },
+  {
+    "path": "/products/",
+    "status": 200,
+    "final": "https://ludno.ru/products/",
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://ludno.ru/products/\"/>"
+    ],
+    "robots": []
+  },
+  {
+    "path": "/parkfit-solution",
+    "status": 200,
+    "final": "https://ludno.ru/parkfit-sportivnye-ploshchadki/",
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://ludno.ru/parkfit-sportivnye-ploshchadki/\"/>"
+    ],
+    "robots": []
+  },
+  {
+    "path": "/$",
+    "status": 404,
+    "final": "https://ludno.ru/$"
+  },
+  {
+    "path": "/map/kinetics-solution",
+    "status": 404,
+    "final": "https://ludno.ru/map/kinetics-solution/"
+  },
+  {
+    "path": "/card/1845/kachalka-na-pruzhine",
+    "status": 404,
+    "final": "https://ludno.ru/card/1845/kachalka-na-pruzhine/"
+  },
+  {
+    "path": "/card/1553/domik-malyi",
+    "status": 404,
+    "final": "https://ludno.ru/card/1553/domik-malyi/"
+  },
+  {
+    "path": "/card/2476/rukohod/",
+    "status": 404,
+    "final": "https://ludno.ru/card/2476/rukohod/"
+  },
+  {
+    "path": "/project-cards/26/zhk-lucky",
+    "status": 200,
+    "final": "https://ludno.ru/project-cards/26/zhk-lucky/",
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://ludno.ru/project-cards/26/zhk-lucky/\"/>"
+    ],
+    "robots": []
+  },
+  {
+    "path": "/project-cards/26/zhk-lucky/",
+    "status": 200,
+    "final": "https://ludno.ru/project-cards/26/zhk-lucky/",
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://ludno.ru/project-cards/26/zhk-lucky/\"/>"
+    ],
+    "robots": []
+  }
+]

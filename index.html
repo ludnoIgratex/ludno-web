@@ -45,10 +45,12 @@
       );
 
       ym(103639967, "init", {
+        defer: true,
         clickmap: true,
         trackLinks: true,
         accurateTrackBounce: true,
       });
+      window.dispatchEvent(new Event("ludno:metrika-ready"));
     </script>
     <!-- /Yandex.Metrika counter -->
 

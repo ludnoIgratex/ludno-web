@@ -1,3 +1,4 @@
+import { filterProductsByGroup } from "../../data/productGroups.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Products.module.css";
@@ -39,7 +40,7 @@ const ProductsDesktop = ({
   const initialProducts = initialCatalog?.products || [];
   const initialPagination = initialCatalog?.pagination || {};
   const [ageFilter, setAgeFilter] = useState([]);
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(() => filterProductsByGroup(initialProducts));
   const [loading, setLoading] = useState(!initialCatalog);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -117,24 +118,6 @@ const ProductsDesktop = ({
     selectedBrandName && Array.isArray(brands)
       ? brands.find((brand) => brand.name === selectedBrandName) ?? null
       : null;
-
-  // ===== хелпер сгруппировать продукты по group и брать по одному =====
-  const filterProductsByGroup = (list) => {
-    const result = [];
-    const seenGroups = new Set();
-    for (const product of list) {
-      const groupId = product.groups?.[0]?.id;
-      if (groupId) {
-        if (!seenGroups.has(groupId)) {
-          seenGroups.add(groupId);
-          result.push(product);
-        }
-      } else {
-        result.push(product);
-      }
-    }
-    return result;
-  };
 
   // ===== сборка запроса на продукты через qs =====
   const buildFetchUrlWithQs = (page) => {

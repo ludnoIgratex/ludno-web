@@ -57,13 +57,14 @@ export default async function Page({ params }) {
   const equipment = equipmentPages[slug];
   const products = equipment ? selectEquipmentProducts(await getEquipmentProducts(), equipment) : [];
 
+  const isArticle = ["regulation", "material"].includes(seoPage.kind);
   const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": seoPage.kind === "regulation" ? "Article" : "Service",
-    ...(seoPage.kind === "regulation" ? { headline: seoPage.title, citation: seoPage.sources.map(source => source.href), author: { "@id": "https://ludno.ru/#organization" } } : {}),
+    "@type": isArticle ? "Article" : "Service",
+    ...(isArticle ? { headline: seoPage.title, ...(seoPage.sources ? { citation: seoPage.sources.map(source => source.href) } : {}), author: { "@id": "https://ludno.ru/#organization" } } : {}),
     name: seoPage.title,
     description: seoPage.description,
-    ...(seoPage.kind === "regulation" ? {} : { provider: { "@id": "https://ludno.ru/#organization" } }),
+    ...(isArticle ? {} : { provider: { "@id": "https://ludno.ru/#organization" } }),
     url: `https://ludno.ru/${slug}/`,
   };
 

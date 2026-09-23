@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import ProductionPage from "../ProductionPage/ProductionPage";
+import MaterialPage from "../MaterialPage/MaterialPage";
 import RegulationPage from "../RegulationPage/RegulationPage";
 import styles from "./SeoPage.module.css";
 
@@ -27,6 +29,8 @@ const steps = [
 
 export default function SeoPage({ page }) {
   const [showMessengers, setShowMessengers] = useState(false);
+  if (page.kind === "production") return <ProductionPage page={page} />;
+  if (page.kind === "material") return <MaterialPage page={page} />;
   if (page.kind === "regulation") return <RegulationPage page={page} />;
   const regionalText = page.isGeo
     ? `География этого направления — ${page.location}. Также сопровождаем проекты в других городах и регионах России.`

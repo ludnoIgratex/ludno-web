@@ -1,3 +1,4 @@
+import { trackGoal } from "../../analytics/metrika.js";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles/Contacts.module.css";
@@ -50,6 +51,7 @@ const Contacts = () => {
       }
 
       localStorage.setItem(SUBSCRIBED_KEY, "true");
+      trackGoal("newsletter_subscribed", { form_location: "contacts" });
       setStatus("success");
       setMessage(data.message || "Готово! Вы подписаны на рассылку.");
       setForm({
