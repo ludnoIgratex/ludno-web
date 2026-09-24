@@ -31,11 +31,16 @@
 .projectCard {
   position: relative;
   cursor: pointer;
+  flex: 0 0 680px;
+  width: 680px;
+  height: 450px;
+  overflow: hidden;
+  background: var(--bg-default-color);
 }
 
 .projectImage {
-  width: 680px;
-  min-height: 450px;
+  display: block;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   transition: opacity 0.3s ease;
@@ -159,9 +164,10 @@
   .projectInfo {
     padding: 0px 16px;
   }
-  .projectImage {
+  .projectCard {
+    flex-basis: 360px;
     width: 360px;
-    min-height: 240px;
+    height: 240px;
   }
 
   .mainInfo h3 {

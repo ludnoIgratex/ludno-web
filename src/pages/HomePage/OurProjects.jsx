@@ -154,6 +154,8 @@ const OurProjects = ({ initialProjects }) => {
               {imageUrl ? (
                 <img
                   loading="lazy"
+                  width="680"
+                  height="450"
                   src={imageUrl}
                   alt={project.name || "Изображение проекта"}
                   className={styles.projectImage}

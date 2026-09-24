@@ -96,7 +96,7 @@ export default async function PostPage({ params }) {
   return (
     <div className="app__container">
       <SiteHeader />
-      <main className="content">
+      <main className="content" data-cms-document={post.documentId}>
         <article className={styles.postWrapper}>
           <nav className={breadcrumbsStyles.breadcrumbs} aria-label="Хлебные крошки">
             <ul><li><Link href="/blog">Блог</Link></li><li>{title}</li></ul>

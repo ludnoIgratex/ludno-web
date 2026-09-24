@@ -16,7 +16,6 @@ import CardTitle from "./CardTitle";
 import PriceLink from "./PriceLink";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import { useMediaQuery } from "react-responsive";
-import CodeSize from "./CodeSize";
 import LightboxModal from "../../components/Lightbox/LightboxModal";
 import ProductGallery from "./ProductGallery";
 
@@ -242,7 +241,7 @@ const Card = ({ initialCard = null }) => {
             category={card?.product?.category}
             productName={card?.product?.name}
           />
-          <CardTitle title={card?.product?.title} />
+          <CardTitle title={card?.product?.title} article={card?.product?.name} />
           <section className={styles.mainInfo}>
             <ImageCarousel
               images={images}
@@ -254,14 +253,12 @@ const Card = ({ initialCard = null }) => {
               setShowArrows={setShowArrows}
             />
             <section className={styles.articleWrapper}>
-              {groupProducts.length > 0 ? (
+              {groupProducts.length > 0 && (
                 <GroupSection
                   groupProducts={groupProducts}
                   groupName={groupName}
                   navigate={navigate}
                 />
-              ) : (
-                <CodeSize size={card?.size} />
               )}
             </section>
             <section className={styles.cardDetails}>
@@ -317,7 +314,7 @@ const Card = ({ initialCard = null }) => {
             category={card?.product?.category}
             productName={card?.product?.name}
           />
-          <CardTitle title={card?.product?.title} />
+          <CardTitle title={card?.product?.title} article={card?.product?.name} />
           <section className={styles.mainInfo}>
             <ImageCarousel
               images={images}
@@ -350,14 +347,12 @@ const Card = ({ initialCard = null }) => {
               </section>
               <section>
                 <CardDetails card={card} />
-                {groupProducts.length > 0 ? (
+                {groupProducts.length > 0 && (
                   <GroupSection
                     groupProducts={groupProducts}
                     groupName={groupName}
                     navigate={navigate}
                   />
-                ) : (
-                  <CodeSize size={card?.size} />
                 )}
               </section>
             </section>

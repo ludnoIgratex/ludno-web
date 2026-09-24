@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { marked } from "marked";
+import { getCmsCardPaths } from "../../../../../src/next/cms-links";
+import { createCmsLinkRenderer } from "../../../../../src/next/cms-link-renderer";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import ProjectGallery from "../../../../../src/next/ProjectGallery";
 import RelatedProjectsStatic from "../../../../../src/next/RelatedProjectsStatic";
@@ -63,10 +65,13 @@ export default async function ProjectPage({ params }) {
   if (!card?.project) notFound();
 
   const project = card.project;
+  const cmsRenderer = createCmsLinkRenderer(await getCmsCardPaths());
   const mainImage = Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage;
   const mainImageUrl = mediaUrl(mainImage, "original");
   const gallery = (card.image || []).map((image, index) => ({
     url: mediaUrl(image),
+    width: image.formats?.large?.width || image.width || 800,
+    height: image.formats?.large?.height || image.height || 600,
     alt: imageAlt(image.alternativeText, `${project.name}, фотография ${index + 1}`),
   })).filter((image) => image.url);
   const relatedProjects = await getRelatedProjects(project.id);
@@ -90,7 +95,7 @@ export default async function ProjectPage({ params }) {
   return (
     <div className="app__container">
       <SiteHeader />
-      <main className="content">
+      <main className="content" data-cms-document={project.documentId}>
         <article className={styles.card}>
           <div className={styles.breadcrumbs}>
             <nav className={breadcrumbsStyles.breadcrumbs} aria-label="Хлебные крошки">
@@ -107,11 +112,11 @@ export default async function ProjectPage({ params }) {
             <div className={styles.infoWrapper}>
               <section className={`${styles.about} markdown`}>
                 <h3>Описание проекта</h3>
-                <div dangerouslySetInnerHTML={{ __html: marked.parse(card.about || "", { breaks: true }) }} />
+                <div dangerouslySetInnerHTML={{ __html: marked.parse(card.about || "", { breaks: true, renderer: cmsRenderer }) }} />
               </section>
               <section className={`${styles.equipment} markdown`}>
                 <h3>Оборудование</h3>
-                <div dangerouslySetInnerHTML={{ __html: marked.parse(card.equipment || "", { breaks: true }) }} />
+                <div dangerouslySetInnerHTML={{ __html: marked.parse(card.equipment || "", { breaks: true, renderer: cmsRenderer }) }} />
               </section>
               <section className={styles.address}>
                 {card.adress && <div><span className={styles.label}>Адрес</span><p>{card.adress}</p></div>}

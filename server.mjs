@@ -3,9 +3,12 @@ import { access, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 import { timingSafeEqual } from "node:crypto";
+import { readCanonicalRoutes, canonicalContentRedirect } from "./src/server/canonical-routes.mjs";
+import { legacyContentRoutes } from "./src/data/legacyContentRoutes.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 const DIST_DIR = join(process.cwd(), "dist");
+const canonicalRoutes = await readCanonicalRoutes(DIST_DIR);
 const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
@@ -54,6 +57,7 @@ const legacySolutionRedirects = new Map([
   ["/gavpark-solution", "/gavpark-ploshchadki-dlya-sobak/"],
   ["/gavpark", "/gavpark-ploshchadki-dlya-sobak/"],
   ["/kinetics-solution", "/kinetikomotornye-ploshchadki/"],
+  ["/map/kinetics-solution", "/kinetikomotornye-ploshchadki/"],
   ["/kinetika", "/kinetikomotornye-ploshchadki/"],
   ["/mini-solution", "/mini-detskie-ploshchadki/"],
   ["/mini", "/mini-detskie-ploshchadki/"],
@@ -341,7 +345,14 @@ async function serveStatic(request, response) {
 
   try {
     const fileStat = await stat(filePath);
-    if (fileStat.isDirectory()) filePath = join(filePath, "index.html");
+    if (fileStat.isDirectory()) {
+      filePath = join(filePath, "index.html");
+      await access(filePath);
+      if (!url.pathname.endsWith("/")) {
+        response.writeHead(308, { Location: `${url.pathname}/${url.search}` });
+        return response.end();
+      }
+    }
     await access(filePath);
   } catch {
     filePath = join(DIST_DIR, "404.html");
@@ -421,6 +432,21 @@ async function serveStatic(request, response) {
 const server = createServer(async (request, response) => {
   const requestUrl = new URL(request.url, `http://${request.headers.host || "localhost"}`);
 
+  let decodedPath;
+  try { decodedPath = decodeURIComponent(requestUrl.pathname); }
+  catch { return json(response, 400, { message: "Некорректный адрес." }); }
+  const editorialTarget = legacyContentRoutes[decodedPath.replace(/\/$/, '')];
+  if (editorialTarget && (request.method === "GET" || request.method === "HEAD")) {
+    response.writeHead(301, { Location: encodeURI(editorialTarget) + requestUrl.search });
+    return response.end();
+  }
+
+  const contentTarget = canonicalContentRedirect(requestUrl.pathname, canonicalRoutes);
+  if (contentTarget && (request.method === "GET" || request.method === "HEAD")) {
+    response.writeHead(301, { Location: `${contentTarget}${requestUrl.search}` });
+    return response.end();
+  }
+
   // Desktop filters are encoded in the pathname and can contain Cyrillic.
   // Redirect using URL.pathname (the original percent-encoded representation),
   // never a decoded filesystem path: re-encoding decoded UTF-8 as Latin-1 is
@@ -438,7 +464,8 @@ const server = createServer(async (request, response) => {
   }
 
   const normalizedPath = requestUrl.pathname.replace(/\/$/, "") || "/";
-  const redirectTarget = legacySolutionRedirects.get(normalizedPath);
+  const redirectTarget = legacySolutionRedirects.get(normalizedPath) ||
+    (normalizedPath.startsWith('/map/') ? legacySolutionRedirects.get(normalizedPath.slice(4)) : null);
   if (redirectTarget && (request.method === "GET" || request.method === "HEAD")) {
     response.writeHead(301, { Location: `${redirectTarget}${requestUrl.search}` });
     return response.end();

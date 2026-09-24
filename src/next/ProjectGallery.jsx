@@ -19,6 +19,9 @@ export default function ProjectGallery({ images }) {
             src={image.url}
             alt={image.alt || `Фотография проекта ${index + 1}`}
             className={styles.projectImage}
+            width={image.width}
+            height={image.height}
+            style={{ aspectRatio: `${image.width} / ${image.height}` }}
             loading="lazy"
             onClick={() => {
               setCurrentIndex(index);

@@ -61,7 +61,10 @@ const ImageCarousel = ({
       )}
 
       <img
-        loading="lazy"
+        loading="eager"
+        fetchPriority="high"
+        width="800"
+        height="520"
         src={images[carouselIndex]?.url || selectedImage}
         alt={images[carouselIndex]?.alternativeText || "Product Image"}
         className={styles.carouselImage}

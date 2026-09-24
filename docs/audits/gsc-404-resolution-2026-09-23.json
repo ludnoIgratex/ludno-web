@@ -1,0 +1,975 @@
+[
+  {
+    "url": "https://ludno.ru/card/1845/kachalka-na-pruzhine",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1845/kachalka-na-pruzhine"
+  },
+  {
+    "url": "https://ludno.ru/card/1553/domik-malyi",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1553/domik-malyi"
+  },
+  {
+    "url": "https://ludno.ru/card/1495/gorka-otdelnostoyashchaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1495/gorka-otdelnostoyashchaya"
+  },
+  {
+    "url": "https://ludno.ru/card/1563/ostrovok-na-pruzhinah-kruglyi",
+    "status": 301,
+    "location": "/card/1563/ostrovok-na-pruzhinah-kruglyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1563/ostrovok-na-pruzhinah-kruglyy/"
+  },
+  {
+    "url": "https://ludno.ru/map/kinetics-solution",
+    "status": 301,
+    "location": "/kinetikomotornye-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/kinetikomotornye-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/card/828/bashnya-bolshaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/828/bashnya-bolshaya"
+  },
+  {
+    "url": "https://ludno.ru/card/1934/pesochnica-s-kryshkoi",
+    "status": 301,
+    "location": "/card/1934/pesochnica-s-razdvizhnoy-kryshkoy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1934/pesochnica-s-razdvizhnoy-kryshkoy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1523/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1523/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/card/2476/rukohod/",
+    "status": 301,
+    "location": "/card/2485/rukohod/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/2485/rukohod/"
+  },
+  {
+    "url": "https://ludno.ru/$",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/$"
+  },
+  {
+    "url": "https://ludno.ru/map/mini-solution",
+    "status": 301,
+    "location": "/mini-detskie-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/mini-detskie-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Ландшафт/Фигуры из \nкрошки?brands=35&categories=46",
+    "status": 301,
+    "location": "/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%95PDM-%D1%84%D0%B8%D0%B3%D1%83%D1%80%D1%8B/?brands=35&categories=46",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%95PDM-%D1%84%D0%B8%D0%B3%D1%83%D1%80%D1%8B/?brands=35&categories=46"
+  },
+  {
+    "url": "https://ludno.ru/card/1831/kochka-s-tonnelem-gorkoi-i-zacepami",
+    "status": 301,
+    "location": "/card/1831/kochka-s-tonnelem-gorkoy-i-zacepami/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1831/kochka-s-tonnelem-gorkoy-i-zacepami/"
+  },
+  {
+    "url": "https://ludno.ru/card/1806/cfera",
+    "status": 301,
+    "location": "/card/1806/cfera-bolshaya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1806/cfera-bolshaya/"
+  },
+  {
+    "url": "https://ludno.ru/card/1531/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1531/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1575/bum-troinoi",
+    "status": 301,
+    "location": "/card/1575/bum-troynoy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1575/bum-troynoy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1900/nabor-stepov",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1900/nabor-stepov"
+  },
+  {
+    "url": "https://ludno.ru/card/1483/kacheli-dlya-malyshei",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1483/kacheli-dlya-malyshei"
+  },
+  {
+    "url": "https://ludno.ru/card/1904/informacionnaya-tablichka",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1904/informacionnaya-tablichka"
+  },
+  {
+    "url": "https://ludno.ru/card/1781/kochka",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1781/kochka"
+  },
+  {
+    "url": "https://ludno.ru/card/1751/bolshaya-set",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1751/bolshaya-set"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Уличные игры?brands=37&categories=63",
+    "status": 301,
+    "location": "/detskie-sportivnye-kompleksy/?brands=37&categories=63",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-sportivnye-kompleksy/?brands=37&categories=63"
+  },
+  {
+    "url": "https://ludno.ru/card/1940/batut-vstraivaemyi-kruglyi",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1940/batut-vstraivaemyi-kruglyi"
+  },
+  {
+    "url": "https://ludno.ru/card/1982/barer-reguliruemyi",
+    "status": 301,
+    "location": "/card/1982/barer-reguliruemyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1982/barer-reguliruemyy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1750/lazatelnai-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1750/lazatelnai-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1571/bum-malenkii",
+    "status": 301,
+    "location": "/card/1571/bum-malenkiy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1571/bum-malenkiy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1565/ostrovok-na-pruzhinah-treugolnyi",
+    "status": 301,
+    "location": "/card/1565/ostrovok-na-pruzhinah-treugolnyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1565/ostrovok-na-pruzhinah-treugolnyy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1852/gorka-otdelnostoyashchaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1852/gorka-otdelnostoyashchaya"
+  },
+  {
+    "url": "https://ludno.ru/card/1515/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1515/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1774/sportivnyi-kompleks-dlya-lazaniya",
+    "status": 301,
+    "location": "/card/1774/sportivnyy-kompleks-dlya-lazaniya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1774/sportivnyy-kompleks-dlya-lazaniya/"
+  },
+  {
+    "url": "https://ludno.ru/card/1973/tonnel-zakrytyi",
+    "status": 301,
+    "location": "/card/1973/tonnel-zakrytyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1973/tonnel-zakrytyy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1260/stol-tennisnyi",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1260/stol-tennisnyi"
+  },
+  {
+    "url": "https://ludno.ru/card/1944/batut-vstraivaemyi-zakruglennyi",
+    "status": 301,
+    "location": "/card/1944/batut-kvadratnyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1944/batut-kvadratnyy/"
+  },
+  {
+    "url": "https://ludno.ru/card/2180/dorozhnye-znaki/",
+    "status": 301,
+    "location": "/card/2496/dorozhnye-znaki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/2496/dorozhnye-znaki/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игровые панели?brands=37&categories=14",
+    "status": 301,
+    "location": "/products/all/%D0%9C%D0%B8%D0%BD%D0%B8/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/?brands=37&categories=14",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9C%D0%B8%D0%BD%D0%B8/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/?brands=37&categories=14"
+  },
+  {
+    "url": "https://ludno.ru/card/1603/intreaktivnaya-panel-pesochnye-chasy",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1603/intreaktivnaya-panel-pesochnye-chasy"
+  },
+  {
+    "url": "https://ludno.ru/blog/87/geoplastika-na-detskoi-ploshchadke",
+    "status": 301,
+    "location": "/blog/87/geoplastika-na-detskoy-ploshchadke/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/blog/87/geoplastika-na-detskoy-ploshchadke/"
+  },
+  {
+    "url": "https://ludno.ru/card/1988/plioboks-mobilnyi",
+    "status": 301,
+    "location": "/card/1988/plioboks-mobilnyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1988/plioboks-mobilnyy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1930/tematicheskaya-panel-didzheiskii-pult",
+    "status": 301,
+    "location": "/card/1930/tematicheskaya-panel-didzheyskiy-pult/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1930/tematicheskaya-panel-didzheyskiy-pult/"
+  },
+  {
+    "url": "https://ludno.ru/card/1907/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1907/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1615/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1615/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Башни/Игровые \nкомплексы?brands=30&categories=25",
+    "status": 301,
+    "location": "/products/all/%D0%91%D0%B0%D1%88%D0%BD%D0%B8/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D1%8B/?brands=30&categories=25",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%91%D0%B0%D1%88%D0%BD%D0%B8/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D1%8B/?brands=30&categories=25"
+  },
+  {
+    "url": "https://ludno.ru/card/1986/kacheli-gnezdo",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1986/kacheli-gnezdo"
+  },
+  {
+    "url": "https://ludno.ru/card/1668/informacionnyi-stend",
+    "status": 301,
+    "location": "/card/1668/informacionnyy-stend/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1668/informacionnyy-stend/"
+  },
+  {
+    "url": "https://ludno.ru/card/1985/kacheli-gnezdo",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1985/kacheli-gnezdo"
+  },
+  {
+    "url": "https://ludno.ru/card/1945/batut-v-holme-kruglyi",
+    "status": 301,
+    "location": "/card/1945/batut-v-holme-kruglyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1945/batut-v-holme-kruglyy/"
+  },
+  {
+    "url": "https://ludno.ru/map/bloqi-solution",
+    "status": 301,
+    "location": "/bloki-igrovoy-konstruktor/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/bloki-igrovoy-konstruktor/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Спортивные игры?brands=37&categories=70",
+    "status": 301,
+    "location": "/detskie-sportivnye-kompleksy/?brands=37&categories=70",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-sportivnye-kompleksy/?brands=37&categories=70"
+  },
+  {
+    "url": "https://ludno.ru/card/1906/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1906/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1613/turnik-dlya-detei-mladshego-vozrasta",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1613/turnik-dlya-detei-mladshego-vozrasta"
+  },
+  {
+    "url": "https://ludno.ru/products/all/all/Тематическая игра",
+    "status": 301,
+    "location": "/products/all/all/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/all/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игра с песком",
+    "status": 301,
+    "location": "/detskie-pesochnitsy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-pesochnitsy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1773/sportivnyi-kompleks-dlya-lazaniya",
+    "status": 301,
+    "location": "/card/1773/sportivnyy-kompleks-dlya-lazaniya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1773/sportivnyy-kompleks-dlya-lazaniya/"
+  },
+  {
+    "url": "https://ludno.ru/card/1914/skamya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1914/skamya"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Трамптек/Батуты \nвстраиваемые?brands=41&categories=71",
+    "status": 301,
+    "location": "/products/all/%D0%A2%D1%80%D0%B0%D0%BC%D0%BF%D1%82%D0%B5%D0%BA/%D0%91%D0%B0%D1%82%D1%83%D1%82%D1%8B/?brands=41&categories=71",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%A2%D1%80%D0%B0%D0%BC%D0%BF%D1%82%D0%B5%D0%BA/%D0%91%D0%B0%D1%82%D1%83%D1%82%D1%8B/?brands=41&categories=71"
+  },
+  {
+    "url": "https://ludno.ru/card/1479/kacheli",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1479/kacheli"
+  },
+  {
+    "url": "https://ludno.ru/products/Мини",
+    "status": 301,
+    "location": "/mini-detskie-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/mini-detskie-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/card/1902/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1902/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/project-cards/18/igrovoi-kompleks-bublik",
+    "status": 301,
+    "location": "/project-cards/18/igrovoy-kompleks-bublik/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/project-cards/18/igrovoy-kompleks-bublik/"
+  },
+  {
+    "url": "https://ludno.ru/project-cards/43/kotoustroistvo",
+    "status": 301,
+    "location": "/project-cards/43/kotoustroystvo/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/project-cards/43/kotoustroystvo/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Паркфит/Уличные игры?brands=32&categories=63",
+    "status": 301,
+    "location": "/products/all/%D0%9F%D0%B0%D1%80%D0%BA%D1%84%D0%B8%D1%82/%D0%A1%D0%BF%D0%BE%D1%80%D1%82-%7C-%D0%A3%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D0%B5-%D0%B8%D0%B3%D1%80%D1%8B/?brands=32&categories=63",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9F%D0%B0%D1%80%D0%BA%D1%84%D0%B8%D1%82/%D0%A1%D0%BF%D0%BE%D1%80%D1%82-%7C-%D0%A3%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D0%B5-%D0%B8%D0%B3%D1%80%D1%8B/?brands=32&categories=63"
+  },
+  {
+    "url": "https://ludno.ru/card/1509/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1509/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1846/kachalka-na-pruzhine-dvoinaya",
+    "status": 301,
+    "location": "/card/1846/kachalka-na-pruzhine-dvoynaya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1846/kachalka-na-pruzhine-dvoynaya/"
+  },
+  {
+    "url": "https://ludno.ru/card/825/bashnya-malaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/825/bashnya-malaya"
+  },
+  {
+    "url": "https://ludno.ru/card/2454/sportivnyy-kompleks/",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/2454/sportivnyy-kompleks/"
+  },
+  {
+    "url": "https://ludno.ru/card/1844/kreslo-yula",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1844/kreslo-yula"
+  },
+  {
+    "url": "https://ludno.ru/card/1471/chervyachok-stoika",
+    "status": 301,
+    "location": "/card/1471/chervyachok-stoyka/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1471/chervyachok-stoyka/"
+  },
+  {
+    "url": "https://ludno.ru/card/1254/bashnya-srednyaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1254/bashnya-srednyaya"
+  },
+  {
+    "url": "https://ludno.ru/card/1573/bum-dvoinoi",
+    "status": 301,
+    "location": "/card/1573/bum-dvoynoy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1573/bum-dvoynoy/"
+  },
+  {
+    "url": "https://ludno.ru/card/1581/balansovyi-kompleks",
+    "status": 301,
+    "location": "/card/1581/balansovyy-kompleks/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1581/balansovyy-kompleks/"
+  },
+  {
+    "url": "https://ludno.ru/card/1758/peregovornye-truby-kruzhok",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1758/peregovornye-truby-kruzhok"
+  },
+  {
+    "url": "https://ludno.ru/card/1760/peregovornye-truby-cvetok",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1760/peregovornye-truby-cvetok"
+  },
+  {
+    "url": "https://ludno.ru/card/1925/sportivnyi-kompleks-dlya-lazaniya",
+    "status": 301,
+    "location": "/card/1925/sportivnyy-kompleks-dlya-lazaniya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1925/sportivnyy-kompleks-dlya-lazaniya/"
+  },
+  {
+    "url": "https://ludno.ru/card/1737/skameika",
+    "status": 301,
+    "location": "/card/1737/skameyka/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1737/skameyka/"
+  },
+  {
+    "url": "https://ludno.ru/card/1675/informacionnyi-stend",
+    "status": 301,
+    "location": "/card/1675/informacionnyy-stend/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/card/1675/informacionnyy-stend/"
+  },
+  {
+    "url": "https://ludno.ru/card/1908/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1908/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1911/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1911/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1983/kacheli",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1983/kacheli"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Трамптек/Батуты в \nхолме?brands=41&categories=40",
+    "status": 301,
+    "location": "/products/all/%D0%A2%D1%80%D0%B0%D0%BC%D0%BF%D1%82%D0%B5%D0%BA/%D0%91%D0%B0%D1%82%D1%83%D1%82%D1%8B/?brands=41&categories=40",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%A2%D1%80%D0%B0%D0%BC%D0%BF%D1%82%D0%B5%D0%BA/%D0%91%D0%B0%D1%82%D1%83%D1%82%D1%8B/?brands=41&categories=40"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игровые домики?brands=37&categories=16",
+    "status": 301,
+    "location": "/igrovye-domiki/?brands=37&categories=16",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/igrovye-domiki/?brands=37&categories=16"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Ландшафт/Балансовые \nфигуры?brands=35&categories=48",
+    "status": 301,
+    "location": "/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%91%D0%B0%D0%BB%D0%B0%D0%BD%D1%81/?brands=35&categories=48",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%91%D0%B0%D0%BB%D0%B0%D0%BD%D1%81/?brands=35&categories=48"
+  },
+  {
+    "url": "https://ludno.ru/uploads/IMG_1148_aedce880de.HEIC",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/uploads/IMG_1148_aedce880de.HEIC"
+  },
+  {
+    "url": "https://ludno.ru/card/1987/kacheli",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1987/kacheli"
+  },
+  {
+    "url": "https://ludno.ru/card/1910/sportivnyi-kompleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1910/sportivnyi-kompleks"
+  },
+  {
+    "url": "https://ludno.ru/card/2461/uglovaya-skamya/",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/2461/uglovaya-skamya/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Спортивные игры",
+    "status": 301,
+    "location": "/detskie-sportivnye-kompleksy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-sportivnye-kompleksy/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игровые комплексы?brands=37&categories=25",
+    "status": 301,
+    "location": "/products/all/%D0%9C%D0%B8%D0%BD%D0%B8/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D1%8B/?brands=37&categories=25",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9C%D0%B8%D0%BD%D0%B8/%D0%9A%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D1%8B/?brands=37&categories=25"
+  },
+  {
+    "url": "https://ludno.ru/card/1851/gorka-otdelnostoyashchaya",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1851/gorka-otdelnostoyashchaya"
+  },
+  {
+    "url": "https://ludno.ru/card/1529/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1529/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/vorkaut-ploshchadki/-Воркаут-площадки",
+    "status": 301,
+    "location": "/vorkaut-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/vorkaut-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/ograzhdeniya/-Ограждения",
+    "status": 301,
+    "location": "/ograzhdeniya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/ograzhdeniya/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-pesochnitsy/-Песочницы",
+    "status": 301,
+    "location": "/detskie-pesochnitsy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-pesochnitsy/"
+  },
+  {
+    "url": "https://ludno.ru/skameyki/-Скамейки",
+    "status": 301,
+    "location": "/skameyki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/skameyki/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-istra/-Истра",
+    "status": 301,
+    "location": "/detskie-ploshchadki-istra/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-istra/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-balansiry/-Балансиры",
+    "status": 301,
+    "location": "/detskie-balansiry/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-balansiry/"
+  },
+  {
+    "url": "https://ludno.ru/veloparkovki/-Велопарковки",
+    "status": 301,
+    "location": "/veloparkovki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/veloparkovki/"
+  },
+  {
+    "url": "https://ludno.ru/parkur-ploshchadki/-Паркур-площадки",
+    "status": 301,
+    "location": "/parkur-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/parkur-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-reutov/-Реутов",
+    "status": 301,
+    "location": "/detskie-ploshchadki-reutov/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-reutov/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-himki/-Химки",
+    "status": 301,
+    "location": "/detskie-ploshchadki-himki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-himki/"
+  },
+  {
+    "url": "https://ludno.ru/hpl-plastik/-HPL-пластик",
+    "status": 301,
+    "location": "/hpl-plastik/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/hpl-plastik/"
+  },
+  {
+    "url": "https://ludno.ru/vandalostoykost-oborudovaniya/-Вандалостойкость",
+    "status": 301,
+    "location": "/vandalostoykost-oborudovaniya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/vandalostoykost-oborudovaniya/"
+  },
+  {
+    "url": "https://ludno.ru/skeyt-parki/-Скейт-парки",
+    "status": 301,
+    "location": "/skeyt-parki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/skeyt-parki/"
+  },
+  {
+    "url": "https://ludno.ru/shefmontazh/-Шефмонтаж",
+    "status": 301,
+    "location": "/shefmontazh/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/shefmontazh/"
+  },
+  {
+    "url": "https://ludno.ru/pamp-treki/-Памп-треки",
+    "status": 301,
+    "location": "/pamp-treki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/pamp-treki/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-karuseli/-Карусели",
+    "status": 301,
+    "location": "/detskie-karuseli/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-karuseli/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-domodedovo/-Домодедово",
+    "status": 301,
+    "location": "/detskie-ploshchadki-domodedovo/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-domodedovo/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-kacheli/-Качели",
+    "status": 301,
+    "location": "/detskie-kacheli/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-kacheli/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-krasnogorsk/-Красногорск",
+    "status": 301,
+    "location": "/detskie-ploshchadki-krasnogorsk/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-krasnogorsk/"
+  },
+  {
+    "url": "https://ludno.ru/garantiya/-Гарантия",
+    "status": 301,
+    "location": "/garantiya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/garantiya/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-gorki/-Горки",
+    "status": 301,
+    "location": "/detskie-gorki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-gorki/"
+  },
+  {
+    "url": "https://ludno.ru/urny/-Урны",
+    "status": 301,
+    "location": "/urny/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/urny/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-dolgoprudnyy/-Долгопрудный",
+    "status": 301,
+    "location": "/detskie-ploshchadki-dolgoprudnyy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-dolgoprudnyy/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-lyubertsy/-Люберцы",
+    "status": 301,
+    "location": "/detskie-ploshchadki-lyubertsy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-lyubertsy/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-balashiha/-Балашиха",
+    "status": 301,
+    "location": "/detskie-ploshchadki-balashiha/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-balashiha/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-podolsk/-Подольск",
+    "status": 301,
+    "location": "/detskie-ploshchadki-podolsk/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-podolsk/"
+  },
+  {
+    "url": "https://ludno.ru/contacts/-Контакты",
+    "status": 301,
+    "location": "/contacts/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/contacts/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-odintsovo/-Одинцово",
+    "status": 301,
+    "location": "/detskie-ploshchadki-odintsovo/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-odintsovo/"
+  },
+  {
+    "url": "https://ludno.ru/detskie-ploshchadki-mytishchi/-Мытищи",
+    "status": 301,
+    "location": "/detskie-ploshchadki-mytishchi/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-ploshchadki-mytishchi/"
+  },
+  {
+    "url": "https://ludno.ru/epdm-pokrytie/-EPDM-покрытие",
+    "status": 301,
+    "location": "/epdm-pokrytie/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/epdm-pokrytie/"
+  },
+  {
+    "url": "https://ludno.ru/blog/-Блог",
+    "status": 301,
+    "location": "/blog/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/blog/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игра с песком?brands=37&categories=22",
+    "status": 301,
+    "location": "/detskie-pesochnitsy/?brands=37&categories=22",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/detskie-pesochnitsy/?brands=37&categories=22"
+  },
+  {
+    "url": "https://ludno.ru/card/1505/igrovoi-komleks",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1505/igrovoi-komleks"
+  },
+  {
+    "url": "https://ludno.ru/card/1940/batut-vstraivaemyy-kruglyy",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1940/batut-vstraivaemyy-kruglyy"
+  },
+  {
+    "url": "https://ludno.ru/blog/88/detskie-ploshchadki-po-prikazu-1057-minprosveshcheniya-rossii",
+    "status": 301,
+    "location": "/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii/"
+  },
+  {
+    "url": "https://ludno.ru/products/Трамптек",
+    "status": 301,
+    "location": "/tramptek-ulichnye-batuty/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/tramptek-ulichnye-batuty/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Паркфит/Фитнес?brands=32&categories=75",
+    "status": 301,
+    "location": "/products/all/%D0%9F%D0%B0%D1%80%D0%BA%D1%84%D0%B8%D1%82/%D0%A1%D0%BF%D0%BE%D1%80%D1%82-%7C-%D0%A4%D0%B8%D1%82%D0%BD%D0%B5%D1%81/?brands=32&categories=75",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9F%D0%B0%D1%80%D0%BA%D1%84%D0%B8%D1%82/%D0%A1%D0%BF%D0%BE%D1%80%D1%82-%7C-%D0%A4%D0%B8%D1%82%D0%BD%D0%B5%D1%81/?brands=32&categories=75"
+  },
+  {
+    "url": "https://ludno.ru/card/2072/tenevoy-naves",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/2072/tenevoy-naves"
+  },
+  {
+    "url": "https://ludno.ru/blog/85/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii",
+    "status": 301,
+    "location": "/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/blog/88/detskie-ploshchadki-po-prikazu-no1057-minprosveshcheniya-rossii/"
+  },
+  {
+    "url": "https://ludno.ru/map/gavpark-solution",
+    "status": 301,
+    "location": "/gavpark-ploshchadki-dlya-sobak/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/gavpark-ploshchadki-dlya-sobak/"
+  },
+  {
+    "url": "https://ludno.ru/map/nature-navigation-solution",
+    "status": 301,
+    "location": "/prirodnaya-navigaciya/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/prirodnaya-navigaciya/"
+  },
+  {
+    "url": "https://ludno.ru/card/1242/kochka-iz-epdm-kroshki-s-tonnelem-gorkoy-i-zacepami",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1242/kochka-iz-epdm-kroshki-s-tonnelem-gorkoy-i-zacepami"
+  },
+  {
+    "url": "https://ludno.ru/card/1620/peregovornye-truby-kruzhok",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/card/1620/peregovornye-truby-kruzhok"
+  },
+  {
+    "url": "https://ludno.ru/&",
+    "status": 404,
+    "location": null,
+    "finalStatus": 404,
+    "finalUrl": "https://ludno.ru/&"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Мини/Игровые домики",
+    "status": 301,
+    "location": "/igrovye-domiki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/igrovye-domiki/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/all/Серия «Автогородок»",
+    "status": 301,
+    "location": "/products/all/all/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B-%7C-%D0%90%D0%B2%D1%82%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%BE%D0%BA/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/all/%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D1%8B%D0%B5-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B-%7C-%D0%90%D0%B2%D1%82%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%BE%D0%BA/"
+  },
+  {
+    "url": "https://ludno.ru/map/parkfit-solution",
+    "status": 301,
+    "location": "/parkfit-sportivnye-ploshchadki/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/parkfit-sportivnye-ploshchadki/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Ландшафт/Наборы фигур?brands=35&categories=81",
+    "status": 301,
+    "location": "/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%95PDM-%D1%84%D0%B8%D0%B3%D1%83%D1%80%D1%8B-%7C-%D0%9D%D0%B0%D0%B1%D0%BE%D1%80%D1%8B/?brands=35&categories=81",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9B%D0%B0%D0%BD%D0%B4%D1%88%D0%B0%D1%84%D1%82/%D0%95PDM-%D1%84%D0%B8%D0%B3%D1%83%D1%80%D1%8B-%7C-%D0%9D%D0%B0%D0%B1%D0%BE%D1%80%D1%8B/?brands=35&categories=81"
+  },
+  {
+    "url": "https://ludno.ru/map/towers-solution",
+    "status": 301,
+    "location": "/bashni-igrovye-kompleksy/",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/bashni-igrovye-kompleksy/"
+  },
+  {
+    "url": "https://ludno.ru/products/all/Навигация/Природная \nнавигация?brands=39&categories=66",
+    "status": 301,
+    "location": "/products/all/%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F/%D0%A3%D0%BB%D0%B8%D1%87%D0%BD%D0%B0%D1%8F-%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C-%7C-%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F/?brands=39&categories=66",
+    "finalStatus": 200,
+    "finalUrl": "https://ludno.ru/products/all/%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F/%D0%A3%D0%BB%D0%B8%D1%87%D0%BD%D0%B0%D1%8F-%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C-%7C-%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%86%D0%B8%D1%8F/?brands=39&categories=66"
+  }
+]

@@ -6,6 +6,16 @@ import Solutions from "./Solutions";
 import About from "./About";
 import OurProjects from "./OurProjects";
 import Consultation from "../../components/Consultation/Consultation";
+import RelatedEquipment from "../../components/RelatedEquipment/RelatedEquipment";
+
+const equipmentLinks = [
+  { slug: "igrovye-kompleksy", title: "Игровые комплексы" },
+  { slug: "lazatelnye-kompleksy", title: "Лазательные комплексы" },
+  { slug: "detskie-gorki", title: "Детские горки" },
+  { slug: "detskie-kacheli", title: "Качели" },
+  { slug: "igrovye-domiki", title: "Игровые домики" },
+  { slug: "sportivnye-ploshchadki", title: "Спортивные площадки" },
+];
 
 const HomePage = ({ initialProjects }) => {
   const solutionsRef = useRef(null);
@@ -31,6 +41,7 @@ const HomePage = ({ initialProjects }) => {
       <Solutions ref={solutionsRef} />
       <Consultation color="var(--accent-color)" />
       <OurProjects initialProjects={initialProjects} />
+      <RelatedEquipment pages={equipmentLinks} title="Оборудование для вашего пространства" />
       <About />
     </div>
   );

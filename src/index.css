@@ -1,6 +1,6 @@
 @font-face {
   font-family: TT-Norms-Pro;
-  src: url("/assets/fonts/TT-Norms-Pro-Normal.ttf") format("truetype");
+  src: url("/assets/fonts/TT-Norms-Pro-Normal.woff2") format("woff2");
   font-weight: normal;
   font-display: swap;
 }
@@ -30,7 +30,7 @@
 
 @font-face {
   font-family: TT-Norms-Pro;
-  src: url("/assets/fonts/TT-Norms-Pro-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/TT-Norms-Pro-Bold.woff2") format("woff2");
   font-weight: bold;
   font-display: swap;
 }
@@ -40,7 +40,7 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: TT-Norms-Pro, sans-serif;
+  font-family: var(--font-ludno, TT-Norms-Pro), sans-serif;
 }
 
 /* Стилизация скроллбара для Chrome и Chromium-based */
@@ -106,6 +106,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scrollbar-gutter: stable;
 }
 
 :root {

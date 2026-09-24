@@ -40,6 +40,7 @@
 }
 
 .linkContainer a {
+  color: var(--accent-color);
   font-size: 34px;
   line-height: 40px;
 }

@@ -1,14 +1,9 @@
 import React from "react";
 import styles from "./styles/Main.module.css";
-import { useNavigate } from "react-router-dom";
 import { RiArrowRightDownLine } from "react-icons/ri";
 import AppleDotSlider from "../../components/AppleDotSlider/AppleDotSlider";
 
 const Main = () => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/products", { state: { focusEmail: true } });
-  };
 
   const slides = [
     "/assets/images/third.webp",
@@ -34,9 +29,9 @@ const Main = () => {
       <div className={styles.titleText}>
         <h1>Архитектурное благоустройство</h1>
         <p>Создаем премиальное оборудование для благоустройства детской и спортивной среды</p>
-        <div className={styles.linkContainer} onClick={handleClick}>
+        <div className={styles.linkContainer}>
           <RiArrowRightDownLine className={styles.arrow} />
-          <a>Перейти в каталог</a>
+          <a href="/products/">Перейти в каталог</a>
         </div>
       </div>
     </section>

@@ -1,8 +1,20 @@
 import Script from "next/script";
+import localFont from "next/font/local";
 import "../../src/index.css";
 import "../../src/App.css";
 import YandexMetrikaPageview from "./yandex-metrika-pageview";
 import { JsonLd, organizationSchema, websiteSchema } from "../../src/next/structured-data";
+
+const ludnoFont = localFont({
+  src: [
+    { path: "../../public/assets/fonts/TT-Norms-Pro-Normal.woff2", weight: "400", style: "normal" },
+    { path: "../../public/assets/fonts/TT-Norms-Pro-Bold.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-ludno",
+  display: "swap",
+  adjustFontFallback: "Arial",
+  preload: true,
+});
 
 export const metadata = {
   metadataBase: new URL("https://ludno.ru"),
@@ -30,7 +42,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={ludnoFont.variable}>
       <body>
         {children}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />

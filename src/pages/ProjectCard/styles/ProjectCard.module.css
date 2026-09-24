@@ -160,9 +160,12 @@
 }
 
 .projectImage {
-  max-height: 450px;
+  display: block;
+  flex: 0 0 auto;
+  width: auto;
+  aspect-ratio: 4 / 3;
   object-fit: contain;
-  height: 100%;
+  height: 450px;
 }
 
 @media (max-width: 768px) {
@@ -188,7 +191,7 @@
   }
 
   .projectImage {
-    max-height: 240px;
+    height: 240px;
   }
 
   .card h1 {

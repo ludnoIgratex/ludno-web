@@ -1,6 +1,7 @@
 import EquipmentPage from "../../../src/pages/EquipmentPage/EquipmentPage";
+import { equipmentProjectThemes } from "../../../src/data/equipmentProjectThemes";
 import { equipmentPages, selectEquipmentProducts } from "../../../src/data/equipmentPages";
-import { getEquipmentProducts, cardSlug } from "../../../src/next/catalog-data";
+import { getEquipmentProducts, getEquipmentProjectCards, cardSlug } from "../../../src/next/catalog-data";
 import { notFound } from "next/navigation";
 import LandingPage from "../../../src/next/LandingPage";
 import { landingMetadata, landingSlugs } from "../../../src/next/landing-metadata";
@@ -56,6 +57,16 @@ export default async function Page({ params }) {
 
   const equipment = equipmentPages[slug];
   const products = equipment ? selectEquipmentProducts(await getEquipmentProducts(), equipment) : [];
+  const productIds = new Set(products.map(product => product.id));
+  const projectThemes = equipmentProjectThemes[slug] || [];
+  const projects = equipment ? (await getEquipmentProjectCards())
+    .filter(card => card.project?.name && (projectThemes.includes(card.project.documentId) || card.products?.some(product => productIds.has(product.id))))
+    .slice(0, 3).map(card => ({
+      id: card.project.id,
+      title: card.project.name,
+      href: `/project-cards/${card.project.id}/${cardSlug(card.project.name)}/`,
+      image: Array.isArray(card.mainImage) ? card.mainImage[0] : card.mainImage,
+    })) : [];
 
   const isArticle = ["regulation", "material"].includes(seoPage.kind);
   const serviceSchema = {
@@ -71,7 +82,7 @@ export default async function Page({ params }) {
   return (
     <div className="app__container">
       <SiteHeader />
-      {equipment ? <EquipmentPage page={equipment} products={products} /> : <SeoPage page={seoPage} />}
+      {equipment ? <EquipmentPage page={equipment} products={products} projects={projects} /> : <SeoPage page={seoPage} />}
       <SiteFooter />
       <JsonLd data={[
         ...(equipment ? [itemListSchema({ name: equipment.title, path: `/${slug}/`, items: products.map(product => ({ name: [product.title, product.name].filter(Boolean).join(" "), path: `/card/${product.card.id}/${cardSlug(product.title)}/` })) })] : [serviceSchema]),

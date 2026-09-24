@@ -2,9 +2,11 @@ import { marked } from "marked";
 import { FaPinterest, FaTelegram } from "react-icons/fa";
 import styles from "../pages/Blog/PostPage/styles/PostPage.module.css";
 import { imageAlt } from "./image-alt";
+import { getCmsCardPaths } from "./cms-links";
+import { createCmsLinkRenderer } from "./cms-link-renderer";
 
-function contentBlocks(markdown = "") {
-  const renderer = new marked.Renderer();
+function contentBlocks(markdown = "", cardPaths) {
+  const renderer = createCmsLinkRenderer(cardPaths);
   renderer.blockquote = function (token) {
     if ((token.text || "").trim().toLowerCase() === "quote") return "{{quote}}";
     return `<blockquote>${this.parser.parse(token.tokens, this.options)}</blockquote>`;
@@ -41,8 +43,8 @@ function contentBlocks(markdown = "") {
   return blocks;
 }
 
-export default function PostContent({ text }) {
-  return contentBlocks(text).map((block, index) => {
+export default async function PostContent({ text }) {
+  return contentBlocks(text, await getCmsCardPaths()).map((block, index) => {
     if (block.type === "text") {
       return <div key={index} dangerouslySetInnerHTML={{ __html: block.content }} />;
     }

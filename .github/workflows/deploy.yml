@@ -35,6 +35,27 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Restore CMS URL history
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/cms-route-history.json
+          key: cms-route-history-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            cms-route-history-v1-
+
+      - name: Recover CMS URL history if the cache expired
+        if: hashFiles('.cache/cms-route-history.json') == ''
+        run: |
+          docker pull fijispawn/ludno-ui:latest
+          CONTAINER_ID=$(docker create fijispawn/ludno-ui:latest)
+          trap 'docker rm "$CONTAINER_ID"' EXIT
+          mkdir -p .cache
+          if docker cp "$CONTAINER_ID:/app/.cache/cms-route-history.json" .cache/cms-route-history.json; then
+            echo "Recovered CMS URL history from the previous image."
+          else
+            echo "Previous image has no CMS URL history; using the checked-in baseline."
+          fi
+
       - name: Recover sitemap history if the cache expired
         if: hashFiles('.cache/sitemap-lastmod.json') == ''
         run: |
@@ -48,8 +69,8 @@ jobs:
             echo "Previous image has no sitemap history; establishing the initial baseline."
           fi
 
-      - name: Test sitemap dates
-        run: node --test src/scripts/sitemap-lastmod.test.mjs
+      - name: Test sitemap dates and CMS redirects
+        run: node --test src/scripts/sitemap-lastmod.test.mjs src/scripts/cms-route-history.test.mjs src/server/canonical-routes.test.mjs
 
       - name: Build and push Docker image
         run: |
@@ -69,6 +90,7 @@ jobs:
           CONTAINER_ID=$(docker create fijispawn/ludno-ui:latest)
           trap 'docker rm "$CONTAINER_ID"' EXIT
           docker cp "$CONTAINER_ID:/app/.cache/sitemap-lastmod.json" .cache/sitemap-lastmod.json
+          docker cp "$CONTAINER_ID:/app/.cache/cms-route-history.json" .cache/cms-route-history.json
 
       - name: SSH and redeploy container
         uses: appleboy/ssh-action@v1.0.0
@@ -108,3 +130,9 @@ jobs:
         with:
           path: .cache/sitemap-lastmod.json
           key: sitemap-lastmod-v1-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Save CMS URL history after deployment
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/cms-route-history.json
+          key: cms-route-history-v1-${{ github.run_id }}-${{ github.run_attempt }}

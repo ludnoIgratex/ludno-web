@@ -20,7 +20,11 @@ export async function generateMetadata({ params }) {
     ? `${label}: архитектурное оборудование Людно для детских, спортивных и общественных пространств. Подбор решений и консультация по проекту.`
     : "Каталог Людно: оборудование для детских и спортивных площадок, парков, дворов и общественных пространств. Архитектурные решения для благоустройства.";
   const isFiltered = filters.length > 0;
-  const canonical = "/products";
+  // Filtered selections aren't duplicates of the unfiltered catalogue.
+  // Keep them excluded via noindex without declaring an unrelated canonical.
+  const canonical = isFiltered
+    ? `/products/${filters.map(encodeURIComponent).join("/")}/`
+    : "/products/";
   return {
     title,
     description,

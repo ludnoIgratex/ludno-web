@@ -1,3 +1,5 @@
+import RelatedEquipment from "../../../../../src/components/RelatedEquipment/RelatedEquipment";
+import { equipmentPages, selectEquipmentProducts } from "../../../../../src/data/equipmentPages";
 import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import { ProductCardNext } from "../../../../../src/next/LegacyNextPages";
@@ -19,6 +21,7 @@ function mediaUrl(media) {
 function productName(product) {
   return [product?.title, product?.name]
     .filter(Boolean)
+    .map(value => value.trim())
     .join(" ")
     .replace(/Игровой компекс/gi, "Игровой комплекс")
     .replace(/Игровой комлекс/gi, "Игровой комплекс");
@@ -33,7 +36,7 @@ export async function generateMetadata({ params }) {
   const category = product.category?.title;
   const brand = product.brand?.name;
   const title = `${name} | Каталог Людно`;
-  const description = `${name}${category ? ` — ${category.toLowerCase()}` : ""} для благоустройства детских, спортивных и общественных пространств.${brand ? ` Бренд: ${brand}.` : ""}`;
+  const description = `${name}${category ? ` — ${category.toLowerCase()}` : ""}.${card.size ? ` Габариты: ${card.size}.` : ""}${card.age ? ` Возраст: ${card.age}.` : ""}${brand ? ` Бренд: ${brand}.` : ""} Характеристики и материалы для проекта.`;
   const canonical = `/card/${card.id}/${cardSlug(product.title)}`;
   const image = card.productImage?.[0] || card.groupImage?.[0]?.image?.[0] || card.gallery?.[0];
   const imageUrl = mediaUrl(image);
@@ -57,6 +60,7 @@ export default async function ProductCardPage({ params }) {
   const { id } = await params;
   const card = await getFullCard(id);
   if (!card?.product) notFound();
+  const relatedEquipment = Object.values(equipmentPages).filter(page => selectEquipmentProducts([{ ...card.product, card: { id: card.id } }], page).length).slice(0, 6);
   const name = productName(card.product);
   const canonical = `https://ludno.ru/card/${id}/${cardSlug(card.product.title)}/`;
   const image = card.productImage?.[0] || card.groupImage?.[0]?.image?.[0] || card.gallery?.[0];
@@ -66,6 +70,10 @@ export default async function ProductCardPage({ params }) {
       "@type": "Product",
       name,
       sku: card.product.name || String(id),
+      additionalProperty: [
+        ['Габариты', card.size], ['Возраст', card.age], ['Масса', card.weight],
+        ['Высота падения', card.fallHeight], ['Заглубление фундамента', card.depth],
+      ].filter(([, value]) => value).map(([name, value]) => ({ '@type': 'PropertyValue', name, value })),
       category: card.product.category?.title,
       brand: card.product.brand?.name
         ? { "@type": "Brand", name: card.product.brand.name }
@@ -77,5 +85,5 @@ export default async function ProductCardPage({ params }) {
     webPageSchema({ name, description: typeof card.description === "string" ? card.description : name, path: new URL(canonical).pathname, type: "ItemPage" }),
     breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Каталог", path: "/products/" }, { name, path: new URL(canonical).pathname }]),
   ];
-  return <div className="app__container"><SiteHeader /><main className="content"><ProductCardNext key={id} initialCard={card} /></main><SiteFooter /><JsonLd data={schema} /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content" data-cms-document={card.documentId}><ProductCardNext key={id} initialCard={card} /><RelatedEquipment pages={relatedEquipment} /></main><SiteFooter /><JsonLd data={schema} /></div>;
 }

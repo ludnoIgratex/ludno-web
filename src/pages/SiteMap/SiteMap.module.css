@@ -1,6 +1,6 @@
 .page {
   color: var(--primary-default-color);
-  font-family: TT-Norms-Pro, sans-serif;
+  font-family: var(--font-ludno, TT-Norms-Pro), sans-serif;
   padding: 72px 32px 120px;
 }
 

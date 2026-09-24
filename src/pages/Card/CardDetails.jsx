@@ -5,6 +5,9 @@ const CardDetails = ({ card }) => {
   return (
     <section className={styles.measurements}>
       <div>
+        <h4>Габариты</h4> <p>{card.size || "—"}</p>
+      </div>
+      <div>
         <h4>Возраст</h4> <p>{card.age || "—"}</p>
       </div>
       <div>

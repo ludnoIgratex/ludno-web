@@ -153,6 +153,7 @@ export async function getCardSummary(id) {
 export const getFullCards = cache(() => fetchAll("/api/cards", {
   "populate[product][populate][brand]": "true",
   "populate[product][populate][category]": "true",
+  "populate[product][populate][solutions]": "true",
   "populate[product][populate][groups][populate][products][populate][card][populate][product][fields][0]": "title",
   "populate[materials][populate][0]": "image",
   "populate[gallery]": "true",
@@ -168,4 +169,10 @@ export async function getFullCard(id) {
 
 export const getEquipmentProducts = cache(() => fetchEquipmentProducts({
   baseUrl: STRAPI_URL, fetchOptions: { cache: "force-cache" }, build: BUILD_CACHE_BUSTER,
+}));
+
+export const getEquipmentProjectCards = cache(() => fetchAll("/api/project-cards", {
+  "populate[project][fields][0]": "name",
+  "populate[products][fields][0]": "id",
+  "populate[mainImage]": "true",
 }));
