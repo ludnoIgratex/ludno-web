@@ -241,7 +241,7 @@ const Card = ({ initialCard = null }) => {
             category={card?.product?.category}
             productName={card?.product?.name}
           />
-          <CardTitle title={card?.product?.title} article={card?.product?.name} />
+          <CardTitle title={card?.product?.title} />
           <section className={styles.mainInfo}>
             <ImageCarousel
               images={images}
@@ -314,7 +314,7 @@ const Card = ({ initialCard = null }) => {
             category={card?.product?.category}
             productName={card?.product?.name}
           />
-          <CardTitle title={card?.product?.title} article={card?.product?.name} />
+          <CardTitle title={card?.product?.title} />
           <section className={styles.mainInfo}>
             <ImageCarousel
               images={images}
