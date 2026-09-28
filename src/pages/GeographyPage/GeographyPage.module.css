@@ -1,0 +1,95 @@
+.page { padding-bottom: 80px; }
+.page h1 { overflow-wrap: anywhere; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); background: var(--space-wash); min-height: 640px; }
+.heroCopy { padding: 56px 32px; min-width: 0; display: flex; align-items: start; flex-direction: column; }
+.heroCopy > p:first-child { margin-bottom: 40px; }
+.heroCopy h1 { color: var(--space-accent); }
+.headline { font-size: 34px; line-height: 40px; margin: 32px 0 56px; max-width: 650px; }
+.heroCopy > a { margin-top: auto; }
+.heroImage { min-width: 0; margin: 0; display: flex; flex-direction: column; justify-content: center; }
+.heroImage img { width: 100%; height: 500px; object-fit: contain; padding: 24px; }
+.heroImage figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 24px 32px; font-size: 16px; line-height: 22px; }
+.heroImage figcaption > span { color: #646464; }
+.context { padding-top: 160px; }
+.regionCard { display: flex; flex-direction: column; align-self: center; gap: 28px; padding: 40px; border: 1px solid #bdc5b4; margin: 40px; min-width: 0; }
+.regionName { font-size: 42px; line-height: 48px; }
+.regionCard > p:not(:first-child), .regionCard > a { font-size: 18px; line-height: 24px; }
+.regionCard ol { list-style: none; padding: 0; counter-reset: stage; }
+.regionCard li { counter-increment: stage; border-top: 1px solid #bdc5b4; padding: 16px 0; font-size: 22px; line-height: 28px; }
+.regionCard li::before { content: '0' counter(stage); color: var(--space-accent); margin-right: 20px; font-size: 14px; }
+.district .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr); }
+.district .heroCopy { padding-right: 0; }
+.landscape .hero { background: transparent; grid-template-columns: 1fr; }
+.landscape .heroCopy { padding: 24px 0 56px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px 64px; }
+.landscape .heroCopy > p:first-child { grid-column: 1 / -1; margin: 0; }
+.landscape .heroCopy h1 { grid-row: span 2; }
+.landscape .headline { margin: 0; }
+.landscape .heroCopy > a { justify-self: start; }
+.landscape .heroImage { background: var(--space-wash); }
+.landscape .heroImage img { height: 500px; }
+.landscape .points { grid-template-columns: 1fr; margin-left: 25%; gap: 0; }
+.landscape .points article { display: grid; grid-template-columns: 32px 1fr 1.4fr; gap: 28px; padding: 32px 0; }
+.landscape .points h3 { margin: 0; }
+.work ol { list-style: none; padding: 0; margin: 0 0 0 25%; }
+.work li { display: grid; grid-template-columns: 32px 1fr 1.3fr; gap: 28px; border-top: 1px solid #ccc; padding: 32px 0; }
+.work li p { font-size: 22px; line-height: 28px; }
+.delivery { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: start; gap: 32px; margin-top: 48px; padding: 40px; background: #f5f5f2; }
+.delivery > p:not(:first-child), .delivery > a { font-size: 18px; line-height: 24px; }
+.delivery > a { text-decoration: underline; text-underline-offset: 5px; }
+.brief { margin-top: 40px; }
+.briefAside { align-self: center; }
+.briefAside h3 { margin: 24px 0; }
+.briefAside > p:not(:first-child), .briefAside > a { font-size: 22px; line-height: 28px; }
+.briefAside > a { display: inline-block; margin-top: 32px; text-decoration: underline; text-underline-offset: 5px; }
+.questions details { margin-left: 25%; border-top: 1px solid #ccc; padding: 24px 0; }
+.questions summary, .directory summary { display: flex; justify-content: space-between; gap: 24px; list-style: none; cursor: pointer; font-size: 26px; line-height: 32px; }
+.questions summary::-webkit-details-marker, .directory summary::-webkit-details-marker { display: none; }
+.questions summary > span, .directory summary > span { flex-shrink: 0; color: var(--space-accent); }
+.questions details[open] summary > span, .directory[open] > summary > span { transform: rotate(45deg); }
+.questions details > p { font-size: 22px; line-height: 28px; margin-top: 24px; max-width: 850px; }
+.geography { border-top: 1px solid #ccc; }
+.regionLinks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; }
+.regionLinks a { border-bottom: 1px solid #ccc; padding: 24px 0; display: flex; justify-content: space-between; gap: 24px; font-size: 26px; line-height: 32px; }
+.directory { padding-top: 48px; }
+.directory > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding-top: 48px; }
+.directory h3 { margin-bottom: 24px; }
+.directory ul { list-style: none; padding: 0; }
+.directory li { font-size: 18px; line-height: 24px; padding: 8px 0; }
+.directory [aria-current] { color: #707070; }
+.page summary:focus-visible { outline: 2px solid var(--space-accent); outline-offset: 6px; }
+@media (min-width: 769px) and (max-width: 1200px) {
+  .heroCopy { padding: 40px 24px; }
+  .headline { font-size: 26px; line-height: 32px; }
+  .heroImage img { height: 420px; }
+  .district .hero { grid-template-columns: 1fr; }
+  .district .heroCopy { padding-right: 32px; }
+  .regionCard { display: grid; grid-template-columns: 1fr 1fr; }
+  .regionName { grid-column: 1; }
+  .regionCard ol { grid-column: 2; grid-row: 1 / span 3; }
+  .regionCard > a { grid-column: 1 / -1; }
+  .delivery { grid-template-columns: 1fr 2fr; }
+  .delivery > a { grid-column: 2; }
+}
+@media (max-width: 768px) {
+  .page { padding-bottom: 32px; }
+  .hero, .district .hero { grid-template-columns: 1fr; min-height: 0; }
+  .heroCopy, .district .heroCopy { padding: 36px 16px 24px; }
+  .heroCopy > p:first-child { margin-bottom: 24px; }
+  .headline { font-size: 18px; line-height: 24px; margin: 20px 0 28px; }
+  .heroImage img, .landscape .heroImage img { height: 300px; padding: 16px; }
+  .heroImage figcaption { padding: 16px; font-size: 14px; line-height: 20px; }
+  .landscape .heroCopy { display: flex; gap: 24px; padding: 24px 0 32px; }
+  .regionCard { margin: 16px; padding: 24px; gap: 20px; }
+  .regionName { font-size: 26px; line-height: 32px; }
+  .regionCard li { font-size: 18px; line-height: 24px; }
+  .context { padding-top: 80px; }
+  .landscape .points { margin-left: 0; }
+  .landscape .points article, .work li { grid-template-columns: 24px 1fr; gap: 16px; padding: 24px 0; }
+  .landscape .points p, .work li p { grid-column: 2; }
+  .work ol, .questions details { margin-left: 0; }
+  .work li p, .briefAside > p:not(:first-child), .briefAside > a, .questions details > p { font-size: 18px; line-height: 24px; }
+  .delivery { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  .questions summary, .directory summary, .regionLinks a { font-size: 22px; line-height: 28px; }
+  .regionLinks, .directory > div { grid-template-columns: 1fr; }
+  .directory > div { gap: 32px; padding-top: 32px; }
+}

@@ -5,7 +5,7 @@ import styles from './RegulationPage.module.css';
 
 export default function RegulationPage({ page }) {
   return (
-    <main className={`${shared.page} ${styles.page}`}>
+    <main className={`${shared.page} ${styles.page} ${page.docLayout ? styles.documentation : ''} ${styles[page.docLayout] || ''}`}>
       <nav className={shared.breadcrumbs} aria-label="Хлебные крошки">
         <ul><li><a href="/">Главная</a></li><li><a href="/sitemap/">Карта сайта</a></li><li aria-current="page">{page.title}</li></ul>
       </nav>
@@ -19,9 +19,15 @@ export default function RegulationPage({ page }) {
         <nav className={styles.contents} aria-label="Содержание страницы">
           <p className={shared.eyebrow}>В этом материале</p>
           <ol>{page.sections.map((section, index) => <li key={section.title}><a href={`#section-${index + 1}`}><span>0{index + 1}</span>{section.title}</a></li>)}</ol>
+          {page.matrix && <a className={styles.checklistJump} href="#document-map">{page.matrix.title} <span aria-hidden="true">↘</span></a>}
           <a className={styles.checklistJump} href="#checklist">{page.checklistTitle} <span aria-hidden="true">↘</span></a>
         </nav>
       </header>
+      {page.matrix && <section id="document-map" className={`${styles.section} ${styles.documentMap}`} aria-labelledby="document-map-title">
+        <div className={shared.sectionHeading}><p className={shared.eyebrow}>Рабочая памятка</p><h2 id="document-map-title">{page.matrix.title}</h2></div>
+        <div className={styles.matrixWrapper}><table className={styles.matrix}><thead><tr>{page.matrix.headers.map(label => <th scope="col" key={label}>{label}</th>)}</tr></thead><tbody>{page.matrix.rows.map(([name, content, purpose]) => <tr key={name}><th scope="row">{name}</th><td data-label={page.matrix.headers[1]}>{content}</td><td data-label={page.matrix.headers[2]}>{purpose}</td></tr>)}</tbody></table></div>
+        <p className={styles.matrixNote}>Памятка для организации работы. Состав документов уточняется по объекту и заданию заказчика.</p>
+      </section>}
       {page.sections.map((section, index) => (
         <section className={styles.section} id={`section-${index + 1}`} key={section.title} aria-labelledby={`heading-${index + 1}`}>
           <div className={shared.sectionHeading}>

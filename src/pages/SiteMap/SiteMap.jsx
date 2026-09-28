@@ -19,7 +19,7 @@ export default function SiteMap() {
 
       <div className={styles.sections}>
         {siteMapSections.map((section, sectionIndex) => (
-          <section className={styles.section} key={section.title}>
+          <section className={styles.section} key={section.title} id={section.title === "Решения для пространств" ? "spaces" : section.title === "География" ? "geography" : undefined}>
             <div className={styles.sectionTitle}>
               <span>{String(sectionIndex + 1).padStart(2, "0")}</span>
               <h2>{section.title}</h2>

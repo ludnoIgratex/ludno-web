@@ -74,6 +74,7 @@ export default async function Page({ params }) {
     "@type": isArticle ? "Article" : "Service",
     ...(isArticle ? { headline: seoPage.title, ...(seoPage.sources ? { citation: seoPage.sources.map(source => source.href) } : {}), author: { "@id": "https://ludno.ru/#organization" } } : {}),
     name: seoPage.title,
+    ...(seoPage.kind === "geography" ? { areaServed: { "@type": "Place", name: seoPage.name } } : {}),
     description: seoPage.description,
     ...(isArticle ? {} : { provider: { "@id": "https://ludno.ru/#organization" } }),
     url: `https://ludno.ru/${slug}/`,

@@ -1,5 +1,7 @@
+import { documentationPages, documentationSources } from "./documentationPages.js";
 // Official publications are kept beside the editorial content that cites them.
 const sources = {
+  ...documentationSources,
   swings: { title: 'ГОСТ 34614.2-2024', publisher: 'Росстандарт', href: 'https://protect.gost.ru/gost/details/7bdfc4ff-ac11-4ea9-a5b4-b0a9b0aea039', note: 'Дополнительные требования безопасности и методы испытаний качелей. Замена ГОСТ 34614.2-2019.' },
   slides: { title: 'ГОСТ 34614.3-2019', publisher: 'Росстандарт', href: 'https://protect.gost.ru/gost/details/79c428ee-75d8-47f5-bf2c-ea4954b4aeb3', note: 'Дополнительные требования безопасности и методы испытаний горок.' },
   surfacing: { title: 'ГОСТ 34615-2019', publisher: 'Росстандарт', href: 'https://protect.gost.ru/gost/details/4e393d85-279a-44ba-a452-8a4425e066cb', note: 'Испытания ударопоглощающих покрытий и определение критической высоты падения.' },
@@ -22,6 +24,7 @@ const sources = {
 const section = (title, text, sourceIds = []) => ({ title, text, sourceIds });
 
 export const regulationPages = {
+  ...documentationPages,
   'bezopasnost-detskih-ploshchadok': {
     title: 'Безопасность детских площадок',
     description: 'Безопасность детской площадки от проекта до эксплуатации: документы, приёмка, осмотры и порядок действий при обнаружении неисправности.',

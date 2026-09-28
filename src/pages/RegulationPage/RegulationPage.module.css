@@ -47,3 +47,44 @@
   .checklistItems li { gap: 12px; grid-template-columns: 28px 1fr; }
   .section { padding-top: 64px; padding-bottom: 64px; }
 }
+
+/* Document guides retain the type scale of the solution landings. */
+.documentation .hero { gap: 64px; padding: 32px 0 80px; }
+.documentation .hero h1 { font-size: 76px; line-height: 72px; overflow-wrap: anywhere; }
+.documentation h2 { font-size: 60px; line-height: 72px; }
+.documentation section[id] { scroll-margin-top: 140px; }
+.documentation .contents { background: #f0f2eb; padding: 40px; }
+.verification .contents { background: #eef4f8; }
+.record .contents { background: #f7f2e9; border-top: 3px solid #a8814b; }
+.guide .section:nth-of-type(even) { background: #fafbf8; }
+.documentMap { border: 0; background: #f7f2e9; padding: 64px 32px; margin-bottom: 80px; }
+.verification .documentMap { background: #eef4f8; }
+.matrixWrapper { overflow-x: auto; }
+.matrix { width: 100%; border-collapse: collapse; text-align: left; }
+.matrix th, .matrix td { padding: 24px 24px 24px 0; border-bottom: 1px solid #c9c9c3; font-size: 22px; line-height: 28px; vertical-align: top; font-weight: normal; }
+.matrix thead th { font-size: 16px; line-height: 22px; color: #626262; }
+.matrix tbody th { width: 24%; }
+.matrixNote { font-size: 16px; line-height: 22px; color: #626262; max-width: 750px; margin-top: 28px; }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .documentation h2 { font-size: 42px; line-height: 48px; }
+}
+@media (max-width: 768px) {
+  .documentation { padding-left: 16px; padding-right: 16px; }
+  .documentation .hero { gap: 32px; padding: 0 0 56px; }
+  .documentation .hero h1, .documentation > section:last-child h2 { font-size: 32px; line-height: 40px; }
+  .documentation h2 { font-size: 26px; line-height: 32px; }
+  .documentation .contents { padding: 24px; }
+  .documentation .hero > div { padding: 0; }
+  .documentMap { padding: 32px 16px; margin-bottom: 40px; }
+  .matrix th, .matrix td { font-size: 16px; line-height: 22px; padding: 16px 12px 16px 0; overflow-wrap: anywhere; }
+  .matrix tbody th { width: 25%; }
+  .documentation .checklist { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+}
+@media (max-width: 560px) {
+  .matrix thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .matrix tbody { display: block; }
+  .matrix tbody tr { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border-bottom: 1px solid #c9c9c3; padding: 24px 0; }
+  .matrix tbody th { grid-column: 1 / -1; width: auto; font-size: 22px; line-height: 28px; padding: 0; border: 0; }
+  .matrix tbody td { padding: 0; border: 0; font-size: 16px; line-height: 22px; overflow-wrap: normal; }
+  .matrix td::before { content: attr(data-label); display: block; font-size: 14px; line-height: 20px; color: #626262; margin-bottom: 8px; }
+}

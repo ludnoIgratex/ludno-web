@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import GeographyPage from "../GeographyPage/GeographyPage";
+import SpacePage from "../SpacePage/SpacePage";
 import ProductionPage from "../ProductionPage/ProductionPage";
 import MaterialPage from "../MaterialPage/MaterialPage";
 import RegulationPage from "../RegulationPage/RegulationPage";
@@ -29,6 +31,8 @@ const steps = [
 
 export default function SeoPage({ page }) {
   const [showMessengers, setShowMessengers] = useState(false);
+  if (page.kind === "geography") return <GeographyPage page={page} />;
+  if (page.kind === "space") return <SpacePage page={page} />;
   if (page.kind === "production") return <ProductionPage page={page} />;
   if (page.kind === "material") return <MaterialPage page={page} />;
   if (page.kind === "regulation") return <RegulationPage page={page} />;
