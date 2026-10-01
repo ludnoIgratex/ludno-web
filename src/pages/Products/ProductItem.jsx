@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { slugify } from "transliteration";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import styles from "./styles/Products.module.css";
 
 const ProductItem = ({
   product,
-  onClick,
   showColors = false,
   imageLoading = "lazy",
 }) => {
@@ -61,6 +62,10 @@ const ProductItem = ({
   const placeholderImageUrl = "/assets/images/placeholder.avif";
   const title = product.title || "Без названия";
   const name = product.name || "";
+  const productHref = product.card?.id
+    ? `/card/${product.card.id}/${slugify(product.title || "bez-nazvaniya")}/`
+    : null;
+  const ProductLink = productHref ? Link : "div";
   const extraInfo = product.extraInfo?.trim();
   const colorGroups =
     product.card?.groupImage?.length > 0
@@ -94,86 +99,90 @@ const ProductItem = ({
 
   return (
     <li
-      onClick={() => onClick(product)}
       key={product.id}
       className={styles.productItem}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {imageUrl && (
-        <div className={styles.productImageWrapper}>
-          <LazyLoadImage
-            className={styles.product__image}
-            wrapperClassName={styles.productImageLazyWrapper}
-            src={imageUrl}
-            placeholderSrc={placeholderImageUrl}
-            effect="blur"
-            alt={title}
-            loading={imageLoading}
-          />
-
-          {hasHoverImage && isHoverImageLoaded && (
-            <img
-              className={`${styles.productHoverImage} ${
-                isHovered ? styles.productHoverImageVisible : ""
-              }`}
-              src={hoverImageUrl}
+      <ProductLink
+        {...(productHref ? { to: productHref } : {})}
+        className={styles.productLink}
+      >
+        {imageUrl && (
+          <div className={styles.productImageWrapper}>
+            <LazyLoadImage
+              className={styles.product__image}
+              wrapperClassName={styles.productImageLazyWrapper}
+              src={imageUrl}
+              placeholderSrc={placeholderImageUrl}
+              effect="blur"
               alt={title}
-              aria-hidden="true"
+              loading={imageLoading}
             />
-          )}
 
-          {extraInfo && <span className={styles.productExtraInfo}>{extraInfo}</span>}
+            {hasHoverImage && isHoverImageLoaded && (
+              <img
+                className={`${styles.productHoverImage} ${
+                  isHovered ? styles.productHoverImageVisible : ""
+                }`}
+                src={hoverImageUrl}
+                alt={title}
+                aria-hidden="true"
+              />
+            )}
 
-          {showColors && colorGroups.length > 0 && (
-            <div className={styles.colorSwatches}>
-              {colorGroups.map((group, index) => {
-                const colorImg = group.group_color?.image || group.image;
-                const colorImageUrl = colorImg
-                  ? `https://admin.ludno.ru${
-                      colorImg.formats?.thumbnail?.url ||
-                      colorImg.formats?.small?.url ||
-                      colorImg.url
-                    }`
-                  : null;
-                const colorValue =
-                  group.group_color?.color ||
-                  group.group_color?.hex ||
-                  group.group_color?.value ||
-                  group.group_color?.code ||
-                  group.color ||
-                  group.hex ||
-                  null;
-                return (
-                  <div
-                    key={index}
-                    className={`${styles.colorCircle} ${
-                      index === 0 ? styles.colorCircleSelected : ""
-                    }`}
-                    style={{
-                      backgroundImage: colorImageUrl
-                        ? `url(${colorImageUrl})`
-                        : "none",
-                      backgroundColor: colorImageUrl
-                        ? "transparent"
-                        : colorValue || "#d3d3d3",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  />
-                );
-              })}
-              <div className={styles.colorCircleMore} aria-hidden="true">
-                +
+            {extraInfo && <span className={styles.productExtraInfo}>{extraInfo}</span>}
+
+            {showColors && colorGroups.length > 0 && (
+              <div className={styles.colorSwatches}>
+                {colorGroups.map((group, index) => {
+                  const colorImg = group.group_color?.image || group.image;
+                  const colorImageUrl = colorImg
+                    ? `https://admin.ludno.ru${
+                        colorImg.formats?.thumbnail?.url ||
+                        colorImg.formats?.small?.url ||
+                        colorImg.url
+                      }`
+                    : null;
+                  const colorValue =
+                    group.group_color?.color ||
+                    group.group_color?.hex ||
+                    group.group_color?.value ||
+                    group.group_color?.code ||
+                    group.color ||
+                    group.hex ||
+                    null;
+                  return (
+                    <div
+                      key={index}
+                      className={`${styles.colorCircle} ${
+                        index === 0 ? styles.colorCircleSelected : ""
+                      }`}
+                      style={{
+                        backgroundImage: colorImageUrl
+                          ? `url(${colorImageUrl})`
+                          : "none",
+                        backgroundColor: colorImageUrl
+                          ? "transparent"
+                          : colorValue || "#d3d3d3",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                  );
+                })}
+                <div className={styles.colorCircleMore} aria-hidden="true">
+                  +
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        )}
+        <div>
+          <p className={styles.productTitle}>{title}</p>
+          <h4 className={styles.productName}>{name}</h4>
         </div>
-      )}
-      <div>
-        <p className={styles.productTitle}>{title}</p>
-        <h4 className={styles.productName}>{name}</h4>
-      </div>
+      </ProductLink>
     </li>
   );
 };

@@ -162,6 +162,14 @@
   overflow: hidden;
 }
 
+.productLink {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
 .productImageLazyWrapper {
   display: inline !important;
 }

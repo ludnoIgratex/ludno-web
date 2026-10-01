@@ -8,7 +8,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import LoaderRound from "../../components/Loader/LoaderRound";
 import qs from "qs";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { slugify } from "transliteration";
 import ProductItem from "./ProductItem";
 
 // какие ключи считаем "фильтрами" – их будем перезаписывать
@@ -454,14 +453,6 @@ const ProductsMobile = ({ initialCatalog = null, initialNavigation = null }) => 
     }
   }, [appliedFilters, loadingProducts]);
 
-  const handleClick = (product) => {
-    if (product.card?.id) {
-      const titleSlug = slugify(product.title);
-      const uniqueSlug = `${product.card.id}/${titleSlug}`;
-      navigate(`/card/${uniqueSlug}`);
-    }
-  };
-
   useEffect(() => {
     if (filteredProducts.length > 0) {
       const firstProductsImages = filteredProducts.slice(0, 8);
@@ -589,7 +580,6 @@ const ProductsMobile = ({ initialCatalog = null, initialNavigation = null }) => 
             <ProductItem
               key={product.id}
               product={product}
-              onClick={handleClick}
               showColors={true}
               imageLoading="eager"
             />

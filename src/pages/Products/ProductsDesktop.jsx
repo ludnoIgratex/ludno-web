@@ -1,10 +1,8 @@
 import { filterProductsByGroup } from "../../data/productGroups.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./styles/Products.module.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import LoaderRound from "../../components/Loader/LoaderRound";
-import { slugify } from "transliteration";
 import AgeFilter from "../../components/AgeFilter/AgeFilter";
 import Brand from "../../components/Brand/Brand";
 import Categories from "../../components/Categories/Categories";
@@ -56,8 +54,6 @@ const ProductsDesktop = ({
   const activeRequestRef = useRef(0);
   const skipInitialRequestRef = useRef(Boolean(initialCatalog));
   const skeletonFadeTimeoutRef = useRef(null);
-
-  const navigate = useNavigate();
 
   const {
     solution: selectedSolutionName,
@@ -449,14 +445,6 @@ const ProductsDesktop = ({
     }
   };
 
-  const handleClick = (product) => {
-    if (product.card?.id) {
-      const titleSlug = slugify(product.title);
-      const uniqueSlug = `${product.card.id}/${titleSlug}`;
-      navigate(`/card/${uniqueSlug}`);
-    }
-  };
-
   return (
     <div className={styles.catalogContainer}>
       <div className={styles.solutionWrapper}>
@@ -503,7 +491,6 @@ const ProductsDesktop = ({
                     <ProductItem
                       key={product.id}
                       product={product}
-                      onClick={handleClick}
                       showColors={true}
                       imageLoading="lazy"
                     />
