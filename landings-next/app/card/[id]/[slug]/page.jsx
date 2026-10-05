@@ -1,5 +1,3 @@
-import RelatedEquipment from "../../../../../src/components/RelatedEquipment/RelatedEquipment";
-import { equipmentPages, selectEquipmentProducts } from "../../../../../src/data/equipmentPages";
 import { notFound } from "next/navigation";
 import { SiteFooter, SiteHeader } from "../../../../../src/next/SiteChrome";
 import { ProductCardNext } from "../../../../../src/next/LegacyNextPages";
@@ -60,7 +58,6 @@ export default async function ProductCardPage({ params }) {
   const { id } = await params;
   const card = await getFullCard(id);
   if (!card?.product) notFound();
-  const relatedEquipment = Object.values(equipmentPages).filter(page => selectEquipmentProducts([{ ...card.product, card: { id: card.id } }], page).length).slice(0, 6);
   const name = productName(card.product);
   const canonical = `https://ludno.ru/card/${id}/${cardSlug(card.product.title)}/`;
   const image = card.productImage?.[0] || card.groupImage?.[0]?.image?.[0] || card.gallery?.[0];
@@ -85,5 +82,5 @@ export default async function ProductCardPage({ params }) {
     webPageSchema({ name, description: typeof card.description === "string" ? card.description : name, path: new URL(canonical).pathname, type: "ItemPage" }),
     breadcrumbSchema([{ name: "Главная", path: "/" }, { name: "Каталог", path: "/products/" }, { name, path: new URL(canonical).pathname }]),
   ];
-  return <div className="app__container"><SiteHeader /><main className="content" data-cms-document={card.documentId}><ProductCardNext key={id} initialCard={card} /><RelatedEquipment pages={relatedEquipment} /></main><SiteFooter /><JsonLd data={schema} /></div>;
+  return <div className="app__container"><SiteHeader /><main className="content" data-cms-document={card.documentId}><ProductCardNext key={id} initialCard={card} /></main><SiteFooter /><JsonLd data={schema} /></div>;
 }

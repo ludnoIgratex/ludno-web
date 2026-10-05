@@ -18,6 +18,8 @@ import LoaderRound from "../../components/Loader/LoaderRound";
 import { useMediaQuery } from "react-responsive";
 import LightboxModal from "../../components/Lightbox/LightboxModal";
 import ProductGallery from "./ProductGallery";
+import RelatedEquipment from "../../components/RelatedEquipment/RelatedEquipment";
+import { getProductLandingLinks } from "../../data/productLandingLinks";
 
 const collectGroupProducts = (cardItem) =>
   (cardItem?.product?.groups || [])
@@ -140,6 +142,7 @@ const Card = ({ initialCard = null }) => {
               populate: {
                 brand: true,
                 category: true,
+                solutions: true,
                 groups: {
                   populate: {
                     products: {
@@ -303,6 +306,7 @@ const Card = ({ initialCard = null }) => {
         categoryId={card.product?.category?.id || null}
         brandId={card.product?.brand?.id || null}
       />
+      <RelatedEquipment pages={getProductLandingLinks(card.product)} />
     </div>
   ) : (
     // Десктопная разметка
@@ -379,6 +383,7 @@ const Card = ({ initialCard = null }) => {
         categoryId={card.product?.category?.id || null}
         brandId={card.product?.brand?.id || null}
       />
+      <RelatedEquipment pages={getProductLandingLinks(card.product)} />
     </div>
   );
 };
