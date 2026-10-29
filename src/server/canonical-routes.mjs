@@ -36,9 +36,35 @@ export async function readCanonicalRoutes(distDir) {
   return routes;
 }
 
+export async function readCardDocumentRoutes(distDir) {
+  const routes = new Map();
+  let ids;
+  try { ids = await readdir(join(distDir, 'card'), { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return routes; throw error; }
+  for (const id of ids.filter(entry => entry.isDirectory() && /^\d+$/.test(entry.name))) {
+    const slugs = await readdir(join(distDir, 'card', id.name), { withFileTypes: true });
+    for (const slug of slugs.filter(entry => entry.isDirectory())) {
+      const file = join(distDir, 'card', id.name, slug.name, 'index.html');
+      let html;
+      try { html = await readFile(file, 'utf8'); }
+      catch (error) { if (error.code === 'ENOENT') continue; throw error; }
+      const documentId = html.match(/<main\b[^>]*\bdata-cms-document="([a-z0-9]+)"/i)?.[1];
+      if (documentId) routes.set(documentId, `/card/${id.name}/${encodeURIComponent(slug.name)}/`);
+    }
+  }
+  return routes;
+}
+
 export function canonicalContentRedirect(pathname, routes) {
   const match = /^\/(card|project-cards|blog)\/(\d+)(?:\/[^/]+)?\/?$/.exec(pathname);
   if (!match) return null;
   const target = routes.get(`/${match[1]}/${match[2]}`);
   return target && target !== pathname ? target : null;
+}
+
+export async function currentCardRedirect(pathname, canonicalRoutes, cardDocumentRoutes, lookupDocumentId) {
+  const match = /^\/card\/(\d+)(?:\/[^/]+)?\/?$/.exec(pathname);
+  if (!match || canonicalRoutes.has(`/card/${match[1]}`)) return null;
+  const documentId = await lookupDocumentId(match[1]);
+  return cardDocumentRoutes.get(documentId) || null;
 }

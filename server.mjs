@@ -3,12 +3,13 @@ import { access, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 import { timingSafeEqual } from "node:crypto";
-import { readCanonicalRoutes, canonicalContentRedirect } from "./src/server/canonical-routes.mjs";
+import { readCanonicalRoutes, readCardDocumentRoutes, canonicalContentRedirect, currentCardRedirect } from "./src/server/canonical-routes.mjs";
 import { legacyContentRoutes } from "./src/data/legacyContentRoutes.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 const DIST_DIR = join(process.cwd(), "dist");
 const canonicalRoutes = await readCanonicalRoutes(DIST_DIR);
+const cardDocumentRoutes = await readCardDocumentRoutes(DIST_DIR);
 const API_KEY = process.env.UNISENDER_API_KEY;
 const LIST_ID = process.env.UNISENDER_LIST_ID || "3";
 const BODY_LIMIT = 10_000;
@@ -177,6 +178,22 @@ function webhookSecret(request) {
 function githubRepositoryParts() {
   const match = /^([^/]+)\/([^/]+)$/.exec(GITHUB_REPOSITORY || "");
   return match ? { owner: match[1], repository: match[2] } : null;
+}
+
+async function lookupCardDocumentId(id) {
+  const url = new URL('/api/cards', process.env.STRAPI_URL || 'https://admin.ludno.ru');
+  url.searchParams.set('filters[id][$eq]', id);
+  url.searchParams.set('fields[0]', 'updatedAt');
+  url.searchParams.set('pagination[pageSize]', '1');
+  try {
+    const result = await fetch(url, { signal: AbortSignal.timeout(4000) });
+    if (!result.ok) return null;
+    const data = await result.json();
+    return data.data?.[0]?.documentId || null;
+  } catch (error) {
+    console.error('Card route lookup failed:', error.message);
+    return null;
+  }
 }
 
 async function dispatchRebuild(event) {
@@ -445,6 +462,14 @@ const server = createServer(async (request, response) => {
   if (contentTarget && (request.method === "GET" || request.method === "HEAD")) {
     response.writeHead(301, { Location: `${contentTarget}${requestUrl.search}` });
     return response.end();
+  }
+
+  if (request.method === "GET" || request.method === "HEAD") {
+    const currentTarget = await currentCardRedirect(requestUrl.pathname, canonicalRoutes, cardDocumentRoutes, lookupCardDocumentId);
+    if (currentTarget) {
+      response.writeHead(302, { Location: `${currentTarget}${requestUrl.search}`, "Cache-Control": "no-store" });
+      return response.end();
+    }
   }
 
   // Desktop filters are encoded in the pathname and can contain Cyrillic.

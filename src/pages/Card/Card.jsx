@@ -127,14 +127,14 @@ const Card = ({ initialCard = null }) => {
     }
   }, [images, groupedImages]);
 
-  const fetchCardData = async () => {
-    setLoading(true);
+  const fetchCardData = async ({ documentId = null, background = false } = {}) => {
+    if (!background) setLoading(true);
     try {
       const query = qs.stringify(
         {
           filters: {
-            id: {
-              $eq: cardId,
+            [documentId ? "documentId" : "id"]: {
+              $eq: documentId || cardId,
             },
           },
           populate: {
@@ -188,19 +188,19 @@ const Card = ({ initialCard = null }) => {
 
       if (cardData.data && cardData.data.length > 0) {
         const cardItem = cardData.data[0];
-        setCard(cardItem);
-
-        setMaterials(cardItem.materials || []);
-
-        setGroupProducts(collectGroupProducts(cardItem));
+        if (cardItem.product || !background) {
+          setCard(cardItem);
+          setMaterials(cardItem.materials || []);
+          setGroupProducts(collectGroupProducts(cardItem));
+        }
       } else {
-        setError("Карточка не найдена");
+        if (!background) setError("Карточка не найдена");
       }
     } catch (err) {
       console.error("Ошибка:", err.message);
-      setError("Ошибка при загрузке данных: " + err.message);
+      if (!background) setError("Ошибка при загрузке данных: " + err.message);
     } finally {
-      setLoading(false);
+      if (!background) setLoading(false);
     }
   };
 
@@ -211,6 +211,9 @@ const Card = ({ initialCard = null }) => {
       setGroupProducts(collectGroupProducts(initialCard));
       setError(null);
       setLoading(false);
+      if (initialCard.documentId) {
+        fetchCardData({ documentId: initialCard.documentId, background: true });
+      }
       return;
     }
     fetchCardData();
